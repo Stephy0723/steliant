@@ -1,0 +1,21 @@
+.gg-input { display: flex; flex-direction: column; gap: 6px; }
+.gg-input__label { font-size: 13px; font-weight: 500; color: var(--text-dim); letter-spacing: .02em; }
+.gg-input__wrap { position: relative; }
+.gg-input__field {
+  width: 100%; padding: 12px 16px; background: var(--bg-elev); border: 1px solid var(--line);
+  border-radius: 10px; color: var(--text); font-family: var(--font-body); font-size: 15px;
+  outline: none; transition: border-color .2s, box-shadow .2s;
+}
+.gg-input__field::placeholder { color: var(--text-dim); }
+.gg-input__field:focus {
+  border-color: var(--accent); box-shadow: 0 0 0 3px rgba(var(--accent-rgb),.15);
+}
+.gg-input--error .gg-input__field { border-color: var(--danger); }
+.gg-input__err { font-size: 12px; color: var(--danger); }
+.gg-input__eye {
+  position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+  background: none; border: none; color: var(--text-dim); cursor: pointer; padding: 4px;
+  display: flex; align-items: center;
+}
+.gg-input__eye svg { width: 18px; height: 18px; }
+

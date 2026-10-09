@@ -1,0 +1,48 @@
+.gg-logs__kpis {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.gg-logs__kpi {
+  flex: 1;
+  padding: 14px 18px;
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-md)) 0, 100% var(--gga-cut-md), 100% 100%, var(--gga-cut-md) 100%, 0 calc(100% - var(--gga-cut-md)));
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.gg-logs__kpi b { font-size: 22px; }
+.gg-logs__kpi span { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: .04em; font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Consolas, monospace; }
+.gg-logs__kpi.accent b { color: var(--accent, #00E5A0); }
+
+.gg-logs__ts {
+  font-size: 11px;
+  color: var(--text-dim);
+  background: var(--bg);
+  padding: 2px 6px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm)));
+  white-space: nowrap;
+}
+.gg-logs__mod {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm)));
+  font-size: 11px;
+  font-weight: 600;
+  border: 1px solid;
+  white-space: nowrap;
+}
+.gg-logs__detail {
+  font-size: 11px;
+  color: var(--text-dim);
+  background: var(--bg);
+  padding: 2px 6px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm)));
+}
+

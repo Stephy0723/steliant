@@ -1,0 +1,56 @@
+{
+  "plans": [
+    {
+      "id": "starter",
+      "name": "Starter",
+      "monthlyPrice": 0,
+      "commissionRate": 15,
+      "requestLimit": 1000,
+      "rateLimitPerMinute": 30,
+      "capabilities": [
+        "tournaments:read"
+      ],
+      "description": "Ideal para pruebas, integraciones pequenas y validacion inicial."
+    },
+    {
+      "id": "growth",
+      "name": "Growth",
+      "monthlyPrice": 49,
+      "commissionRate": 12,
+      "requestLimit": 25000,
+      "rateLimitPerMinute": 120,
+      "capabilities": [
+        "tournaments:read",
+        "tournaments:write",
+        "activity:read",
+        "reports:read"
+      ],
+      "description": "Pensado para agencias, ligas y marcas que necesitan operacion continua."
+    },
+    {
+      "id": "enterprise",
+      "name": "Enterprise",
+      "monthlyPrice": 149,
+      "commissionRate": 8,
+      "requestLimit": 100000,
+      "rateLimitPerMinute": 300,
+      "capabilities": [
+        "tournaments:read",
+        "tournaments:write",
+        "activity:read",
+        "reports:read"
+      ],
+      "description": "Cobertura completa para partners con alto volumen y soporte prioritario."
+    }
+  ],
+  "partners": [],
+  "settings": {
+    "brandName": "GlitchGang API",
+    "supportEmail": "partners@glitchgang.gg",
+    "payoutModel": "Fee por torneo o comision; cobro principal por PayPal segun plan acordado.",
+    "docsUrl": "/api/public/docs",
+    "catalogUrl": "/api/public/catalog",
+    "developerPortalUrl": "/developers",
+    "internalUsagePolicy": "Los torneos creados por GlitchGang pueden usar el bot gratis; terceros pagan fee por torneo o comision y el cobro se gestiona por PayPal."
+  }
+}

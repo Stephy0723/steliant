@@ -1,0 +1,826 @@
+/* CSS para el Panel de Equipos - Premium Glassmorphism */
+
+.gg-teams__stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.gg-teams__stat {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-md)) 0, 100% var(--gga-cut-md), 100% 100%, var(--gga-cut-md) 100%, 0 calc(100% - var(--gga-cut-md)));
+  background: var(--bg-card);
+  transition: all 0.2s ease;
+}
+
+.gg-teams__stat.accent {
+  border-color: rgba(var(--accent-rgb), 0.35);
+  background: linear-gradient(160deg, rgba(var(--accent-rgb), 0.1), var(--bg-card));
+}
+
+.gg-teams__stat.danger .gg-teams__stat-icon {
+  background: rgba(239, 68, 68, 0.14);
+  color: #f87171;
+}
+
+.gg-teams__stat-icon {
+  width: 38px;
+  height: 38px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm)));
+  background: rgba(var(--accent-rgb), 0.12);
+  color: var(--accent);
+}
+
+.gg-teams__stat-icon svg {
+  width: 19px;
+  height: 19px;
+}
+
+.gg-teams__stat b {
+  font-family: var(--font-display);
+  font-size: 22px;
+  line-height: 1;
+  display: block;
+}
+
+.gg-teams__stat small {
+  color: var(--text-dim);
+  font-size: 12px;
+}
+
+.gg-teams__controls {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.gg-teams__filters {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.gg-teams__filters select {
+  padding: 9px 12px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm)));
+  border: 1px solid var(--line);
+  background: var(--bg-card);
+  color: var(--text);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.gg-teams__filters select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.gg-teams__filters .gg-admin-search {
+  flex: 1;
+  min-width: 200px;
+}
+
+.gg-teams__view-toggle {
+  display: flex;
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm)));
+  overflow: hidden;
+  padding: 2px;
+  gap: 2px;
+}
+
+.gg-teams__src {
+  font-weight: 700;
+  font-size: 11px;
+  padding: 1px 8px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+}
+
+.gg-teams__src.backend {
+  color: var(--accent);
+  background: rgba(var(--accent-rgb), 0.12);
+}
+
+.gg-teams__src.mock {
+  color: var(--text-dim);
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+}
+
+.gg-teams__export-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
+.gg-teams__export-btns {
+  display: flex;
+  gap: 8px;
+}
+
+.gg-teams__export-btns button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm)));
+  border: 1px solid var(--line);
+  background: var(--bg-card);
+  color: var(--text);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.gg-teams__export-btns button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.gg-teams__export-btns button svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* ── Gallery Grid ── */
+.gg-teams__gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+  padding: 20px;
+}
+
+/* ══════════════════════════════════════
+   Team Card — estilo FACEIT / Liquipedia
+   ══════════════════════════════════════ */
+/* ==========================================
+   Premium Team Card Styles
+   ========================================== */
+.gg-team-card {
+  position: relative;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-lg)) 0, 100% var(--gga-cut-lg), 100% 100%, var(--gga-cut-lg) 100%, 0 calc(100% - var(--gga-cut-lg)));
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+.gg-team-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--tc, var(--accent));
+  box-shadow: 
+    0 20px 40px -10px rgba(0, 0, 0, 0.5),
+    0 0 30px rgba(var(--accent-rgb), 0.05),
+    0 0 15px var(--tc, var(--accent));
+}
+
+/* Background glowing dot */
+.gg-team-card__glow {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: var(--tc, var(--accent));
+  filter: blur(50px);
+  opacity: 0.12;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.gg-team-card:hover .gg-team-card__glow {
+  opacity: 0.25;
+}
+
+/* Header */
+.gg-tc__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1;
+}
+
+.gg-tc__header-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.gg-tc__game-badge {
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 3px 8px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 5px) 0, 100% 5px, 100% 100%, 5px 100%, 0 calc(100% - 5px));
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+.gg-tc__rank-tag {
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 800;
+  padding: 3px 6px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 5px) 0, 100% 5px, 100% 100%, 5px 100%, 0 calc(100% - 5px));
+  background: rgba(255, 195, 0, 0.08);
+  border: 1px solid rgba(255, 195, 0, 0.2);
+  color: #ffd700;
+}
+
+.gg-tc__status {
+  font-size: 9.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
+  padding: 3px 8px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 5px) 0, 100% 5px, 100% 100%, 5px 100%, 0 calc(100% - 5px));
+}
+
+.gg-tc__status.activo {
+  background: rgba(var(--accent-rgb), 0.1);
+  color: var(--accent);
+  border: 1px solid rgba(var(--accent-rgb), 0.2);
+}
+
+.gg-tc__status.eliminado {
+  background: rgba(239, 68, 68, 0.1);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+/* Identity (Logo + Names) */
+.gg-tc__identity {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  z-index: 1;
+}
+
+.gg-tc__logo {
+  width: 52px;
+  height: 52px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm)));
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-weight: 900;
+  font-size: 16px;
+  font-family: var(--font-display);
+  flex: none;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: transform 0.2s ease;
+}
+
+.gg-team-card:hover .gg-tc__logo {
+  transform: scale(1.04);
+}
+
+.gg-tc__logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gg-tc__names {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.gg-tc__name {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 800;
+  margin: 0;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+}
+
+.gg-tc__codes {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.gg-tc__tag {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--tc, var(--accent));
+}
+
+.gg-tc__code {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  color: var(--text-dim);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 1px 5px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 3px) 0, 100% 3px, 100% 100%, 3px 100%, 0 calc(100% - 3px));
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.gg-tc__code:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Pills Container */
+.gg-tc__pills {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  z-index: 1;
+}
+
+.gg-tc-pill {
+  display: inline-flex;
+  align-items: center;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 5px) 0, 100% 5px, 100% 100%, 5px 100%, 0 calc(100% - 5px));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-dim);
+}
+
+.gg-tc-pill.cat {
+  background: rgba(var(--accent-rgb), 0.08);
+  border-color: rgba(var(--accent-rgb), 0.18);
+  color: var(--accent);
+}
+
+.gg-tc-pill.lvl {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-dim);
+}
+
+.gg-tc-pill.spon {
+  background: rgba(255, 195, 0, 0.06);
+  border-color: rgba(255, 195, 0, 0.18);
+  color: #ffd700;
+}
+
+.gg-tc-pill.uni {
+  background: rgba(168, 85, 247, 0.06);
+  border-color: rgba(168, 85, 247, 0.18);
+  color: #c084fc;
+}
+
+/* Slogan */
+.gg-tc__slogan {
+  margin: 0;
+  font-size: 11.5px;
+  color: var(--text-dim);
+  font-style: italic;
+  line-height: 1.45;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Winrate Stats Section */
+.gg-tc__stats {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 1;
+}
+
+.gg-tc__stats-text {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+}
+
+.gg-tc__stats-record {
+  font-weight: 700;
+  color: var(--text);
+}
+
+.gg-tc__stats-pts {
+  color: var(--text-dim);
+  font-size: 10px;
+  letter-spacing: 0.03em;
+}
+
+.gg-tc__stats-wr {
+  font-weight: 800;
+  font-family: var(--font-display);
+}
+
+.gg-tc__bar {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 3px) 0, 100% 3px, 100% 100%, 3px 100%, 0 calc(100% - 3px));
+  overflow: hidden;
+}
+
+.gg-tc__bar-fill {
+  height: 100%;
+  border-radius: 0;
+  transition: width 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Footer Section */
+.gg-tc__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin-top: auto;
+  z-index: 1;
+}
+
+.gg-tc__avatars {
+  display: flex;
+  align-items: center;
+}
+
+.gg-tc__av {
+  width: 26px;
+  height: 26px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+  border: 2px solid var(--bg-card);
+  display: grid;
+  place-items: center;
+  font-size: 8px;
+  font-weight: 900;
+  color: #fff;
+  font-family: var(--font-display);
+  cursor: default;
+  transition: all 0.2s ease;
+  position: relative;
+  margin-left: -8px;
+}
+
+.gg-tc__av:first-child {
+  margin-left: 0;
+}
+
+.gg-tc__av:hover {
+  transform: translateY(-3px) scale(1.1);
+  z-index: 10 !important;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.gg-tc__av.cap {
+  border-color: #ffd700;
+  box-shadow: 0 0 6px rgba(255, 215, 0, 0.4);
+}
+
+.gg-tc__av-more {
+  width: 26px;
+  height: 26px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+  border: 2px solid var(--bg-card);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: grid;
+  place-items: center;
+  font-size: 8.5px;
+  font-weight: 700;
+  color: var(--text-dim);
+  margin-left: -8px;
+}
+
+.gg-tc__av-count {
+  margin-left: 8px;
+  font-size: 11px;
+  color: var(--text-dim);
+}
+
+.gg-tc__action-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm)));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  display: grid;
+  place-items: center;
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.gg-tc__action-btn:hover {
+  border-color: var(--tc, var(--accent));
+  color: #fff;
+  background: var(--tc, var(--accent));
+  box-shadow: 0 0 12px rgba(var(--accent-rgb), 0.2);
+  transform: scale(1.05);
+}
+
+.gg-tc__action-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* ── Tabla General ── */
+.gg-team-table__logo {
+  width: 28px;
+  height: 28px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 5px) 0, 100% 5px, 100% 100%, 5px 100%, 0 calc(100% - 5px));
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-weight: 800;
+  font-size: 11px;
+  font-family: var(--font-display);
+  flex: none;
+}
+
+.gg-team-table__members {
+  max-width: 250px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--text-dim);
+  font-size: 12px;
+}
+
+.gg-team-table__badge {
+  display: inline-block;
+  font-size: 11px;
+  padding: 2px 7px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 5px) 0, 100% 5px, 100% 100%, 5px 100%, 0 calc(100% - 5px));
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--line);
+}
+
+.gg-team-table__badge.sponsor {
+  border-color: rgba(var(--accent-rgb), 0.25);
+  background: rgba(var(--accent-rgb), 0.08);
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.gg-team-table__badge.community {
+  border-color: rgba(255, 255, 255, 0.1);
+  color: var(--text);
+}
+
+/* ── Detalle de Roster en Drawer ── */
+.gg-pd__roster-slot {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-md)) 0, 100% var(--gga-cut-md), 100% 100%, var(--gga-cut-md) 100%, 0 calc(100% - var(--gga-cut-md)));
+  margin-bottom: 6px;
+}
+
+.gg-pd__roster-slot-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.gg-pd__roster-slot-role {
+  font-size: 9px;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
+  color: var(--text-dim);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1px 6px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 3px) 0, 100% 3px, 100% 100%, 3px 100%, 0 calc(100% - 3px));
+  border: 1px solid var(--line);
+}
+
+.gg-pd__roster-slot-role.titular {
+  border-color: rgba(var(--accent-rgb), 0.25);
+  color: var(--accent);
+  background: rgba(var(--accent-rgb), 0.06);
+}
+
+.gg-pd__roster-slot-name {
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+.gg-pd__roster-slot-details {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--text-dim);
+  border-top: 1px dashed var(--line);
+  padding-top: 4px;
+  margin-top: 2px;
+}
+
+.gg-pd__roster-slot-details code {
+  font-family: var(--font-mono, monospace);
+  color: var(--text);
+}
+
+.gg-pd__social-links {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.gg-pd__social-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm)));
+  border: 1px solid var(--line);
+  background: var(--bg-card);
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.gg-pd__social-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(var(--accent-rgb), 0.08);
+}
+
+.gg-pd__social-btn svg {
+  width: 15px;
+  height: 15px;
+}
+
+/* IDs in gallery card body details */
+.gg-tc__ids-row {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 10px;
+  border-top: 1px dashed var(--line);
+  padding-top: 10px;
+  margin-bottom: 12px;
+}
+
+.gg-tc__id-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+}
+
+.gg-tc__id-item span {
+  color: var(--text-dim);
+}
+
+.gg-tc__id-item code {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 10.5px;
+  color: var(--accent);
+  background: rgba(var(--accent-rgb), 0.08);
+  border: 1px solid rgba(var(--accent-rgb), 0.18);
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 3px) 0, 100% 3px, 100% 100%, 3px 100%, 0 calc(100% - 3px));
+  padding: 1px 5px;
+  letter-spacing: 0.2px;
+}
+
+/* University collegiate banner block inside drawer modal */
+.gg-pd__uni-block {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.08), rgba(255, 255, 255, 0.01));
+  border: 1px solid rgba(var(--accent-rgb), 0.22);
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-md)) 0, 100% var(--gga-cut-md), 100% 100%, var(--gga-cut-md) 100%, 0 calc(100% - var(--gga-cut-md)));
+  margin-bottom: 20px;
+  box-shadow: inset 0 0 12px rgba(var(--accent-rgb), 0.04);
+}
+
+.gg-pd__uni-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm)));
+  background: rgba(var(--accent-rgb), 0.12);
+  color: var(--accent);
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 18px;
+  border: 1.5px solid rgba(var(--accent-rgb), 0.28);
+  flex: none;
+}
+
+.gg-pd__uni-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.gg-pd__uni-info b {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+.gg-pd__uni-info span {
+  color: var(--text-dim);
+  font-size: 11px;
+}
+
+.gg-pd__badge--partner {
+  color: var(--accent);
+  border-color: rgba(var(--accent-rgb), .35);
+  background: rgba(var(--accent-rgb), .1);
+}
+
+.gg-pd__policy {
+  display: grid;
+  gap: 3px;
+  padding: 12px 14px;
+  border: 1px solid rgba(var(--accent-rgb), .22);
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-md)) 0, 100% var(--gga-cut-md), 100% 100%, var(--gga-cut-md) 100%, 0 calc(100% - var(--gga-cut-md)));
+  background: rgba(var(--accent-rgb), .06);
+}
+
+.gg-pd__policy b {
+  font-size: 12px;
+  color: var(--text);
+}
+
+.gg-pd__policy span {
+  font-size: 12px;
+  color: var(--text-dim);
+  line-height: 1.45;
+}
+

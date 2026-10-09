@@ -1,0 +1,21 @@
+node_modules/
+dist/
+.env
+.DS_Store
+*.log
+
+# Runtime data (file-store) y archivos subidos
+backend/data/
+backend/uploads/
+backend/backups/
+
+# Copias de conflicto de iCloud/Finder ("Archivo 2.jsx", "carpeta 3"): nunca
+# son código real. Ver docs/EVITAR-DUPLICADOS.md
+* [0-9].*
+* [0-9]
+
+# Notas de contexto local, nunca al repo
+CONTEXTO.md
+
+# i18n: lista de trabajo de npm run i18n:extract (se regenera)
+frontend/src/i18n/extractedTexts.json

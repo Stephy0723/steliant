@@ -1,0 +1,355 @@
+.gg-player-export__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--text-dim);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.gg-player-export__back svg { width: 14px; height: 14px; transform: rotate(180deg); }
+
+.gg-player-export__actions { display: flex; gap: 10px; align-items: center; }
+.gg-player-export__action {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm)));
+  border: 1px solid var(--line);
+  background: var(--bg-card);
+  color: var(--text);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.gg-player-export__action.primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  border-color: transparent;
+  color: #fff;
+}
+.gg-player-export__action.warn {
+  background: linear-gradient(135deg, var(--bg-elev), var(--bg));
+  border-color: transparent;
+  color: #fff;
+}
+
+.gg-player-export__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) 360px;
+  gap: 18px;
+  align-items: start;
+}
+
+.gg-player-export__controls { display: grid; gap: 16px; }
+.gg-player-export__card {
+  padding: 18px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-lg)) 0, 100% var(--gga-cut-lg), 100% 100%, var(--gga-cut-lg) 100%, 0 calc(100% - var(--gga-cut-lg)));
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(var(--accent-rgb), .04), transparent 30%), var(--bg-card);
+}
+.gg-player-export__card--system {
+  background:
+    radial-gradient(circle at top right, rgba(255, 186, 73, .12), transparent 36%),
+    linear-gradient(180deg, rgba(var(--accent-rgb), .05), transparent 30%),
+    var(--bg-card);
+}
+.gg-player-export__card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.gg-player-export__card-head h3 { margin: 0 0 4px; font-size: 17px; }
+.gg-player-export__card-head p { margin: 0; color: var(--text-dim); font-size: 12px; }
+.gg-player-export__card-head strong {
+  min-width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm)));
+  background: rgba(var(--accent-rgb), .12);
+  color: var(--accent);
+}
+
+.gg-player-export__toggle,
+.gg-player-export__format-row,
+.gg-player-export__presets {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+.gg-player-export__toggle button,
+.gg-player-export__format-row button,
+.gg-player-export__presets button,
+.gg-player-export__group-head button {
+  padding: 9px 12px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm)));
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,.03);
+  color: var(--text-dim);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.gg-player-export__toggle button.active,
+.gg-player-export__format-row button.active {
+  background: rgba(var(--accent-rgb), .12);
+  border-color: rgba(var(--accent-rgb), .35);
+  color: var(--accent);
+}
+
+.gg-player-export__field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-bottom: 12px;
+}
+.gg-player-export__field span { color: var(--text-dim); font-size: 12px; font-weight: 700; }
+.gg-player-export__field input,
+.gg-player-export__field textarea {
+  width: 100%;
+  padding: 11px 12px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm)));
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,.03);
+  color: var(--text);
+  font: inherit;
+}
+
+.gg-player-export__system-list {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.gg-player-export__system-list span {
+  padding: 10px 12px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm)));
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,.03);
+  color: var(--text-dim);
+  font-size: 12px;
+  font-weight: 700;
+}
+.gg-player-export__system-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px 16px;
+  border: 0;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-md)) 0, 100% var(--gga-cut-md), 100% 100%, var(--gga-cut-md) 100%, 0 calc(100% - var(--gga-cut-md)));
+  background: linear-gradient(135deg, #f59e0b, #ea580c);
+  color: #fff;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.gg-player-export__player-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+.gg-player-export__player-option {
+  display: grid;
+  grid-template-columns: 18px 42px 1fr;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-md)) 0, 100% var(--gga-cut-md), 100% 100%, var(--gga-cut-md) 100%, 0 calc(100% - var(--gga-cut-md)));
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,.03);
+  cursor: pointer;
+}
+.gg-player-export__player-option.on {
+  border-color: rgba(var(--accent-rgb), .35);
+  background: rgba(var(--accent-rgb), .09);
+}
+.gg-player-export__player-option input { accent-color: var(--accent); }
+.gg-player-export__player-option img {
+  width: 42px;
+  height: 42px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm)));
+  object-fit: cover;
+}
+.gg-player-export__player-option b { display: block; font-size: 12.5px; }
+.gg-player-export__player-option small { color: var(--text-dim); font-size: 11px; }
+
+.gg-player-export__groups { display: grid; gap: 12px; }
+.gg-player-export__group {
+  padding: 12px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-md)) 0, 100% var(--gga-cut-md), 100% 100%, var(--gga-cut-md) 100%, 0 calc(100% - var(--gga-cut-md)));
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,.02);
+}
+.gg-player-export__group-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.gg-player-export__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.gg-player-export__chip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 11px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm)));
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,.03);
+  cursor: pointer;
+  font-size: 12px;
+}
+.gg-player-export__chip.on {
+  border-color: rgba(var(--accent-rgb), .4);
+  background: rgba(var(--accent-rgb), .12);
+  color: var(--accent);
+}
+.gg-player-export__chip input { display: none; }
+
+.gg-player-export__preview { position: sticky; top: 14px; }
+.gg-player-export__paper {
+  padding: 16px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-lg)) 0, 100% var(--gga-cut-lg), 100% 100%, var(--gga-cut-lg) 100%, 0 calc(100% - var(--gga-cut-lg)));
+  background: #fff;
+  color: #18202a;
+  border: 1px solid #e7ebef;
+  box-shadow: 0 18px 45px -30px rgba(0,0,0,.5);
+}
+.gg-player-export__paper-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+  color: #6f7781;
+  font-size: 11px;
+}
+.gg-player-export__paper-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #91c95e;
+}
+.gg-player-export__identity {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #edf1f4;
+}
+.gg-player-export__identity img {
+  width: 58px;
+  height: 58px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm)));
+  object-fit: cover;
+}
+.gg-player-export__identity h3 { margin: 0 0 4px; font-size: 18px; }
+.gg-player-export__identity p { margin: 0 0 4px; color: #68717b; font-size: 13px; }
+.gg-player-export__identity span { color: #8a939e; font-size: 11px; }
+
+.gg-player-export__info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 16px 0;
+}
+.gg-player-export__info-block {
+  padding-bottom: 8px;
+  border-bottom: 1px solid #eef2f5;
+}
+.gg-player-export__info-block span {
+  display: block;
+  margin-bottom: 4px;
+  color: #8a9199;
+  font-size: 10px;
+  text-transform: uppercase;
+  font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+.gg-player-export__info-block b { font-size: 12px; line-height: 1.45; }
+
+.gg-player-export__quote {
+  padding: 14px 0;
+  border-bottom: 1px solid #edf1f4;
+}
+.gg-player-export__quote span,
+.gg-player-export__list-block span,
+.gg-player-export__footer span {
+  display: block;
+  margin-bottom: 6px;
+  color: #8a9199;
+  font-size: 10px;
+  text-transform: uppercase;
+  font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+.gg-player-export__quote p {
+  margin: 0;
+  color: #303741;
+  font-size: 13px;
+  line-height: 1.6;
+  font-style: italic;
+}
+
+.gg-player-export__list-block {
+  padding: 14px 0;
+  border-bottom: 1px solid #edf1f4;
+}
+.gg-player-export__list-block div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.gg-player-export__list-block small {
+  color: #37404a;
+  font-size: 12px;
+}
+
+.gg-player-export__footer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  padding-top: 14px;
+}
+.gg-player-export__footer b { font-size: 12px; }
+
+@media (max-width: 1100px) {
+  .gg-player-export__layout { grid-template-columns: 1fr; }
+  .gg-player-export__preview { position: static; }
+}
+
+@media (max-width: 720px) {
+  .gg-player-export__player-list,
+  .gg-player-export__info-grid,
+  .gg-player-export__footer { grid-template-columns: 1fr; }
+  .gg-player-export__actions { width: 100%; flex-wrap: wrap; }
+}
+

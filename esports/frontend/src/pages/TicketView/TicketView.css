@@ -1,0 +1,22 @@
+.gg-tv { max-width: 540px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; }
+.gg-tv__back { align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; background: none; border: none; color: var(--text-dim); cursor: pointer; font: inherit; font-size: 13.5px; margin-bottom: 18px; }
+.gg-tv__back svg { width: 16px; height: 16px; transform: rotate(180deg); }
+.gg-tv__back:hover { color: var(--text); }
+.gg-tv__ticket { width: 100%; display: flex; justify-content: center; }
+.gg-tv__actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 22px; }
+.gg-tv__btn { display: inline-flex; align-items: center; gap: 7px; padding: 11px 16px; border-radius: 11px; border: 1px solid var(--line); background: var(--bg-card); color: var(--text); font: inherit; font-size: 13.5px; font-weight: 600; cursor: pointer; transition: all .15s; }
+.gg-tv__btn svg { width: 16px; height: 16px; }
+.gg-tv__btn:hover { border-color: var(--accent); }
+.gg-tv__btn--primary { background: var(--accent); border-color: var(--accent); color: #04130a; }
+
+.gg-tv__empty { text-align: center; padding: 50px 20px; }
+.gg-tv__empty span { display: grid; place-items: center; width: 58px; height: 58px; margin: 0 auto 16px; border-radius: 16px; background: var(--bg-card); color: var(--accent); }
+.gg-tv__empty span svg { width: 27px; height: 27px; }
+.gg-tv__empty h2 { font-family: var(--font-display); margin: 0 0 6px; }
+.gg-tv__empty p { color: var(--text-dim); margin: 0 0 18px; font-size: 14px; }
+.gg-tv__empty-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+
+@media print {
+  .gg-tv__back, .gg-tv__actions { display: none !important; }
+}
+

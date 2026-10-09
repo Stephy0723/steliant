@@ -1,0 +1,117 @@
+.gg-pay__tabs { margin-bottom: 14px; }
+.gg-pay__table td { vertical-align: middle; }
+.gg-pay__num { font-family: var(--font-mono, ui-monospace, monospace); font-size: 12px; font-weight: 700; display: block; }
+.gg-pay__ncf { font-size: 10px; color: var(--text-dim); }
+.gg-pay__itbis { color: var(--text-dim); }
+.gg-pay__invbtn { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; padding: 7px 12px; border-radius: 0; clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm))); border: 1px solid var(--line); background: var(--bg-card); color: var(--text); cursor: pointer; transition: all .14s; white-space: nowrap; }
+.gg-pay__invbtn svg { width: 14px; height: 14px; }
+.gg-pay__invbtn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+.gg-pay__invbtn:disabled { opacity: .4; cursor: not-allowed; }
+
+/* ── Modal de factura ── */
+.gg-inv-ov { position: fixed; inset: 0; z-index: 60; background: rgba(4,6,10,.7); backdrop-filter: blur(5px); display: flex; align-items: center; justify-content: center; padding: 18px; }
+.gg-inv-modal { width: 100%; max-width: 1000px; max-height: 94vh; display: flex; flex-direction: column; background: var(--bg); border: 1px solid var(--line); border-radius: 0; clip-path: polygon(0 0, calc(100% - var(--gga-cut-lg)) 0, 100% var(--gga-cut-lg), 100% 100%, var(--gga-cut-lg) 100%, 0 calc(100% - var(--gga-cut-lg))); overflow: hidden; }
+.gg-inv-bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 16px; border-bottom: 1px solid var(--line); }
+.gg-inv-switch { display: flex; gap: 6px; background: var(--bg-card); padding: 4px; border-radius: 0; clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm))); border: 1px solid var(--line); }
+.gg-inv-switch button { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; padding: 7px 12px; border-radius: 0; clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm))); border: 0; background: none; color: var(--text-dim); cursor: pointer; }
+.gg-inv-switch button svg { width: 14px; height: 14px; }
+.gg-inv-switch button.on { background: var(--accent); color: #04140c; }
+.gg-inv-x { background: none; border: 0; color: var(--text-dim); cursor: pointer; display: inline-flex; }
+.gg-inv-x svg { width: 19px; height: 19px; }
+
+.gg-inv-cols { display: grid; grid-template-columns: 1fr 1.05fr; gap: 0; overflow: hidden; flex: 1; min-height: 0; }
+@media (max-width: 820px) { .gg-inv-cols { grid-template-columns: 1fr; overflow-y: auto; } }
+
+/* Editor */
+.gg-inv-edit { padding: 18px; overflow-y: auto; border-right: 1px solid var(--line); }
+.gg-inv-edit h4 { display: flex; align-items: center; gap: 7px; font-family: var(--font-display); font-size: 13px; margin: 16px 0 10px; }
+.gg-inv-edit h4:first-child { margin-top: 0; }
+.gg-inv-edit h4 svg { width: 14px; height: 14px; color: var(--accent); }
+.gg-inv-edit label { display: flex; flex-direction: column; gap: 5px; font-size: 11.5px; font-weight: 600; color: var(--text-dim); margin-bottom: 10px; }
+.gg-inv-edit input, .gg-inv-edit textarea { padding: 9px 11px; border-radius: 0; clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm))); border: 1px solid var(--line); background: var(--bg-card); color: var(--text); font: inherit; font-size: 12.5px; resize: vertical; }
+.gg-inv-edit input:focus, .gg-inv-edit textarea:focus { outline: none; border-color: var(--accent); }
+.gg-inv-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.gg-inv-grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+.gg-inv-item { display: grid; grid-template-columns: 1fr 56px 72px 32px; gap: 6px; margin-bottom: 6px; align-items: center; }
+.gg-inv-item input { padding: 8px; font-size: 12px; }
+.gg-inv-item button { background: none; border: 1px solid var(--line); border-radius: 0; clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm))); color: var(--text-dim); cursor: pointer; padding: 7px; display: inline-flex; align-items: center; justify-content: center; }
+.gg-inv-item button:hover:not(:disabled) { color: #f87171; border-color: var(--danger); }
+.gg-inv-item button:disabled { opacity: .35; }
+.gg-inv-item button svg { width: 13px; height: 13px; }
+.gg-inv-additem { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: var(--accent); background: none; border: 1px dashed var(--line); border-radius: 0; clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm))); padding: 8px 12px; cursor: pointer; margin-bottom: 6px; }
+.gg-inv-additem svg { width: 14px; height: 14px; }
+
+/* Vista previa */
+.gg-inv-previewwrap { padding: 18px; overflow-y: auto; background: rgba(255,255,255,.02); display: flex; flex-direction: column; gap: 10px; }
+.gg-inv-previewlabel { font-size: 10px; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; color: var(--text-dim); font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Consolas, monospace; }
+
+/* Hoja de factura (papel blanco, neutro y profesional) */
+.gg-inv-paper { background: #fff; color: #11161e; border-radius: 12px; padding: 26px; box-shadow: 0 20px 50px -24px rgba(0,0,0,.6); font-size: 12px; }
+.gg-inv-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+.gg-inv-from { display: flex; flex-direction: column; gap: 2px; }
+.gg-inv-logo { display: inline-flex; align-items: center; gap: 5px; font-family: var(--font-display); font-weight: 800; font-size: 14px; letter-spacing: .4px; margin-bottom: 5px; }
+.gg-inv-logo svg { width: 15px; height: 15px; color: #00b05c; }
+.gg-inv-from b { font-size: 12.5px; }
+.gg-inv-from small { color: #6b7280; font-size: 10.5px; }
+.gg-inv-title { text-align: right; }
+.gg-inv-title h2 { font-size: 26px; font-weight: 800; margin: 0; letter-spacing: .5px; color: #11161e; }
+.gg-inv-copy { font-size: 9.5px; font-weight: 800; letter-spacing: .06em; color: #6b7280; }
+
+.gg-inv-meta { display: flex; justify-content: space-between; gap: 16px; padding: 16px 0; margin-top: 14px; border-top: 1px solid #e5e8ec; }
+.gg-inv-meta > div span { display: block; font-size: 9.5px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: #9aa0a8; }
+.gg-inv-meta > div b { font-size: 13px; }
+.gg-inv-meta > div small { display: block; color: #6b7280; font-size: 10.5px; }
+.gg-inv-meta .r { text-align: right; }
+.gg-inv-meta .r p { margin: 0 0 4px; display: grid; grid-template-columns: auto auto; gap: 12px; justify-content: flex-end; align-items: baseline; }
+.gg-inv-meta .r p span { display: inline; }
+
+.gg-inv-items { width: 100%; border-collapse: collapse; margin-top: 6px; }
+.gg-inv-items thead th { background: var(--bg-elev); color: #fff; font-size: 9.5px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; padding: 8px 10px; text-align: right; }
+.gg-inv-items thead th:first-child { text-align: left; border-radius: 6px 0 0 6px; }
+.gg-inv-items thead th:last-child { border-radius: 0 6px 6px 0; }
+.gg-inv-items tbody td { padding: 9px 10px; text-align: right; border-bottom: 1px solid #eef0f2; font-size: 11.5px; }
+.gg-inv-items tbody td:first-child { text-align: left; }
+.gg-inv-items tbody tr:nth-child(even) { background: #f6f8f7; }
+
+.gg-inv-totbox { margin-top: 14px; margin-left: auto; width: 60%; }
+.gg-inv-totbox p { display: flex; justify-content: space-between; margin: 0 0 6px; font-size: 12px; color: #6b7280; }
+.gg-inv-totbox p b { color: #11161e; }
+.gg-inv-totbox .grand { border-top: 2px solid #11161e; padding-top: 8px; margin-top: 4px; }
+.gg-inv-totbox .grand span, .gg-inv-totbox .grand b { font-size: 16px; font-weight: 800; color: #11161e; }
+
+.gg-inv-pay { margin-top: 18px; padding-top: 14px; border-top: 1px dashed #d7dbe0; }
+.gg-inv-validated { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 800; color: #00824a; border: 1.5px solid #00824a; border-radius: 7px; padding: 4px 10px; }
+.gg-inv-validated svg { width: 12px; height: 12px; }
+.gg-inv-validated code { font-weight: 700; }
+.gg-inv-instr { margin-top: 12px; display: flex; flex-direction: column; gap: 2px; }
+.gg-inv-instr b { font-size: 9.5px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; color: #9aa0a8; margin-bottom: 3px; }
+.gg-inv-instr small { font-size: 11px; color: #4b5563; }
+.gg-inv-instr em { font-size: 11px; color: #6b7280; margin-top: 4px; }
+
+.gg-inv-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 14px 16px; border-top: 1px solid var(--line); }
+.gg-inv-btn { display: inline-flex; align-items: center; justify-content: center; gap: 7px; padding: 12px; border-radius: 0; clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm))); border: 1px solid var(--line); background: var(--bg-card); color: var(--text); font: inherit; font-size: 12.5px; font-weight: 700; cursor: pointer; }
+.gg-inv-btn svg { width: 15px; height: 15px; }
+.gg-inv-btn.primary { background: var(--accent); color: #04140c; border-color: transparent; }
+.gg-inv-btn.ghost:hover { border-color: var(--accent); }
+
+.gg-pay__note {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 0;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  background: var(--bg-card);
+  color: var(--text-dim);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.gg-pay__note svg {
+  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  color: #f59e0b;
+}
+

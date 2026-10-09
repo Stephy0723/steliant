@@ -1,0 +1,795 @@
+/* ============================================================
+   Perfil (/perfil) — rehecho de cero con el lenguaje visual de los
+   paneles de rol: esquinas cortadas (clip-path), IBM Plex Mono en
+   mayúsculas para etiquetas/datos, tarjetas con tinte de glow del
+   acento, entradas en cascada.
+   ============================================================ */
+
+.gp {
+  --gp-cut-lg: 20px;
+  --gp-cut-md: 14px;
+  --gp-cut-sm: 9px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  color: var(--text);
+}
+
+.gp-label {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+/* ── Banner (ProfileBanner ya trae su propio look de panel; esto solo le
+   da un ancla de posicionamiento para el sello de rol) ── */
+.gp-profile-banner-shell { position: relative; }
+/* El sello de ID baja al área de la portada para no tapar "Editar perfil"
+   (que vive en la fila superior del banner, a la derecha). */
+.gp-profile-banner-shell > .gg-role-id-corner { top: 62px; right: 16px; }
+@media (max-width: 680px) {
+  /* En móvil la portada no tiene hueco libre (el código ocupa todo el ancho):
+     el sello pasa debajo del banner, en el flujo normal. */
+  .gp-profile-banner-shell > .gg-role-id-corner {
+    position: static;
+    display: inline-flex;
+    max-width: 100%;
+    margin-top: 10px;
+  }
+}
+
+.gp-profile-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.gp-edit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 4px;
+  clip-path: polygon(0 0, calc(100% - var(--gp-cut-sm)) 0, 100% var(--gp-cut-sm), 100% 100%, var(--gp-cut-sm) 100%, 0 calc(100% - var(--gp-cut-sm)));
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, .03);
+  color: var(--text);
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color .15s, transform .15s, color .15s;
+}
+.gp-edit-btn svg { width: 15px; height: 15px; }
+.gp-edit-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+.gp-edit-btn:disabled { opacity: .55; cursor: default; }
+
+/* ── Compartir perfil (overlay) ── */
+.gp-share-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(4, 5, 8, .72);
+  backdrop-filter: blur(6px);
+}
+
+html[style*="color-scheme: light"] .gp-share-overlay {
+  background: color-mix(in srgb, var(--bg) 68%, rgba(255,255,255,.72));
+}
+/* ShareSheet ya dibuja su propia tarjeta (fondo, borde de color, esquinas
+   cortadas) -- este wrapper es solo para la animación de entrada/salida y
+   el límite de alto con scroll. Si le agregaba su propio fondo/ancho fijo
+   quedaba más ancho que la tarjeta real de adentro (398px), dejando una
+   franja vacía a la derecha. */
+.gp-share-overlay__sheet {
+  /* Sin width/max-width a propósito: como ítem de flex sin ancho fijo, se
+     ajusta solo al ancho real de ShareSheet (fit-content con un hijo al
+     100% podía colapsar mal en algunos navegadores). */
+  max-height: 86vh;
+  overflow: auto;
+}
+
+/* ── Layout general ── */
+.gp-layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 22px;
+  align-items: start;
+}
+.gp-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: sticky;
+  top: 16px;
+}
+.gp-main {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-width: 0;
+}
+
+/* ── Cajas de Redes / Acerca de ── */
+.gp-bio-box {
+  padding: 16px 18px;
+  border-radius: 4px;
+  clip-path: polygon(0 0, calc(100% - var(--gp-cut-md)) 0, 100% var(--gp-cut-md), 100% 100%, var(--gp-cut-md) 100%, 0 calc(100% - var(--gp-cut-md)));
+  background: linear-gradient(160deg, rgba(var(--accent-rgb), .05), transparent 60%), var(--bg-card);
+  border: 1px solid var(--line);
+}
+.gp-bio-box h4 {
+  margin: 0 0 10px;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.gp-bio-box p { margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--text); }
+.gp-bio-meta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; }
+.gp-bio-meta span { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-dim); }
+.gp-bio-meta svg { width: 13px; height: 13px; color: var(--accent); }
+
+.gp-social-links { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+.gp-social-link {
+  width: 36px; height: 36px;
+  display: grid; place-items: center;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, .04);
+  border: 1px solid var(--line);
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: transform .15s, border-color .15s, color .15s;
+}
+.gp-social-link svg { width: 17px; height: 17px; }
+.gp-social-link:hover { transform: translateY(-2px); }
+.gp-social-link.twitch:hover { border-color: #9146FF; color: #9146FF; }
+.gp-social-link.youtube:hover { border-color: #FF0000; color: #FF0000; }
+.gp-social-link.instagram:hover { border-color: #E1306C; color: #E1306C; }
+.gp-social-link.twitter:hover { border-color: #fff; color: #fff; }
+.gp-social-link.discord:hover { border-color: #5865F2; color: #5865F2; }
+.gp-social-link.tiktok:hover { border-color: #fff; color: #fff; }
+.gp-social-link.kick:hover { border-color: #53FC18; color: #53FC18; }
+.gp-social-link.facebook:hover { border-color: #1877F2; color: #1877F2; }
+.gp-social-link.telegram:hover { border-color: #26A5E4; color: #26A5E4; }
+.gp-contact-list { display: flex; flex-direction: column; gap: 6px; }
+.gp-contact-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 4px;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 12.5px;
+  border-top: 1px solid var(--line);
+}
+.gp-contact-row:first-child { border-top: none; }
+.gp-contact-row svg { width: 14px; height: 14px; color: var(--accent); flex: none; }
+.gp-contact-row b { font-weight: 600; overflow: hidden; text-overflow: ellipsis; }
+
+/* ── Barra de stats: tiles horizontales, contenido centrado ── */
+.gp-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+.gp-stat {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 18px 16px;
+  border-radius: 4px;
+  clip-path: polygon(0 0, calc(100% - var(--gp-cut-md)) 0, 100% var(--gp-cut-md), 100% 100%, var(--gp-cut-md) 100%, 0 calc(100% - var(--gp-cut-md)));
+  background: linear-gradient(160deg, rgba(var(--accent-rgb), .1), transparent 60%), var(--bg-card);
+  border: 1px solid var(--line);
+  transition: border-color .18s, transform .18s;
+}
+.gp-stat:hover { border-color: rgba(var(--accent-rgb), .45); transform: translateY(-2px); }
+.gp-stat::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), transparent 75%);
+  box-shadow: 0 0 12px var(--accent);
+}
+/* Relleno solido (no un tinte translucido) -- con un acento oscuro/poco
+   saturado, el icono en su mismo color sobre un fondo apenas mas oscuro
+   quedaba casi invisible. Con relleno solido + color de contraste fijo
+   siempre se ve nitido, sea cual sea el acento elegido. */
+.gp-stat__icon {
+  width: 42px; height: 42px; flex: none;
+  display: grid; place-items: center;
+  border-radius: 4px;
+  clip-path: polygon(0 0, calc(100% - 7px) 0, 100% 7px, 100% 100%, 7px 100%, 0 calc(100% - 7px));
+  background: var(--accent);
+  box-shadow: 0 6px 16px rgba(var(--accent-rgb), .35);
+  color: #04130a;
+}
+.gp-stat__icon svg { width: 20px; height: 20px; stroke-width: 2.4; }
+.gp-stat > div { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.gp-stat b {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.gp-stat > div span {
+  display: block;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 10px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* ── Secciones de contenido (tabs) ── */
+.gp-content { display: flex; flex-direction: column; gap: 26px; min-width: 0; }
+.gp-section {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 20px 22px;
+  border-radius: 4px;
+  clip-path: polygon(0 0, calc(100% - var(--gp-cut-md)) 0, 100% var(--gp-cut-md), 100% 100%, var(--gp-cut-md) 100%, 0 calc(100% - var(--gp-cut-md)));
+  background: linear-gradient(160deg, rgba(var(--accent-rgb), .05), transparent 55%), var(--bg-card);
+  border: 1px solid var(--line);
+}
+.gp-section__title {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: .02em;
+}
+.gp-section__icon {
+  width: 26px; height: 26px;
+  display: grid; place-items: center;
+  border-radius: 4px;
+  clip-path: polygon(0 0, calc(100% - 5px) 0, 100% 5px, 100% 100%, 5px 100%, 0 calc(100% - 5px));
+  background: rgba(var(--accent-rgb), .14);
+  color: var(--accent);
+  flex: none;
+}
+.gp-section__icon svg { width: 14px; height: 14px; }
+.gp-subtitle {
+  margin: 0 0 10px;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.gp-empty {
+  padding: 26px;
+  text-align: center;
+  border-radius: 4px;
+  border: 1px dashed var(--line);
+  color: var(--text-dim);
+  font-size: 13px;
+}
+.gp-private-note,
+.gp-private-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--text-dim);
+}
+.gp-private-note {
+  justify-content: flex-start;
+  padding: 12px;
+  border: 1px dashed color-mix(in srgb, var(--accent) 28%, var(--line));
+  background: color-mix(in srgb, var(--accent) 7%, transparent);
+  border-radius: 8px;
+}
+.gp-private-note svg,
+.gp-private-empty svg {
+  width: 16px;
+  height: 16px;
+  color: var(--accent);
+  flex: none;
+}
+.gp-private-note b,
+.gp-private-empty b {
+  color: var(--text);
+}
+.gp-private-note span,
+.gp-private-empty span {
+  font-size: 12.5px;
+  line-height: 1.35;
+}
+.gp-empty--team { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.gp-empty--team b { color: var(--text); font-size: 14px; }
+.gp-tab-title-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.gp-mini-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 4px;
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--text);
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.gp-mini-action svg { width: 13px; height: 13px; }
+.gp-mini-action:hover { border-color: var(--accent); color: var(--accent); }
+.gp-mini-action--primary { background: var(--accent); border-color: var(--accent); color: #04130a; }
+.gp-mini-action--primary:hover { color: #04130a; filter: brightness(1.08); }
+
+/* Ficha de jugador */
+.gp-gamer-stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+.gp-gamer-stat-card {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 14px 16px;
+  border-radius: 4px;
+  clip-path: polygon(0 0, calc(100% - var(--gp-cut-sm)) 0, 100% var(--gp-cut-sm), 100% 100%, var(--gp-cut-sm) 100%, 0 calc(100% - var(--gp-cut-sm)));
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+}
+.gp-gamer-stat-card > span { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 10px; letter-spacing: .05em; text-transform: uppercase; color: var(--text-dim); }
+.gp-gamer-stat-card > b { font-family: var(--font-display); font-size: 16px; font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.gp-gamer-stat-card > small { font-size: 11px; color: var(--text-dim); }
+
+/* Showcase de juegos */
+.gp-showcase-games-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+.gp-showcase-game-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 10px;
+  min-height: 160px;
+  padding: 16px;
+  border-radius: 4px;
+  clip-path: polygon(0 0, calc(100% - var(--gp-cut-md)) 0, 100% var(--gp-cut-md), 100% 100%, var(--gp-cut-md) 100%, 0 calc(100% - var(--gp-cut-md)));
+  border: 1px solid color-mix(in srgb, var(--game-accent, var(--accent)) 35%, var(--line));
+  background-size: cover;
+  background-position: center;
+  background-color: var(--bg-elev);
+  overflow: hidden;
+  transition: transform .18s, border-color .18s;
+}
+.gp-showcase-game-card:hover { transform: translateY(-3px); border-color: var(--game-accent, var(--accent)); }
+.gp-showcase-game-card__logo {
+  position: absolute;
+  top: 12px; right: 12px;
+  width: 34px; height: 34px;
+  display: grid; place-items: center;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, .5);
+  border: 1px solid rgba(255, 255, 255, .16);
+}
+.gp-showcase-game-card__logo img { width: 22px; height: 22px; object-fit: contain; }
+.gp-showcase-game-card__logo svg { width: 18px; height: 18px; color: #fff; }
+.gp-showcase-game-card__body h4 { margin: 0 0 6px; font-family: var(--font-display); font-size: 16px; font-weight: 700; color: #fff; text-shadow: 0 4px 16px rgba(0, 0, 0, .5); }
+.gp-showcase-game-card__badges { display: flex; flex-wrap: wrap; gap: 5px; }
+.gp-showcase-game-card__badge {
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.gp-showcase-game-card__badge.main { background: var(--accent); color: #04130a; }
+.gp-showcase-game-card__badge.second { background: rgba(255, 255, 255, .16); color: #fff; }
+.gp-showcase-game-card__category {
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, .4);
+  border: 1px solid rgba(255, 255, 255, .16);
+  color: rgba(255, 255, 255, .78);
+  font-size: 10px;
+}
+
+/* LFG */
+.gp-lfg-card {
+  padding: 18px 20px;
+  border-radius: 4px;
+  clip-path: polygon(0 0, calc(100% - var(--gp-cut-md)) 0, 100% var(--gp-cut-md), 100% 100%, var(--gp-cut-md) 100%, 0 calc(100% - var(--gp-cut-md)));
+  border: 1px dashed rgba(var(--accent-rgb), .4);
+  background: rgba(var(--accent-rgb), .05);
+}
+.gp-lfg-card__content { display: flex; align-items: flex-start; gap: 14px; }
+.gp-lfg-card__icon {
+  width: 40px; height: 40px; flex: none;
+  display: grid; place-items: center;
+  border-radius: 10px;
+  background: rgba(var(--accent-rgb), .16);
+  color: var(--accent);
+}
+.gp-lfg-card__icon svg { width: 19px; height: 19px; }
+.gp-lfg-card__text h4 { margin: 0 0 4px; font-family: var(--font-display); font-size: 15px; }
+.gp-lfg-card__text p { margin: 0; font-size: 13px; color: var(--text-dim); line-height: 1.5; }
+.gp-lfg-card__preferences { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.gp-lfg-preference-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: rgba(var(--accent-rgb), .14);
+  color: var(--accent);
+  font-size: 10.5px;
+  font-weight: 700;
+}
+.gp-lfg-preference-tag svg { width: 11px; height: 11px; }
+
+/* Comunidades */
+.gp-community-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+.gp-community-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 170px;
+  border-radius: 4px;
+  clip-path: polygon(0 0, calc(100% - var(--gp-cut-md)) 0, 100% var(--gp-cut-md), 100% 100%, var(--gp-cut-md) 100%, 0 calc(100% - var(--gp-cut-md)));
+  border: 1px solid color-mix(in srgb, var(--community-color, var(--accent)) 35%, var(--line));
+  background-size: cover;
+  background-position: center;
+  background-color: var(--bg-elev);
+  text-decoration: none;
+  color: var(--text);
+  overflow: hidden;
+  transition: transform .18s, border-color .18s;
+}
+.gp-community-card:hover { transform: translateY(-3px); border-color: var(--community-color, var(--accent)); }
+.gp-community-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px 0;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+.gp-community-card__top span { color: rgba(255, 255, 255, .6); }
+.gp-community-card__top b { color: var(--community-color, var(--accent)); }
+.gp-community-card__body { flex: 1; padding: 10px 14px; }
+.gp-community-card__body h4 { margin: 0 0 4px; font-family: var(--font-display); font-size: 15px; color: #fff; }
+.gp-community-card__body p { margin: 0; font-size: 12px; color: rgba(255, 255, 255, .65); line-height: 1.4; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.gp-community-card__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-top: 1px solid rgba(255, 255, 255, .1);
+  font-size: 11px;
+  color: rgba(255, 255, 255, .7);
+}
+.gp-community-card__foot span { display: inline-flex; align-items: center; gap: 5px; }
+.gp-community-card__foot svg { width: 13px; height: 13px; }
+
+/* ── Logros / credenciales ── */
+.gp-ach-progress { margin-bottom: 18px; }
+.gp-ach-progress__text { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+.gp-ach-progress__text span { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: .05em; text-transform: uppercase; color: var(--text-dim); }
+.gp-ach-progress__text b { font-family: var(--font-display); font-size: 16px; color: var(--accent); }
+.gp-ach-progress__bar { height: 8px; border-radius: 99px; background: rgba(255, 255, 255, .06); overflow: hidden; }
+.gp-ach-progress__bar div { height: 100%; background: linear-gradient(90deg, var(--accent), color-mix(in srgb, var(--accent) 60%, #fff)); border-radius: 99px; transition: width .4s ease; }
+
+.gp-ach-full-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; margin-bottom: 8px; }
+.gp-ach-tile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 4px;
+  clip-path: polygon(0 0, calc(100% - var(--gp-cut-sm)) 0, 100% var(--gp-cut-sm), 100% 100%, var(--gp-cut-sm) 100%, 0 calc(100% - var(--gp-cut-sm)));
+  border: 1px solid var(--line);
+  background: var(--bg-card);
+}
+.gp-ach-tile.locked { opacity: .5; }
+.gp-ach-tile.unlocked { border-color: rgba(var(--accent-rgb), .4); background: linear-gradient(160deg, rgba(var(--accent-rgb), .08), transparent 60%), var(--bg-card); }
+.gp-ach-tile__icon {
+  width: 38px; height: 38px; flex: none;
+  display: grid; place-items: center;
+  border-radius: 10px;
+  background: rgba(var(--accent-rgb), .14);
+  color: var(--accent);
+}
+.gp-ach-tile__icon svg { width: 19px; height: 19px; }
+.gp-ach-tile__info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.gp-ach-tile__info b { font-size: 13.5px; font-weight: 700; }
+.gp-ach-tile__info span { font-size: 11.5px; color: var(--text-dim); line-height: 1.4; }
+.gp-ach-tile__right { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; flex: none; }
+.gp-ach-tile__done, .gp-ach-tile__lock {
+  width: 26px; height: 26px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+}
+.gp-ach-tile__done { background: rgba(34, 197, 94, .18); color: #22c55e; }
+.gp-ach-tile__done.trophy-glow { background: rgba(var(--accent-rgb), .18); font-size: 14px; filter: drop-shadow(0 0 6px var(--accent)); }
+.gp-ach-tile__done svg { width: 14px; height: 14px; }
+.gp-ach-tile__lock { background: rgba(255, 255, 255, .06); color: var(--text-dim); }
+.gp-ach-tile__lock svg { width: 13px; height: 13px; }
+.gp-ach-tile__right small { font-size: 10px; color: var(--text-dim); }
+
+/* ── Torneos / esports ── */
+.gp-tour-container { display: flex; flex-direction: column; gap: 24px; }
+.gp-tournaments-esports-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+.gp-esports-card {
+  position: relative;
+  min-height: 150px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 4px;
+  clip-path: polygon(0 0, calc(100% - var(--gp-cut-md)) 0, 100% var(--gp-cut-md), 100% 100%, var(--gp-cut-md) 100%, 0 calc(100% - var(--gp-cut-md)));
+  border: 1px solid color-mix(in srgb, var(--tour-color, var(--accent)) 35%, var(--line));
+  background:
+    linear-gradient(180deg, rgba(6, 7, 11, .35), rgba(6, 7, 11, .92)),
+    var(--tour-image) center / cover;
+  cursor: pointer;
+  transition: transform .18s, border-color .18s;
+}
+.gp-esports-card:hover { transform: translateY(-3px); border-color: var(--tour-color, var(--accent)); }
+.gp-esports-card.closed { filter: grayscale(.4); opacity: .75; }
+.gp-esports-card__header { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.gp-esports-card__game {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--tour-color, var(--accent));
+}
+.gp-esports-card__status-badge {
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .1);
+  color: #fff;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.gp-esports-card__status-badge.ongoing,
+.gp-esports-card__status-badge.live { background: rgba(239, 68, 68, .22); color: #f87171; }
+.gp-esports-card__status-badge.open { background: rgba(34, 197, 94, .2); color: #4ade80; }
+.gp-esports-card__status-badge.finished,
+.gp-esports-card__status-badge.completed,
+.gp-esports-card__status-badge.closed { background: rgba(255, 255, 255, .08); color: rgba(255, 255, 255, .55); }
+.gp-esports-card__title { margin: 10px 0; font-family: var(--font-display); font-size: 16px; color: #fff; line-height: 1.15; }
+.gp-esports-card__details { display: flex; flex-direction: column; gap: 6px; }
+.gp-esports-card__detail-item { display: flex; align-items: center; gap: 7px; font-size: 11.5px; color: rgba(255, 255, 255, .68); }
+.gp-esports-card__detail-item svg { width: 13px; height: 13px; color: var(--tour-color, var(--accent)); flex: none; }
+
+/* ── Feed de publicaciones ── */
+.gp-feed { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.gp-feed__empty { padding: 40px 20px; text-align: center; color: var(--text-dim); border: 1px dashed var(--line); border-radius: 4px; }
+
+/* Perfil ajeno que no se pudo abrir: motivo real + detalle tecnico */
+.gp-load-error { display: flex; flex-direction: column; align-items: center; gap: 10px; max-width: 520px; margin: 40px auto; }
+.gp-load-error__icon { display: inline-flex; width: 40px; height: 40px; align-items: center; justify-content: center; color: var(--accent); }
+.gp-load-error__icon svg { width: 28px; height: 28px; }
+.gp-load-error h3 { margin: 0; color: var(--text); font-size: 18px; }
+.gp-load-error p { margin: 0; line-height: 1.5; }
+.gp-load-error__detail { font-size: 12px; padding: 4px 8px; border: 1px solid var(--line); border-radius: 4px; color: var(--text-dim); overflow-wrap: anywhere; }
+.gp-load-error__actions { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 6px; }
+
+/* ── Responsive ── */
+@media (max-width: 980px) {
+  .gp-layout { grid-template-columns: 1fr; }
+  .gp-sidebar { position: static; }
+  .gp-stats { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+  .gp { min-width: 0; gap: 16px; }
+  .gp-main { min-width: 0; gap: 14px; }
+  .gp .gg-tabs-wrap {
+    width: 100%;
+    min-width: 0;
+    padding-inline: 0;
+  }
+  .gp .gg-tabs-wrap::before,
+  .gp .gg-tabs-wrap::after { display: none; }
+  .gp .gg-tabs {
+    width: 100%;
+    min-width: 0;
+  }
+  .gp .gg-tab { padding-inline: 13px; }
+  .gp .gg-composer {
+    min-width: 0;
+    padding: 12px;
+    border-radius: 12px;
+  }
+  .gp .gg-composer__trigger { gap: 10px; }
+  .gp .gg-composer__placeholder { font-size: 13px; line-height: 1.35; }
+  .gp .gg-composer__types {
+    max-width: 100%;
+    scrollbar-width: none;
+  }
+  .gp .gg-composer__types::-webkit-scrollbar { display: none; }
+  .gp .gg-composer__toolbar {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .gp .gg-composer__attachment-buttons,
+  .gp .gg-composer__actions {
+    width: 100%;
+    min-width: 0;
+  }
+  .gp .gg-composer__attachment-buttons > .toolbar-btn,
+  .gp .gg-composer__actions > button {
+    flex: 1 1 0;
+    min-width: 0;
+    justify-content: center;
+    white-space: normal;
+    text-align: center;
+  }
+  .gp .gg-composer__actions { gap: 8px; }
+  .gp-feed {
+    width: 100%;
+    min-width: 0;
+    gap: 12px;
+  }
+  .gp .gg-post-card {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    padding: 13px;
+    margin-bottom: 12px;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  }
+  .gp .gg-post-card,
+  .gp .gg-post-card * {
+    box-sizing: border-box;
+  }
+  .gp .gg-post-card__head {
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .gp .gg-post-card__author-info,
+  .gp .gg-post-card__author-meta,
+  .gp .gg-post-card__author-row,
+  .gp .gg-post-card__body,
+  .gp .gg-post-card__comments-section,
+  .gp .comment-main,
+  .gp .reply-item {
+    min-width: 0;
+  }
+  .gp .gg-post-card__author-info {
+    flex: 1 1 auto;
+  }
+  .gp .gg-post-card__author-row {
+    flex-wrap: wrap;
+    row-gap: 4px;
+  }
+  .gp .gg-post-card__nick,
+  .gp .gg-post-card__title,
+  .gp .gg-post-card__text,
+  .gp .comment-text,
+  .gp .team-text-meta h4,
+  .gp .event-header h4,
+  .gp .ticket-body h4 {
+    overflow-wrap: anywhere;
+  }
+  .gp .gg-post-card__actions-right {
+    flex: 0 0 auto;
+    align-items: flex-start;
+    justify-content: flex-end;
+    max-width: 44%;
+  }
+  .gp .gg-post-card__kind-badge,
+  .gp .gg-post-card__pin-badge {
+    max-width: 100%;
+  }
+  .gp .gg-post-card__image-container {
+    max-height: none;
+  }
+  .gp .gg-post-card__image {
+    height: auto;
+    max-height: 420px;
+    object-fit: contain;
+  }
+  .gp .gg-post-card__poll-opt {
+    gap: 10px;
+    padding: 11px 12px;
+  }
+  .gp .gg-post-card__poll-opt .text {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  .gp .gg-post-card__poll-opt .pct {
+    flex: none;
+  }
+  .gp .gg-post-card__document-attachment {
+    min-width: 0;
+    padding: 12px;
+    gap: 10px;
+  }
+  .gp .gg-post-card__esports-ticket,
+  .gp .gg-post-card__team-showcase {
+    width: 100%;
+    min-width: 0;
+    padding: 13px;
+  }
+  .gp .ticket-body,
+  .gp .team-info-row,
+  .gp .team-text-meta {
+    min-width: 0;
+  }
+  .gp .team-info-row {
+    width: 100%;
+    align-items: flex-start;
+  }
+  .gp .ticket-grid,
+  .gp .event-meta,
+  .gp .challenge-meta,
+  .gp .recruitment-meta {
+    min-width: 0;
+  }
+  .gp .event-meta {
+    flex-wrap: wrap;
+    gap: 8px 12px;
+  }
+  .gp .gg-post-card__foot {
+    width: 100%;
+    min-width: 0;
+  }
+  .gp .gg-post-card__action-btn {
+    min-width: 0;
+    white-space: nowrap;
+  }
+  .gp .gg-post-card__comment-composer,
+  .gp .gg-post-card__reply-composer {
+    width: 100%;
+    min-width: 0;
+  }
+  .gp .composer-input-wrap,
+  .gp .reply-input-wrap,
+  .gp .comment-body,
+  .gp .reply-body {
+    min-width: 0;
+  }
+  .gp .composer-input-wrap input,
+  .gp .reply-input-wrap input {
+    min-width: 0;
+  }
+  .gp .gg-section,
+  .gp-section { padding: 16px 14px; }
+  .gp-ach-full-grid { grid-template-columns: 1fr; }
+  .gp-tournaments-esports-grid { grid-template-columns: 1fr; }
+  .gp-showcase-games-grid { grid-template-columns: repeat(2, 1fr); }
+}
+

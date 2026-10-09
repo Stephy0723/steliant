@@ -1,0 +1,24 @@
+.match-stats { margin: 20px 0; padding: 18px; border: 1px solid var(--line, #454550); border-radius: 12px; color: var(--text, inherit); }
+.match-stats h3 { margin: 0 0 10px; }
+.match-stats p { margin: 10px 0; font-size: 13px; line-height: 1.5; }
+.match-stats label { display: block; margin: 10px 0; font-size: 13px; }
+.match-stats input, .match-stats select, .match-stats textarea { color: inherit; background: var(--bg, #15151d); border: 1px solid var(--line, #555); border-radius: 5px; padding: 7px; max-width: 100%; }
+.match-stats input[type=checkbox], .match-stats input[type=radio] { margin-right: 8px; }
+.match-stats select, .match-stats textarea { display: block; }
+.match-stats textarea { width: 100%; }
+.match-stats button { background: var(--accent, #65df97); color: #121812; border-radius: 6px; padding: 9px 12px; font-size: 12px; cursor: pointer; }
+.match-stats button:disabled { opacity: .45; cursor: not-allowed; }
+.match-stats a { color: var(--accent, #65df97); text-decoration: underline; }
+.match-stats__actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin: 12px 0; }
+.match-stats__images { display: flex; flex-wrap: wrap; gap: 12px; }
+.match-stats__images img { width: 160px; height: 100px; object-fit: contain; }
+.match-stats__ai { border: 1px solid var(--line, #555); padding: 12px; margin: 12px 0; border-radius: 8px; }
+.match-stats__table { max-width: 100%; overflow-x: auto; margin: 12px 0; }
+.match-stats table { border-collapse: collapse; font-size: 12px; }
+.match-stats td, .match-stats th { padding: 6px; border-bottom: 1px solid var(--line, #555); text-align: left; }
+.match-stats td input { width: 100px; }
+.match-stats td:first-child input, .match-stats td:first-child select { width: 210px; }
+.match-stats__uncertain { background: #c6922026; }
+.match-stats__warning { color: #f1c76a; padding: 12px 12px 12px 26px; background: #c6922017; border-radius: 6px; font-size: 13px; }
+.match-stats__error { color: #ff8b8b; }
+

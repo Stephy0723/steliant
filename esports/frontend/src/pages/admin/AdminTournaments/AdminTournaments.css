@@ -1,0 +1,1144 @@
+/* ═══════════════════════════════════════════════════
+   AdminTournaments Professional UI
+   ═══════════════════════════════════════════════════ */
+
+/* Selector de vista (Resumen / Equipos / Detalle) */
+.at-viewnav { display: flex; gap: 8px; margin-bottom: 18px; flex-wrap: wrap; }
+.at-viewnav__btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 0; clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm))); border: 1px solid var(--line); background: var(--bg-card); color: var(--text-dim); font: inherit; font-size: 13px; font-weight: 700; cursor: pointer; transition: all .15s; }
+.at-viewnav__btn svg { width: 16px; height: 16px; }
+.at-viewnav__btn:hover { color: var(--text); border-color: var(--accent); }
+.at-viewnav__btn.active { color: #fff; background: linear-gradient(135deg, var(--accent), var(--accent-2)); border-color: transparent; }
+
+/* Export + filas clicables + drawer */
+.at-export { display: flex; align-items: center; justify-content: flex-end; gap: 8px; margin: 0 0 12px; }
+.at-export span { margin-right: auto; font-size: 12px; color: var(--text-dim); }
+.at-export button { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; padding: 8px 13px; border-radius: 0; clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm))); border: 1px solid var(--line); background: var(--bg-card); color: var(--text); cursor: pointer; }
+.at-export button svg { width: 14px; height: 14px; }
+.at-export button:hover { border-color: var(--accent); color: var(--accent); }
+.at-row { cursor: pointer; }
+.at-row:hover { background: var(--bg-card); }
+.at-see { color: var(--text-dim); display: inline-flex; }
+.at-see svg { width: 16px; height: 16px; }
+.at-drawer-badge { width: 56px; height: 56px; border-radius: 0; clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm))); display: inline-flex; align-items: center; justify-content: center; color: #fff; flex: none; }
+.at-drawer-badge svg { width: 26px; height: 26px; }
+.at-rules { margin: 0; padding-left: 18px; }
+.at-rules li { font-size: 12.5px; color: var(--text-dim); margin: 4px 0; }
+
+/* Toolbar (filtros + búsqueda) */
+.at-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 16px 0; flex-wrap: wrap; }
+
+/* Tabla de resumen */
+.at-table-wrap { overflow-x: auto; border-radius: 0; clip-path: polygon(0 0, calc(100% - var(--gga-cut-md)) 0, 100% var(--gga-cut-md), 100% 100%, var(--gga-cut-md) 100%, 0 calc(100% - var(--gga-cut-md))); }
+.at-summary-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.at-summary-table thead th { text-align: left; padding: 12px 14px; font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Consolas, monospace; color: var(--text-dim); border-bottom: 1px solid var(--line); white-space: nowrap; }
+.at-summary-table tbody td { padding: 12px 14px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+.at-summary-table tbody tr:hover { background: var(--bg-card); }
+.at-tname { display: flex; align-items: center; gap: 10px; }
+.at-tname b { font-size: 13.5px; display: block; }
+.at-tname small { font-size: 11.5px; color: var(--text-dim); }
+.at-dot { width: 10px; height: 10px; border-radius: 50%; flex: none; display: inline-block; }
+.at-id { font-family: var(--font-mono, ui-monospace, monospace); font-size: 11.5px; font-weight: 700; color: var(--text); background: rgba(var(--accent-rgb),.1); border: 1px solid rgba(var(--accent-rgb),.2); border-radius: 0; clip-path: polygon(0 0, calc(100% - 5px) 0, 100% 5px, 100% 100%, 5px 100%, 0 calc(100% - 5px)); padding: 2px 7px; }
+.at-id-ext { display: block; font-family: var(--font-mono, ui-monospace, monospace); font-size: 10px; color: var(--text-dim); margin-top: 3px; }
+.at-badge { display: inline-block; font-size: 10.5px; font-weight: 800; letter-spacing: .04em; padding: 3px 10px; border-radius: 0; clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm))); text-transform: uppercase; font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Consolas, monospace; }
+.at-badge--live { color: #22c55e; background: rgba(34,197,94,.12); }
+.at-badge--upcoming { color: #f59e0b; background: rgba(245,158,11,.12); }
+.at-badge--finished { color: #8b938e; background: rgba(139,147,142,.14); }
+.at-paid { color: var(--accent); font-weight: 700; }
+.at-free { color: var(--text-dim); }
+.at-rev { color: #22c55e; }
+.at-org { font-size: 12px; color: var(--text-dim); }
+.at-empty { text-align: center; padding: 40px; color: var(--text-dim); }
+
+.at-tournaments-page {
+  max-width: 1600px;
+}
+
+/* ─── Page Header ─────────────────────────────────── */
+.at-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.at-page-header h2 {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--text);
+  margin: 0 0 4px;
+  letter-spacing: -.01em;
+}
+
+.at-page-header p {
+  font-size: 14px;
+  color: var(--text-dim);
+  margin: 0;
+}
+
+/* ─── Tournament Selector ────────────────────────── */
+.at-tournament-selector {
+  margin-bottom: 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-md)) 0, 100% var(--gga-cut-md), 100% 100%, var(--gga-cut-md) 100%, 0 calc(100% - var(--gga-cut-md)));
+  padding: 4px;
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.at-tournament-tabs {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  width: 100%;
+}
+
+.at-tournament-tab {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-md)) 0, 100% var(--gga-cut-md), 100% 100%, var(--gga-cut-md) 100%, 0 calc(100% - var(--gga-cut-md)));
+  background: transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all .18s;
+  min-width: fit-content;
+}
+
+.at-tournament-tab:hover {
+  background: rgba(255, 255, 255, .05);
+}
+
+.at-tournament-tab.active {
+  background: var(--bg-elev);
+  border: 1px solid rgba(var(--accent-rgb), .3);
+}
+
+.at-tournament-tab__game {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+
+.at-tournament-tab__title {
+  font-weight: 600;
+  color: var(--text);
+  font-size: 13px;
+}
+
+.at-tournament-tab__status {
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px));
+  background: rgba(var(--accent-rgb), .15);
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.at-tournament-tab__status--upcoming {
+  background: rgba(245, 158, 11, .15);
+  color: #f59e0b;
+}
+
+/* ─── Sub Tabs ──────────────────────────────────── */
+.at-sub-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 12px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.at-sub-tab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  border: none;
+  background: transparent;
+  color: var(--text-dim);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all .18s;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+}
+
+.at-sub-tab:hover {
+  color: var(--text);
+}
+
+.at-sub-tab.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.at-sub-tab svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ─── Content ────────────────────────────────────── */
+.at-content {
+  animation: fadeIn .3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0 }
+  to { opacity: 1 }
+}
+
+/* ─── KPI Grid ──────────────────────────────────── */
+.at-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.at-kpi {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-md)) 0, 100% var(--gga-cut-md), 100% 100%, var(--gga-cut-md) 100%, 0 calc(100% - var(--gga-cut-md)));
+  transition: all .2s cubic-bezier(.2, .7, .3, 1);
+}
+
+.at-kpi:hover {
+  border-color: rgba(var(--accent-rgb), .3);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(var(--accent-rgb), .1);
+}
+
+.at-kpi__icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(var(--accent-rgb), .12);
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm)));
+  color: var(--accent);
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.at-kpi__content {
+  flex: 1;
+}
+
+.at-kpi__value {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+
+.at-kpi__label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
+  margin-bottom: 4px;
+}
+
+.at-kpi__meta {
+  font-size: 11px;
+  color: var(--text-dim);
+  opacity: .7;
+}
+
+/* ─── Card Section ──────────────────────────────── */
+.at-card-section {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-lg)) 0, 100% var(--gga-cut-lg), 100% 100%, var(--gga-cut-lg) 100%, 0 calc(100% - var(--gga-cut-lg)));
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.at-card-section h3 {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text);
+  margin: 0 0 16px;
+}
+
+.at-details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.at-detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.at-detail-item .label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+
+.at-detail-item .value {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* ─── Teams Section ─────────────────────────────── */
+.at-teams-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.at-teams-header h3 {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text);
+  margin: 0;
+}
+
+.at-view-toggle {
+  display: flex;
+  gap: 4px;
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm)));
+  padding: 4px;
+}
+
+.at-view-btn {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: var(--text-dim);
+  cursor: pointer;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+  transition: all .15s;
+}
+
+.at-view-btn:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, .05);
+}
+
+.at-view-btn.active {
+  background: var(--bg-elev);
+  color: var(--accent);
+}
+
+.at-view-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* ─── Teams Cards View ──────────────────────────── */
+.at-teams-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.at-team-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-md)) 0, 100% var(--gga-cut-md), 100% 100%, var(--gga-cut-md) 100%, 0 calc(100% - var(--gga-cut-md)));
+  transition: all .2s cubic-bezier(.2, .7, .3, 1);
+}
+
+.at-team-card:hover {
+  border-color: rgba(var(--accent-rgb), .3);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(var(--accent-rgb), .08);
+}
+
+.at-team-card__rank {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), .15), rgba(var(--accent-rgb), .08));
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm)));
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.at-team-card__content {
+  flex: 1;
+  min-width: 0;
+}
+
+.at-team-card__content h4 {
+  margin: 0 0 8px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.at-team-card__stats {
+  display: flex;
+  gap: 12px;
+}
+
+.at-team-card__stats .stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.at-team-card__stats .stat-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: .03em;
+  font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+
+.at-team-card__stats .stat-value {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.at-team-card__action {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: rgba(var(--accent-rgb), .1);
+  color: var(--accent);
+  cursor: pointer;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+  transition: all .15s;
+  flex-shrink: 0;
+}
+
+.at-team-card__action:hover {
+  background: rgba(var(--accent-rgb), .2);
+  transform: translateX(2px);
+}
+
+/* ─── Teams List View ────────────────────────────── */
+.at-teams-list {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-md)) 0, 100% var(--gga-cut-md), 100% 100%, var(--gga-cut-md) 100%, 0 calc(100% - var(--gga-cut-md)));
+  overflow: hidden;
+}
+
+.at-teams-list table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.at-teams-list thead {
+  background: var(--bg-elev);
+  border-bottom: 1px solid var(--line);
+}
+
+.at-teams-list th {
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 700;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  font-size: 11px;
+  font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+
+.at-teams-list tbody tr {
+  border-bottom: 1px solid var(--line);
+  transition: background .15s;
+}
+
+.at-teams-list tbody tr:hover {
+  background: rgba(var(--accent-rgb), .04);
+}
+
+.at-teams-list td {
+  padding: 12px 16px;
+  color: var(--text);
+}
+
+.at-pos {
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.at-name {
+  font-weight: 600;
+}
+
+.at-wins {
+  color: #22c55e;
+  font-weight: 600;
+}
+
+.at-losses {
+  color: var(--danger);
+  font-weight: 600;
+}
+
+.at-teams-list button {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: var(--text-dim);
+  cursor: pointer;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+  transition: all .15s;
+}
+
+.at-teams-list button:hover {
+  background: rgba(var(--accent-rgb), .1);
+  color: var(--accent);
+}
+
+/* ─── Standings Table ────────────────────────────── */
+.at-standings-table {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-md)) 0, 100% var(--gga-cut-md), 100% 100%, var(--gga-cut-md) 100%, 0 calc(100% - var(--gga-cut-md)));
+  overflow: hidden;
+}
+
+.at-standings-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.at-standings-table thead {
+  background: var(--bg-elev);
+  border-bottom: 2px solid var(--line);
+}
+
+.at-standings-table th {
+  padding: 14px 16px;
+  text-align: left;
+  font-weight: 700;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  font-size: 11px;
+  font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+
+.at-standings-table tbody tr {
+  border-bottom: 1px solid var(--line);
+  transition: all .15s;
+}
+
+.at-standings-table tbody tr:hover {
+  background: rgba(var(--accent-rgb), .05);
+}
+
+.at-standings-table tbody tr.at-leading {
+  background: rgba(var(--accent-rgb), .08);
+}
+
+.at-standings-table td {
+  padding: 14px 16px;
+  color: var(--text);
+}
+
+.at-rank {
+  font-weight: 700;
+}
+
+.at-medal {
+  font-size: 16px;
+  display: block;
+}
+
+.at-team {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.at-stat {
+  text-align: center;
+  font-size: 13px;
+}
+
+.at-positive {
+  color: #22c55e;
+  font-weight: 600;
+}
+
+.at-negative {
+  color: var(--danger);
+  font-weight: 600;
+}
+
+/* ─── Bracket ────────────────────────────────────── */
+.at-bracket-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  min-height: 400px;
+}
+
+.at-bracket-info {
+  text-align: left;
+  width: 100%;
+}
+
+.at-bracket-info h3 {
+  margin: 0 0 4px;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.at-bracket-info p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
+.at-bracket-coming {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 60px 40px;
+  background: var(--bg-card);
+  border: 2px dashed var(--line);
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-lg)) 0, 100% var(--gga-cut-lg), 100% 100%, var(--gga-cut-lg) 100%, 0 calc(100% - var(--gga-cut-lg)));
+  text-align: center;
+  flex: 1;
+}
+
+.at-coming-icon {
+  font-size: 64px;
+  opacity: .5;
+}
+
+.at-bracket-coming h4 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.at-bracket-coming p {
+  margin: 0;
+  color: var(--text-dim);
+}
+
+/* ─── Wheel ─────────────────────────────────────── */
+.at-wheel-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+
+.at-wheel-container h3 {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text);
+  margin: 0;
+  align-self: flex-start;
+}
+
+.at-wheel-wrapper {
+  position: relative;
+  width: 360px;
+  height: 360px;
+  margin: 0 auto;
+}
+
+.at-wheel {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, .4),
+              0 0 0 4px var(--bg-elev),
+              0 0 0 8px var(--line);
+  transition: transform 2s cubic-bezier(.25, .46, .45, .94);
+}
+
+.at-wheel-segment {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  clip-path: polygon(50% 50%, 50% 0, 100% 0, 100% 100%, 50% 100%);
+}
+
+.at-wheel-segment-label {
+  position: absolute;
+  width: 120px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, .3);
+  transform: translateY(-70px) rotate(90deg);
+  white-space: normal;
+}
+
+.at-wheel-pointer {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-top: 20px solid var(--accent);
+  z-index: 10;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, .2));
+}
+
+.at-spin-btn {
+  padding: 14px 32px;
+  background: linear-gradient(135deg, var(--accent), rgba(var(--accent-rgb), .8));
+  color: white;
+  border: none;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm)));
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
+  transition: all .3s;
+  box-shadow: 0 8px 24px rgba(var(--accent-rgb), .3);
+  min-width: 200px;
+}
+
+.at-spin-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(var(--accent-rgb), .4);
+}
+
+.at-spin-btn:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+
+.at-spin-btn.spinning {
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1) }
+  50% { transform: scale(1.05) }
+}
+
+.at-wheel-result {
+  padding: 24px;
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), .15), rgba(var(--accent-rgb), .08));
+  border: 2px solid var(--accent);
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-md)) 0, 100% var(--gga-cut-md), 100% 100%, var(--gga-cut-md) 100%, 0 calc(100% - var(--gga-cut-md)));
+  text-align: center;
+}
+
+.at-wheel-result h4 {
+  margin: 0 0 8px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+
+.at-wheel-result p {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text);
+  font-family: var(--font-display);
+}
+
+/* ─── Status ────────────────────────────────────── */
+.at-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+  font-size: 12px;
+  font-weight: 700;
+  background: rgba(var(--accent-rgb), .15);
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: .03em;
+  font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+
+.at-status__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1 }
+  50% { opacity: .4 }
+}
+
+.at-status--live {
+  background: rgba(34, 197, 94, .15);
+  color: #22c55e;
+}
+
+.at-status--upcoming {
+  background: rgba(245, 158, 11, .15);
+  color: #f59e0b;
+}
+
+.at-status--finished {
+  background: rgba(107, 114, 128, .15);
+  color: #6b7280;
+}
+
+/* ─── Responsive ────────────────────────────────── */
+@media (max-width: 768px) {
+  .at-kpi-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .at-teams-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .at-wheel-wrapper {
+    width: 280px;
+    height: 280px;
+  }
+
+  .at-standings-table {
+    overflow-x: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .at-page-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .at-teams-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .at-tournament-selector {
+    overflow-x: auto;
+  }
+
+  .at-sub-tabs {
+    overflow-x: auto;
+  }
+
+  .at-wheel-wrapper {
+    width: 240px;
+    height: 240px;
+  }
+
+  .at-spin-btn {
+    min-width: 160px;
+  }
+}
+
+/* ─── Bracket Editor & Display ─── */
+.at-bracket-scroll {
+  width: 100%;
+  overflow-x: auto;
+  padding: 20px 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  scrollbar-width: thin;
+}
+.at-bracket-view {
+  display: flex;
+  gap: 40px;
+  min-width: max-content;
+  padding: 10px;
+}
+.at-bracket-round {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+.at-round-name {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  background: rgba(255,255,255,0.03);
+  padding: 6px 12px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+  border: 1px solid var(--line);
+  margin-bottom: 10px;
+}
+.at-round-matches {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%;
+  gap: 24px;
+}
+.at-match-card {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-md)) 0, 100% var(--gga-cut-md), 100% 100%, var(--gga-cut-md) 100%, 0 calc(100% - var(--gga-cut-md)));
+  padding: 12px;
+  width: 200px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  overflow: hidden;
+}
+.at-match-card:hover {
+  border-color: rgba(var(--accent-rgb), 0.4);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 15px -6px rgba(0,0,0,0.3);
+}
+.at-match-card:hover .at-match-hover-hint {
+  opacity: 1;
+}
+.at-match-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 10px;
+  margin-bottom: 8px;
+  color: var(--text-dim);
+}
+.at-match-id {
+  font-family: var(--font-mono);
+  font-weight: 700;
+}
+.at-match-status-badge {
+  font-weight: 700;
+  text-transform: uppercase;
+  font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 8px;
+  padding: 1px 5px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 3px) 0, 100% 3px, 100% 100%, 3px 100%, 0 calc(100% - 3px));
+}
+.at-match-status-badge.live {
+  background: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+}
+.at-match-status-badge.completed {
+  background: rgba(255,255,255,0.05);
+  color: var(--text-dim);
+}
+.at-match-status-badge.pending {
+  background: rgba(245, 158, 11, 0.12);
+  color: #f59e0b;
+}
+.at-match-teams {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.at-match-team {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  padding: 4px 6px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 5px) 0, 100% 5px, 100% 100%, 5px 100%, 0 calc(100% - 5px));
+  background: rgba(255,255,255,0.02);
+}
+.at-match-team.winner {
+  background: rgba(var(--accent-rgb), 0.08);
+  font-weight: 700;
+}
+.at-match-team.winner .name {
+  color: var(--accent);
+}
+.at-match-team .name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 140px;
+}
+.at-match-team .score {
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+.at-match-hover-hint {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 6, 18, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 700;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+.at-bracket-reset-btn {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm)));
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  background: rgba(239, 68, 68, 0.06);
+  color: #f87171;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.at-bracket-reset-btn:hover {
+  border-color: var(--danger);
+  background: rgba(239, 68, 68, 0.12);
+}
+.at-bracket-subnav {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  width: 100%;
+}
+.at-bracket-subnav-btn {
+  padding: 6px 12px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+  border: 1px solid var(--line);
+  background: var(--bg-card);
+  color: var(--text-dim);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.at-bracket-subnav-btn.active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(var(--accent-rgb), 0.1);
+}
+
+/* Source Badge */
+.gg-teams__src {
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
+  padding: 3px 8px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 5px) 0, 100% 5px, 100% 100%, 5px 100%, 0 calc(100% - 5px));
+  letter-spacing: .05em;
+  margin-left: 6px;
+  vertical-align: middle;
+  display: inline-block;
+}
+.gg-teams__src.backend {
+  background: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+.gg-teams__src.mock {
+  background: rgba(245, 158, 11, 0.15);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+

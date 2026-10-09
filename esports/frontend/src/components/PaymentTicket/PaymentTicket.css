@@ -1,0 +1,96 @@
+/* ════════════════════════════════════════════════════════════
+   PaymentTicket — comprobante/ticket futurista de inscripción
+   ════════════════════════════════════════════════════════════ */
+.pt-ticket {
+  position: relative; width: 100%; max-width: 420px; overflow: hidden;
+  background: linear-gradient(160deg, color-mix(in srgb, var(--tc) 14%, var(--bg-elev)), var(--bg-elev));
+  border: 1px solid color-mix(in srgb, var(--tc) 40%, var(--line));
+  border-radius: 20px;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, .55), 0 0 50px color-mix(in srgb, var(--tc) 18%, transparent);
+}
+.pt-ticket::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none; opacity: .6;
+  background-image: repeating-linear-gradient(180deg, transparent 0 3px, rgba(255,255,255,.012) 3px 4px);
+}
+.pt-glow { position: absolute; top: -40%; right: -20%; width: 220px; height: 220px; border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--tc) 40%, transparent), transparent 70%); pointer-events: none; }
+
+.pt-head { position: relative; display: flex; align-items: center; gap: 12px; padding: 16px 18px; border-bottom: 1px dashed color-mix(in srgb, var(--tc) 30%, var(--line)); }
+.pt-brand { display: flex; align-items: center; gap: 10px; flex: 1; }
+.pt-brand__logo { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 10px; background: color-mix(in srgb, var(--tc) 22%, transparent); color: var(--tc); }
+.pt-brand__logo svg { width: 18px; height: 18px; }
+.pt-brand b { font-family: var(--font-display); font-size: 14px; letter-spacing: .04em; display: block; }
+.pt-brand small { color: var(--text-dim); font-size: 11px; }
+.pt-status { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 700; letter-spacing: .05em; padding: 4px 10px; border-radius: 20px; background: rgba(34,197,94,.16); color: #4ade80; }
+.pt-status svg { width: 13px; height: 13px; }
+.pt-close { background: none; border: none; color: var(--text-dim); cursor: pointer; margin-left: 4px; }
+.pt-close svg { width: 18px; height: 18px; }
+
+.pt-body { position: relative; display: flex; flex-direction: column; }
+.pt-main { padding: 18px; }
+.pt-event-label { font-size: 10px; letter-spacing: .16em; color: var(--tc); font-family: var(--font-display); font-weight: 700; }
+.pt-event { font-family: var(--font-display); font-size: 22px; margin: 6px 0 16px; line-height: 1.1; }
+.pt-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; margin-bottom: 18px; }
+.pt-meta div { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.pt-meta span { font-size: 10.5px; text-transform: uppercase; letter-spacing: .05em; color: var(--text-dim); }
+.pt-meta b { font-size: 13.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pt-amount { display: flex; align-items: baseline; gap: 10px; padding-top: 14px; border-top: 1px solid var(--line); }
+.pt-amount span { font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: var(--text-dim); }
+.pt-amount strong { font-family: var(--font-display); font-size: 30px; color: var(--tc); line-height: 1; }
+.pt-amount small { margin-left: auto; color: var(--text-dim); font-size: 11.5px; }
+
+/* Perforación entre cuerpo y stub */
+.pt-perf { position: relative; display: flex; align-items: center; justify-content: space-between; height: 22px; padding: 0 14px; }
+.pt-perf::before, .pt-perf::after { content: ''; position: absolute; top: 50%; width: 20px; height: 20px; border-radius: 50%; background: var(--bg); transform: translateY(-50%); }
+.pt-perf::before { left: -10px; box-shadow: inset -2px 0 0 color-mix(in srgb, var(--tc) 40%, var(--line)); }
+.pt-perf::after { right: -10px; box-shadow: inset 2px 0 0 color-mix(in srgb, var(--tc) 40%, var(--line)); }
+.pt-perf i { width: 9px; height: 2px; border-radius: 2px; background: color-mix(in srgb, var(--tc) 35%, var(--line)); flex: 1; max-width: 14px; }
+
+/* Stub con QR real escaneable + código + copiar */
+.pt-stub { display: flex; align-items: center; gap: 16px; padding: 16px 18px 20px; }
+.pt-qr { width: 96px; height: 96px; flex: none; padding: 6px; background: #fff; border-radius: 10px; display: grid; place-items: center; }
+.pt-qr img { width: 100%; height: 100%; display: block; image-rendering: pixelated; }
+.pt-qr__ph { width: 100%; height: 100%; display: grid; place-items: center; color: #0a0a0a; opacity: .3; }
+.pt-qr__ph svg { width: 30px; height: 30px; }
+.pt-stub__right { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+.pt-code { min-width: 0; }
+.pt-code span { font-size: 10px; letter-spacing: .08em; color: var(--text-dim); display: block; margin-bottom: 4px; }
+.pt-code b { font-family: var(--font-display); font-size: 16px; letter-spacing: .06em; color: var(--text); word-break: break-all; line-height: 1.2; }
+.pt-copy { display: inline-flex; align-items: center; gap: 7px; align-self: flex-start; padding: 7px 12px; border-radius: 9px; border: 1px solid var(--line); background: var(--bg-card); color: var(--text); font: inherit; font-size: 12.5px; font-weight: 600; cursor: pointer; transition: all .15s; }
+.pt-copy:hover { border-color: var(--tc); color: var(--tc); }
+.pt-copy svg { width: 14px; height: 14px; }
+.pt-scan-hint { font-size: 11px; color: var(--text-dim); margin: 2px 0 0; line-height: 1.4; }
+
+/* Variante compacta (listados) */
+.pt-ticket--compact { max-width: 100%; }
+.pt-ticket--compact .pt-event { font-size: 18px; }
+.pt-ticket--compact .pt-amount strong { font-size: 24px; }
+
+@media (max-width: 460px) {
+  .pt-meta { grid-template-columns: 1fr; }
+  .pt-stub { flex-wrap: wrap; }
+}
+
+/* ── Impresión: solo el ticket, centrado, sin el resto de la web ── */
+@media print {
+  body * { visibility: hidden !important; }
+  .pt-ticket, .pt-ticket * { visibility: visible !important; }
+  .pt-ticket {
+    position: absolute !important; left: 50% !important; top: 16px !important;
+    transform: translateX(-50%) !important; max-width: 380px !important;
+    box-shadow: none !important; border-color: #999 !important;
+    background: #fff !important; color: #111 !important;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .pt-ticket .pt-glow, .pt-ticket::before { display: none !important; }
+  .pt-ticket .pt-event, .pt-ticket .pt-meta b, .pt-ticket .pt-code b { color: #111 !important; }
+  .pt-ticket .pt-meta span, .pt-ticket .pt-event-label, .pt-ticket .pt-amount span { color: #555 !important; }
+  @page { margin: 12mm; }
+}
+
+/* Telefonos: cifras/KPIs en 2 columnas, no una debajo de la otra. */
+@media (max-width: 460px) {
+  .pt-meta {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+

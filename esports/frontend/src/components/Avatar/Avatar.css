@@ -1,0 +1,22 @@
+.gg-avatar {
+  position: relative; display: inline-flex; flex-shrink: 0;
+  width: var(--av-size, 40px); height: var(--av-size, 40px);
+}
+.gg-avatar img {
+  width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block;
+}
+.gg-avatar--ring img { box-shadow: 0 0 0 2px var(--accent); }
+.gg-avatar__dot {
+  position: absolute; bottom: 1px; right: 1px;
+  width: calc(var(--av-size, 40px) * 0.27); height: calc(var(--av-size, 40px) * 0.27);
+  border-radius: 50%; background: var(--dot-color, #6b7280); border: 2px solid var(--bg);
+}
+.gg-avatar__dot--pulse { animation: gg-avatar-dot-pulse 1.8s ease-in-out infinite; }
+@keyframes gg-avatar-dot-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--dot-color, #6b7280) 55%, transparent); }
+  50% { box-shadow: 0 0 0 4px transparent; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gg-avatar__dot--pulse { animation: none; }
+}
+

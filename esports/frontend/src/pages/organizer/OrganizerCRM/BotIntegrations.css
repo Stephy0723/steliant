@@ -1,0 +1,182 @@
+/* ═══════════════════════════════════════════════════
+   Integraciones — cartas de bots + comparador de costos
+   ═══════════════════════════════════════════════════ */
+
+.bint__intro h2 {
+  font-family: var(--font-display); font-size: 20px; font-weight: 800;
+  color: var(--text); margin: 0 0 6px;
+}
+.bint__intro p { margin: 0; font-size: 13.5px; color: var(--text-dim); max-width: 640px; line-height: 1.55; }
+
+/* ── Cards ── */
+.bint__cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.bint__card {
+  display: flex; flex-direction: column; gap: 12px;
+  background: var(--bg-card); border: 1px solid var(--line);
+  border-radius: 16px; padding: 18px; transition: border-color .18s;
+}
+.bint__card.is-open { border-color: rgba(var(--accent-rgb), .3); }
+.bint__card-top { display: flex; align-items: flex-start; gap: 11px; }
+.bint__card-icon { width: 42px; height: 42px; flex: none; display: grid; place-items: center; border-radius: 12px; }
+.bint__card-icon svg { width: 20px; height: 20px; }
+.bint__card-head { flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.bint__card-head b { font-size: 15px; font-weight: 800; color: var(--text); }
+.bint__card-tag { font-size: 11.5px; color: var(--text-dim); }
+.bint__status {
+  display: inline-flex; align-items: center; gap: 6px; flex: none;
+  font-size: 11px; font-weight: 700; color: var(--text-dim);
+  background: var(--bg-elev); border: 1px solid var(--line);
+  padding: 4px 9px; border-radius: 99px; white-space: nowrap;
+}
+.bint__status-dot { width: 6px; height: 6px; border-radius: 50%; flex: none; }
+.bint__card-blurb { margin: 0; font-size: 12.5px; color: var(--text-dim); line-height: 1.55; flex: 1; }
+
+.bint__toggle {
+  display: inline-flex; align-items: center; gap: 6px; align-self: flex-start;
+  background: none; border: none; cursor: pointer; padding: 0;
+  font-size: 12.5px; font-weight: 700; color: var(--accent);
+}
+.bint__toggle svg { width: 14px; height: 14px; transition: transform .18s; }
+.bint__card.is-open .bint__toggle svg { transform: rotate(90deg); }
+
+.bint__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 9px; overflow: hidden; }
+.bint__list li { display: flex; align-items: flex-start; gap: 8px; font-size: 12.5px; color: var(--text); line-height: 1.5; }
+.bint__list li svg { width: 14px; height: 14px; flex: none; margin-top: 2px; color: #22c55e; }
+
+.bint__cta {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  margin-top: auto; padding: 10px 14px; border-radius: 10px;
+  font-size: 12.5px; font-weight: 700; text-decoration: none;
+  background: linear-gradient(135deg, var(--accent), rgba(var(--accent-rgb), .82)); color: #fff;
+  transition: transform .15s;
+}
+.bint__cta svg { width: 14px; height: 14px; }
+.bint__cta:hover { transform: translateY(-1px); }
+.bint__cta--disabled {
+  background: var(--bg-elev); color: var(--text-dim); border: 1px solid var(--line); cursor: default;
+}
+.bint__cta--disabled:hover { transform: none; }
+button.bint__cta { border: none; font-family: inherit; cursor: pointer; width: 100%; }
+button.bint__cta:disabled { opacity: .6; cursor: default; }
+button.bint__cta.bint__cta--disabled { width: auto; cursor: pointer; }
+
+/* ── Estado real del Bot de Discord ── */
+.bint__org-info {
+  display: flex; flex-direction: column; gap: 6px;
+  background: rgba(34,197,94,.06); border: 1px solid rgba(34,197,94,.25);
+  border-radius: 10px; padding: 10px 12px; margin-top: auto;
+}
+.bint__org-info div { display: flex; justify-content: space-between; gap: 10px; font-size: 12px; }
+.bint__org-info span { color: var(--text-dim); }
+.bint__org-info b { color: var(--text); font-weight: 700; }
+
+.bint__pending-note {
+  display: flex; align-items: flex-start; gap: 7px;
+  font-size: 12px; color: var(--text-dim); line-height: 1.5;
+  background: rgba(245,158,11,.08); border: 1px solid rgba(245,158,11,.25);
+  border-radius: 10px; padding: 10px 12px; margin-top: auto;
+}
+.bint__pending-note svg { width: 14px; height: 14px; flex: none; margin-top: 1px; color: #f59e0b; }
+.bint__pending-note b { color: var(--text); }
+
+.bint__rejected-note { margin: 0; font-size: 11.5px; color: var(--danger); line-height: 1.5; }
+
+.bint__discord-form { display: flex; flex-direction: column; gap: 10px; margin-top: auto; }
+.bint__field { display: flex; flex-direction: column; gap: 5px; }
+.bint__field span { font-size: 11.5px; font-weight: 700; color: var(--text-dim); }
+.bint__field input, .bint__field textarea {
+  background: var(--bg-elev); border: 1px solid var(--line); border-radius: 8px;
+  padding: 8px 10px; font-size: 12.5px; color: var(--text); font-family: inherit; resize: vertical;
+}
+.bint__field input:focus, .bint__field textarea:focus { outline: none; border-color: var(--accent); }
+.bint__field small { font-size: 10.5px; color: var(--text-dim); line-height: 1.4; }
+.bint__form-error { margin: 0; font-size: 11.5px; color: var(--danger); }
+.bint__form-actions { display: flex; gap: 8px; }
+.bint__form-actions .bint__cta { flex: 1; margin-top: 0; }
+
+/* ── Comparador de costos ── */
+.bint__cost {
+  background: var(--bg-card); border: 1px solid var(--line);
+  border-radius: 16px; padding: 22px;
+}
+.bint__cost-head h3 {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 15px; font-weight: 800; color: var(--text); margin: 0 0 4px;
+}
+.bint__cost-head h3 svg { width: 17px; height: 17px; color: var(--accent); }
+.bint__cost-head p { margin: 0 0 18px; }
+
+.bint__cost-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 22px; }
+.bint__cost-inputs label { display: flex; flex-direction: column; gap: 8px; }
+.bint__cost-inputs span {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 12.5px; color: var(--text-dim); font-weight: 600;
+}
+.bint__cost-inputs span svg { width: 14px; height: 14px; color: var(--accent); }
+.bint__cost-inputs span b {
+  margin-left: auto; font-family: var(--font-display); font-size: 15px; color: var(--text);
+}
+.bint__cost-inputs input[type="range"] {
+  accent-color: var(--accent); width: 100%; cursor: pointer;
+}
+
+/* ── Barras comparativas ── */
+.bint__bars { display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; }
+.bint__bar-row { display: grid; grid-template-columns: 110px 1fr 84px; align-items: center; gap: 12px; }
+.bint__bar-label { display: flex; align-items: center; gap: 7px; font-size: 12.5px; font-weight: 700; color: var(--text); }
+.bint__bar-dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+.bint__bar-dot--normal { background: var(--danger); }
+.bint__bar-dot--pro { background: #22c55e; }
+.bint__bar-track {
+  position: relative; height: 14px; border-radius: 99px;
+  background: var(--bg-elev); border: 1px solid var(--line); overflow: hidden;
+}
+.bint__bar-fill {
+  height: 100%; border-radius: 99px;
+  transition: width .5s cubic-bezier(.16,1,.3,1);
+}
+.bint__bar-fill--normal { background: linear-gradient(90deg, rgba(var(--danger-rgb),.7), var(--danger)); }
+.bint__bar-fill--pro { background: linear-gradient(90deg, #16a34a, #22c55e); }
+.bint__bar-value { font-family: var(--font-display); font-size: 15px; font-weight: 800; color: var(--text); text-align: right; }
+
+/* ── Chips ── */
+.bint__chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+.bint__chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 11.5px; font-weight: 600; color: var(--text-dim);
+  background: var(--bg-elev); border: 1px solid var(--line);
+  padding: 6px 11px; border-radius: 99px;
+}
+.bint__chip svg { width: 13px; height: 13px; }
+.bint__chip--pro { color: #22c55e; border-color: rgba(34,197,94,.3); background: rgba(34,197,94,.06); }
+
+/* ── Hero de ahorro (anillo + stats) ── */
+.bint__savings-hero {
+  display: flex; align-items: center; gap: 24px; padding: 18px;
+  border-radius: 14px; background: rgba(var(--accent-rgb), .07); border: 1px solid rgba(var(--accent-rgb), .22);
+  margin-bottom: 12px; flex-wrap: wrap;
+}
+.bint__ring { position: relative; width: 92px; height: 92px; flex: none; }
+.bint__ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.bint__ring-track, .bint__ring-fill { fill: none; stroke-width: 9; }
+.bint__ring-track { stroke: var(--bg-elev); }
+.bint__ring-fill { stroke: var(--accent); stroke-linecap: round; transition: stroke-dashoffset .5s cubic-bezier(.16,1,.3,1); }
+.bint__ring-label {
+  position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.bint__ring-label b { font-family: var(--font-display); font-size: 19px; font-weight: 800; color: var(--text); line-height: 1; }
+.bint__ring-label span { font-size: 9.5px; color: var(--text-dim); text-transform: uppercase; letter-spacing: .04em; }
+
+.bint__savings-stats { display: flex; gap: 28px; flex-wrap: wrap; }
+.bint__savings-stats > div { display: flex; flex-direction: column; gap: 2px; }
+.bint__savings-stats b { font-family: var(--font-display); font-size: 22px; font-weight: 800; color: var(--accent); }
+.bint__savings-stats span { font-size: 11.5px; color: var(--text-dim); }
+
+.bint__disclaimer { margin: 0; font-size: 11px; color: var(--text-dim); line-height: 1.5; }
+
+@media (max-width: 860px) {
+  .bint__cards { grid-template-columns: 1fr; }
+  .bint__cost-inputs { grid-template-columns: 1fr; }
+  .bint__bar-row { grid-template-columns: 90px 1fr 68px; gap: 8px; }
+}
+

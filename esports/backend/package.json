@@ -1,0 +1,44 @@
+{
+  "name": "glitchgang-api",
+  "version": "2.0.0",
+  "type": "module",
+  "scripts": {
+    "test:match-stats": "node --test src/services/matchStats.test.js src/controllers/matchStats.integration.test.js",
+    "prepare:match-stats": "node src/scripts/prepare-match-stats.js",
+    "dev": "nodemon server.js",
+    "start": "node server.js",
+    "migrate:team-codes": "node src/scripts/backfill-team-codes.js",
+    "migrate:brand-invoice-codes": "node src/scripts/backfill-brand-invoice-codes.js",
+    "migrate:role-tournament-ids": "node src/scripts/migrate-role-tournament-ids.js",
+    "migrate:tournament-defaults": "node src/scripts/backfill-tournament-defaults.js",
+    "migrate:tournament-identity": "node src/scripts/backfill-tournament-identity.js",
+    "migrate:tournament-organization": "node src/scripts/backfill-tournament-organization.js",
+    "migrate:role-application-codes": "node src/scripts/backfill-role-application-codes.js",
+    "migrate:legacy-tournament-identity": "node src/scripts/backfill-legacy-tournament-identity.js",
+    "migrate:legacy-tournament-data": "node src/scripts/backfill-legacy-tournament-data.js",
+    "migrate:team-discord-to-registrations": "node src/scripts/migrate-team-discord-to-registrations.js",
+    "migrate:referral-codes": "node src/scripts/fix-referral-codes.js",
+    "migrate:tournament-titles": "node src/scripts/backfill-tournament-titles.js",
+    "migrate:university-team-slots": "node src/scripts/backfill-university-team-slots.js",
+    "migrate:strip-roster-private-data": "node src/scripts/strip-roster-private-data.js"
+  },
+  "dependencies": {
+    "axios": "^1.7.2",
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^5.0.1",
+    "express-rate-limit": "^7.4.0",
+    "helmet": "^8.0.0",
+    "ioredis": "^5.4.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.7.0",
+    "multer": "^2.0.0",
+    "nodemailer": "^8.0.10",
+    "qrcode": "^1.5.4",
+    "socket.io": "^4.8.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}

@@ -1,0 +1,49 @@
+/* Perfil de jugador: mismo look que el perfil profesional de los paneles de rol.
+   El panel de jugador no vive dentro de .gg-pnl, asi que se definen aqui las
+   variables que esos estilos (pnl-card, role-field...) esperan. */
+.plp-shell {
+  --panel-accent: var(--accent);
+  --panel-accent-rgb: var(--accent-rgb);
+  --pnl-cut-sm: 9px;
+  --pnl-cut-md: 14px;
+  --pnl-cut-lg: 18px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 4px 0 40px;
+}
+
+.plp__entries { display: grid; gap: 12px; }
+
+.plp__entry { display: grid; gap: 12px; padding: 14px; border: 1px solid var(--line); background: rgba(255, 255, 255, .02); }
+.plp__entry-head { display: flex; align-items: flex-end; gap: 10px; }
+.plp__grow { flex: 1; min-width: 0; }
+.plp__remove {
+  flex: none; width: 38px; height: 38px; display: grid; place-items: center; cursor: pointer;
+  color: var(--text-dim); background: transparent; border: 1px solid var(--line);
+}
+.plp__remove:hover { color: #ef4444; border-color: #ef4444; }
+.plp__remove svg { width: 15px; height: 15px; }
+.plp__add { justify-self: start; }
+
+.plp__phone { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 8px; }
+.plp-shell .role-field select,
+.plp-shell .role-field input,
+.plp-shell .role-field textarea {
+  width: 100%; box-sizing: border-box; min-width: 0; border: 1px solid var(--line);
+  background: rgba(5, 7, 10, .55); color: var(--text); font: inherit; font-size: 13px; line-height: 1.45; padding: 11px 12px; outline: none;
+}
+.plp-shell .role-field select option, .plp-shell .role-field select optgroup { background: #10131a; color: #f3f5f8; }
+.plp-shell .role-field select:focus,
+.plp-shell .role-field input:focus,
+.plp-shell .role-field textarea:focus { border-color: rgba(var(--panel-accent-rgb), .58); }
+.plp-shell .plp__entry .plp__grow > span { display: block; }
+
+/* ID de la cuenta en el juego: etiqueta y ejemplo cambian segun el juego. */
+.plp__account { display: grid; gap: 6px; }
+.plp__optional { color: var(--text-dim); font-weight: 400; }
+.plp-shell .plp__account input[data-invalid] { border-color: #ef4444; }
+.plp__account-hint { color: var(--text-dim); font-size: 11.5px; line-height: 1.4; }
+.plp__account-hint.is-error { color: #ef4444; }
+.plp__account-hint.is-warn { color: #f59e0b; }
+
+

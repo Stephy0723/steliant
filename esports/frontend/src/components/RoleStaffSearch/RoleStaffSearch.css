@@ -1,0 +1,234 @@
+.gg-staff-search {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.gg-staff-search__roles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.gg-staff-search__role-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  background: var(--bg-card);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: border-color .15s, color .15s, background .15s;
+  white-space: nowrap;
+}
+.gg-staff-search__role-tab svg { width: 14px; height: 14px; }
+.gg-staff-search__role-tab:hover { border-color: var(--accent); color: var(--text); }
+.gg-staff-search__role-tab.active {
+  border-color: var(--accent);
+  background: rgba(var(--accent-rgb), .12);
+  color: var(--accent);
+}
+
+.gg-staff-search__bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--bg-card);
+}
+.gg-staff-search__bar input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: var(--text);
+  font-size: 13px;
+  outline: none;
+}
+.gg-staff-search__icon { display: flex; color: var(--text-dim); }
+.gg-staff-search__icon svg { width: 16px; height: 16px; }
+.gg-staff-search__clear {
+  display: flex;
+  border: none;
+  background: transparent;
+  color: var(--text-dim);
+  cursor: pointer;
+}
+.gg-staff-search__clear:hover { color: var(--text); }
+.gg-staff-search__clear svg { width: 14px; height: 14px; }
+
+.gg-staff-search__error {
+  font-size: 12px;
+  color: #ef4444;
+}
+
+.gg-staff-search__results {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+.gg-staff-search__hint {
+  padding: 18px 8px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-dim);
+}
+.gg-staff-search__hint--muted {
+  padding: 10px 8px;
+  font-size: 11px;
+  opacity: .7;
+}
+
+.gg-staff-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--bg-card);
+}
+
+.gg-staff-card__avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.gg-staff-card__avatar--fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(var(--accent-rgb), .15);
+  color: var(--accent);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.gg-staff-card__body { flex: 1; min-width: 0; }
+
+.gg-staff-card__head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.gg-staff-card__head b {
+  color: var(--text);
+  font-size: 14.5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.gg-staff-card__team {
+  font-size: 11px;
+  font-weight: 700;
+  opacity: .85;
+}
+
+.gg-staff-card__role {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 11.5px;
+  color: var(--text-dim);
+  margin-top: 3px;
+}
+.gg-staff-card__role svg { width: 12px; height: 12px; }
+.gg-staff-card__code {
+  font-family: monospace;
+  color: var(--accent);
+  opacity: .8;
+}
+.gg-staff-card__history {
+  color: var(--text-dim);
+  opacity: .85;
+}
+
+.gg-staff-card__stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin-top: 10px;
+}
+.gg-staff-card__stat {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+.gg-staff-card__stat span {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: var(--text-dim);
+  opacity: .75;
+}
+.gg-staff-card__stat b {
+  font-size: 12.5px;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 220px;
+}
+
+.gg-staff-card__bio {
+  margin: 10px 0 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text-dim);
+}
+
+.gg-staff-card__select {
+  flex-shrink: 0;
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--accent);
+  background: rgba(var(--accent-rgb), .12);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .15s;
+}
+.gg-staff-card__select:hover:not(:disabled) { background: var(--accent); color: var(--accent-contrast, #04120a); }
+.gg-staff-card__select:disabled {
+  border-color: var(--line);
+  background: transparent;
+  color: var(--text-dim);
+  cursor: default;
+}
+.gg-staff-card__select svg { width: 14px; height: 14px; }
+
+.gg-staff-search__pager {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  font-size: 12px;
+  color: var(--text-dim);
+}
+.gg-staff-search__pager button {
+  display: flex;
+  border: 1px solid var(--line);
+  background: var(--bg-card);
+  color: var(--text-dim);
+  border-radius: 6px;
+  padding: 4px;
+  cursor: pointer;
+}
+.gg-staff-search__pager button:first-child svg { transform: rotate(180deg); }
+.gg-staff-search__pager button:hover:not(:disabled) { color: var(--text); border-color: var(--accent); }
+.gg-staff-search__pager button:disabled { opacity: .4; cursor: default; }
+.gg-staff-search__pager svg { width: 14px; height: 14px; }
+

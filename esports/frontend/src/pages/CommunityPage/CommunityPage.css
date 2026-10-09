@@ -1,0 +1,445 @@
+/* ═══════════════════════════════════════════════════
+   CommunityPage — Premium Gaming Feed
+   All colors via CSS tokens. No hardcoded values.
+   ═══════════════════════════════════════════════════ */
+
+.gg-cp { display: flex; flex-direction: column; gap: 18px; }
+
+/* ── Role banner ── */
+.gg-cp__role-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  border-radius: 12px;
+  padding: 12px 16px;
+  flex-wrap: wrap;
+  position: relative;
+  overflow: hidden;
+}
+.gg-cp__role-banner::before {
+  content: '';
+  position: absolute; top: 0; right: 0;
+  width: 200px; height: 100%;
+  background: radial-gradient(ellipse at 100% 50%, rgba(var(--accent-rgb), .05), transparent 70%);
+  pointer-events: none;
+}
+
+.gg-cp__gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.gg-cp__gallery-item {
+  overflow: hidden;
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--bg-card);
+}
+
+.gg-cp__gallery-item img,
+.gg-cp__gallery-item video {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  display: block;
+  object-fit: cover;
+  background: var(--bg);
+}
+
+.gg-cp__gallery-item figcaption {
+  padding: 10px 12px;
+  color: var(--text-dim);
+  font-size: 13px;
+  font-weight: 700;
+}
+.gg-cp__role-desc {
+  font-size: 12.5px; color: var(--text-dim); flex: 1;
+}
+
+/* ── Tag filter active ── */
+.gg-cp__tag-filter {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 12.5px; color: var(--text-dim);
+  padding: 7px 12px;
+  background: rgba(var(--accent-rgb), .07);
+  border: 1px solid rgba(var(--accent-rgb), .22);
+  border-radius: 10px;
+}
+.gg-cp__tag-filter b { color: var(--accent); }
+.gg-cp__tag-filter button {
+  background: none; border: none; cursor: pointer;
+  color: var(--text-dim); display: flex; padding: 3px; border-radius: 5px;
+  transition: color .12s;
+}
+.gg-cp__tag-filter button:hover { color: var(--text); }
+.gg-cp__tag-filter button svg { width: 12px; height: 12px; }
+
+/* ── Feed layout ── */
+.gg-cp__feed-layout { display: flex; flex-direction: column; gap: 14px; }
+.gg-cp__feed        { display: flex; flex-direction: column; gap: 12px; }
+
+/* ── Empty state ── */
+.gg-cp__empty {
+  text-align: center; padding: 64px 20px;
+  display: flex; flex-direction: column; align-items: center; gap: 14px;
+  color: var(--text-dim);
+}
+.gg-cp__empty svg { width: 36px; height: 36px; opacity: .25; }
+
+/* ═══════════════════════════════════════════════════
+   POST CARDS — Base
+   ═══════════════════════════════════════════════════ */
+.gg-cp-post {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 18px 20px 14px;
+  display: flex; flex-direction: column; gap: 14px;
+  position: relative; overflow: hidden;
+  transition: border-color .2s, transform .2s, box-shadow .2s;
+}
+.gg-cp-post::before {
+  content: '';
+  position: absolute; top: 0; left: 0; bottom: 0;
+  width: 3px;
+  background: rgba(var(--accent-rgb), .5);
+  border-radius: 14px 0 0 14px;
+  transition: background .2s, box-shadow .2s;
+}
+.gg-cp-post:hover {
+  border-color: rgba(var(--accent-rgb), .2);
+  transform: translateX(2px);
+  box-shadow: 0 4px 24px rgba(0,0,0,.22);
+}
+.gg-cp-post:hover::before {
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent);
+}
+
+/* Tournament type */
+.gg-cp-post--tournament::before { background: rgba(251, 191, 36, .55); }
+.gg-cp-post--tournament:hover::before { background: #fbbf24; box-shadow: 0 0 10px #fbbf24; }
+
+/* Event type */
+.gg-cp-post--event::before { background: rgba(251, 146, 60, .55); }
+.gg-cp-post--event:hover::before { background: #fb923c; box-shadow: 0 0 10px #fb923c; }
+
+/* ── Post header ── */
+.gg-cp-post__head {
+  display: flex; align-items: flex-start; gap: 11px;
+}
+.gg-cp-post__author {
+  flex: 1; display: flex; flex-direction: column; gap: 2px;
+}
+.gg-cp-post__author-row {
+  display: flex; align-items: center; gap: 7px; flex-wrap: wrap;
+}
+.gg-cp-post__nick {
+  font-family: var(--font-display);
+  font-weight: 800; font-size: 14px; color: var(--text);
+}
+.gg-cp-post__time {
+  font-size: 11px; color: var(--text-dim);
+}
+.gg-cp-post__text {
+  font-size: 14px; color: var(--text); line-height: 1.68; margin: 0;
+}
+
+/* ═══════════════════════════════════════════════════
+   TOURNAMENT inside post
+   ═══════════════════════════════════════════════════ */
+.gg-cp-post__tournament {
+  background: rgba(251, 191, 36, .05);
+  border: 1px solid rgba(251, 191, 36, .15);
+  border-radius: 12px;
+  padding: 16px 18px;
+  display: flex; flex-direction: column; gap: 14px;
+  position: relative; overflow: hidden;
+}
+.gg-cp-post__tournament::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, #fbbf24, rgba(251,191,36,.3), transparent);
+}
+.gg-cp-post__tournament h4 {
+  font-family: var(--font-display); font-size: 17px; font-weight: 900;
+  color: var(--text); margin: 0; letter-spacing: -.01em;
+}
+.gg-cp-post__t-meta {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  font-size: 12px; color: var(--text-dim);
+}
+.gg-cp-post__t-meta span {
+  display: flex; align-items: center; gap: 4px;
+}
+.gg-cp-post__t-meta svg { width: 12px; height: 12px; }
+
+/* ═══════════════════════════════════════════════════
+   EVENT inside post
+   ═══════════════════════════════════════════════════ */
+.gg-cp-post__event {
+  background: rgba(251, 146, 60, .05);
+  border: 1px solid rgba(251, 146, 60, .15);
+  border-radius: 12px;
+  padding: 16px 18px;
+  display: flex; flex-direction: column; gap: 12px;
+  position: relative; overflow: hidden;
+}
+.gg-cp-post__event::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, #fb923c, rgba(251,146,60,.3), transparent);
+}
+.gg-cp-post__event h4 {
+  font-family: var(--font-display); font-size: 17px; font-weight: 900;
+  color: var(--text); margin: 0; letter-spacing: -.01em;
+}
+.gg-cp-post__event p {
+  font-size: 13.5px; color: var(--text-dim); margin: 0; line-height: 1.58;
+}
+.gg-cp-post__e-meta {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  font-size: 12px; color: var(--text-dim);
+}
+.gg-cp-post__e-meta span, .gg-cp-post__e-meta a {
+  display: flex; align-items: center; gap: 5px;
+  color: var(--text-dim); text-decoration: none; transition: color .15s;
+}
+.gg-cp-post__e-meta a:hover { color: var(--accent); }
+.gg-cp-post__e-meta svg { width: 12px; height: 12px; }
+
+/* ═══════════════════════════════════════════════════
+   SLOTS progress bar
+   ═══════════════════════════════════════════════════ */
+.gg-cp-post__slots {
+  display: flex; flex-direction: column; gap: 6px;
+}
+.gg-cp-post__slots-bar {
+  height: 6px;
+  background: rgba(255,255,255,.07);
+  border-radius: 3px; overflow: hidden;
+}
+.gg-cp-post__slots-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #fbbf24, rgba(251,191,36,.7));
+  transition: width .5s ease;
+  border-radius: 3px;
+  box-shadow: 0 0 8px rgba(251,191,36,.5);
+}
+.gg-cp-post__slots span {
+  font-size: 11.5px; color: var(--text-dim); font-weight: 600;
+}
+
+/* ── Post footer (likes/comments) ── */
+.gg-cp-post__footer {
+  display: flex; gap: 4px;
+  border-top: 1px solid rgba(255,255,255,.05);
+  padding-top: 10px; margin-top: 2px;
+}
+
+/* ═══════════════════════════════════════════════════
+   TORNEOS TAB
+   ═══════════════════════════════════════════════════ */
+.gg-cp__torneos { display: flex; flex-direction: column; gap: 14px; }
+
+.gg-cp-torneo {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 20px 22px;
+  display: flex; flex-direction: column; gap: 16px;
+  position: relative; overflow: hidden;
+  transition: border-color .2s, box-shadow .2s;
+}
+.gg-cp-torneo::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, #fbbf24 0%, rgba(251,191,36,.4) 55%, transparent 100%);
+  box-shadow: 0 0 16px rgba(251,191,36,.3);
+}
+.gg-cp-torneo::after {
+  content: '';
+  position: absolute; top: 0; right: 0;
+  width: 200px; height: 100%;
+  background: radial-gradient(ellipse at 100% 30%, rgba(251,191,36,.05), transparent 70%);
+  pointer-events: none;
+}
+.gg-cp-torneo:hover {
+  border-color: rgba(251, 191, 36, .3);
+  box-shadow: 0 8px 32px rgba(0,0,0,.28);
+}
+.gg-cp-torneo__head { display: flex; flex-direction: column; gap: 10px; }
+.gg-cp-torneo__title-row {
+  display: flex; align-items: flex-start;
+  justify-content: space-between; gap: 12px; flex-wrap: wrap;
+}
+.gg-cp-torneo__title-row h3 {
+  font-family: var(--font-display); font-size: 18px; font-weight: 900;
+  color: var(--text); margin: 0; letter-spacing: -.01em;
+}
+.gg-cp-torneo__meta {
+  display: flex; gap: 14px; flex-wrap: wrap;
+  font-size: 12px; color: var(--text-dim);
+}
+.gg-cp-torneo__meta span {
+  display: flex; align-items: center; gap: 4px;
+}
+.gg-cp-torneo__meta svg { width: 12px; height: 12px; }
+.gg-cp-torneo__progress {
+  display: flex; align-items: center; gap: 12px;
+}
+.gg-cp-torneo__slots {
+  font-size: 12px; color: var(--text-dim);
+  white-space: nowrap; font-weight: 700;
+}
+.gg-cp-torneo__progress .gg-cp-post__slots-bar { flex: 1; }
+
+/* ═══════════════════════════════════════════════════
+   CREADORES TAB
+   ═══════════════════════════════════════════════════ */
+.gg-cp__creadores { display: flex; flex-direction: column; gap: 12px; }
+
+/* ═══════════════════════════════════════════════════
+   NOTICIAS TAB
+   ═══════════════════════════════════════════════════ */
+.gg-cp__noticias { display: flex; flex-direction: column; gap: 12px; }
+
+.gg-cp-news {
+  display: flex; gap: 16px; align-items: flex-start;
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 14px; padding: 18px 20px;
+  cursor: pointer;
+  transition: border-color .18s, box-shadow .18s, transform .18s;
+  position: relative; overflow: hidden;
+}
+.gg-cp-news:hover {
+  border-color: rgba(255,255,255,.12);
+  box-shadow: 0 6px 24px rgba(0,0,0,.25);
+  transform: translateY(-2px);
+}
+.gg-cp-news__dot {
+  width: 4px;
+  min-height: 48px;
+  align-self: stretch;
+  border-radius: 2px;
+  flex-shrink: 0;
+  box-shadow: 0 0 8px currentColor;
+}
+.gg-cp-news > div { display: flex; flex-direction: column; gap: 7px; flex: 1; }
+.gg-cp-news__tag { align-self: flex-start; }
+.gg-cp-news h4 {
+  font-family: var(--font-display); font-size: 15px; font-weight: 800;
+  color: var(--text); margin: 0; line-height: 1.35;
+}
+.gg-cp-news p {
+  font-size: 13px; color: var(--text-dim); margin: 0; line-height: 1.6;
+}
+.gg-cp-news time {
+  font-size: 11px; color: var(--text-dim); font-weight: 600;
+}
+
+/* ═══════════════════════════════════════════════════
+   MÁS INFO TAB
+   ═══════════════════════════════════════════════════ */
+.gg-cp__info { display: flex; flex-direction: column; gap: 16px; }
+
+.gg-cp__info-section {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 20px 22px;
+  display: flex; flex-direction: column; gap: 14px;
+  position: relative; overflow: hidden;
+}
+.gg-cp__info-section::before {
+  content: '';
+  position: absolute; top: 0; left: 0; bottom: 0;
+  width: 3px;
+  background: rgba(var(--accent-rgb), .4);
+  border-radius: 14px 0 0 14px;
+}
+.gg-cp__info-section h3 {
+  font-family: var(--font-display);
+  font-size: 10px; font-weight: 900;
+  color: var(--accent); margin: 0;
+  text-transform: uppercase; letter-spacing: .14em;
+}
+.gg-cp__info-section p {
+  font-size: 14px; color: var(--text-dim);
+  line-height: 1.7; margin: 0;
+}
+.gg-cp__info-tags {
+  display: flex; flex-wrap: wrap; gap: 7px;
+}
+.gg-cp__info-events { display: flex; flex-direction: column; gap: 0; }
+.gg-cp__info-event {
+  display: flex; align-items: center; gap: 14px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,.04);
+  font-size: 13.5px; color: var(--text);
+}
+.gg-cp__info-event:last-child { border-bottom: none; }
+.gg-cp__info-event-date {
+  min-width: 52px; font-weight: 800; color: var(--accent);
+  font-family: var(--font-display); font-size: 12px;
+  text-transform: uppercase; letter-spacing: .04em;
+}
+.gg-cp__info-links { display: flex; flex-direction: column; gap: 7px; }
+.gg-cp__info-link {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 13px; color: var(--text-dim); text-decoration: none;
+  padding: 11px 14px; border-radius: 10px;
+  background: rgba(var(--accent-rgb), .04);
+  border: 1px solid rgba(var(--accent-rgb), .1);
+  transition: color .15s, background .15s, border-color .15s, transform .15s;
+}
+.gg-cp__info-link:hover {
+  color: var(--accent);
+  background: rgba(var(--accent-rgb), .09);
+  border-color: rgba(var(--accent-rgb), .28);
+  transform: translateX(4px);
+}
+.gg-cp__info-link svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .gg-cp-post            { padding: 14px 16px 12px; }
+  .gg-cp-post__tournament,
+  .gg-cp-post__event     { padding: 13px 14px; }
+  .gg-cp-torneo          { padding: 16px 16px; }
+  .gg-cp-torneo__title-row { flex-wrap: wrap; }
+  .gg-cp__info-section   { padding: 16px 16px; }
+}
+
+/* ════════ Molde oficial de comunidad (Más info) ════════ */
+.gg-cp__mold-card { background: linear-gradient(160deg, rgba(var(--accent-rgb), .1), var(--bg-card)); border: 1px solid rgba(var(--accent-rgb), .3) !important; }
+.gg-cp__mold-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+.gg-cp__mold-badge { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 800; letter-spacing: .04em; color: var(--accent); }
+.gg-cp__mold-badge svg { width: 14px; height: 14px; }
+.gg-cp__mold-id { font-family: var(--font-display); font-size: 13px; letter-spacing: .04em; color: var(--text); background: var(--bg-elev); border: 1px solid var(--line); padding: 4px 10px; border-radius: 8px; }
+.gg-cp__mold-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; }
+.gg-cp__mold-grid div { display: flex; flex-direction: column; gap: 2px; }
+.gg-cp__mold-grid span { font-size: 11px; text-transform: uppercase; letter-spacing: .04em; color: var(--text-dim); }
+.gg-cp__mold-grid b { font-size: 13.5px; }
+.gg-cp__mold-dev { font-size: 14px; margin: 0 0 12px; }
+.gg-cp__mold-dev b { color: var(--accent); }
+.gg-cp__mold-rules { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; }
+.gg-cp__mold-rules li { font-size: 13.5px; line-height: 1.5; color: var(--text); }
+.gg-cp__mold-rules li::marker { color: var(--accent); font-weight: 700; }
+.gg-cp__mold-policy { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+.gg-cp__mold-policy > div { padding: 13px 15px; border-radius: 13px; border: 1px solid var(--line); background: var(--bg-elev); }
+.gg-cp__mold-policy b { font-size: 13.5px; display: block; margin-bottom: 5px; }
+.gg-cp__mold-policy p { font-size: 12.5px; color: var(--text-dim); margin: 0; line-height: 1.5; }
+.gg-cp__mold-policy .ok { border-color: rgba(34,197,94,.3); }
+.gg-cp__mold-policy .no { border-color: rgba(245,158,11,.3); }
+.gg-cp__mold-policy .ban { border-color: rgba(var(--danger-rgb),.3); }
+.gg-cp__mold-team { display: flex; flex-wrap: wrap; gap: 10px; }
+.gg-cp__mold-member { display: flex; flex-direction: column; gap: 3px; padding: 11px 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--bg-elev); }
+.gg-cp__mold-role { font-size: 10.5px; text-transform: uppercase; letter-spacing: .04em; color: var(--accent); font-weight: 700; }
+.gg-cp__mold-member b { font-size: 13.5px; }
+

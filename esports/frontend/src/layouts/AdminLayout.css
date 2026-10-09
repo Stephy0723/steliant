@@ -1,0 +1,733 @@
+/* ═══════════════════════════════════════════════════
+   Admin Layout — Premium Gaming Panel
+   ═══════════════════════════════════════════════════ */
+
+.gg-admin {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  min-height: 100vh;
+  background: var(--bg);
+  transition: grid-template-columns .25s ease;
+}
+.gg-admin.collapsed { grid-template-columns: 64px 1fr; }
+
+/* ── Sidebar ── */
+.gg-admin-side {
+  background: var(--bg-elev);
+  border-right: 1px solid var(--line);
+  display: flex; flex-direction: column;
+  position: sticky; top: 0; height: 100vh;
+  overflow: hidden;
+}
+
+/* Logo / header */
+.gg-admin-side__logo {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 16px;
+  border-bottom: 1px solid var(--line);
+  min-height: 64px;
+  position: relative;
+  overflow: hidden;
+}
+.gg-admin-side__logo::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+}
+.gg-admin-side__logo-group {
+  display: flex; align-items: center; gap: 10px;
+}
+.gg-admin-side__logo-icon {
+  width: 32px; height: 32px; flex: none;
+  display: grid; place-items: center;
+  background: transparent;
+  border: 0;
+  border-radius: 8px;
+  color: var(--text);
+  box-shadow: 0 0 14px rgba(var(--accent-rgb), .18);
+}
+.gg-admin-side__logo-icon .gg-logo img { width: 28px; height: 28px; }
+.gg-admin-side__logo-text { line-height: 1.15; }
+.gg-admin-side__logo-text span {
+  display: block;
+  font-family: var(--font-display); font-size: 11px; font-weight: 900;
+  color: var(--accent); letter-spacing: .14em; text-transform: uppercase;
+}
+.gg-admin-side__logo-text small {
+  display: block;
+  font-size: 9px; color: var(--text-dim); letter-spacing: .08em; text-transform: uppercase;
+}
+.gg-admin-side__collapse {
+  background: none; border: none; cursor: pointer;
+  color: var(--text-dim); padding: 6px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 8px;
+  transition: color .15s, background .15s;
+  flex: none;
+}
+.gg-admin-side__collapse:hover { color: var(--text); background: rgba(255,255,255,.06); }
+.gg-admin-side__collapse svg { width: 16px; height: 16px; }
+/* Colapsado: el sidebar mide 64px y el logo empujaba el botón de expandir
+   fuera de la vista; se oculta el logo y el botón queda centrado. */
+.gg-admin.collapsed .gg-admin-side__logo { justify-content: center; padding: 18px 8px; }
+.gg-admin.collapsed .gg-admin-side__logo-group { display: none; }
+.gg-admin.collapsed .gg-admin-side__collapse svg { transform: rotate(180deg); }
+
+/* Nav */
+.gg-admin-side__nav {
+  flex: 1; overflow-y: auto;
+  padding: 12px 10px;
+  display: flex; flex-direction: column; gap: 2px;
+  scrollbar-width: none;
+}
+.gg-admin-side__nav::-webkit-scrollbar { display: none; }
+
+.gg-admin-side__nav-section {
+  font-size: 9px; font-weight: 900; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--text-dim);
+  padding: 10px 10px 4px; opacity: .6;
+}
+.gg-admin.collapsed .gg-admin-side__nav-section { display: none; }
+
+.gg-admin-side__bottom {
+  padding: 12px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Nav items */
+.gg-admin-nav {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  transition: background .18s, color .18s, border-color .18s;
+  position: relative;
+  overflow: hidden;
+  justify-content: flex-start;
+}
+
+.gg-admin-nav:hover {
+  background: rgba(255, 255, 255, .055);
+  color: var(--text);
+}
+
+.gg-admin-nav.has-alert::after {
+  content: '';
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px rgba(var(--accent-rgb), .12), 0 0 18px rgba(var(--accent-rgb), .55);
+  animation: gg-admin-alert-pulse 1.8s ease-in-out infinite;
+}
+
+.gg-admin-side__bottom .gg-admin-nav:hover {
+  background: rgba(var(--accent-rgb), .1);
+  color: var(--accent);
+}
+.gg-admin-nav.active {
+  background: rgba(var(--accent-rgb), .12);
+  color: var(--accent); font-weight: 700;
+  border: 1px solid rgba(var(--accent-rgb), .2);
+  box-shadow: 0 0 16px rgba(var(--accent-rgb), .06);
+}
+.gg-admin-nav.active::before {
+  content: '';
+  position: absolute; left: 0; top: 20%; bottom: 20%;
+  width: 3px; border-radius: 0 3px 3px 0;
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent);
+}
+.gg-admin-nav__icon {
+  display: flex; flex: none; width: 20px; justify-content: center;
+}
+.gg-admin-nav__icon svg { width: 17px; height: 17px; }
+.gg-admin-nav__label { white-space: nowrap; overflow: hidden; flex: 1; text-align: left; }
+.gg-admin-nav__badge {
+  font-size: 9px; font-weight: 900;
+  background: rgba(248,113,113,.2); color: #f87171;
+  border: 1px solid rgba(248,113,113,.3);
+  border-radius: 20px; padding: 1px 6px; flex: none;
+}
+.gg-admin-nav__badge--dot {
+  background: rgba(var(--accent-rgb), .16);
+  color: var(--accent);
+  border-color: rgba(var(--accent-rgb), .36);
+  box-shadow: 0 0 14px rgba(var(--accent-rgb), .22);
+}
+.gg-admin.collapsed .gg-admin-nav__badge,
+.gg-admin.collapsed .gg-admin-nav__label { display: none; }
+.gg-admin.collapsed .gg-admin-nav { justify-content: center; padding: 10px; }
+.gg-admin.collapsed .gg-admin-nav.active::before { display: none; }
+
+/* User card at bottom */
+.gg-admin-side__user {
+  padding: 12px;
+  border-top: 1px solid var(--line);
+  display: flex; align-items: center; gap: 10px;
+  cursor: pointer;
+  transition: background .15s;
+  border-radius: 0;
+}
+.gg-admin-side__user:hover { background: rgba(255,255,255,.04); }
+.gg-admin-side__user img {
+  width: 34px; height: 34px;
+  border-radius: 50%; object-fit: cover;
+  border: 1.5px solid rgba(var(--accent-rgb), .4);
+  box-shadow: 0 0 8px rgba(var(--accent-rgb), .15);
+  flex: none;
+}
+.gg-admin-side__user-info { min-width: 0; }
+.gg-admin-side__user-info b {
+  display: block; font-size: 12.5px; font-weight: 700; color: var(--text);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.gg-admin-side__user-info small {
+  display: block; font-size: 10px; color: var(--accent); font-weight: 700;
+  text-transform: uppercase; letter-spacing: .06em;
+}
+.gg-admin.collapsed .gg-admin-side__user-info { display: none; }
+
+/* ── Main ── */
+.gg-admin-main {
+  display: flex; flex-direction: column; min-height: 100vh; min-width: 0;
+}
+
+/* Topbar */
+.gg-admin-topbar {
+  height: 64px;
+  border-bottom: 1px solid var(--line);
+  padding: 0 28px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 10;
+  background: rgba(var(--bg), .95); backdrop-filter: blur(12px);
+}
+.gg-admin-topbar__title {
+  font-family: var(--font-display);
+  font-size: 13px; font-weight: 900;
+  color: var(--text-dim); text-transform: uppercase; letter-spacing: .1em;
+}
+.gg-admin-topbar__right { display: flex; align-items: center; gap: 12px; }
+
+.gg-admin-attention {
+  min-height: 34px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0 12px;
+  border: 1px solid rgba(var(--accent-rgb), .35);
+  border-radius: 999px;
+  background: rgba(var(--accent-rgb), .12);
+  color: var(--accent);
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 0 18px rgba(var(--accent-rgb), .12);
+}
+
+.gg-admin-attention svg {
+  width: 15px;
+  height: 15px;
+}
+
+.gg-admin-help-btn {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(var(--accent-rgb), .38);
+  border-radius: 999px;
+  background: rgba(var(--accent-rgb), .1);
+  color: var(--accent);
+  box-shadow: 0 0 18px rgba(var(--accent-rgb), .1);
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 16px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: transform .16s ease, background .16s ease, border-color .16s ease;
+}
+
+.gg-admin-help-btn:hover {
+  transform: translateY(-1px);
+  border-color: rgba(var(--accent-rgb), .7);
+  background: rgba(var(--accent-rgb), .16);
+}
+
+@keyframes gg-admin-alert-pulse {
+  0%, 100% { transform: scale(1); opacity: .9; }
+  50% { transform: scale(1.35); opacity: 1; }
+}
+.gg-admin-topbar__user {
+  display: flex; align-items: center; gap: 9px; font-size: 13px; color: var(--text);
+  background: var(--bg-card); border: 1px solid var(--line);
+  padding: 6px 12px 6px 6px; border-radius: 99px;
+}
+.gg-admin-topbar__avatar {
+  width: 28px; height: 28px; border-radius: 50%;
+  object-fit: cover; border: 1.5px solid rgba(var(--accent-rgb), .35);
+}
+.gg-admin-topbar__role {
+  font-size: 9px; padding: 2px 8px;
+  background: rgba(var(--accent-rgb), .14);
+  color: var(--accent); border-radius: 99px;
+  font-weight: 900; letter-spacing: .1em; text-transform: uppercase;
+}
+
+/* Content */
+.gg-admin-content {
+  flex: 1;
+  min-width: 0;
+  padding: 28px;
+  overflow-x: auto;
+}
+
+/* ── Admin page helper ── */
+.gg-admin-page { display: flex; flex-direction: column; gap: 24px; min-width: 0; max-width: 100%; }
+.gg-admin-page__header {
+  display: flex; align-items: flex-start;
+  justify-content: space-between; gap: 14px; flex-wrap: wrap;
+}
+.gg-admin-page__header h2 {
+  font-family: var(--font-display); font-size: 22px; font-weight: 900;
+  color: var(--text); letter-spacing: -.01em; margin: 0;
+}
+.gg-admin-page__header p {
+  font-size: 13px; color: var(--text-dim); margin-top: 3px;
+}
+
+/* Generic card */
+.gg-admin-card {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 16px; padding: 20px;
+  position: relative; overflow: hidden;
+}
+.gg-admin-card h3 {
+  font-family: var(--font-display); font-size: 12px; color: var(--accent);
+  text-transform: uppercase; letter-spacing: .12em; margin: 0 0 16px;
+  font-weight: 900;
+}
+.gg-admin-dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.gg-admin-card__heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+.gg-admin-card__heading h3 { margin: 0; }
+.gg-admin-select {
+  padding: 6px 10px;
+  border: 1px solid var(--line); border-radius: 8px;
+  background: var(--bg-elev); color: var(--text); font-size: 12px; font-weight: 600;
+  cursor: pointer; outline: none; transition: border-color .15s;
+}
+.gg-admin-select:focus { border-color: rgba(var(--accent-rgb), .5); }
+.gg-admin-select option { background: var(--bg-elev); }
+.gg-admin-dim { color: var(--text-dim); font-size: 12px; }
+
+/* Controls row */
+.gg-admin-controls {
+  display: flex; gap: 10px; flex-wrap: wrap; align-items: center;
+}
+.gg-admin-search {
+  flex: 1; min-width: 200px; max-width: 340px;
+  position: relative; display: flex; align-items: center;
+  background: var(--bg-card); border: 1px solid var(--line);
+  border-radius: 10px; overflow: hidden;
+  transition: border-color .18s;
+}
+.gg-admin-search:focus-within { border-color: rgba(var(--accent-rgb), .5); }
+.gg-admin-search__icon {
+  position: absolute; left: 12px; color: var(--text-dim); display: flex; pointer-events: none;
+}
+.gg-admin-search__icon svg { width: 14px; height: 14px; }
+.gg-admin-search input {
+  flex: 1; background: none; border: none; outline: none;
+  padding: 10px 36px 10px 36px; font-size: 13px; color: var(--text);
+}
+.gg-admin-search input::placeholder { color: var(--text-dim); }
+.gg-admin-search__clear {
+  position: absolute; right: 8px; background: none; border: none;
+  cursor: pointer; color: var(--text-dim); display: flex;
+  padding: 4px; border-radius: 5px; transition: color .12s;
+}
+.gg-admin-search__clear:hover { color: var(--text); }
+.gg-admin-search__clear svg { width: 13px; height: 13px; }
+.gg-admin-filter-tabs { display: flex; gap: 5px; flex-wrap: wrap; }
+.gg-admin-filter-tab {
+  padding: 6px 14px; border-radius: 8px;
+  background: rgba(var(--accent-rgb), .05); border: 1px solid var(--line);
+  font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--text-dim); cursor: pointer; transition: all .18s;
+}
+.gg-admin-filter-tab:hover { color: var(--text); border-color: rgba(var(--accent-rgb), .3); }
+.gg-admin-filter-tab.active {
+  color: var(--accent); border-color: rgba(var(--accent-rgb), .5);
+  background: rgba(var(--accent-rgb), .12);
+}
+
+/* Shared table/data surfaces: keep wide records scrollable inside the page. */
+.gg-admin-content :where(.gg-datatable-wrap, .at-table-wrap, .gg-audit__wrap, .aa-list, .gg-ec__history-wrap) {
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+}
+
+.gg-admin-content :where(table, .gg-admin-card, .gg-admin-control__table) {
+  max-width: 100%;
+}
+
+.gg-admin-help {
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(0,0,0,.72);
+  backdrop-filter: blur(9px);
+}
+
+.gg-admin-help__panel {
+  width: min(680px, 100%);
+  max-height: calc(100dvh - 48px);
+  overflow-y: auto;
+  border: 1px solid rgba(var(--accent-rgb), .28);
+  border-radius: 12px;
+  padding: 24px;
+  background:
+    linear-gradient(135deg, rgba(var(--accent-rgb), .08), transparent 38%),
+    var(--bg-card);
+  box-shadow: 0 32px 90px rgba(0,0,0,.62);
+}
+
+.gg-admin-help__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.gg-admin-help__head span,
+.gg-admin-help section h3 {
+  color: var(--accent);
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.gg-admin-help__head h2 {
+  margin: 5px 0 0;
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: clamp(24px, 4vw, 34px);
+  line-height: 1.05;
+}
+
+.gg-admin-help__head button {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  flex: none;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: rgba(255,255,255,.04);
+  color: var(--text-dim);
+  cursor: pointer;
+}
+
+.gg-admin-help__head button:hover {
+  color: var(--text);
+  background: rgba(255,255,255,.07);
+}
+
+.gg-admin-help__head button svg {
+  width: 17px;
+  height: 17px;
+}
+
+.gg-admin-help__summary {
+  margin: 18px 0;
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.55;
+}
+
+.gg-admin-help section {
+  margin-top: 18px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: rgba(255,255,255,.025);
+}
+
+.gg-admin-help section h3 {
+  margin: 0 0 12px;
+}
+
+.gg-admin-help ul {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gg-admin-help li {
+  position: relative;
+  padding-left: 18px;
+  color: var(--text-dim);
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+.gg-admin-help li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: .62em;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--accent);
+  box-shadow: 0 0 12px rgba(var(--accent-rgb), .45);
+}
+
+.gg-admin-help__note {
+  display: grid;
+  gap: 4px;
+  margin-top: 18px;
+  padding: 14px 16px;
+  border: 1px solid rgba(245,158,11,.35);
+  border-radius: 10px;
+  background: rgba(245,158,11,.08);
+  color: #fcd34d;
+}
+
+.gg-admin-help__note b {
+  font-size: 13px;
+}
+
+.gg-admin-help__note span {
+  color: color-mix(in srgb, #fcd34d 74%, var(--text-dim));
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+/* ════════════════════════════════════════════════════════════
+   Skin moderno — mismo lenguaje visual angular/clip-path que
+   PlayerLayout/PanelShell (los paneles mas nuevos de la app).
+   Todo lo de aca cascada a las 22 paginas de /admin porque son
+   clases compartidas definidas una sola vez en este archivo.
+   ════════════════════════════════════════════════════════════ */
+.gg-admin {
+  --gga-cut-sm: 9px;
+  --gga-cut-md: 14px;
+  --gga-cut-lg: 18px;
+}
+
+.gg-admin-side::after {
+  content: '';
+  position: absolute;
+  top: 0; right: -1px; bottom: 0; width: 1px;
+  background: linear-gradient(180deg, transparent, rgba(var(--accent-rgb), .5) 16%, rgba(var(--accent-rgb), .5) 64%, transparent);
+  pointer-events: none;
+}
+
+.gg-admin-side__logo-icon {
+  border: 1px solid rgba(var(--accent-rgb), .32);
+  background: rgba(var(--accent-rgb), .1);
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm)));
+}
+
+.gg-admin-side__logo-text span,
+.gg-admin-side__nav-section,
+.gg-admin-side__user-info small,
+.gg-admin-topbar__title,
+.gg-admin-topbar__role,
+.gg-admin-nav__badge {
+  font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+
+.gg-admin-side__nav-section {
+  display: flex; align-items: center; gap: 8px;
+  letter-spacing: .24em;
+}
+.gg-admin-side__nav-section::after {
+  content: ''; flex: 1; height: 1px; background: var(--line);
+}
+
+.gg-admin-nav {
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm)));
+}
+.gg-admin-nav.active {
+  border-radius: 0;
+  background: linear-gradient(90deg, rgba(var(--accent-rgb), .17), rgba(var(--accent-rgb), .02));
+  box-shadow: none;
+}
+
+.gg-admin-side__user {
+  clip-path: polygon(0 0, calc(100% - 11px) 0, 100% 11px, 100% 100%, 11px 100%, 0 calc(100% - 11px));
+}
+.gg-admin-side__user img { border-radius: 0; clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px)); }
+.gg-admin-side__user-info small { font-size: 8.5px; letter-spacing: .16em; }
+
+.gg-admin-topbar__title { font-size: 12px; letter-spacing: .16em; }
+.gg-admin-topbar__role {
+  border-radius: 0;
+  border: 1px solid rgba(var(--accent-rgb), .45);
+  padding: 5px 11px;
+  font-size: 9px; letter-spacing: .18em;
+  clip-path: polygon(0 0, calc(100% - 7px) 0, 100% 7px, 100% 100%, 7px 100%, 0 calc(100% - 7px));
+}
+.gg-admin-topbar__user { border-radius: 0; clip-path: polygon(0 0, calc(100% - 11px) 0, 100% 11px, 100% 100%, 11px 100%, 0 calc(100% - 11px)); }
+.gg-admin-topbar__avatar { border-radius: 0; clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px)); }
+
+.gg-admin-attention {
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm)));
+}
+
+.gg-admin-card {
+  border-radius: 0;
+  background:
+    linear-gradient(135deg, rgba(var(--accent-rgb), .06), transparent 46%),
+    var(--bg-card);
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-lg)) 0, 100% var(--gga-cut-lg), 100% 100%, var(--gga-cut-lg) 100%, 0 calc(100% - var(--gga-cut-lg)));
+}
+.gg-admin-card h3 { font-family: 'IBM Plex Mono', ui-monospace, monospace; letter-spacing: .18em; font-size: 10.5px; }
+
+.gg-admin-select {
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 7px) 0, 100% 7px, 100% 100%, 7px 100%, 0 calc(100% - 7px));
+}
+
+.gg-admin-search {
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm)));
+}
+
+.gg-admin-filter-tab {
+  border-radius: 0;
+  font-weight: 800;
+  clip-path: polygon(0 0, calc(100% - 7px) 0, 100% 7px, 100% 100%, 7px 100%, 0 calc(100% - 7px));
+}
+
+@media (max-width: 900px) {
+  .gg-admin-card,
+  .gg-admin-nav,
+  .gg-admin-side__user {
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  }
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .gg-admin { grid-template-columns: 64px 1fr; }
+  .gg-admin-side__logo-text { display: none; }
+  .gg-admin-nav__label { display: none; }
+  .gg-admin-nav__badge { display: none; }
+  .gg-admin-nav { justify-content: center; padding: 10px; }
+  .gg-admin-nav.active::before { display: none; }
+  .gg-admin-content { padding: 16px; }
+  .gg-admin-dashboard-grid { grid-template-columns: 1fr; }
+  .gg-admin-side__nav-section { display: none; }
+  .gg-admin-side__user-info { display: none; }
+}
+
+@media (max-width: 640px) {
+  .gg-admin { grid-template-columns: 52px minmax(0, 1fr); }
+  .gg-admin-side__nav { padding: 10px 6px; }
+  .gg-admin-side__bottom { padding: 8px 6px; }
+  .gg-admin-side__user { justify-content: center; padding: 10px 6px; }
+  .gg-admin-side__user img { width: 30px; height: 30px; }
+
+  .gg-admin-topbar {
+    height: 56px;
+    min-width: 0;
+    padding: 0 10px;
+    gap: 8px;
+  }
+  .gg-admin-topbar__title {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 10px;
+    letter-spacing: .1em;
+  }
+  .gg-admin-topbar__right { gap: 6px; }
+  .gg-admin-topbar__user { padding: 4px; }
+  .gg-admin-topbar__user > span { display: none; }
+  .gg-admin-topbar__avatar { width: 28px; height: 28px; }
+  .gg-admin-help-btn { width: 32px; height: 32px; }
+  .gg-admin-attention { min-height: 32px; padding: 0 8px; }
+  .gg-admin-attention svg + * { display: none; }
+
+  .gg-admin-content { padding: 14px 10px 24px; }
+  .gg-admin-page { gap: 16px; }
+  .gg-admin-page__header { gap: 10px; }
+  .gg-admin-page__header h2 { font-size: 19px; }
+  .gg-admin-page__header p { font-size: 12px; line-height: 1.45; }
+  .gg-admin-card { padding: 14px; }
+  .gg-admin-controls { align-items: stretch; }
+  .gg-admin-search { flex-basis: 100%; width: 100%; max-width: none; min-width: 0; }
+  .gg-admin-filter-tabs { width: 100%; }
+  .gg-admin-filter-tab { flex: 1 1 auto; text-align: center; padding-inline: 9px; }
+}
+
+@media (max-width: 420px) {
+  .gg-admin { grid-template-columns: 46px minmax(0, 1fr); }
+  .gg-admin-nav { padding: 9px 6px; }
+  .gg-admin-nav__icon { width: 18px; }
+  .gg-admin-content { padding-inline: 8px; }
+  .gg-admin-topbar__title { max-width: 42vw; }
+  .gg-admin-help-btn { width: 30px; height: 30px; }
+  .gg-admin-attention { min-width: 30px; padding: 0 7px; }
+  .gg-admin-help { padding: 10px; }
+  .gg-admin-help__panel { max-height: calc(100dvh - 20px); padding: 16px; }
+}
+
+/* Badges, avisos y listas que se agregaron despues del pase HUD: mismo
+   corte angular que el resto del panel. */
+.gg-admin .gg-badge {
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 5px) 0, 100% 5px, 100% 100%, 5px 100%, 0 calc(100% - 5px));
+}
+.gg-admin :where(.gg-pay__note, .gg-mod__effect, .gg-acom-mod__list, .gg-acom-mod__row button, .gg-acom-mod__pager button, .gg-acom__tabs button, .gg-admin-raffle__entrants div, .gg-admin-raffle__btn, .gg-admin-staff__actions button) {
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm)));
+}
+/* Componentes compartidos con la web publica: dentro del admin toman el
+   corte angular (fuera del admin conservan su forma original). */
+.gg-admin .gg-datatable-wrap,
+.gg-admin .gg-datatable th:first-child {
+  border-radius: 0;
+}
+.gg-admin .gg-datatable-wrap,
+.gg-admin .gg-tc {
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-md)) 0, 100% var(--gga-cut-md), 100% 100%, var(--gga-cut-md) 100%, 0 calc(100% - var(--gga-cut-md)));
+}
+.gg-admin .gg-stat-card__icon {
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 7px) 0, 100% 7px, 100% 100%, 7px 100%, 0 calc(100% - 7px));
+}
+

@@ -1,0 +1,600 @@
+﻿/* ── Topbar shell ─────────────────────────────────────────── */
+.gg-topbar {
+  height: 60px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-elev);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 clamp(14px, 1.8vw, 24px);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+/* ── Subbar (breadcrumb + clock) ──────────────────────────── */
+.gg-subbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 clamp(14px, 1.8vw, 24px);
+  height: 32px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: 60px;
+  z-index: 19;
+}
+.gg-subbar__crumbs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.gg-subbar__dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 6px var(--accent);
+  flex: none;
+}
+.gg-subbar__crumb-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.gg-subbar__seg {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-dim);
+  letter-spacing: .06em;
+}
+.gg-subbar__slash {
+  font-size: 11px;
+  color: var(--text-dim);
+  opacity: .4;
+}
+.gg-subbar__clock {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-dim);
+  letter-spacing: .04em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.gg-subbar__clock-sep { opacity: .35; }
+
+@media (max-width: 480px) { .gg-subbar__clock { display: none; } }
+
+/* ── Brand: logo + separator + page title ─────────────────── */
+.gg-topbar__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  flex: none;
+  color: var(--text);
+}
+.gg-topbar__brand:hover .gg-logo img { opacity: .85; }
+.gg-topbar__sep {
+  width: 1px; height: 18px;
+  background: var(--line);
+  flex: none;
+}
+.gg-topbar__page {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+/* ── Search bar ───────────────────────────────────────────── */
+.gg-topsearch {
+  flex: 1;
+  max-width: 480px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 0 12px;
+  height: 38px;
+  color: var(--text-dim);
+  font-size: 13px;
+  cursor: text;
+  transition: border-color .15s;
+  margin-left: 6px;
+}
+.gg-topsearch:hover { border-color: rgba(var(--accent-rgb), .35); }
+.gg-topsearch svg { width: 15px; height: 15px; flex: none; }
+.gg-topsearch span {
+  flex: 1;
+  min-width: 0;
+  overflow: visible;
+  text-align: left;
+  white-space: nowrap;
+}
+.gg-topsearch kbd {
+  font-size: 11px;
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  padding: 2px 6px;
+  color: var(--text-dim);
+  font-family: var(--font-body);
+  flex: none;
+}
+
+/* ── Right section ────────────────────────────────────────── */
+.gg-topright {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+  min-width: 0;
+}
+.gg-toplang {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg-card);
+  flex: none;
+}
+.gg-toplang button {
+  border: 0;
+  background: transparent;
+  color: var(--text-dim);
+  padding: 5px 8px;
+  border-radius: 7px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .15s, color .15s;
+}
+.gg-toplang button.on {
+  background: var(--accent);
+  color: #04130b;
+}
+.gg-points-chip{display:flex;align-items:center;gap:5px;padding:8px 10px;border:1px solid var(--rank-color,var(--accent));border-radius:99px;background:var(--bg);color:var(--rank-color,var(--accent));box-shadow:0 0 14px var(--rank-glow,rgba(var(--accent-rgb),.2));cursor:pointer;transition:transform .2s,box-shadow .2s}.gg-points-chip:hover{transform:translateY(-1px);box-shadow:0 0 22px var(--rank-glow,rgba(var(--accent-rgb),.3))}
+.gg-points-chip svg{width:14px;height:14px}.gg-points-chip b{font-size:12px}.gg-points-chip span{font-size:10px}
+@media(max-width:620px){.gg-points-chip span{display:none}.gg-points-chip{padding:8px}}
+
+/* ── Icon buttons ─────────────────────────────────────────── */
+.gg-iconbtn {
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-dim);
+  position: relative;
+  transition: color .15s, background .15s;
+  flex: none;
+}
+.gg-iconbtn:hover { color: var(--text); background: rgba(var(--accent-rgb), .08); }
+.gg-iconbtn svg { width: 18px; height: 18px; }
+.gg-iconbtn .count {
+  position: absolute;
+  top: 2px; right: 2px;
+  background: var(--accent-2);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 700;
+  border-radius: 99px;
+  padding: 1px 4px;
+  border: 2px solid var(--bg-elev);
+  line-height: 1.1;
+}
+
+/* ── Notifications wrap ───────────────────────────────────── */
+.gg-notif-wrap { position: relative; }
+
+/* ── User chip ────────────────────────────────────────────── */
+.gg-topuser-wrap { position: relative; }
+.gg-topuser {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 5px 10px 5px 5px;
+  cursor: pointer;
+  transition: border-color .15s;
+  color: var(--text);
+  position: relative;
+  overflow: hidden;
+}
+.gg-topuser:hover { border-color: rgba(var(--accent-rgb), .4); }
+.gg-topuser::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, transparent, rgba(var(--status-rgb, var(--accent-rgb)), .16), transparent),
+    radial-gradient(circle at 18% 50%, rgba(var(--status-rgb, var(--accent-rgb)), .22), transparent 32%);
+  opacity: .34;
+  transform: translateX(-58%);
+}
+/* La franja de ::before queda fija: animarla pasaba un barrido por encima de
+   la foto y el nick en TODAS las paginas (se veia como parpadeo/vibracion).
+   El estado se sigue notando por el color y el puntito. */
+.gg-topuser img {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(var(--accent-rgb), .3);
+  flex: none;
+}
+.gg-topuser__info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+}
+.gg-topuser__nick {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1;
+  white-space: nowrap;
+}
+.gg-topuser__status {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--text-dim);
+  line-height: 1;
+}
+.gg-topuser__dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  flex: none;
+  background: var(--status-color, var(--accent));
+  box-shadow: 0 0 8px var(--status-color, var(--accent));
+}
+/* Solo el puntito se anima, siempre suave: nada de steps() ni saltos de
+   posicion (glitch/tilt/guard/float), ni desvanecerse casi a cero (vanish). */
+.gg-topuser.status-motion--breathe .gg-topuser__dot,
+.gg-topuser.status-motion--pulse .gg-topuser__dot,
+.gg-topuser.status-motion--victory .gg-topuser__dot,
+.gg-topuser.status-motion--scale .gg-topuser__dot,
+.gg-topuser.status-motion--float .gg-topuser__dot { animation: gg-dot-breathe 2.4s ease-in-out infinite; }
+.gg-topuser.status-motion--signal .gg-topuser__dot,
+.gg-topuser.status-motion--radar .gg-topuser__dot,
+.gg-topuser.status-motion--live .gg-topuser__dot { animation: gg-dot-signal 1.8s ease-out infinite; }
+.gg-topuser.status-motion--search .gg-topuser__dot { animation: gg-dot-search 2.4s ease-in-out infinite; }
+.gg-topuser.status-motion--tilt .gg-topuser__dot,
+.gg-topuser.status-motion--glitch .gg-topuser__dot,
+.gg-topuser.status-motion--guard .gg-topuser__dot,
+.gg-topuser.status-motion--fade .gg-topuser__dot,
+.gg-topuser.status-motion--vanish .gg-topuser__dot { animation: gg-dot-fade 2.6s ease-in-out infinite; }
+
+@keyframes gg-dot-breathe {
+  0%, 100% { transform: scale(.9); opacity: .78; }
+  50% { transform: scale(1.2); opacity: 1; }
+}
+@keyframes gg-dot-signal {
+  0% { box-shadow: 0 0 0 0 rgba(var(--status-rgb), .55); }
+  100% { box-shadow: 0 0 0 8px rgba(var(--status-rgb), 0); }
+}
+@keyframes gg-dot-search {
+  0%, 100% { transform: scale(.92); box-shadow: 0 0 7px var(--status-color); }
+  45% { transform: scale(1.18); box-shadow: 0 0 13px var(--status-color), 0 0 0 4px rgba(var(--status-rgb), .08); }
+}
+@keyframes gg-dot-fade {
+  0%, 100% { opacity: .36; }
+  50% { opacity: .86; }
+}
+
+/* ── User dropdown ────────────────────────────────────────── */
+.gg-user-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 220px;
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  z-index: 200;
+  box-shadow: 0 8px 32px rgba(0,0,0,.22);
+}
+.gg-user-dropdown__header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 14px 12px;
+}
+.gg-user-dropdown__header img {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(var(--accent-rgb), .3);
+  flex: none;
+}
+.gg-user-dropdown__nick {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+}
+.gg-user-dropdown__email {
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-top: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 140px;
+}
+.gg-user-dropdown__sep { height: 1px; background: var(--line); }
+.gg-user-dropdown__item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  color: var(--text-dim);
+  transition: .15s;
+  text-align: left;
+}
+.gg-user-dropdown__item:hover { background: var(--bg-card); color: var(--text); }
+.gg-user-dropdown__item svg { width: 16px; height: 16px; flex: none; }
+.gg-user-dropdown__item--danger { color: #f87171; }
+.gg-user-dropdown__item--danger:hover { background: rgba(248,113,113,.08); color: #f87171; }
+
+/* ── Search overlay + modal ───────────────────────────────── */
+.gg-search-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.55);
+  backdrop-filter: blur(4px);
+  z-index: 900;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 80px;
+}
+.gg-search-modal {
+  width: 560px;
+  max-width: calc(100vw - 32px);
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 24px 80px rgba(0,0,0,.45);
+}
+.gg-search-modal__input-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--line);
+}
+.gg-search-modal__icon { color: var(--text-dim); flex: none; }
+.gg-search-modal__icon svg { width: 18px; height: 18px; }
+.gg-search-modal__input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--text);
+}
+.gg-search-modal__input::placeholder { color: var(--text-dim); }
+.gg-search-esc {
+  font-size: 11px;
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 3px 8px;
+  color: var(--text-dim);
+  cursor: pointer;
+  font-family: var(--font-body);
+  flex: none;
+}
+.gg-search-esc:hover { border-color: var(--accent); color: var(--accent); }
+.gg-search-modal__results {
+  max-height: min(460px, calc(100vh - 180px));
+  overflow-y: auto;
+  padding: 6px;
+}
+.gg-search-result {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background .12s;
+  text-align: left;
+}
+.gg-search-result:hover,
+.gg-search-result.is-active { background: var(--bg-card); }
+.gg-search-result.is-active { box-shadow: inset 2px 0 0 var(--accent); }
+.gg-search-result__icon { color: var(--text-dim); flex: none; }
+.gg-search-result__icon svg { width: 17px; height: 17px; }
+.gg-search-result__text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.gg-search-result__label { font-size: 14px; color: var(--text); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.gg-search-result__path { font-size: 12px; color: var(--text-dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.gg-search-group + .gg-search-group { margin-top: 4px; border-top: 1px solid var(--line); padding-top: 4px; }
+.gg-search-group__label {
+  padding: 8px 12px 4px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.gg-search-thumb {
+  width: 32px; height: 32px; flex: none;
+  border-radius: 8px;
+  object-fit: cover;
+  background: var(--bg-card);
+}
+.gg-search-thumb.is-round { border-radius: 50%; }
+.gg-search-thumb--mono {
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; color: var(--text-dim);
+  border: 1px solid var(--line);
+}
+.gg-search-note { padding: 12px; font-size: 12.5px; color: var(--text-dim); }
+.gg-search-spinner {
+  display: inline-block; width: 16px; height: 16px;
+  border: 2px solid var(--line); border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: gg-search-spin .7s linear infinite;
+}
+@keyframes gg-search-spin { to { transform: rotate(360deg); } }
+.gg-search-empty { padding: 24px; text-align: center; color: var(--text-dim); font-size: 13px; }
+
+/* ── Admin & Organizador buttons ──────────────────────────── */
+.gg-btn-admin,
+.gg-btn-organizer {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(var(--accent-rgb), .3);
+  background: rgba(var(--accent-rgb), .08);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .18s;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  white-space: nowrap;
+}
+
+.gg-btn-admin:hover {
+  background: rgba(var(--accent-rgb), .15);
+  border-color: var(--accent);
+  box-shadow: 0 0 12px rgba(var(--accent-rgb), .2);
+}
+
+.gg-btn-organizer {
+  border-color: rgba(249, 115, 22, .3);
+  background: rgba(249, 115, 22, .08);
+  color: #f97316;
+}
+
+.gg-btn-organizer:hover {
+  background: rgba(249, 115, 22, .15);
+  border-color: #f97316;
+  box-shadow: 0 0 12px rgba(249, 115, 22, .2);
+}
+
+.gg-btn-admin svg,
+.gg-btn-organizer svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 1120px) {
+  .gg-topbar {
+    gap: 8px;
+    padding-right: 12px;
+  }
+
+  .gg-topsearch {
+    flex: 0 1 220px;
+    min-width: 42px;
+    max-width: 260px;
+  }
+
+  .gg-topright {
+    gap: 6px;
+  }
+}
+
+@media (max-width: 980px) {
+  .gg-topsearch {
+    flex: 0 0 40px;
+    width: 40px;
+    padding: 0;
+    justify-content: center;
+    margin-left: 0;
+  }
+
+  .gg-topsearch span,
+  .gg-topsearch kbd {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) { .gg-topbar { padding-left: 62px; } }
+@media (max-width: 760px) {
+  .gg-subbar__crumbs {
+    min-width: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .gg-subbar__crumbs::-webkit-scrollbar { display: none; }
+  .gg-toplang { display: none; }
+  .gg-btn-admin span,
+  .gg-btn-organizer span { display: none; }
+  .gg-btn-admin,
+  .gg-btn-organizer { padding-inline: 9px; }
+}
+@media (max-width: 640px) { .gg-topsearch { display: none; } }
+@media (max-width: 520px) {
+  .gg-topbar { gap: 6px; padding-right: 10px; }
+  .gg-topbar__page { display: none; }
+  .gg-topbar__sep  { display: none; }
+  .gg-topuser__info { display: none; }
+  .gg-topright { gap: 4px; }
+  .gg-iconbtn { width: 32px; height: 32px; }
+  .gg-btn-admin,
+  .gg-btn-organizer {
+    min-width: 32px;
+    padding-inline: 8px;
+  }
+  .gg-points-chip { max-width: 74px; overflow: hidden; }
+  .gg-topuser { padding: 4px; }
+}
+@media (min-width: 1600px) {
+  .gg-topbar,
+  .gg-subbar {
+    padding-inline: 28px;
+  }
+  .gg-topsearch {
+    max-width: 560px;
+  }
+}
+@media (max-width: 380px) {
+  .gg-iconbtn[title="Noticias"],
+  .gg-iconbtn[title="News"],
+  .gg-iconbtn[title="Ranking"] { display: none; }
+  .gg-points-chip { display: none; }
+}
+

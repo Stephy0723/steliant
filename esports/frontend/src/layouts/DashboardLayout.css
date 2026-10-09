@@ -1,0 +1,84 @@
+.gg-app {
+  --dashboard-sidebar-w: 258px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  min-height: 100vh;
+  background:
+    linear-gradient(
+      90deg,
+      var(--bg-elev) 0 var(--dashboard-sidebar-w),
+      var(--line) var(--dashboard-sidebar-w) calc(var(--dashboard-sidebar-w) + 1px),
+      var(--bg) calc(var(--dashboard-sidebar-w) + 1px) 100%
+    );
+}
+.gg-app:has(.gg-side.collapsed) { --dashboard-sidebar-w: 70px; }
+.gg-main {
+  --app-shell-max: 1760px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow: hidden;
+  /* clip corta igual que hidden pero no crea contenedor de scroll: asi el
+     topbar sticky se queda arriba al hacer scroll (con hidden se iba). */
+  overflow: clip;
+  min-width: 0;
+}
+.gg-content {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: clamp(18px, 2vw, 28px) clamp(16px, 2.4vw, 32px) clamp(32px, 3vw, 44px);
+  min-width: 0;
+  background:
+    radial-gradient(ellipse 90% 55% at 8% 12%, rgba(var(--accent-rgb), .055) 0%, transparent 60%),
+    radial-gradient(ellipse 70% 45% at 95% 5%, rgba(var(--accent-rgb), .09) 0%, transparent 55%),
+    var(--bg);
+}
+.gg-content > *:not(.gg-footer) {
+  width: min(100%, var(--app-shell-max));
+  margin-inline: auto;
+}
+.gg-content > .gg-footer {
+  width: auto;
+  margin: 48px calc(clamp(16px, 2.4vw, 32px) * -1) calc(clamp(32px, 3vw, 44px) * -1);
+}
+
+@media (min-width: 901px) {
+  .gg-app {
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+  }
+
+  .gg-main {
+    height: 100vh;
+    height: 100dvh;
+    min-height: 0;
+  }
+
+  .gg-side {
+    height: 100vh;
+    height: 100dvh;
+  }
+}
+
+@media (max-width: 900px) {
+  .gg-app {
+    grid-template-columns: 1fr;
+    background: var(--bg);
+    overflow: visible;
+  }
+
+  .gg-main {
+    height: auto;
+    overflow: visible;
+  }
+
+  /* En movil scrollea la ventana, no .gg-content. Con overflow-y:auto se volvia
+     contenedor de scroll (que nunca se desplaza) y rompia todo position:sticky
+     de adentro, p. ej. las pestañas de Editar perfil. clip recorta igual en X
+     sin crear contenedor de scroll. */
+  .gg-content { padding: 16px 16px 32px; overflow: visible; overflow-x: clip; }
+  .gg-content > .gg-footer { margin: 40px -16px -32px; }
+}
+

@@ -1,0 +1,219 @@
+/* ===== GlitchGang · tokens globales (Premium Glass) ===== */
+:root{
+  --accent:#00E676;
+  --accent-rgb:0,230,118;
+  --accent-2:#7c3aed;            /* segundo acento para gradientes */
+  --danger:#EF4444;
+  --danger-rgb:239,68,68;
+  --bg:#06070b;                  /* casi negro con tinte frío */
+  --bg-elev:#0e1118;             /* superficie elevada fría */
+  --bg-card:rgba(255,255,255,.045);
+  --bg-glass:rgba(18,22,32,.55); /* cristal translúcido */
+  --line:rgba(255,255,255,.085);
+  --line-hi:rgba(255,255,255,.16); /* borde-luz superior del cristal */
+  --text:#f3f5f8;
+  --text-dim:#8b93a3;
+  --radius:20px;
+  --shadow-card:0 10px 34px rgba(0,0,0,.42), 0 1px 0 var(--line-hi) inset;
+  --shadow-soft:0 18px 50px rgba(0,0,0,.5);
+  --font-display:'Chakra Petch',sans-serif;
+  --font-body:'Sora',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+/* El sitio es oscuro siempre: sin esto, Windows/Chrome dibuja los popups
+   nativos (opciones de <select>, date/time pickers) con su tema claro por
+   defecto -- fondo blanco y texto gris apenas legible -- sin importar el
+   color que le pongamos por CSS a <option>.
+   overflow-x:clip (y no hidden) en html+body: con hidden en los dos, body se
+   vuelve contenedor de scroll y todo position:sticky (sidebar del admin,
+   topbars) deja de pegarse. hidden queda solo de respaldo para navegadores
+   viejos. */
+html{scroll-behavior:smooth;color-scheme:dark;overflow-x:hidden;overflow-x:clip}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;overflow-x:clip;transition:background .4s,color .4s}
+
+/* color-scheme:dark no alcanza: Chrome/Edge en Windows sigue dibujando el
+   popup de opciones de <select> con fondo blanco del sistema operativo pase
+   lo que pase, e ignora el background-color que le pongamos a <option> por
+   CSS -- solo respeta el color de texto, así que un texto claro pensado
+   para fondo oscuro queda casi invisible sobre ese blanco forzado. En vez
+   de perseguir cada <select> del sitio, se fuerza aquí mismo el par
+   fondo blanco / texto oscuro en todos los <option>, para que sea legible
+   sin importar si el navegador respeta o no el resto del theming oscuro. */
+option{
+  background:#fff !important;
+  color:#111 !important;
+}
+
+/* Fondo ambiental premium con profundidad (glows + gradiente) */
+body::before{
+  content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(1100px 620px at 10% -8%, rgba(var(--accent-rgb),.12), transparent 58%),
+    radial-gradient(950px 640px at 102% 0%, color-mix(in srgb, var(--accent-2) 60%, transparent), transparent 52%),
+    radial-gradient(820px 820px at 50% 122%, rgba(var(--accent-rgb),.07), transparent 60%),
+    linear-gradient(180deg, #07080d, #050609 55%, #07080d);
+}
+html.gg-perf body::before{ background:#06070b; }
+
+/* Superficies de cristal premium en toda la app (vía clases de tarjeta comunes) */
+.pnl-card,.gg-card,.gset-card,.cmc-panel,.gg-news__card,.gg-news__feature,.gg-news__panel,
+.gg-dir__card,.org-fin__card,.gg-tco__sum-card,.cp-hero,.gg-rcard,.bd-hero,.cc-hero,
+.gg-team-card,.gg-tdetail,.wn-card,.gg-verify__card,.cmc-done__card,.gset__nav-item.active{
+  box-shadow:var(--shadow-card);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+}
+.pnl-card,.gg-card,.gset-card,.cmc-panel{
+  background:linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.022));
+  border-color:var(--line);
+}
+html.gg-perf .pnl-card,html.gg-perf .gg-card,html.gg-perf .gset-card,html.gg-perf .cmc-panel,
+html.gg-perf .gg-news__card,html.gg-perf .gg-rcard,html.gg-perf .gg-team-card{ backdrop-filter:none;-webkit-backdrop-filter:none; }
+
+::selection{background:rgba(var(--accent-rgb),.28);color:var(--text)}
+
+/* Scrollbar premium */
+*::-webkit-scrollbar{width:10px;height:10px}
+*::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:20px;border:2px solid transparent;background-clip:padding-box}
+*::-webkit-scrollbar-thumb:hover{background:rgba(var(--accent-rgb),.4);background-clip:padding-box}
+*::-webkit-scrollbar-track{background:transparent}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit}
+.gg-badge svg{width:15px;height:15px;vertical-align:middle;flex:none}
+
+/* ── Responsive utilities ── */
+img, svg, video, canvas { max-width: 100%; }
+input, select, textarea { max-width: 100%; font: inherit; }
+.gg-page,
+.gg-content,
+.gg-main,
+.gg-card,
+[class*="__card"],
+[class*="__body"],
+[class*="__grid"] { min-width: 0; }
+
+@media(max-width:1024px){
+  .gg-content{padding-inline:20px}
+  .gg-prm-plans__grid,
+  .gg-pricing__plans,
+  .gg-planview__body,
+  .gg-admin-grid,
+  .gg-settings-grid,
+  .gg-profile-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+}
+
+@media(max-width:640px){
+  body{font-size:14px}
+  .gg-page{width:100%;overflow-x:hidden}
+  .gg-content{padding:14px 12px 28px!important}
+  .gg-tourneys,.gg-games-grid,.gg-friends-grid,.gg-news-grid,.gg-prm-grid,
+  .gg-prm-plans__grid,.gg-pricing__plans,.gg-pricing__highlights,.gg-planview__body,
+  .gg-admin-grid,.gg-settings-grid,.gg-profile-grid,.gg-dashboard-grid,
+  .gg-cards-grid,.gg-form-grid,.gg-auth-grid{
+    grid-template-columns:1fr!important;
+  }
+  .gg-card,[class*="__card"],[class*="-card"]{max-width:100%}
+  .gg-btn,.gg-plan__cta,.gg-prm-hero__cta button{min-height:42px}
+  .gg-tabs{max-width:100%;overflow-x:auto;scrollbar-width:none;flex-wrap:nowrap}
+  .gg-tabs::-webkit-scrollbar{display:none}
+  .gg-tabs>*{flex:none}
+  .gg-pm-row,.gg-tr-head,.gg-tr-row,.gg-uni-rank-table,table{min-width:620px}
+  .gg-profile-matches,.gg-teamrank__table,.gg-uni-ranking,.gg-table-wrap,[class*="table"]{overflow-x:auto}
+  h1{font-size:clamp(24px,9vw,36px)!important}
+  h2{font-size:clamp(20px,7vw,28px)!important}
+  h3{font-size:clamp(16px,5vw,22px)!important}
+  p{overflow-wrap:anywhere}
+}
+
+/* KPIs (puntos, torneos, victorias...): 2 por fila en telefonos, nunca uno debajo del otro */
+@media(max-width:640px){.gg-kpis,.gg-kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+
+/* Topbar title on tiny screens */
+@media(max-width:360px){.gg-topbar h1{font-size:14px!important}}
+
+/* fondo atmosférico compartido */
+.bg-fx{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.bg-grid{position:absolute;inset:-2px;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:54px 54px;
+  mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 30%,transparent 80%);opacity:.5}
+.bg-glow{position:absolute;width:900px;height:900px;border-radius:50%;
+  background:radial-gradient(circle,rgba(var(--accent-rgb),.18),transparent 60%);
+  top:-360px;left:50%;transform:translateX(-50%);filter:blur(20px)}
+.bg-scan{position:absolute;inset:0;
+  background:repeating-linear-gradient(0deg,rgba(255,255,255,.022) 0 1px,transparent 1px 3px);
+  mix-blend-mode:overlay;opacity:.5}
+
+/* ════════ Modo Rendimiento — baja la calidad para ir más fluido ════════ */
+/* iteration-count: 1 es obligatorio: sin eso, las animaciones `infinite`
+   (fondo del login, glitch, tickers) daban miles de vueltas por segundo a
+   0.001ms cada una y la pantalla parpadeaba sin parar. */
+html.gg-perf *,
+html.gg-perf *::before,
+html.gg-perf *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  animation-delay: 0ms !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}
+html.gg-perf * { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+/* Los circulos de "cargando" si siguen girando: congelados parece que la
+   pagina se trabo. Una rotacion es barata. */
+html.gg-perf .gg-auth-spinner,
+html.gg-perf .gg-search-spinner,
+html.gg-perf .org-spinner {
+  animation-duration: 0.7s !important;
+  animation-iteration-count: infinite !important;
+}
+/* desactiva efectos costosos concretos */
+html.gg-perf .wn-scan,
+html.gg-perf .gp-banner__scan,
+html.gg-perf .gp-glitch::before,
+html.gg-perf .gp-glitch::after,
+html.gg-perf .nd-hero__blob,
+html.gg-perf .ndc-side__blob,
+html.gg-perf .cc-hero__glow,
+html.gg-perf .pt-glow,
+html.gg-perf .gp-glitch { animation: none !important; opacity: 1 !important; filter: none !important; }
+html.gg-perf .gp-glitch::before, html.gg-perf .gp-glitch::after { display: none !important; }
+
+/* ════════ Premium · botones e inputs globales ════════ */
+.pnl-btn--primary,
+.gg-btn--primary,
+.cmc-done .pnl-btn--primary {
+  background: var(--accent) !important;
+  border: 2px solid #050506 !important;
+  border-radius: 0 !important;
+  color: var(--accent-contrast, #04120a) !important;
+  box-shadow: 4px 4px 0 #f2f4f0 !important;
+  font-family: var(--font-display, var(--font-body)) !important;
+  font-weight: 800 !important;
+  letter-spacing: .14em !important;
+  text-transform: uppercase !important;
+}
+.pnl-btn--primary:hover,
+.gg-btn--primary:hover { filter: none; transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #f2f4f0 !important; }
+.pnl-btn--primary:active,
+.gg-btn--primary:active { transform: translate(4px, 4px); box-shadow: 0 0 0 #f2f4f0 !important; }
+.pnl-btn, .gg-btn { transition: transform .14s, filter .14s, border-color .15s, background .15s; }
+
+/* Inputs con cristal sutil en toda la app */
+.pnl-card input, .pnl-card select, .pnl-card textarea,
+.gset-input, .cmc-field input, .cmc-field select, .cmc-field textarea,
+.chub-input, .gg-tco__field input {
+  background: rgba(255,255,255,.03) !important;
+}
+.pnl-card input:focus, .gset-input:focus, .cmc-field input:focus,
+.cmc-field textarea:focus, .chub-input:focus {
+  box-shadow: 0 0 0 3px rgba(var(--accent-rgb), .12);
+}
+
+/* Borde-luz superior premium en tarjetas clave */
+.pnl-card::before, .gset-card::before {
+  content: none;
+}
+

@@ -1,0 +1,220 @@
+.org-participants {
+  padding: 32px 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.org-participants__header {
+  margin-bottom: 28px;
+}
+
+.org-participants__header h1 {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 900;
+  color: var(--text);
+  margin: 0;
+}
+
+.org-participants__header p {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: var(--text-dim);
+}
+
+.org-participants__stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.org-stat-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.org-stat-card__icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(var(--accent-rgb), 0.12);
+  border-radius: 8px;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.org-stat-card__content {
+  flex: 1;
+}
+
+.org-stat-card__label {
+  font-size: 11px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.org-stat-card__value {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text);
+  margin-top: 2px;
+}
+
+.org-participants__controls {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.org-participants__search {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  height: 40px;
+}
+
+.org-participants__search input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  outline: none;
+  color: var(--text);
+  font-size: 13px;
+}
+
+.org-participants__filters {
+  display: flex;
+  gap: 8px;
+}
+
+.org-select {
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  background: var(--bg-card);
+  color: var(--text);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.org-participants__table {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.org-participants__table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.org-participants__table thead {
+  background: var(--bg-elev);
+  border-bottom: 1px solid var(--line);
+}
+
+.org-participants__table th {
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 700;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 11px;
+}
+
+.org-participants__table tbody tr {
+  border-bottom: 1px solid var(--line);
+  transition: background 0.15s;
+}
+
+.org-participants__table tbody tr:hover {
+  background: rgba(var(--accent-rgb), 0.04);
+}
+
+.org-participants__table td {
+  padding: 12px 16px;
+  color: var(--text);
+}
+
+.org-team-name {
+  font-weight: 600;
+}
+
+.org-players {
+  font-size: 11px;
+  color: var(--text-dim);
+}
+
+.org-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.org-badge--paid {
+  background: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+}
+
+.org-badge--pending {
+  background: rgba(245, 158, 11, 0.15);
+  color: #f59e0b;
+}
+
+.org-badge--refunded {
+  background: rgba(107, 114, 128, 0.15);
+  color: #6b7280;
+}
+
+.org-icon-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: var(--text-dim);
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.15s;
+}
+
+.org-icon-btn:hover {
+  background: rgba(var(--accent-rgb), 0.1);
+  color: var(--accent);
+}
+
+@media (max-width: 768px) {
+  .org-participants__controls {
+    flex-direction: column;
+  }
+
+  .org-participants__table {
+    overflow-x: auto;
+  }
+}
+

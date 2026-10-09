@@ -1,0 +1,123 @@
+.gg-soc-page { display: flex; flex-direction: column; min-height: 100%; }
+
+/* ── Hero ── */
+.gg-soc-hero {
+  position: relative; overflow: hidden;
+  padding: 60px 32px 52px;
+  display: flex; justify-content: center;
+  border-bottom: 1px solid var(--line);
+}
+.gg-soc-hero__grid {
+  position: absolute; inset: 0; z-index: 0;
+  background-image:
+    linear-gradient(rgba(var(--accent-rgb),.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--accent-rgb),.06) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+.gg-soc-hero::after {
+  content: ''; position: absolute; inset: 0; z-index: 0;
+  background: radial-gradient(ellipse 55% 60% at 50% 0%, rgba(var(--accent-rgb),.16), transparent);
+}
+.gg-soc-hero__inner {
+  position: relative; z-index: 1;
+  display: flex; flex-direction: column; align-items: center;
+  gap: 12px; text-align: center; max-width: 560px;
+}
+.gg-soc-hero__logo {
+  width: 56px; height: 56px;
+  background: var(--bg-card); border: 1px solid rgba(var(--accent-rgb),.3);
+  border-radius: 16px; display: flex; align-items: center; justify-content: center;
+  margin-bottom: 4px;
+}
+.gg-soc-hero__logo .gg-logo img { width: 36px; height: 36px; }
+.gg-soc-hero__inner h1 {
+  font-family: var(--font-display); font-size: clamp(30px, 5vw, 46px);
+  font-weight: 700; letter-spacing: .04em; line-height: 1;
+}
+.gg-soc-hero__sub {
+  font-size: 12px; font-weight: 600; letter-spacing: .25em;
+  color: var(--accent); text-transform: uppercase; margin-top: -6px;
+}
+.gg-soc-hero__desc {
+  font-size: 15px; color: var(--text-dim); line-height: 1.65;
+  max-width: 440px; margin-top: 4px;
+}
+.gg-soc-hero__stats {
+  display: flex; gap: 32px; margin-top: 12px;
+}
+.gg-soc-hero__stats > div {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+}
+.gg-soc-hero__stats span {
+  font-family: var(--font-display); font-size: 22px; font-weight: 700; color: var(--accent);
+}
+.gg-soc-hero__stats small { font-size: 11px; color: var(--text-dim); }
+
+/* ── Links list ── */
+.gg-soc-links {
+  display: flex; flex-direction: column; gap: 12px;
+  padding: 32px; max-width: 720px; margin: 0 auto; width: 100%;
+}
+
+.gg-soc-card {
+  display: flex; align-items: center; gap: 18px;
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--lc);
+  border-radius: 14px; padding: 18px 20px;
+  text-decoration: none; color: var(--text);
+  transition: background .18s, border-color .18s, box-shadow .2s;
+  cursor: pointer;
+}
+.gg-soc-card:hover {
+  background: var(--lb);
+  border-color: var(--lc);
+  box-shadow: 0 4px 24px rgba(0,0,0,.15), 0 0 20px color-mix(in srgb, var(--lc) 12%, transparent);
+}
+.gg-soc-card__icon {
+  width: 48px; height: 48px; flex: none;
+  background: var(--lb);
+  border: 1px solid color-mix(in srgb, var(--lc) 30%, transparent);
+  border-radius: 12px; display: flex; align-items: center; justify-content: center;
+  color: var(--lc); transition: transform .2s;
+}
+.gg-soc-card:hover .gg-soc-card__icon { transform: scale(1.1); }
+.gg-soc-card__icon svg { width: 22px; height: 22px; }
+.gg-soc-card__body { flex: 1; min-width: 0; }
+.gg-soc-card__top {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 4px;
+}
+.gg-soc-card__top strong { font-size: 15px; font-weight: 700; }
+.gg-soc-card__handle {
+  font-size: 12px; color: var(--lc); font-weight: 600;
+  background: color-mix(in srgb, var(--lc) 12%, transparent);
+  padding: 2px 8px; border-radius: 6px;
+}
+.gg-soc-card__body p {
+  font-size: 13px; color: var(--text-dim); line-height: 1.5;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.gg-soc-card__right {
+  display: flex; flex-direction: column; align-items: flex-end; gap: 8px; flex: none;
+}
+.gg-soc-card__stat {
+  font-size: 12px; font-weight: 700; color: var(--text-dim);
+  white-space: nowrap;
+}
+.gg-soc-card__arr {
+  width: 28px; height: 28px; flex: none;
+  border: 1px solid var(--line); border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-dim); transition: color .15s, border-color .15s;
+}
+.gg-soc-card__arr svg { width: 14px; height: 14px; }
+.gg-soc-card:hover .gg-soc-card__arr { color: var(--lc); border-color: var(--lc); }
+
+@media (max-width: 560px) {
+  .gg-soc-hero { padding: 44px 16px 36px; }
+  .gg-soc-hero__stats { gap: 20px; }
+  .gg-soc-links { padding: 20px 16px; }
+  .gg-soc-card__body p { display: none; }
+  .gg-soc-card { padding: 14px 16px; }
+}
+

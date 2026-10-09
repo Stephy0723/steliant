@@ -1,0 +1,11 @@
+.gg-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 600; letter-spacing: .04em;
+}
+.gg-badge--accent { background: rgba(var(--accent-rgb),.18); color: var(--accent); }
+.gg-badge--live { background: rgba(var(--danger-rgb),.18); color: var(--danger); animation: gg-badge-pulse 2s ease-in-out infinite; }
+@keyframes gg-badge-pulse { 0%,100%{opacity:1} 50%{opacity:.7} }
+.gg-badge--muted { background: var(--bg-card); color: var(--text-dim); border: 1px solid var(--line); }
+.gg-badge--warn { background: rgba(250,204,21,.18); color: #facc15; }
+.gg-badge--error { background: rgba(var(--danger-rgb),.15); color: var(--danger); }
+

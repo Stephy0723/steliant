@@ -1,0 +1,250 @@
+.gg-error-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: clamp(20px, 5vw, 56px);
+  background:
+    radial-gradient(circle at 25% 10%, rgba(var(--danger-rgb, 239, 68, 68), .18), transparent 28rem),
+    radial-gradient(circle at 72% 22%, rgba(var(--accent-rgb, 0, 229, 160), .1), transparent 22rem),
+    linear-gradient(180deg, var(--bg, #07090c), #030405);
+  color: var(--text, #fff);
+  overflow: hidden;
+}
+
+.gg-error-card {
+  position: relative;
+  width: min(680px, 100%);
+  padding: clamp(28px, 5vw, 48px);
+  border: 1px solid color-mix(in srgb, var(--danger, #ef4444) 34%, rgba(255,255,255,.1));
+  border-radius: 18px;
+  background:
+    linear-gradient(135deg, rgba(var(--danger-rgb, 239, 68, 68), .12), transparent 46%),
+    linear-gradient(180deg, color-mix(in srgb, var(--bg-card, #12151b) 92%, transparent), rgba(6, 8, 12, .92));
+  box-shadow: 0 34px 90px rgba(0,0,0,.48), inset 0 1px 0 rgba(255,255,255,.06);
+  text-align: center;
+  overflow: hidden;
+  animation: gg-error-enter .42s ease both;
+}
+
+.gg-error-card::before,
+.gg-error-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.gg-error-card::before {
+  background:
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+  background-size: 28px 28px;
+  opacity: .5;
+}
+
+.gg-error-card::after {
+  background: linear-gradient(90deg, transparent, rgba(var(--danger-rgb, 239, 68, 68), .16), transparent);
+  width: 38%;
+  transform: translateX(-120%);
+  animation: gg-error-sweep 3.4s ease-in-out infinite;
+}
+
+.gg-error-card__scan {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(180deg, transparent 0 8px, rgba(255,255,255,.035) 9px 10px);
+  mix-blend-mode: screen;
+  opacity: .36;
+  animation: gg-error-scan 2.8s linear infinite;
+}
+
+.gg-error-card__code {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  color: color-mix(in srgb, var(--danger, #ef4444) 76%, white 8%);
+  font: 900 10px var(--font-display, inherit);
+  letter-spacing: .14em;
+}
+
+.gg-error-card__icon {
+  position: relative;
+  z-index: 1;
+  width: 86px;
+  height: 86px;
+  margin: 0 auto 18px;
+  display: grid;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--danger, #ef4444) 44%, rgba(255,255,255,.12));
+  border-radius: 16px;
+  background: rgba(var(--danger-rgb, 239, 68, 68), .08);
+  box-shadow: 0 18px 46px rgba(var(--danger-rgb, 239, 68, 68), .16);
+}
+
+.gg-error-card__icon span {
+  position: relative;
+  color: #fff;
+  font: 950 52px var(--font-display, inherit);
+  line-height: 1;
+  animation: gg-error-glitch 1.5s steps(2, end) infinite;
+}
+
+.gg-error-card__icon span::before,
+.gg-error-card__icon span::after {
+  content: attr(data-glitch);
+  position: absolute;
+  inset: 0;
+  opacity: .75;
+}
+
+.gg-error-card__icon span::before {
+  color: #00e5a0;
+  transform: translate(-3px, 1px);
+  clip-path: inset(0 0 48% 0);
+}
+
+.gg-error-card__icon span::after {
+  color: var(--danger, #ef4444);
+  transform: translate(3px, -1px);
+  clip-path: inset(48% 0 0 0);
+}
+
+.gg-error-card__eyebrow,
+.gg-error-card__title,
+.gg-error-card__message,
+.gg-error-card__actions,
+.gg-error-card__hint {
+  position: relative;
+  z-index: 1;
+}
+
+.gg-error-card__eyebrow {
+  margin: 0 0 10px;
+  color: color-mix(in srgb, var(--danger, #ef4444) 82%, white 12%);
+  font: 900 11px var(--font-display, inherit);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.gg-error-card__title {
+  margin: 0;
+  color: var(--text, #fff);
+  font: 950 clamp(30px, 6vw, 54px) / .95 var(--font-display, inherit);
+  letter-spacing: 0;
+  text-transform: uppercase;
+  text-shadow: 0 18px 54px rgba(0,0,0,.46);
+}
+
+.gg-error-card__message {
+  width: min(520px, 100%);
+  margin: 18px auto 0;
+  color: var(--text-dim, #9ca3af);
+  font-size: 15px;
+  line-height: 1.55;
+  word-break: break-word;
+}
+
+.gg-error-card__actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 28px;
+}
+
+.gg-error-btn {
+  min-height: 46px;
+  padding: 0 18px;
+  border: 1px solid color-mix(in srgb, var(--text, #fff) 14%, transparent);
+  border-radius: 8px;
+  background: rgba(255,255,255,.045);
+  color: var(--text, #fff);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font: 900 13px var(--font-display, inherit);
+  cursor: pointer;
+  transition: transform .18s ease, border-color .18s ease, background .18s ease;
+}
+
+.gg-error-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.gg-error-btn:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--danger, #ef4444) 46%, white 6%);
+  background: rgba(255,255,255,.08);
+}
+
+.gg-error-btn--primary {
+  border-color: var(--danger, #ef4444);
+  background: linear-gradient(135deg, var(--danger, #ef4444), color-mix(in srgb, var(--accent, #00e5a0) 34%, var(--danger, #ef4444)));
+  color: #060708;
+  box-shadow: 0 14px 34px rgba(var(--danger-rgb, 239, 68, 68), .24);
+}
+
+.gg-error-card__hint {
+  margin-top: 18px;
+  color: color-mix(in srgb, var(--text-dim, #9ca3af) 82%, transparent);
+  font-size: 12px;
+}
+
+@keyframes gg-error-enter {
+  from { opacity: 0; transform: translateY(18px) scale(.97); filter: blur(8px); }
+  to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+
+@keyframes gg-error-sweep {
+  0%, 18% { transform: translateX(-140%); opacity: 0; }
+  42% { opacity: .85; }
+  100% { transform: translateX(260%); opacity: 0; }
+}
+
+@keyframes gg-error-scan {
+  from { transform: translateY(-24px); }
+  to { transform: translateY(24px); }
+}
+
+@keyframes gg-error-glitch {
+  0%, 100% { transform: translate(0); filter: none; }
+  12% { transform: translate(-2px, 1px); filter: drop-shadow(3px 0 #00e5a0); }
+  18% { transform: translate(3px, -1px); filter: drop-shadow(-3px 0 var(--danger, #ef4444)); }
+  24%, 72% { transform: translate(0); filter: none; }
+  78% { transform: translate(2px, 0); }
+}
+
+@media (max-width: 560px) {
+  .gg-error-card {
+    padding: 28px 18px;
+  }
+
+  .gg-error-card__code {
+    position: relative;
+    top: auto;
+    right: auto;
+    margin-bottom: 14px;
+  }
+
+  .gg-error-card__actions {
+    display: grid;
+  }
+
+  .gg-error-btn {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gg-error-page *,
+  .gg-error-page *::before,
+  .gg-error-page *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+}
+

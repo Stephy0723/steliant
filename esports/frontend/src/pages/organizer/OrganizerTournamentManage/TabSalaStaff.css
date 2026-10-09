@@ -1,0 +1,53 @@
+.otm-sala { display: flex; flex-direction: column; gap: 14px; max-width: 860px; }
+.otm-sala--empty { align-items: flex-start; padding: 24px; border: 1px solid var(--line); background: rgba(255, 255, 255, .03); }
+.otm-sala--empty svg { width: 28px; height: 28px; color: var(--accent, #22c55e); }
+.otm-sala--empty h3 { margin: 4px 0; }
+
+.otm-sala__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.otm-sala__head h3 { display: flex; align-items: center; gap: 8px; margin: 0 0 4px; font-size: 16px; }
+.otm-sala__head h3 svg { width: 18px; height: 18px; }
+.otm-sala__head p { margin: 0; font-size: 13px; line-height: 1.45; }
+.otm-sala__count {
+  flex: none; padding: 3px 10px; font-size: 12px; font-weight: 600;
+  border: 1px solid var(--line); color: var(--text-dim);
+}
+
+.otm-sala__list {
+  display: flex; flex-direction: column; gap: 10px; height: min(52vh, 480px); overflow-y: auto;
+  padding: 14px; border: 1px solid var(--line); background: rgba(255, 255, 255, .025);
+}
+.otm-sala__none { margin: auto; text-align: center; }
+.otm-sala__msg {
+  max-width: 82%; align-self: flex-start; padding: 9px 12px;
+  border: 1px solid var(--line); background: rgba(255, 255, 255, .05);
+}
+.otm-sala__msg--mine { align-self: flex-end; background: rgba(34, 197, 94, .1); border-color: rgba(34, 197, 94, .3); }
+.otm-sala__msg--report { border-color: rgba(245, 158, 11, .55); background: rgba(245, 158, 11, .09); }
+.otm-sala__meta { display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px; font-size: 12px; margin-bottom: 4px; }
+.otm-sala__meta b { font-size: 13px; }
+.otm-sala__meta time { margin-left: auto; color: var(--text-dim); font-size: 11px; }
+.otm-sala__role { color: var(--text-dim); font-size: 11px; }
+.otm-sala__flag {
+  display: inline-flex; align-items: center; gap: 4px; margin-bottom: 4px;
+  font-size: 11px; font-weight: 700; color: #fbbf24; text-transform: uppercase; letter-spacing: .04em;
+}
+.otm-sala__flag svg { width: 12px; height: 12px; }
+.otm-sala__msg p { margin: 0; font-size: 14px; line-height: 1.45; white-space: pre-wrap; overflow-wrap: anywhere; }
+.otm-sala__link { display: inline-block; margin-top: 6px; font-size: 12px; font-weight: 600; color: #fbbf24; text-decoration: none; }
+.otm-sala__link:hover { text-decoration: underline; }
+
+.otm-sala__composer { display: flex; flex-direction: column; gap: 8px; }
+.otm-sala__composer textarea {
+  width: 100%; resize: vertical; padding: 10px 12px; font: inherit; font-size: 14px; outline: none;
+  color: var(--text); background: rgba(255, 255, 255, .04); border: 1px solid var(--line);
+}
+.otm-sala__composer textarea:focus { border-color: var(--accent, #22c55e); }
+.otm-sala__actions { display: flex; align-items: center; justify-content: flex-end; gap: 14px; flex-wrap: wrap; }
+.otm-sala__check { display: inline-flex; align-items: center; gap: 6px; margin-right: auto; font-size: 13px; color: var(--text-dim); cursor: pointer; }
+.otm-sala__error { color: #ef4444; font-size: 12.5px; }
+
+@media (max-width: 640px) {
+  .otm-sala__head { flex-direction: column; }
+  .otm-sala__msg { max-width: 94%; }
+}
+

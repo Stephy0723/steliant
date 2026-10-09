@@ -1,0 +1,158 @@
+/* Pestaña Competencia del panel del organizador. */
+
+/* Aviso rojo fijo: todo cambio confirmado se notifica. */
+.otm-comp__notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1px solid rgba(var(--danger-rgb), .5);
+  border-left-width: 3px;
+  border-radius: 12px;
+  background: rgba(var(--danger-rgb), .09);
+  color: var(--text);
+}
+.otm-comp__notice svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; color: var(--danger); }
+.otm-comp__notice div { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.otm-comp__notice b { color: #ff8a8a; font-size: 14px; line-height: 1.45; }
+.otm-comp__notice span { color: var(--text-dim); font-size: 12.5px; line-height: 1.5; }
+
+/* Candados (bracket generado, rondas jugadas, torneo terminado). */
+.otm-comp__lock {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px 12px;
+  padding: 12px 14px;
+  border: 1px solid rgba(244, 196, 107, .35);
+  border-radius: 12px;
+  background: rgba(244, 196, 107, .07);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.otm-comp__lock > svg { width: 16px; height: 16px; flex-shrink: 0; color: #f4c46b; }
+.otm-comp__lock > span { flex: 1 1 260px; min-width: 0; }
+.otm-comp__lock .otm-btn svg { width: 13px; height: 13px; }
+
+.otm-comp__outcome {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  border: 1px solid rgba(244, 196, 107, .35);
+  border-radius: 12px;
+  background: rgba(244, 196, 107, .07);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.otm-comp__outcome svg { width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px; color: #f4c46b; }
+.otm-comp__outcome.is-sent { border-color: rgba(var(--accent-rgb), .35); background: rgba(var(--accent-rgb), .07); }
+.otm-comp__outcome.is-sent svg { color: var(--accent); }
+
+/* "Así se juega": fases -> rondas con su BO. */
+.otm-comp__phases { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+.otm-comp__phase-head { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 10px; margin-bottom: 8px; }
+.otm-comp__phase-head b { font-size: 14px; color: var(--text); }
+.otm-comp__phase-head .otm-muted { margin: 0; font-size: 12px; }
+.otm-comp__phase-step {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 20px; height: 20px; border-radius: 6px;
+  background: rgba(var(--accent-rgb), .14); color: var(--accent);
+  font: 700 11px var(--font-display);
+}
+.otm-comp__rounds { display: flex; flex-wrap: wrap; gap: 6px; }
+.otm-comp__round {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--bg-elev);
+  font-size: 12px;
+  color: var(--text);
+}
+.otm-comp__round em { font-style: normal; font-weight: 700; color: var(--accent); font-family: var(--font-display); }
+.otm-comp__round svg { width: 12px; height: 12px; color: var(--accent); }
+.otm-comp__round.is-played { opacity: .6; }
+.otm-comp__pace { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; margin-top: 14px; font-size: 12.5px; }
+.otm-comp__pace svg { width: 14px; height: 14px; }
+.otm-comp__pace a { color: var(--accent); }
+
+/* El formulario es el mismo del asistente (CompetitionFields, clases tc-*);
+   aca se le dan los tokens y estilos de campo que en el asistente pone
+   .tc-wizard (no se usa esa clase: arrastra reglas de scroll de la pagina). */
+.otm-comp__form {
+  --tc-ink: var(--text); --tc-muted: var(--text-dim); --tc-line: var(--line);
+  --tc-accent: var(--accent); --tc-surface: var(--bg-elev);
+  --tc-cut-sm: 8px; --tc-cut-md: 12px; --tc-cut-lg: 16px;
+  color: var(--text);
+  font-size: 14px;
+}
+.otm-comp__form input:not([type="checkbox"]):not([type="radio"]),
+.otm-comp__form select {
+  display: block; width: 100%; min-width: 0; min-height: 40px;
+  color: var(--text); background: var(--bg-elev);
+  border: 1px solid var(--line); border-radius: 9px;
+  padding: 9px 12px; font: inherit; font-size: 13px; color-scheme: dark;
+}
+.otm-comp__form input[type="radio"] { width: 16px; height: 16px; margin: 0; accent-color: var(--accent); flex-shrink: 0; }
+.otm-comp__form input:focus-visible,
+.otm-comp__form select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.otm-comp__form :disabled { opacity: .55; cursor: not-allowed; }
+.otm-comp__form fieldset:disabled .tc-competition__system { cursor: not-allowed; opacity: .6; }
+.otm-comp__form .tc-competition__system.is-active { opacity: 1; }
+
+/* Barra flotante mientras hay cambios sin guardar. Fija a la ventana y no
+   sticky: .gg-organizer-content tiene overflow-x hidden (es contenedor de
+   scroll) pero quien scrollea es la pagina, asi que sticky nunca se pega. */
+.otm-comp.is-dirty { padding-bottom: 88px; }
+.otm-comp__savebar {
+  position: fixed;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+  width: min(760px, calc(100vw - 32px));
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  padding: 12px 14px;
+  border: 1px solid rgba(var(--accent-rgb), .35);
+  border-radius: 12px;
+  background: var(--bg-elev);
+  box-shadow: var(--shadow-soft);
+  font-size: 13px;
+}
+.otm-comp__savebar > span { display: inline-flex; align-items: center; gap: 8px; }
+.otm-comp__savebar > span svg { width: 15px; height: 15px; color: #f4c46b; }
+.otm-comp__savebar > div { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* Modal de confirmacion. */
+.otm-comp__confirm { max-width: 600px; display: flex; flex-direction: column; gap: 14px; }
+.otm-comp__confirm .otm-jm__head { margin-bottom: 0; }
+.otm-comp__diff { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 10px; }
+.otm-comp__diff li { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 12px; padding: 10px 12px; font-size: 13px; }
+.otm-comp__diff li + li { border-top: 1px solid var(--line); }
+.otm-comp__diff li > span { color: var(--text-dim); }
+.otm-comp__diff li > div { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 6px; min-width: 0; }
+.otm-comp__diff s { color: var(--text-dim); }
+.otm-comp__diff b { color: var(--accent); }
+.otm-comp__diff svg { width: 13px; height: 13px; color: var(--text-dim); }
+.otm-comp__audience { display: flex; align-items: flex-start; gap: 8px; margin: 0; font-size: 12.5px; line-height: 1.5; color: var(--text-dim); }
+.otm-comp__audience svg { width: 15px; height: 15px; flex-shrink: 0; margin-top: 1px; color: var(--accent); }
+.otm-comp__preview { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; font-size: 12.5px; }
+.otm-comp__preview summary { cursor: pointer; color: var(--text-dim); }
+.otm-comp__preview b { display: block; margin: 10px 0 6px; color: var(--text); }
+.otm-comp__preview p { margin: 0; white-space: pre-line; line-height: 1.55; color: var(--text-dim); }
+.otm-comp__regen-list { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 6px; font-size: 13px; line-height: 1.5; color: var(--text-dim); }
+.otm-comp__regen-list b { color: var(--text); }
+.otm-comp__confirm-actions { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 8px; }
+
+@media (max-width: 640px) {
+  .otm-comp__savebar { bottom: 10px; }
+  .otm-comp__savebar > div, .otm-comp__confirm-actions { width: 100%; }
+  .otm-comp__savebar .otm-btn, .otm-comp__confirm-actions .otm-btn { flex: 1 1 auto; justify-content: center; }
+}
+

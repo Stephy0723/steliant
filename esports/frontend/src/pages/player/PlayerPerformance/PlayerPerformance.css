@@ -1,0 +1,60 @@
+/* ── Mi Rendimiento ── */
+
+.pp-perf-state {
+  display: flex; align-items: center; gap: 12px;
+  min-height: 84px; color: var(--text-dim);
+}
+.pp-perf-state svg { width: 24px; height: 24px; color: var(--pp-color); flex: none; }
+.pp-perf-state p { margin: 0; font-weight: 800; }
+.pp-perf-state--error { border-color: rgba(239, 68, 68, .26); background: rgba(239, 68, 68, .06); }
+.pp-perf-state--error svg { color: #ef4444; }
+
+.pp-perf-games { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+.pp-perf-game {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--bg-card); border: 1px solid var(--line);
+  border-radius: 14px; padding: 14px 16px; cursor: pointer;
+  transition: border-color .15s, transform .15s; text-align: left;
+}
+.pp-perf-game:hover { transform: translateY(-2px); }
+.pp-perf-game.active { background: var(--bg-elev); }
+.pp-perf-game__dot { width: 12px; height: 12px; border-radius: 50%; flex: none; }
+.pp-perf-game div { flex: 1; min-width: 0; }
+.pp-perf-game b { display: block; font-size: 14px; color: var(--text); }
+.pp-perf-game small { font-size: 11px; color: var(--text-dim); }
+.pp-perf-game__wr { font-family: var(--font-display); font-weight: 900; font-size: 18px; color: var(--text); }
+
+.pp-perf-stats { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 12px; }
+.pp-perf-stat {
+  background: var(--bg-card); border: 1px solid var(--line);
+  border-radius: 12px; padding: 14px; text-align: center;
+}
+.pp-perf-stat b { display: block; font-family: var(--font-display); font-size: 20px; font-weight: 900; color: var(--text); }
+.pp-perf-stat span { font-size: 10.5px; color: var(--text-dim); text-transform: uppercase; letter-spacing: .04em; }
+.pp-perf-stat--green b { color: #22c55e; }
+.pp-perf-stat--red b { color: var(--danger); }
+
+.pp-card--center { display: flex; flex-direction: column; align-items: center; }
+.pp-radar { width: 240px; height: 240px; max-width: 100%; }
+.pp-radar__lbl { fill: var(--text-dim); font-size: 9px; font-weight: 700; }
+
+/* Picks */
+.pp-picks { display: flex; flex-direction: column; gap: 14px; }
+.pp-pick__top { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.pp-pick__top b { font-size: 13px; color: var(--text); }
+.pp-pick__role { font-size: 10px; color: var(--text-dim); background: var(--bg-elev); padding: 2px 7px; border-radius: 99px; }
+.pp-pick__wr { margin-left: auto; font-family: var(--font-display); font-weight: 900; color: var(--pp-color); }
+.pp-pick__meta { font-size: 10.5px; color: var(--text-dim); margin-top: 5px; }
+
+/* Maps */
+.pp-maps { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
+.pp-map__head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 7px; }
+.pp-map__head b { font-size: 13px; color: var(--text); }
+.pp-map__head span { font-family: var(--font-display); font-weight: 900; font-size: 14px; }
+.pp-map__head .good { color: #22c55e; }
+.pp-map__head .mid { color: var(--pp-color); }
+.pp-map__head .bad { color: var(--danger); }
+.pp-map small { display: block; font-size: 10.5px; color: var(--text-dim); margin-top: 6px; }
+
+.pp-perf-empty { margin: 8px 0; font-size: 13px; color: var(--text-dim, #9ca3af); line-height: 1.5; }
+

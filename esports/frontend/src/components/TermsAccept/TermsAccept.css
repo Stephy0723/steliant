@@ -1,0 +1,10 @@
+.gg-terms-accept {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 13px; line-height: 1.45; color: var(--text-dim, #9aa0aa);
+  cursor: pointer; padding: 10px 12px; border-radius: 10px;
+  border: 1px solid var(--line, #20232b); background: var(--bg-elev, #14161d);
+}
+.gg-terms-accept input { margin-top: 2px; width: 16px; height: 16px; flex: none; accent-color: var(--accent, #00E676); cursor: pointer; }
+.gg-terms-accept a { color: var(--accent, #00E676); font-weight: 600; text-decoration: underline; }
+.gg-terms-accept.is-error { border-color: var(--danger); background: rgba(var(--danger-rgb),.06); }
+

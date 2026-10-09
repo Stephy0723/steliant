@@ -1,0 +1,116 @@
+.gg-dcelebrate-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+  padding: 20px;
+}
+
+.gg-dcelebrate {
+  position: relative;
+  width: min(380px, 100%);
+  padding: 34px 28px 26px;
+  border-radius: 22px;
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.6);
+  text-align: center;
+  overflow: visible;
+}
+
+.gg-dcelebrate::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 22px;
+  padding: 1px;
+  background: linear-gradient(135deg, #00e676, #8b5cf6, #ff4fd8, #00e676);
+  background-size: 300% 300%;
+  animation: gg-dcelebrate-ring 3s linear infinite;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+@keyframes gg-dcelebrate-ring {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 300% 50%; }
+}
+
+.gg-dcelebrate__burst {
+  position: relative;
+  width: 68px;
+  height: 68px;
+  margin: 0 auto 20px;
+  display: grid;
+  place-items: center;
+}
+
+.gg-dcelebrate__particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 2px;
+  top: 50%;
+  left: 50%;
+  margin: -3px 0 0 -3px;
+}
+
+.gg-dcelebrate__icon {
+  position: relative;
+  z-index: 1;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #5865F2, #8b5cf6);
+  box-shadow: 0 0 0 6px rgba(88, 101, 242, 0.15), 0 0 34px rgba(88, 101, 242, 0.55);
+  color: #fff;
+}
+
+.gg-dcelebrate__icon svg {
+  width: 30px;
+  height: 30px;
+}
+
+.gg-dcelebrate h3 {
+  margin: 0 0 10px;
+  font-family: var(--font-display);
+  font-size: 1.32rem;
+  letter-spacing: -0.01em;
+}
+
+.gg-dcelebrate p {
+  margin: 0 0 22px;
+  font-size: 0.86rem;
+  color: var(--text-dim);
+  line-height: 1.55;
+}
+
+.gg-dcelebrate__close {
+  all: unset;
+  cursor: pointer;
+  padding: 11px 30px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #00e676, #00c896);
+  color: #06120b;
+  font-weight: 700;
+  font-size: 0.88rem;
+  transition: transform 150ms ease, filter 150ms ease;
+}
+
+.gg-dcelebrate__close:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gg-dcelebrate::before { animation: none; }
+}
+

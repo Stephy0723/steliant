@@ -1,0 +1,159 @@
+.shell {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  min-height: 100vh;
+}
+
+.mainPane {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content {
+  flex: 1;
+  padding: 24px 28px 40px;
+}
+
+/* Pages */
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 1180px;
+  animation: pageIn 200ms ease both;
+}
+
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.pageHeaderRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.createTournamentBtn {
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 16px;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, #00e676, #00c896);
+  color: #07111e;
+  font-size: 0.84rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  transition: filter var(--transition);
+}
+
+.createTournamentBtn:hover {
+  filter: brightness(1.08);
+}
+
+.pageHeader h2 {
+  margin: 0 0 4px;
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.pageHeader h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.pageHeader p {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+/* Metrics */
+.metricsRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+/* Quick stats grid on overview */
+.overviewGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.quickPanel {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  background: var(--surface-1);
+}
+
+.quickPanel h3 {
+  margin: 0 0 14px;
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.quickActions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.quickBtn {
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  transition: all var(--transition);
+}
+
+.quickBtn:hover {
+  background: var(--surface-2);
+  color: var(--text-primary);
+  border-color: var(--accent);
+}
+
+
+/* Split layout */
+.splitLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(340px, 0.7fr);
+  gap: 20px;
+  align-items: start;
+}
+
+@media (max-width: 1280px) {
+  .shell { grid-template-columns: minmax(0, 1fr); }
+  .metricsRow { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 1024px) {
+  .splitLayout { grid-template-columns: 1fr; }
+  .overviewGrid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+  .content { padding: 16px 14px 28px; }
+  .metricsRow { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,175 @@
+/* ═══════════════════════════════════════════════════════════════
+   GlitchGang · restyle del bracket (pestaña Bracket del organizador)
+
+   Capa de override. Va DESPUÉS de OrganizerTournamentManage.css:
+
+     import './OrganizerTournamentManage.css'
+     import './bracket.css'   // esta
+
+   Sin cambios de markup: usa las clases que ya existen
+   (otm-bk-*, otm-life*, otm-ev*).
+
+   Lo que arregla:
+   1. LAS LLAVES NO CONECTABAN. Había una sola línea recta al centro
+      de cada columna. Ahora cada par de partidas se une con un codo
+      real y la ronda siguiente recibe su entrada — la llave se lee.
+   2. Filas de igual altura por columna (grid 1fr), así los centros
+      de cada par caen exactamente donde debe ir la unión.
+   3. Jerarquía: seed, equipo y marcador en tres zonas fijas; el
+      ganador con riel verde, no solo texto verde.
+   4. Estados legibles: pendiente en ámbar, publicado en verde,
+      final en dorado. Chaflán y mono como el resto del sistema.
+   ═══════════════════════════════════════════════════════════════ */
+
+.otm-panel{--bk-w:238px;--bk-gap:44px;--bk-h:104px;--bk-g:16px;--bk-win:#22c55e;--bk-gold:#f0b429;--bk-pend:#f59e0b;--bk-line:color-mix(in srgb,var(--accent) 34%,transparent)}
+
+/* ── Ciclo de vida ────────────────────────────────────────────── */
+.otm-life{border-radius:0;padding:12px 14px;background:color-mix(in srgb,var(--bg-card) 86%,#000 14%);clip-path:polygon(0 0,calc(100% - 13px) 0,100% 13px,100% 100%,13px 100%,0 calc(100% - 13px))}
+.otm-life__status{border-radius:0;padding:5px 11px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:9px;font-weight:500;letter-spacing:.18em;clip-path:polygon(0 0,calc(100% - 6px) 0,100% 6px,100% 100%,6px 100%,0 calc(100% - 6px))}
+.otm-life__status--running{position:relative;padding-left:20px;background:rgba(var(--danger-rgb),.14);color:#fca5a5}
+.otm-life__status--running::before{content:'';position:absolute;left:9px;top:50%;width:6px;height:6px;margin-top:-3px;background:var(--danger);animation:bk-blip 1.2s steps(2) infinite}
+@keyframes bk-blip{50%{opacity:.2}}
+.otm-lifebtn{border-radius:0;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:9.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;padding:10px 14px;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px))}
+.otm-lifebtn--end:not(:disabled){background:var(--bk-gold);border-color:transparent;color:#1a1204}
+.otm-lifebtn:disabled{opacity:1;border-style:dashed;background:transparent;color:color-mix(in srgb,var(--text-dim) 70%,transparent)}
+
+/* ── Banner de estado ─────────────────────────────────────────── */
+.otm-bk-banner{border-radius:0;padding:11px 13px;border-left-width:2px;font-size:13px;line-height:1.5;clip-path:none}
+.otm-bk-banner--run{border-left-color:var(--danger)}
+.otm-bk-banner--ready{border-left-color:var(--bk-win)}
+.otm-bk-banner--done{border-left-color:var(--text-dim)}
+
+/* ── Selector de formato ──────────────────────────────────────── */
+.otm-bk-formats{gap:1px;padding:1px;background:var(--line);grid-template-columns:repeat(auto-fit,minmax(min(100%,176px),1fr))}
+.otm-bk-fmt{position:relative;border:0;border-radius:0;padding:13px 14px 14px;background:var(--bg-elev);gap:5px;transition:background .18s}
+.otm-bk-fmt b{font-family:var(--font-display);font-size:13px;font-weight:800;letter-spacing:.02em;text-transform:uppercase}
+.otm-bk-fmt span{font-size:11.5px;line-height:1.45;text-wrap:pretty}
+.otm-bk-fmt:hover{background:color-mix(in srgb,var(--accent) 6%,var(--bg-elev))}
+.otm-bk-fmt.active{background:color-mix(in srgb,var(--accent) 10%,var(--bg-elev))}
+.otm-bk-fmt.active::before{content:'';position:absolute;inset:0 auto 0 0;width:2px;background:var(--accent);box-shadow:0 0 12px rgba(var(--accent-rgb),.7)}
+.otm-bk-fmt.active b{color:var(--accent)}
+.otm-bk-note{border-radius:0;border-left:2px solid var(--accent);font-size:12.5px;line-height:1.5;clip-path:none}
+
+/* ── Columnas ─────────────────────────────────────────────────
+   Altura de carta fija (--bk-h): con eso el paso vertical de cada
+   ronda es calculable y los codos caen exactos. Cada columna abre
+   el doble de espacio que la anterior (--col-gap) con su propio
+   desplazamiento (--col-off). */
+.otm-bk-cols{--bk-card-w:var(--bk-w);--bk-gap:44px;--pitch:calc(var(--bk-h) + var(--bk-g));align-items:flex-start}
+.otm-bk-col{gap:12px;justify-content:flex-start}
+.otm-bk-col:not(:last-child)::after{display:none}
+.otm-bk-col__title{min-height:26px;place-items:center;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:9px;font-weight:500;letter-spacing:.2em;color:var(--text-dim);border-bottom:1px solid var(--line);padding-bottom:9px}
+.otm-bk-col:last-child .otm-bk-col__title{color:var(--bk-gold);border-bottom-color:color-mix(in srgb,var(--bk-gold) 34%,transparent)}
+.otm-bk-col__matches{display:flex;flex-direction:column;justify-content:flex-start;flex:none;gap:var(--col-gap,var(--bk-g));padding-top:var(--col-off,0px)}
+/* n = índice de ronda: paso ×2 por ronda, offset = medio paso previo */
+.otm-bk-col:nth-child(1){--col-gap:var(--bk-g);--col-off:0px;--reach:calc(var(--pitch) / 2)}
+.otm-bk-col:nth-child(2){--col-gap:calc(var(--bk-h) + 2 * var(--bk-g));--col-off:calc(var(--pitch) / 2);--reach:var(--pitch)}
+.otm-bk-col:nth-child(3){--col-gap:calc(3 * var(--bk-h) + 4 * var(--bk-g));--col-off:calc(3 * var(--pitch) / 2);--reach:calc(2 * var(--pitch))}
+.otm-bk-col:nth-child(4){--col-gap:calc(7 * var(--bk-h) + 8 * var(--bk-g));--col-off:calc(7 * var(--pitch) / 2);--reach:calc(4 * var(--pitch))}
+.otm-bk-col:nth-child(5){--col-gap:calc(15 * var(--bk-h) + 16 * var(--bk-g));--col-off:calc(15 * var(--pitch) / 2);--reach:calc(8 * var(--pitch))}
+/* La columna del campeón no es una ronda: se alinea con la final. */
+.otm-bk-col:nth-child(3):has(.otm-bk-champ){--col-off:calc(var(--pitch) / 2)}
+.otm-bk-col:nth-child(4):has(.otm-bk-champ){--col-off:calc(3 * var(--pitch) / 2)}
+.otm-bk-col:nth-child(5):has(.otm-bk-champ){--col-off:calc(7 * var(--pitch) / 2)}
+/* Cuadros que no se dividen a la mitad (loser's bracket): si la ronda
+   anterior trae una sola partida, la siguiente no baja. */
+.otm-bk-cols:has(.otm-bk-col:nth-child(1) .otm-bk-match:only-child) .otm-bk-col:nth-child(2){--col-off:0px}
+.otm-bk-cols:has(.otm-bk-col:nth-child(2) .otm-bk-match:only-child) .otm-bk-col:nth-child(3){--col-off:calc(var(--pitch) / 2)}
+.otm-bk-match,.otm-bk-champ{height:var(--bk-h)}
+.otm-bk-fixtures .otm-bk-match{height:auto}
+
+/* ── Conectores reales ────────────────────────────────────────── */
+/* Salida: codo desde el centro de la carta al punto de unión del
+   par. La impar baja, la par sube; se encuentran en el mismo punto. */
+.otm-bk-col:not(:last-child) .otm-bk-match::after{content:'';position:absolute;left:100%;width:calc(var(--bk-gap) / 2);border-right:1px solid var(--bk-line);pointer-events:none;z-index:0}
+.otm-bk-col:not(:last-child) .otm-bk-match:nth-child(odd)::after{top:50%;height:calc(var(--reach) / 2);border-top:1px solid var(--bk-line)}
+.otm-bk-col:not(:last-child) .otm-bk-match:nth-child(even)::after{bottom:50%;height:calc(var(--reach) / 2);border-bottom:1px solid var(--bk-line)}
+/* Una sola carta en la columna: recta, sin codo. */
+.otm-bk-col:not(:last-child) .otm-bk-match:only-child::after{top:50%;height:0;border-right:0;border-top:1px solid var(--bk-line);width:var(--bk-gap)}
+/* Entrada: tramo horizontal desde el punto de unión hasta la carta. */
+.otm-bk-match::before{display:none}
+.otm-bk-col:not(:first-child) .otm-bk-match::before{content:'';display:block;position:absolute;top:50%;right:100%;bottom:auto;left:auto;width:calc(var(--bk-gap) / 2);height:0;border-top:1px solid var(--bk-line);background:none;opacity:1;z-index:0}
+/* El camino del ganador se enciende. */
+.otm-bk-match.is-done::after{border-color:color-mix(in srgb,var(--bk-win) 52%,transparent)}
+
+/* ── Carta de partida ─────────────────────────────────────────── */
+/* Sin clip-path aquí: recortaría los conectores que salen de la carta. */
+.otm-bk-match{display:flex;flex-direction:column;justify-content:center;min-height:0;border-radius:0;overflow:visible;clip-path:none;background:color-mix(in srgb,var(--bg-elev) 92%,#000 8%);border:1px solid var(--line);box-shadow:none}
+.otm-bk-match__row{flex:1}
+.otm-bk-report{flex:none}
+.otm-bk-match:hover{transform:none;border-color:color-mix(in srgb,var(--accent) 52%,transparent);box-shadow:0 0 0 1px rgba(var(--accent-rgb),.1)}
+.otm-bk-match--final{border-color:color-mix(in srgb,var(--bk-gold) 55%,transparent);background:linear-gradient(180deg,color-mix(in srgb,var(--bk-gold) 9%,transparent),transparent 58%),color-mix(in srgb,var(--bg-elev) 92%,#000 8%);box-shadow:none}
+.otm-bk-match__crown{top:-11px;left:12px;transform:none;width:22px;height:22px;border-radius:0;background:var(--bk-gold);border:0;color:#1a1204;box-shadow:none;clip-path:polygon(0 0,calc(100% - 5px) 0,100% 5px,100% 100%,5px 100%,0 calc(100% - 5px))}
+.otm-bk-match__crown+.otm-bk-match__row{padding-top:13px}
+.otm-bk-match__pend{top:-9px;right:10px;padding:2px 7px;border:1px solid color-mix(in srgb,var(--bk-pend) 48%,transparent);background:var(--bg);font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:8px;font-weight:400;letter-spacing:.16em;color:var(--bk-pend)}
+
+/* Fila: equipo a la izquierda, marcador en placa a la derecha. */
+.otm-bk-match__row{position:relative;min-height:38px;padding:9px 11px;gap:10px;font-size:13px;font-weight:600;letter-spacing:.005em}
+.otm-bk-match__row span{font-family:var(--font-display);font-weight:700;letter-spacing:.01em}
+.otm-bk-match__row i{width:26px;height:24px;border-radius:0;border:1px solid var(--line);background:rgba(255,255,255,.02);font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;font-weight:500;color:var(--text-dim);clip-path:polygon(0 0,calc(100% - 5px) 0,100% 5px,100% 100%,5px 100%,0 calc(100% - 5px))}
+.otm-bk-match__row.tbd{color:color-mix(in srgb,var(--text-dim) 84%,transparent);font-weight:500}
+.otm-bk-match__row.tbd span{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;font-weight:400;letter-spacing:.14em;text-transform:uppercase}
+/* Ganador: riel a la izquierda, no solo color de texto. */
+.otm-bk-match__row.win{background:linear-gradient(90deg,color-mix(in srgb,var(--bk-win) 12%,transparent),transparent 72%);color:var(--text)}
+.otm-bk-match__row.win::before{content:'';position:absolute;inset:0 auto 0 0;width:2px;background:var(--bk-win)}
+.otm-bk-match__row.win i{border-color:color-mix(in srgb,var(--bk-win) 50%,transparent);background:color-mix(in srgb,var(--bk-win) 14%,transparent);color:var(--bk-win);font-weight:600}
+.otm-bk-match--final .otm-bk-match__row.win{background:linear-gradient(90deg,color-mix(in srgb,var(--bk-gold) 16%,transparent),transparent 72%)}
+.otm-bk-match--final .otm-bk-match__row.win::before{background:var(--bk-gold)}
+.otm-bk-match--final .otm-bk-match__row.win i{border-color:color-mix(in srgb,var(--bk-gold) 52%,transparent);background:color-mix(in srgb,var(--bk-gold) 15%,transparent);color:var(--bk-gold)}
+.otm-bk-match__sep{background:var(--line)}
+.otm-bk-match.is-pending{border-color:color-mix(in srgb,var(--bk-pend) 48%,transparent)}
+.otm-bk-match.is-done{border-color:color-mix(in srgb,var(--bk-win) 32%,transparent)}
+
+/* Acción de la carta */
+.otm-bk-report{padding:8px;border-top:1px solid var(--line);background:transparent;color:var(--accent);font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:9px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;transition:background .18s}
+.otm-bk-report:hover{background:color-mix(in srgb,var(--accent) 12%,transparent)}
+.otm-bk-report--confirm{background:color-mix(in srgb,var(--bk-pend) 13%,transparent);color:var(--bk-pend)}
+.otm-bk-report--confirm:hover{background:color-mix(in srgb,var(--bk-pend) 22%,transparent)}
+.otm-bk-report--done{background:transparent;color:color-mix(in srgb,var(--bk-win) 88%,#fff)}
+.otm-bk-report--done:hover{background:color-mix(in srgb,var(--bk-win) 12%,transparent)}
+
+/* ── Campeón ──────────────────────────────────────────────────── */
+.otm-bk-champ{min-height:0;border-radius:0;border:1px dashed color-mix(in srgb,var(--bk-gold) 45%,transparent);background:linear-gradient(180deg,color-mix(in srgb,var(--bk-gold) 10%,transparent),transparent 62%);box-shadow:none;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:9.5px;font-weight:400;letter-spacing:.16em;text-transform:uppercase;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px))}
+.otm-bk-champ svg{width:26px;height:26px;color:var(--bk-gold);filter:none}
+.otm-bk-champ.is-set{border-style:solid;border-color:color-mix(in srgb,var(--bk-gold) 62%,transparent);font-family:var(--font-display);font-size:16px;font-weight:800;letter-spacing:.02em;color:var(--text)}
+
+/* ── Doble eliminación ────────────────────────────────────────── */
+.otm-bk-side__label{gap:8px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:9.5px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.otm-bk-side__label--w{color:var(--bk-win);border-bottom-color:color-mix(in srgb,var(--bk-win) 30%,transparent)}
+.otm-bk-side__label--l{color:var(--bk-pend);border-bottom-color:color-mix(in srgb,var(--bk-pend) 30%,transparent)}
+.otm-bk-side--l .otm-bk-cols{--bk-line:color-mix(in srgb,var(--bk-pend) 32%,transparent)}
+.otm-bk-grandfinal{border-radius:0;min-width:var(--bk-w);padding:13px;border-color:color-mix(in srgb,var(--bk-gold) 42%,transparent);background:linear-gradient(180deg,color-mix(in srgb,var(--bk-gold) 8%,transparent),transparent 60%),var(--bg-card);clip-path:polygon(0 0,calc(100% - 13px) 0,100% 13px,100% 100%,13px 100%,0 calc(100% - 13px))}
+.otm-bk-grandfinal .otm-bk-col__title{color:var(--bk-gold);border-bottom-color:color-mix(in srgb,var(--bk-gold) 30%,transparent)}
+
+/* ── Round robin / grupos ─────────────────────────────────────── */
+.otm-bk-table{font-size:12.5px}
+.otm-bk-table th{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:8.5px;font-weight:500;letter-spacing:.18em;border-bottom-color:var(--text-dim)}
+.otm-bk-table td{font-family:var(--font-display);font-weight:700;letter-spacing:.01em}
+.otm-bk-table tbody tr:first-child td{color:var(--bk-win)}
+.otm-bk-table td:first-child{font-family:'IBM Plex Mono',ui-monospace,monospace;font-weight:400}
+.otm-bk-fixtures{grid-template-columns:repeat(auto-fill,minmax(min(100%,232px),1fr))}
+.otm-bk-fixtures .otm-bk-match{min-height:0}
+
+/* ── Evidencia ────────────────────────────────────────────────── */
+.otm-ev{border-radius:0;border-left:2px solid var(--bk-win);background:color-mix(in srgb,var(--bg-elev) 82%,transparent)}
+.otm-ev--pending{border-left-color:var(--bk-pend)}
+.otm-ev__head b{font-family:var(--font-display);font-size:13.5px;font-weight:800;letter-spacing:.01em}
+.otm-ev__score{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:13px;font-weight:500;padding:0 4px}
+.otm-ev__win{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:9px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--bk-gold)}
+.otm-ev__state{display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border:1px solid currentColor;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;clip-path:polygon(0 0,calc(100% - 5px) 0,100% 5px,100% 100%,5px 100%,0 calc(100% - 5px))}
+.otm-ev__state.ok{color:var(--bk-win)}
+.otm-ev__state.pend{color:var(--bk-pend)}
+.otm-ev__state svg{width:11px;height:11px}
+.otm-ev__msg{font-size:12.5px;line-height:1.55;text-wrap:pretty}
+.otm-ev__imgs img,.otm-ev__noimg{border-radius:0}
+.otm-ev__noimg{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase}
+.otm-ev__foot{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.otm-ev__time{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase}
+
+/* ── Guía ─────────────────────────────────────────────────────── */
+.otm-guide summary{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase}
+
+@media (max-width:640px){
+  .otm-panel{--bk-w:196px;--bk-gap:30px}
+}
+

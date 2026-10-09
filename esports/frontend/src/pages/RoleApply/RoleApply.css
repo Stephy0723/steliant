@@ -1,0 +1,12 @@
+.gg-roleapply { max-width: 1100px; margin: 0 auto; }
+
+.gg-roleapply__back {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: none; border: none; cursor: pointer;
+  color: var(--text-dim); font-size: 13px; font-weight: 600;
+  margin-bottom: 14px; padding: 0; transition: color .15s;
+}
+.gg-roleapply__back:hover { color: var(--accent); }
+.gg-roleapply__back-icon { display: inline-flex; }
+.gg-roleapply__back-icon svg { width: 15px; height: 15px; transform: rotate(180deg); }
+

@@ -1,0 +1,25 @@
+.gg-stat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 20px;
+  display: flex; align-items: flex-start; gap: 14px;
+}
+.gg-stat-card__icon {
+  width: 40px; height: 40px; flex: none;
+  border-radius: 10px;
+  background: rgba(var(--accent-rgb), .1);
+  color: var(--accent);
+  display: flex; align-items: center; justify-content: center;
+}
+.gg-stat-card__icon svg { width: 20px; height: 20px; }
+.gg-stat-card__body { display: flex; flex-direction: column; gap: 4px; flex: 1; }
+.gg-stat-card__label { font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: .06em; }
+.gg-stat-card__value { font-family: var(--font-display); font-size: 24px; color: var(--text); }
+.gg-stat-card__trend {
+  font-size: 12px; font-weight: 700; padding: 3px 8px;
+  border-radius: 99px; align-self: flex-start;
+}
+.gg-stat-card__trend.up   { background: rgba(0,230,118,.12); color: var(--accent); }
+.gg-stat-card__trend.down { background: rgba(var(--danger-rgb),.12); color: var(--danger); }
+

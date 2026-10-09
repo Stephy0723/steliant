@@ -1,0 +1,3471 @@
+/* ── TorneoDetalle ─────────────────────────────────────── */
+.gg-td { padding-top: 0; overflow-x: hidden; }
+.gg-td-notfound { display:flex; flex-direction:column; gap:16px; align-items:center; padding:60px 24px; }
+
+/* Banner */
+.gg-td__banner {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 24px;
+  padding: 32px 28px 0;
+}
+.gg-td__banner-bg {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, var(--tc, var(--accent)) 0%, rgba(0,0,0,.95) 60%);
+  opacity: .22;
+  pointer-events: none;
+}
+
+/* Banner con arte del juego */
+.gg-td__banner--art { padding-top: 90px; min-height: 280px; }
+.gg-td__banner-img {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  transform: scale(1.02);
+}
+.gg-td__banner-scrim {
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(5,7,10,.95) 0%, rgba(5,7,10,.7) 45%, rgba(5,7,10,.2) 80%, transparent 100%),
+    linear-gradient(0deg, rgba(5,7,10,.96) 0%, transparent 60%),
+    radial-gradient(120% 90% at 0% 100%, color-mix(in srgb, var(--tc) 30%, transparent), transparent 60%);
+}
+.gg-td__banner-logo {
+  position: absolute; right: 4%; top: 38px; z-index: 1;
+  max-height: 86px; max-width: 32%; object-fit: contain;
+  filter: drop-shadow(0 6px 24px rgba(0,0,0,.6));
+}
+.gg-td__banner--art .gg-td__back,
+.gg-td__banner--art .gg-td__banner-inner,
+.gg-td__banner--art .gg-td__strip { position: relative; z-index: 2; }
+
+.gg-td__banner-tags { display: flex; align-items: center; gap: 12px; }
+
+/* Bloque de IDs (público + extenso) */
+.gg-td__ids { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 6px; }
+.gg-td__id {
+  display: flex; flex-direction: column; gap: 3px;
+  background: rgba(0,0,0,.4); border: 1px solid rgba(255,255,255,.12);
+  border-radius: 10px; padding: 8px 13px; backdrop-filter: blur(6px);
+}
+.gg-td__id span { font-size: 9.5px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; color: var(--text-dim); }
+.gg-td__id b {
+  font-family: var(--font-display); font-size: 14px; font-weight: 800;
+  color: #fff; letter-spacing: .03em;
+}
+.gg-td__id--ext b { color: var(--tc, var(--accent)); }
+.gg-td__banner::before {
+  content: '';
+  position: absolute; inset: 0;
+  border: 1px solid rgba(var(--accent-rgb), .08);
+  border-radius: var(--radius);
+  pointer-events: none;
+}
+.gg-td__banner::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--tc, var(--accent));
+  border-radius: 4px 4px 0 0;
+}
+
+.gg-td__back {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(0,0,0,.42); border: 1px solid rgba(255,255,255,.16);
+  backdrop-filter: blur(6px); cursor: pointer;
+  color: #e6ebe8; font-size: 12.5px; font-weight: 700;
+  padding: 8px 14px 8px 11px; border-radius: 99px;
+  margin-bottom: 16px;
+  transition: background .15s, border-color .15s, transform .15s;
+}
+.gg-td__back:hover { background: rgba(0,0,0,.6); border-color: rgba(255,255,255,.3); transform: translateX(-2px); }
+.gg-td__back-ic { display: inline-flex; }
+.gg-td__back-ic svg { width: 15px; height: 15px; transform: rotate(180deg); }
+
+.gg-td__banner-inner {
+  display: flex; align-items: flex-start;
+  justify-content: space-between; gap: 16px;
+  flex-wrap: wrap;
+}
+.gg-td__banner-left { display:flex; flex-direction:column; gap:8px; }
+.gg-td__banner-left h1 {
+  font-family: var(--font-display);
+  font-size: clamp(20px, 3vw, 30px);
+  color: var(--text); line-height: 1.1;
+}
+.gg-td__game { font-size:12px; color: var(--text-dim); text-transform:uppercase; letter-spacing:.08em; }
+.gg-td__org { font-size:12px; color: var(--text-dim); }
+.gg-td__banner-action { flex: none; padding-top: 6px; }
+
+/* Strip */
+.gg-td__strip {
+  display: flex; flex-wrap: wrap; gap: 24px;
+  padding: 20px 4px 20px;
+  margin-top: 20px;
+  border-top: 1px solid var(--line);
+}
+.gg-td__strip-item {
+  display: flex; flex-direction: column; gap: 4px;
+}
+.gg-td__strip-item span { font-size: 11px; color: var(--text-dim); }
+.gg-td__strip-item b { font-size: 15px; color: var(--text); font-family: var(--font-display); }
+.gg-td__strip-bar { flex: 1; min-width: 140px; }
+.gg-td__bar {
+  width: 100%; height: 6px;
+  background: var(--bg-card);
+  border-radius: 99px;
+  overflow: hidden;
+  margin-top: 6px;
+}
+.gg-td__bar > div {
+  height: 100%;
+  background: var(--tc, var(--accent));
+  border-radius: 99px;
+  transition: width .6s cubic-bezier(.4,0,.2,1);
+}
+
+/* ── Resumen ── */
+.gg-td__resumen { display:flex; flex-direction:column; gap:24px; margin-top:16px; }
+.gg-td__desc h3, .gg-td__reglas h3 {
+  font-family: var(--font-display);
+  font-size: 16px; margin-bottom: 10px; color: var(--text);
+}
+.gg-td__desc p { font-size:14px; color:var(--text-dim); line-height:1.7; }
+
+.gg-td__stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 12px;
+}
+.gg-td__stat {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.gg-td__stat span { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: .08em; }
+.gg-td__stat b { font-size: 18px; font-family: var(--font-display); color: var(--text); }
+
+/* ── Bracket ── */
+.gg-td__bracket { margin-top: 16px; }
+
+/* ── Equipos ── */
+.gg-td__equipos {
+  margin-top: 16px;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background:
+    linear-gradient(135deg, rgba(var(--accent-rgb), .055), transparent 38%),
+    var(--bg-card);
+}
+.gg-td__table {
+  width: 100%; border-collapse: collapse;
+  font-size: 13px;
+}
+.gg-td__table th {
+  text-align: left;
+  font-size: 11px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--text-dim); padding: 8px 12px;
+  border-bottom: 1px solid var(--line);
+}
+.gg-td__table td { padding: 12px; color: var(--text); vertical-align: middle; }
+.gg-td__table tr { border-bottom: 1px solid rgba(255,255,255,.04); transition: background .15s; }
+.gg-td__table tr:hover { background: rgba(255,255,255,.03); }
+.gg-td__table tr.eliminated td { opacity: .5; }
+.gg-td__table td.seed { color: var(--text-dim); font-size: 12px; }
+.gg-td__table td.name { display:flex; align-items:center; gap:10px; font-weight:600; min-width: 230px; }
+
+.gg-td__team-logo {
+  width: 38px; height: 38px;
+  border-radius: 12px;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--team-row-color, var(--accent)) 22%, transparent), rgba(255,255,255,.04));
+  border: 1px solid color-mix(in srgb, var(--team-row-color, var(--accent)) 35%, var(--line));
+  color: var(--team-row-color, var(--accent));
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display);
+  font-size: 12px; font-weight:700;
+  flex: none;
+  overflow: hidden;
+}
+.gg-td__team-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.gg-td__team-copy {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+.gg-td__team-copy b {
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.gg-td__team-copy small {
+  color: var(--text-dim);
+  font: 800 10px var(--font-display);
+  letter-spacing: .05em;
+}
+.gg-td__tag {
+  font-size: 11px; padding: 2px 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font-family: var(--font-display);
+  color: var(--text-dim);
+  letter-spacing: .06em;
+}
+.gg-td__team-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-width: 210px;
+}
+.gg-td__team-actions button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 34px;
+  border: 1px solid rgba(var(--accent-rgb), .26);
+  border-radius: 10px;
+  background: rgba(var(--accent-rgb), .09);
+  color: var(--text);
+  padding: 0 12px;
+  font-weight: 800;
+  font-size: 12px;
+  cursor: pointer;
+  transition: transform .18s ease, border-color .18s ease, background .18s ease;
+}
+.gg-td__team-actions button:hover {
+  transform: translateY(-1px);
+  border-color: rgba(var(--accent-rgb), .48);
+  background: rgba(var(--accent-rgb), .16);
+}
+.gg-td__team-actions svg {
+  width: 15px;
+  height: 15px;
+}
+.gg-td__table-empty {
+  padding: 24px !important;
+  text-align: center;
+  color: var(--text-dim) !important;
+}
+
+/* ── Reglas ── */
+.gg-td__champ {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 16px; padding: 12px 16px; border-radius: 12px;
+  background: linear-gradient(135deg, rgba(245,158,11,.16), transparent);
+  border: 1px solid rgba(245,158,11,.4); color: var(--text); font-size: 15px;
+}
+.gg-td__champ svg { width: 20px; height: 20px; color: #f59e0b; }
+.gg-td__champ b { color: #f59e0b; }
+.gg-td__champ-poster {
+  margin-left: auto; display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 12px; border-radius: 8px; cursor: pointer;
+  font: 700 12.5px var(--font-body); color: var(--text);
+  background: var(--bg-card); border: 1px solid rgba(245,158,11,.4);
+}
+.gg-td__champ-poster svg { width: 15px; height: 15px; }
+
+.gg-td__reglas { margin-top: 16px; }
+.gg-td__reglas-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 8px; }
+.gg-td__reglas-head h3 { margin: 0; }
+.gg-td__reglas-actions { display: flex; gap: 8px; }
+.gg-td__reglas ol { padding-left: 20px; display: flex; flex-direction: column; gap: 10px; }
+.gg-td__reglas li { font-size: 14px; color: var(--text-dim); line-height: 1.6; }
+.gg-td__reglas .dim { color: var(--text-dim); font-size: 14px; }
+
+/* ── Organizer Panel ── */
+.gg-td__org-panel {
+  margin-top: 32px;
+  border: 1px solid rgba(var(--accent-rgb), .2);
+  border-radius: var(--radius);
+  padding: 20px;
+  background:
+    linear-gradient(180deg, rgba(var(--accent-rgb), .06), transparent 120px),
+    var(--bg-card);
+}
+.gg-td__org-header {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 14px; flex-wrap: wrap;
+  margin-bottom: 18px; padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+}
+.gg-td__org-title { display: flex; align-items: center; gap: 12px; }
+.gg-td__org-title > div { line-height: 1.2; }
+.gg-td__org-title b {
+  display: block; font-family: var(--font-display);
+  font-size: 14px; font-weight: 800; color: var(--text);
+  text-transform: uppercase; letter-spacing: .06em;
+}
+.gg-td__org-title small { font-size: 11px; color: var(--accent); font-weight: 700; }
+.gg-td__org-badge {
+  width: 38px; height: 38px; flex: none; border-radius: 11px;
+  display: grid; place-items: center;
+  background: rgba(var(--accent-rgb), .12);
+  border: 1px solid rgba(var(--accent-rgb), .28);
+  color: var(--accent);
+  text-transform: uppercase; letter-spacing: .08em;
+}
+.gg-td__org-badge svg { width: 16px; height: 16px; }
+
+.gg-td__org-body { margin-top: 16px; display: flex; flex-direction: column; gap: 12px; }
+.gg-td__org-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 0; border-bottom: 1px solid var(--line);
+  font-size: 14px; color: var(--text);
+}
+
+/* Toggle button */
+.gg-toggle {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--bg-card); border: 1px solid var(--line);
+  color: var(--text-dim); cursor: pointer;
+  padding: 6px 14px; border-radius: 99px; font-size: 12px;
+  transition: all .2s;
+}
+.gg-toggle span {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--text-dim); transition: background .2s;
+}
+.gg-toggle.on { border-color: rgba(var(--accent-rgb), .4); color: var(--accent); }
+.gg-toggle.on span { background: var(--accent); }
+
+/* Match result rows */
+.gg-td__match-list { display:flex; flex-direction:column; gap:10px; }
+.gg-td__match-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 12px;
+  background: var(--bg-card); border-radius: 10px;
+  border: 1px solid var(--line); flex-wrap: wrap;
+}
+.gg-td__match-row .team { font-size: 13px; color: var(--text); min-width: 100px; }
+.gg-td__match-row .vs { font-size: 11px; color: var(--text-dim); }
+.score-input {
+  width: 48px; padding: 6px 8px;
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--text); font-size: 14px; font-family: var(--font-display);
+  text-align: center;
+}
+score-input:focus { border-color: var(--accent); outline: none; }
+
+/* Mobile */
+@media (max-width: 640px) {
+  .gg-td__banner { padding: 20px 16px 0; }
+  .gg-td__strip { gap: 14px; }
+  .gg-td__strip-item { flex: 1 1 calc(50% - 14px); }
+  .gg-td__strip-bar { flex-basis: 100%; }
+  .gg-td__stats { grid-template-columns: 1fr 1fr; }
+  .gg-td__match-row .team { min-width: 70px; font-size: 12px; }
+}
+.gg-td__strip-item span { display: flex; align-items: center; gap: 6px; }
+.gg-td__strip-item svg { width: 15px; height: 15px; color: var(--accent); }
+
+/* Editorial tournament detail redesign */
+.gg-td {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 28px 24px 72px;
+  color: #101115;
+  background:
+    radial-gradient(circle at 74% 8%, color-mix(in srgb, var(--tc, #ff4d4f) 10%, transparent), transparent 30%),
+    linear-gradient(180deg, #f4f2ee 0%, #ffffff 340px, #f7f7f5 100%);
+}
+
+.gg-td .gg-tabs {
+  margin: 22px auto 0;
+  width: fit-content;
+  max-width: 100%;
+  padding: 5px;
+  background: #fff;
+  border: 1px solid #d8d8d4;
+  border-radius: 999px;
+  box-shadow: 0 14px 34px rgba(18,18,18,.06);
+}
+
+.gg-td .gg-tabs button {
+  border-radius: 999px;
+  color: #22242a;
+}
+
+.gg-td .gg-tabs button.active {
+  color: #fff;
+  background: #111218;
+}
+
+.gg-td__banner {
+  min-height: 520px;
+  padding: 32px 44px 28px;
+  border-radius: 0;
+  background: #fff;
+  border: 1px solid #e2e1dd;
+  box-shadow: 0 28px 70px rgba(19,19,23,.08);
+}
+
+.gg-td__banner::before,
+.gg-td__banner::after,
+.gg-td__banner-logo {
+  display: none;
+}
+
+.gg-td__banner-img {
+  inset: auto 56px 104px auto;
+  width: 360px;
+  height: 270px;
+  border-radius: 18px;
+  opacity: .18;
+  filter: grayscale(.15) contrast(1.05);
+  transform: rotate(4deg);
+  border: 2px solid #101115;
+}
+
+.gg-td__banner-scrim {
+  background:
+    radial-gradient(circle at 74% 34%, color-mix(in srgb, var(--tc, #ff4d4f) 14%, transparent), transparent 28%),
+    linear-gradient(90deg, rgba(255,255,255,.97), rgba(255,255,255,.82) 56%, rgba(255,255,255,.72));
+}
+
+.gg-td__banner--art {
+  padding-top: 32px;
+}
+
+.gg-td__back {
+  color: #16171b;
+  background: #fff;
+  border: 1px solid #d4d4cf;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.gg-td__back:hover {
+  color: #000;
+  background: #f2f2ef;
+  border-color: #111218;
+}
+
+.gg-td__banner-inner {
+  min-height: 340px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(360px, 460px);
+  align-items: center;
+  gap: 48px;
+}
+
+.gg-td__banner-left {
+  max-width: 530px;
+  gap: 14px;
+}
+
+.gg-td__banner-tags {
+  gap: 10px;
+}
+
+.gg-td__game,
+.gg-td__org {
+  color: #686b70;
+}
+
+.gg-td__banner-left h1 {
+  max-width: 520px;
+  margin: 0;
+  color: #111218;
+  font-family: var(--font-display);
+  font-size: clamp(42px, 6vw, 74px);
+  letter-spacing: 0;
+  line-height: .95;
+}
+
+.gg-td__lead {
+  max-width: 510px;
+  margin: 0;
+  color: #61646b;
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+.gg-td__ids {
+  margin-top: 2px;
+}
+
+.gg-td__id {
+  background: #fff;
+  border: 1px solid #d9d9d3;
+  border-radius: 999px;
+  padding: 8px 13px;
+  box-shadow: none;
+}
+
+.gg-td__id span {
+  color: #777a80;
+}
+
+.gg-td__id b,
+.gg-td__id--ext b {
+  color: #16171b;
+}
+
+.gg-td__hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.gg-td__hero-actions .gg-btn--primary {
+  color: #fff !important;
+  background: #0f1015 !important;
+  border-color: #0f1015 !important;
+  min-width: 134px;
+}
+
+.gg-td__hero-actions .gg-btn--ghost {
+  color: #111218 !important;
+  background: #fff !important;
+  border-color: #111218 !important;
+  min-width: 122px;
+}
+
+.gg-td__banner-action {
+  min-height: 330px;
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: 0;
+}
+
+.gg-td__banner-action > .gg-btn {
+  display: none;
+}
+
+.gg-td__visual-stack {
+  position: relative;
+  width: min(100%, 430px);
+  height: 330px;
+}
+
+.gg-td__preview {
+  position: absolute;
+  width: 260px;
+  overflow: hidden;
+  border: 3px solid #111218;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 24px 36px rgba(19,20,28,.16);
+}
+
+.gg-td__preview--main {
+  left: 26px;
+  top: 58px;
+  z-index: 2;
+  transform: rotate(-5deg);
+}
+
+.gg-td__preview--back {
+  right: 8px;
+  top: 20px;
+  z-index: 1;
+  transform: rotate(4deg);
+}
+
+.gg-td__preview-img {
+  height: 188px;
+  background-size: cover;
+  background-position: center;
+  filter: saturate(1.1) contrast(1.04);
+}
+
+.gg-td__preview-body {
+  min-height: 92px;
+  display: grid;
+  gap: 5px;
+  padding: 13px 14px;
+  color: #fff;
+  background: #090a0d;
+}
+
+.gg-td__preview-body b,
+.gg-td__preview-body strong {
+  font-family: var(--font-display);
+}
+
+.gg-td__preview-body b {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 14px;
+}
+
+.gg-td__preview-body span {
+  color: #afb4b8;
+  font-size: 11px;
+}
+
+.gg-td__preview-body strong {
+  color: #fff;
+  font-size: 16px;
+}
+
+.gg-td__seal {
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  z-index: 3;
+  width: 92px;
+  height: 92px;
+  display: grid;
+  place-items: center;
+  color: #111218;
+  background: #fff;
+  border: 2px solid #111218;
+  border-radius: 50%;
+  box-shadow: 0 14px 30px rgba(16,17,21,.14);
+}
+
+.gg-td__seal span {
+  width: 62px;
+  height: 62px;
+  display: grid;
+  place-items: center;
+  border: 1px dashed #111218;
+  border-radius: 50%;
+  font: 900 15px var(--font-display);
+}
+
+.gg-td__strip {
+  justify-content: center;
+  gap: 40px;
+  margin: 28px auto 0;
+  padding: 24px 0 0;
+  border-top: 1px solid #e2e1dd;
+}
+
+.gg-td__strip-item {
+  min-width: 92px;
+  align-items: flex-start;
+}
+
+.gg-td__strip-item span {
+  color: #6f7277;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+}
+
+.gg-td__strip-item svg {
+  color: #111218;
+}
+
+.gg-td__strip-item b {
+  color: #111218;
+  font-size: 22px;
+}
+
+.gg-td__strip-bar {
+  max-width: 190px;
+}
+
+.gg-td__bar {
+  background: #dfdfda;
+}
+
+.gg-td__bar > div {
+  background: #111218;
+}
+
+.gg-td__resumen,
+.gg-td__bracket,
+.gg-td__equipos,
+.gg-td__reglas,
+.gg-td__org-panel {
+  max-width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.gg-td__desc,
+.gg-td__reglas,
+.gg-td__org-panel,
+.gg-td__equipos {
+  background: #fff;
+  border: 1px solid #e2e1dd;
+  border-radius: 12px;
+  box-shadow: 0 16px 36px rgba(19,19,23,.06);
+}
+
+.gg-td__desc {
+  padding: 28px;
+}
+
+.gg-td__desc h3,
+.gg-td__reglas h3,
+.gg-td__section-head h3 {
+  color: #111218;
+  font-size: 24px;
+  margin: 0 0 10px;
+}
+
+.gg-td__desc p,
+.gg-td__reglas li,
+.gg-td__reglas .dim {
+  color: #60636a;
+}
+
+.gg-td__note {
+  margin-top: 14px !important;
+  padding-top: 14px;
+  border-top: 1px solid #ecebe7;
+}
+
+.gg-td__stats {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.gg-td__stat {
+  min-height: 120px;
+  justify-content: space-between;
+  background: #fff;
+  border-color: #e2e1dd;
+  border-radius: 12px;
+  box-shadow: 0 12px 28px rgba(19,19,23,.05);
+}
+
+.gg-td__stat span {
+  color: #73767b;
+}
+
+.gg-td__stat b {
+  color: #111218;
+  font-size: 19px;
+  line-height: 1.2;
+}
+
+.gg-td__prizes {
+  margin-top: 2px;
+}
+
+.gg-td__section-head {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.gg-td__section-head small {
+  color: #6b6e74;
+  font-weight: 800;
+}
+
+.gg-td__prize-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.gg-td__prize-card {
+  min-height: 118px;
+  padding: 18px;
+  display: grid;
+  align-content: space-between;
+  gap: 9px;
+  color: #111218;
+  background: #fff;
+  border: 2px solid #111218;
+  border-radius: 12px;
+  box-shadow: 8px 8px 0 color-mix(in srgb, var(--tc, #ff4d4f) 36%, #dcdcd7);
+}
+
+.gg-td__prize-card span,
+.gg-td__prize-card small {
+  color: #62656b;
+  font-size: 12px;
+}
+
+.gg-td__prize-card--award {
+  background: color-mix(in srgb, var(--tc, #ff4d4f) 10%, #fff);
+}
+.gg-td__prize-card--award span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #111218;
+  font-weight: 700;
+}
+.gg-td__prize-card--award span svg { width: 14px; height: 14px; }
+
+.gg-td__prize-card b {
+  font-family: var(--font-display);
+  font-size: 24px;
+}
+
+.gg-td__reglas {
+  padding: 28px;
+}
+
+.gg-td__reglas ol {
+  padding-left: 24px;
+}
+
+.gg-td__equipos {
+  background: #fff;
+}
+
+.gg-td__table th {
+  color: #73767b;
+  border-bottom-color: #e2e1dd;
+}
+
+.gg-td__table td {
+  color: #111218;
+}
+
+.gg-td__table tr {
+  border-bottom-color: #eeeeea;
+}
+
+.gg-td__table tr:hover {
+  background: #f8f8f5;
+}
+
+.gg-td__tag {
+  color: #111218;
+  background: #f5f5f1;
+  border-color: #dadad4;
+}
+
+.gg-td__team-copy b {
+  color: #111218;
+}
+
+.gg-td__team-copy small,
+.gg-td__table td.seed,
+.gg-td__table-empty {
+  color: #6f7277 !important;
+}
+
+.gg-td__team-actions button {
+  color: #111218;
+  background: #fff;
+  border-color: #111218;
+}
+
+.gg-td__team-actions button:hover {
+  background: #111218;
+  color: #fff;
+}
+
+.gg-td__org-panel {
+  padding: 24px;
+  background: #fff;
+  border-color: #e2e1dd;
+}
+
+.gg-td__org-title b,
+.gg-td__org-row {
+  color: #111218;
+}
+
+.gg-td__org-title small,
+.gg-td__org-badge {
+  color: #111218;
+}
+
+.gg-td__org-badge {
+  background: #f4f4f0;
+  border-color: #d8d8d2;
+}
+
+.gg-td__org-header,
+.gg-td__org-row {
+  border-color: #e7e7e2;
+}
+
+.gg-toggle {
+  color: #111218;
+  background: #fff;
+  border-color: #d8d8d2;
+}
+
+.gg-toggle.on {
+  color: #fff;
+  background: #111218;
+  border-color: #111218;
+}
+
+@media (max-width: 920px) {
+  .gg-td {
+    padding: 18px 14px 56px;
+  }
+
+  .gg-td__banner {
+    min-height: auto;
+    padding: 22px 18px 24px;
+  }
+
+  .gg-td__banner-inner {
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+
+  .gg-td__banner-left h1 {
+    font-size: clamp(34px, 12vw, 54px);
+  }
+
+  .gg-td__banner-img {
+    display: none;
+  }
+
+  .gg-td__visual-stack {
+    height: 310px;
+    margin: 0 auto;
+  }
+
+  .gg-td__strip {
+    justify-content: flex-start;
+    gap: 18px;
+  }
+
+  .gg-td__stats,
+  .gg-td__prize-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .gg-td__visual-stack {
+    height: 255px;
+  }
+
+  .gg-td__preview {
+    width: 210px;
+  }
+
+  .gg-td__preview-img {
+    height: 142px;
+  }
+
+  .gg-td__preview--main {
+    left: 8px;
+    top: 68px;
+  }
+
+  .gg-td__preview--back {
+    right: 0;
+    top: 20px;
+  }
+
+  .gg-td__seal {
+    width: 72px;
+    height: 72px;
+  }
+
+  .gg-td__seal span {
+    width: 48px;
+    height: 48px;
+    font-size: 12px;
+  }
+}
+
+/* Compact identity chips */
+.gg-td .gg-td__ids {
+  width: 100%;
+  max-width: 560px;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 8px !important;
+  flex-wrap: wrap !important;
+  margin: 2px 0 0 !important;
+}
+
+.gg-td .gg-td__id {
+  width: auto !important;
+  height: auto !important;
+  min-width: 0 !important;
+  max-width: min(100%, 275px) !important;
+  flex: 0 1 auto !important;
+  display: inline-grid !important;
+  grid-template-columns: auto !important;
+  align-content: center !important;
+  gap: 3px !important;
+  padding: 7px 11px !important;
+  color: #111218 !important;
+  background: rgba(255,255,255,.92) !important;
+  border: 1px solid #d8d8d2 !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  overflow: hidden !important;
+}
+
+.gg-td .gg-td__id span {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  min-width: 0 !important;
+  color: #6c7077 !important;
+  font: 900 9px/1 var(--font-display) !important;
+  letter-spacing: .08em !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+}
+
+.gg-td .gg-td__id span svg {
+  width: 11px !important;
+  height: 11px !important;
+  flex: none !important;
+}
+
+.gg-td .gg-td__id b {
+  display: block !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  color: #111218 !important;
+  font: 900 12px/1.15 var(--font-display) !important;
+  letter-spacing: .02em !important;
+}
+
+.gg-td .gg-td__id--ext {
+  max-width: min(100%, 315px) !important;
+}
+
+/* Theme-first cleanup: keep the editorial composition without forcing light mode */
+.gg-td {
+  max-width: 1180px !important;
+  color: var(--text) !important;
+  background:
+    radial-gradient(circle at 78% 6%, color-mix(in srgb, var(--tc, var(--accent)) 18%, transparent), transparent 30%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg) 100%) !important;
+}
+
+.gg-td .gg-tabs {
+  background: color-mix(in srgb, var(--bg-card) 86%, transparent) !important;
+  border-color: var(--line) !important;
+  box-shadow: none !important;
+}
+
+.gg-td .gg-tabs button {
+  color: var(--text-dim) !important;
+}
+
+.gg-td .gg-tabs button.active {
+  color: var(--bg) !important;
+  background: var(--text) !important;
+}
+
+.gg-td__banner {
+  min-height: 500px !important;
+  padding: 32px 0 18px !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+}
+
+.gg-td__banner-img {
+  inset: 18px 0 auto auto !important;
+  width: min(48vw, 520px) !important;
+  height: 360px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  opacity: .28 !important;
+  filter: saturate(1.04) contrast(1.02) !important;
+  transform: none !important;
+  mask-image: linear-gradient(90deg, transparent 0%, #000 22%, #000 78%, transparent 100%);
+}
+
+.gg-td__banner-scrim {
+  background:
+    linear-gradient(90deg, var(--bg) 0%, color-mix(in srgb, var(--bg) 88%, transparent) 46%, color-mix(in srgb, var(--bg) 36%, transparent) 100%),
+    radial-gradient(circle at 74% 40%, color-mix(in srgb, var(--tc, var(--accent)) 18%, transparent), transparent 34%) !important;
+}
+
+.gg-td__back {
+  color: var(--text) !important;
+  background: transparent !important;
+  border-color: var(--line) !important;
+}
+
+.gg-td__back:hover {
+  color: var(--text) !important;
+  background: var(--bg-elev) !important;
+  border-color: color-mix(in srgb, var(--tc, var(--accent)) 45%, var(--line)) !important;
+}
+
+.gg-td__banner-inner {
+  grid-template-columns: minmax(0, 1fr) minmax(340px, 430px) !important;
+  gap: 42px !important;
+}
+
+.gg-td__banner-left h1 {
+  color: var(--text) !important;
+  text-wrap: balance;
+}
+
+.gg-td__game,
+.gg-td__org,
+.gg-td__lead {
+  color: var(--text-dim) !important;
+}
+
+.gg-td__hero-actions .gg-btn--primary {
+  color: var(--bg) !important;
+  background: var(--text) !important;
+  border-color: var(--text) !important;
+}
+
+.gg-td__hero-actions .gg-btn--ghost {
+  color: var(--text) !important;
+  background: transparent !important;
+  border-color: var(--line) !important;
+}
+
+.gg-td__hero-actions .gg-btn--ghost:hover {
+  background: var(--bg-elev) !important;
+  border-color: color-mix(in srgb, var(--tc, var(--accent)) 42%, var(--line)) !important;
+}
+
+.gg-td__visual-stack {
+  height: 320px !important;
+}
+
+.gg-td__preview {
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 22px 54px rgba(0,0,0,.28) !important;
+}
+
+.gg-td__preview--main {
+  left: 12px !important;
+  top: 62px !important;
+}
+
+.gg-td__preview--back {
+  right: 12px !important;
+  top: 18px !important;
+  opacity: .72;
+}
+
+.gg-td__preview-img {
+  height: 205px !important;
+  border-radius: 8px 8px 0 0 !important;
+}
+
+.gg-td__preview-body {
+  color: var(--text) !important;
+  background: color-mix(in srgb, var(--bg-card) 86%, transparent) !important;
+  border: 1px solid var(--line) !important;
+  border-top: 0 !important;
+  border-radius: 0 0 8px 8px !important;
+  backdrop-filter: blur(10px);
+}
+
+.gg-td__preview-body span {
+  color: var(--text-dim) !important;
+}
+
+.gg-td__preview-body strong {
+  color: var(--tc, var(--accent)) !important;
+}
+
+.gg-td__seal {
+  color: var(--text) !important;
+  background: color-mix(in srgb, var(--bg-card) 90%, transparent) !important;
+  border-color: var(--line) !important;
+  box-shadow: 0 16px 40px rgba(0,0,0,.24) !important;
+}
+
+.gg-td__seal span {
+  border-color: color-mix(in srgb, var(--tc, var(--accent)) 52%, var(--line)) !important;
+}
+
+.gg-td__strip {
+  justify-content: flex-start !important;
+  border-color: var(--line) !important;
+}
+
+.gg-td__strip-item span,
+.gg-td__section-head small {
+  color: var(--text-dim) !important;
+}
+
+.gg-td__strip-item b,
+.gg-td__desc h3,
+.gg-td__reglas h3,
+.gg-td__section-head h3,
+.gg-td__stat b,
+.gg-td__prize-card b,
+.gg-td__org-title b,
+.gg-td__org-row,
+.gg-td__table td,
+.gg-td__team-copy b,
+.gg-td__tag {
+  color: var(--text) !important;
+}
+
+.gg-td__strip-item svg {
+  color: var(--tc, var(--accent)) !important;
+}
+
+.gg-td__bar {
+  background: var(--bg-elev) !important;
+}
+
+.gg-td__bar > div {
+  background: var(--tc, var(--accent)) !important;
+}
+
+.gg-td__resumen,
+.gg-td__bracket,
+.gg-td__equipos,
+.gg-td__reglas,
+.gg-td__org-panel {
+  max-width: 980px !important;
+}
+
+.gg-td__desc,
+.gg-td__reglas,
+.gg-td__org-panel,
+.gg-td__equipos {
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.gg-td__desc {
+  padding: 6px 0 0 !important;
+}
+
+.gg-td__desc p,
+.gg-td__reglas li,
+.gg-td__reglas .dim,
+.gg-td__note,
+.gg-td__team-copy small,
+.gg-td__table-empty {
+  color: var(--text-dim) !important;
+}
+
+.gg-td__note {
+  border-color: var(--line) !important;
+}
+
+.gg-td__stats {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)) !important;
+  gap: 0 !important;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.gg-td__stat {
+  min-height: 112px !important;
+  padding: 18px 18px !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-right: 1px solid var(--line) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.gg-td__stat:last-child {
+  border-right: 0 !important;
+}
+
+.gg-td__stat span,
+.gg-td__table th,
+.gg-td__table td.seed {
+  color: var(--text-dim) !important;
+}
+
+.gg-td__prize-grid {
+  gap: 0 !important;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.gg-td__prize-card {
+  min-height: 112px !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-right: 1px solid var(--line) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.gg-td__prize-card:last-child {
+  border-right: 0 !important;
+}
+
+.gg-td__prize-card span,
+.gg-td__prize-card small {
+  color: var(--text-dim) !important;
+}
+
+.gg-td__reglas {
+  padding: 6px 0 0 !important;
+}
+
+.gg-td__equipos {
+  border-top: 1px solid var(--line) !important;
+  border-bottom: 1px solid var(--line) !important;
+}
+
+.gg-td__table th,
+.gg-td__table tr {
+  border-color: var(--line) !important;
+}
+
+.gg-td__table tr:hover {
+  background: var(--bg-elev) !important;
+}
+
+.gg-td__tag {
+  background: var(--bg-elev) !important;
+  border-color: var(--line) !important;
+}
+
+.gg-td__team-actions button {
+  color: var(--text) !important;
+  background: transparent !important;
+  border-color: var(--line) !important;
+}
+
+.gg-td__team-actions button:hover {
+  color: var(--bg) !important;
+  background: var(--text) !important;
+}
+
+.gg-td__org-panel {
+  padding: 22px 0 0 !important;
+  border-top: 1px solid var(--line) !important;
+}
+
+.gg-td__org-title small,
+.gg-td__org-badge {
+  color: var(--tc, var(--accent)) !important;
+}
+
+.gg-td__org-badge {
+  background: color-mix(in srgb, var(--tc, var(--accent)) 12%, transparent) !important;
+  border-color: color-mix(in srgb, var(--tc, var(--accent)) 34%, var(--line)) !important;
+}
+
+.gg-td__org-header,
+.gg-td__org-row {
+  border-color: var(--line) !important;
+}
+
+.gg-toggle {
+  color: var(--text-dim) !important;
+  background: transparent !important;
+  border-color: var(--line) !important;
+}
+
+.gg-toggle.on {
+  color: var(--bg) !important;
+  background: var(--text) !important;
+  border-color: var(--text) !important;
+}
+
+.gg-td .gg-td__id {
+  color: var(--text) !important;
+  background: color-mix(in srgb, var(--bg-card) 76%, transparent) !important;
+  border-color: var(--line) !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+.gg-td .gg-td__id span {
+  color: var(--text-dim) !important;
+}
+
+.gg-td .gg-td__id b {
+  color: var(--text) !important;
+}
+
+@media (max-width: 920px) {
+  .gg-td__banner-inner {
+    grid-template-columns: 1fr !important;
+  }
+
+  .gg-td__banner-img {
+    width: 100% !important;
+    opacity: .16 !important;
+  }
+
+  .gg-td__stats,
+  .gg-td__prize-grid {
+    border: 0 !important;
+    gap: 10px !important;
+  }
+
+  .gg-td__stat,
+  .gg-td__prize-card {
+    border: 1px solid var(--line) !important;
+    border-radius: 8px !important;
+  }
+}
+
+/* Softer motion polish */
+.gg-td__banner {
+  isolation: isolate;
+}
+
+.gg-td__banner::before {
+  display: block !important;
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 1 !important;
+  border: 0 !important;
+  pointer-events: none !important;
+  background:
+    linear-gradient(110deg, transparent 0%, color-mix(in srgb, var(--tc, var(--accent)) 18%, transparent) 45%, transparent 62%),
+    radial-gradient(circle at 12% 92%, color-mix(in srgb, var(--tc, var(--accent)) 15%, transparent), transparent 26%) !important;
+  opacity: .55;
+  animation: ggTdAura 8s ease-in-out infinite alternate;
+}
+
+.gg-td__banner--art .gg-td__back,
+.gg-td__banner--art .gg-td__banner-inner,
+.gg-td__banner--art .gg-td__strip {
+  z-index: 2;
+}
+
+.gg-td__preview {
+  border: 1px solid color-mix(in srgb, var(--tc, var(--accent)) 22%, var(--line)) !important;
+  box-shadow:
+    0 24px 64px rgba(0,0,0,.28),
+    0 0 0 1px color-mix(in srgb, var(--tc, var(--accent)) 10%, transparent),
+    0 0 46px color-mix(in srgb, var(--tc, var(--accent)) 15%, transparent) !important;
+  animation: ggTdFloat 5.5s ease-in-out infinite;
+  transition: transform .28s ease, box-shadow .28s ease, opacity .28s ease;
+}
+
+.gg-td__preview--back {
+  animation-delay: -1.7s;
+}
+
+.gg-td__visual-stack:hover .gg-td__preview--main {
+  transform: rotate(-3deg) translateY(-6px) !important;
+}
+
+.gg-td__visual-stack:hover .gg-td__preview--back {
+  transform: rotate(3deg) translateY(-3px) !important;
+  opacity: .9;
+}
+
+.gg-td__preview-img {
+  position: relative;
+}
+
+.gg-td__preview-img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 0%, rgba(255,255,255,.16) 45%, transparent 62%);
+  transform: translateX(-120%);
+  animation: ggTdSweep 4.8s ease-in-out infinite;
+}
+
+.gg-td__preview-body {
+  border-color: color-mix(in srgb, var(--tc, var(--accent)) 18%, var(--line)) !important;
+}
+
+.gg-td__seal {
+  border: 1px solid color-mix(in srgb, var(--tc, var(--accent)) 26%, var(--line)) !important;
+  box-shadow:
+    0 18px 45px rgba(0,0,0,.2),
+    0 0 32px color-mix(in srgb, var(--tc, var(--accent)) 14%, transparent) !important;
+  animation: ggTdSeal 7s ease-in-out infinite;
+}
+
+.gg-td__seal span {
+  border-style: solid !important;
+  border-color: color-mix(in srgb, var(--tc, var(--accent)) 42%, var(--line)) !important;
+}
+
+.gg-td .gg-td__id,
+.gg-td__stat,
+.gg-td__prize-card,
+.gg-td__team-actions button,
+.gg-toggle,
+.gg-td__back {
+  border-color: color-mix(in srgb, var(--tc, var(--accent)) 16%, var(--line)) !important;
+}
+
+.gg-td .gg-td__id {
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--tc, var(--accent)) 7%, transparent) !important;
+}
+
+.gg-td__stat {
+  position: relative;
+  overflow: hidden;
+}
+
+.gg-td__stat::after {
+  content: '';
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--tc, var(--accent)), transparent);
+  opacity: .32;
+  transform: scaleX(.42);
+  transform-origin: left;
+  transition: transform .25s ease, opacity .25s ease;
+}
+
+.gg-td__stat:hover::after {
+  opacity: .75;
+  transform: scaleX(1);
+}
+
+.gg-td__prize-card {
+  position: relative;
+  overflow: hidden;
+  transition: transform .22s ease, background .22s ease, border-color .22s ease;
+}
+
+.gg-td__prize-card:hover {
+  transform: translateY(-3px);
+  background: color-mix(in srgb, var(--tc, var(--accent)) 7%, transparent) !important;
+  border-color: color-mix(in srgb, var(--tc, var(--accent)) 34%, var(--line)) !important;
+}
+
+@keyframes ggTdAura {
+  0% { opacity: .34; transform: translate3d(-10px, -4px, 0); }
+  100% { opacity: .72; transform: translate3d(12px, 6px, 0); }
+}
+
+@keyframes ggTdFloat {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -8px; }
+}
+
+@keyframes ggTdSeal {
+  0%, 100% { transform: rotate(-5deg) scale(1); }
+  50% { transform: rotate(2deg) scale(1.04); }
+}
+
+@keyframes ggTdSweep {
+  0%, 48% { transform: translateX(-120%); }
+  72%, 100% { transform: translateX(120%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gg-td__banner::before,
+  .gg-td__preview,
+  .gg-td__preview-img::after,
+  .gg-td__seal {
+    animation: none !important;
+  }
+}
+
+/* Final proportion pass */
+.gg-td__banner {
+  min-height: 540px !important;
+  padding-top: 26px !important;
+}
+
+.gg-td__banner-inner {
+  grid-template-columns: minmax(0, 0.92fr) minmax(390px, 0.72fr) !important;
+  gap: 58px !important;
+}
+
+.gg-td__banner-left {
+  max-width: 620px !important;
+}
+
+.gg-td__banner-left h1 {
+  max-width: 620px !important;
+  font-size: clamp(42px, 5.1vw, 64px) !important;
+  line-height: 1.02 !important;
+}
+
+.gg-td__lead {
+  max-width: 620px !important;
+  font-size: 16px !important;
+  line-height: 1.65 !important;
+}
+
+.gg-td__hero-actions {
+  margin-top: 18px !important;
+}
+
+.gg-td__team-picker {
+  min-width: min(100%, 280px);
+  display: grid;
+  gap: 5px;
+}
+
+.gg-td__team-picker span {
+  color: var(--text-dim);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.gg-td__team-picker select {
+  min-height: 52px;
+  width: 100%;
+  padding: 0 14px;
+  border: 1px solid color-mix(in srgb, var(--tc, var(--accent)) 28%, var(--line));
+  border-radius: 12px;
+  background: var(--bg-card);
+  color: var(--text);
+  font: inherit;
+  font-weight: 800;
+}
+
+.gg-td__hero-actions .gg-btn {
+  min-height: 52px !important;
+  padding-inline: 28px !important;
+  border-radius: 12px !important;
+}
+
+.gg-td__hero-actions .gg-btn--primary {
+  color: var(--text) !important;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--bg-elev) 82%, #fff), var(--bg-card)) !important;
+  border-color: color-mix(in srgb, var(--tc, var(--accent)) 28%, var(--line)) !important;
+  box-shadow: 0 16px 34px color-mix(in srgb, var(--tc, var(--accent)) 12%, transparent) !important;
+}
+
+.gg-td__hero-actions .gg-btn--primary:hover {
+  color: var(--bg) !important;
+  background: var(--text) !important;
+}
+
+.gg-td__visual-stack {
+  width: min(100%, 500px) !important;
+  height: 350px !important;
+}
+
+.gg-td__preview {
+  width: 300px !important;
+}
+
+.gg-td__preview--main {
+  left: 4px !important;
+  top: 76px !important;
+}
+
+.gg-td__preview--back {
+  right: 2px !important;
+  top: 34px !important;
+}
+
+.gg-td__preview-img {
+  height: 210px !important;
+}
+
+.gg-td__preview-body {
+  min-height: 94px !important;
+  padding: 15px 16px !important;
+}
+
+.gg-td__preview-body b {
+  font-size: 15px !important;
+}
+
+.gg-td__preview-body strong {
+  font-size: 18px !important;
+}
+
+.gg-td__seal {
+  left: 0 !important;
+  top: 14px !important;
+  width: 86px !important;
+  height: 86px !important;
+}
+
+.gg-td__strip {
+  margin-top: 36px !important;
+  padding-top: 26px !important;
+  gap: clamp(24px, 4vw, 56px) !important;
+}
+
+.gg-td__strip-item b {
+  font-size: clamp(20px, 2vw, 26px) !important;
+}
+
+.gg-td__strip-bar {
+  min-width: 230px !important;
+}
+
+@media (max-width: 1100px) {
+  .gg-td__banner-inner {
+    grid-template-columns: minmax(0, 1fr) 390px !important;
+    gap: 34px !important;
+  }
+
+  .gg-td__banner-left h1 {
+    font-size: clamp(38px, 5.8vw, 58px) !important;
+  }
+
+  .gg-td__preview {
+    width: 260px !important;
+  }
+}
+
+@media (max-width: 920px) {
+  .gg-td__banner {
+    min-height: auto !important;
+  }
+
+  .gg-td__banner-inner {
+    gap: 28px !important;
+  }
+
+  .gg-td__banner-left h1 {
+    max-width: 100% !important;
+    font-size: clamp(34px, 10vw, 54px) !important;
+  }
+
+  .gg-td__lead {
+    max-width: 100% !important;
+  }
+}
+
+/* Public tournament panel skin: same family as community/team panels */
+.gg-td {
+  --td-panel: #151515;
+  --td-panel-2: #1d1d1d;
+  --td-line: rgba(255,255,255,.13);
+  --td-muted: #a6a6a6;
+  max-width: 1560px;
+  margin-inline: auto;
+  padding: clamp(14px, 2vw, 28px) !important;
+}
+
+.gg-td__banner {
+  min-height: auto !important;
+  padding: clamp(18px, 2vw, 34px) !important;
+  margin-bottom: 18px !important;
+  overflow: hidden !important;
+  border: 1px solid var(--td-line) !important;
+  border-radius: 0 !important;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--tc, var(--accent)) 12%, transparent), transparent 36%),
+    linear-gradient(180deg, var(--td-panel-2), #111) !important;
+  box-shadow: 0 22px 64px rgba(0,0,0,.34) !important;
+  clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px)) !important;
+}
+
+.gg-td__banner::before {
+  display: block !important;
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+  border: 0 !important;
+  background:
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--tc, var(--accent)) 18%, transparent), transparent 38%) !important;
+  background-size: 18px 18px, 18px 18px, 100% 100% !important;
+  opacity: .55 !important;
+  animation: none !important;
+}
+
+.gg-td__banner::after {
+  display: block !important;
+  content: '' !important;
+  position: absolute !important;
+  inset: auto 0 0 0 !important;
+  height: 2px !important;
+  background: linear-gradient(90deg, var(--tc, var(--accent)), transparent) !important;
+}
+
+.gg-td__banner-img {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  opacity: .22 !important;
+  background-size: cover !important;
+  background-position: center !important;
+  filter: saturate(.9) contrast(1.08) !important;
+  mask-image: linear-gradient(90deg, transparent 0%, #000 38%, #000 100%) !important;
+}
+
+.gg-td__banner-scrim {
+  background:
+    linear-gradient(90deg, rgba(6,6,6,.96) 0%, rgba(12,12,12,.88) 50%, rgba(12,12,12,.66) 100%),
+    radial-gradient(circle at 0% 0%, color-mix(in srgb, var(--tc, var(--accent)) 22%, transparent), transparent 34%) !important;
+}
+
+.gg-td__back,
+.gg-td__banner--art .gg-td__back {
+  position: relative !important;
+  z-index: 3 !important;
+  margin-bottom: 24px !important;
+  border-radius: 0 !important;
+  border: 1px solid var(--td-line) !important;
+  background: rgba(255,255,255,.035) !important;
+  color: var(--text) !important;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px)) !important;
+}
+
+.gg-td__banner-inner {
+  position: relative !important;
+  z-index: 2 !important;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 420px) !important;
+  gap: clamp(22px, 4vw, 54px) !important;
+  align-items: center !important;
+}
+
+.gg-td__banner-left {
+  max-width: 780px !important;
+}
+
+.gg-td__banner-tags {
+  gap: 10px !important;
+  flex-wrap: wrap !important;
+}
+
+.gg-td__game,
+.gg-td__org {
+  border: 1px solid color-mix(in srgb, var(--tc, var(--accent)) 36%, var(--td-line));
+  background: rgba(0,0,0,.34);
+  color: var(--td-muted) !important;
+  padding: 7px 10px;
+  font: 900 10px var(--font-display);
+  letter-spacing: .16em;
+}
+
+.gg-td__banner-left h1 {
+  max-width: 760px !important;
+  margin-top: 12px !important;
+  color: #fff !important;
+  font-size: clamp(32px, 5vw, 58px) !important;
+  line-height: 1.02 !important;
+  letter-spacing: 0 !important;
+  text-shadow: 0 4px 0 rgba(0,0,0,.42) !important;
+}
+
+.gg-td__lead {
+  max-width: 700px !important;
+  margin-top: 14px !important;
+  /* gris claro en oscuro, gris oscuro en claro (antes #c7c7c7 fijo) */
+  color: color-mix(in srgb, var(--text) 74%, transparent) !important;
+  font-size: 15px !important;
+  line-height: 1.7 !important;
+}
+
+.gg-td__ids {
+  gap: 10px !important;
+  margin-top: 16px !important;
+}
+
+.gg-td .gg-td__id {
+  border-radius: 0 !important;
+  border: 1px solid var(--td-line) !important;
+  background: rgba(0,0,0,.42) !important;
+  clip-path: polygon(0 0, calc(100% - 9px) 0, 100% 9px, 100% 100%, 9px 100%, 0 calc(100% - 9px)) !important;
+}
+
+.gg-td__hero-actions {
+  display: flex !important;
+  align-items: flex-end !important;
+  gap: 10px !important;
+  flex-wrap: wrap !important;
+  margin-top: 20px !important;
+}
+
+.gg-td__hero-actions .gg-btn,
+.gg-td__reglas-actions .gg-btn,
+.gg-td__org-header .gg-btn {
+  min-height: 48px !important;
+  border-radius: 0 !important;
+  border: 1px solid var(--td-line) !important;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px)) !important;
+}
+
+.gg-td__hero-actions .gg-btn--primary,
+.gg-td__reglas-actions .gg-btn--primary,
+.gg-td__org-header .gg-btn--primary {
+  color: #060606 !important;
+  background: var(--tc, var(--accent)) !important;
+  border-color: var(--tc, var(--accent)) !important;
+}
+
+.gg-td__hero-actions .gg-btn--ghost,
+.gg-td__reglas-actions .gg-btn--ghost {
+  color: var(--text) !important;
+  background: rgba(255,255,255,.035) !important;
+}
+
+.gg-td__banner-action {
+  display: block !important;
+  padding: 0 !important;
+}
+
+.gg-td__banner-action > .gg-td__team-picker,
+.gg-td__banner-action > .gg-btn {
+  display: none !important;
+}
+
+.gg-td__visual-stack {
+  width: min(100%, 420px) !important;
+  height: 330px !important;
+}
+
+.gg-td__preview {
+  width: min(82vw, 280px) !important;
+  border-radius: 0 !important;
+  border: 1px solid color-mix(in srgb, var(--tc, var(--accent)) 24%, var(--td-line)) !important;
+  background: var(--td-panel) !important;
+  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px)) !important;
+  box-shadow: 0 22px 48px rgba(0,0,0,.34) !important;
+  animation: none !important;
+}
+
+.gg-td__preview--main {
+  left: 0 !important;
+  top: 82px !important;
+}
+
+.gg-td__preview--back {
+  right: 0 !important;
+  top: 20px !important;
+  opacity: .7 !important;
+}
+
+.gg-td__preview-img {
+  height: 170px !important;
+  border-radius: 0 !important;
+}
+
+.gg-td__preview-img::after {
+  display: none !important;
+}
+
+.gg-td__preview-body {
+  min-height: 92px !important;
+  padding: 14px 16px !important;
+  border: 0 !important;
+  background: linear-gradient(180deg, rgba(26,26,26,.96), #111) !important;
+}
+
+.gg-td__seal {
+  left: 4px !important;
+  top: 18px !important;
+  width: 78px !important;
+  height: 78px !important;
+  border-radius: 0 !important;
+  border-color: var(--tc, var(--accent)) !important;
+  background: #111 !important;
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px)) !important;
+  animation: none !important;
+}
+
+.gg-td__strip {
+  position: relative !important;
+  z-index: 2 !important;
+  display: grid !important;
+  grid-template-columns: repeat(6, minmax(120px, 1fr)) !important;
+  gap: 0 !important;
+  margin-top: 28px !important;
+  padding: 0 !important;
+  border: 1px solid var(--td-line) !important;
+  background: rgba(0,0,0,.28) !important;
+}
+
+.gg-td__strip-item {
+  min-height: 86px !important;
+  padding: 14px !important;
+  border-right: 1px solid var(--td-line) !important;
+}
+
+.gg-td__strip-item:last-child {
+  border-right: 0 !important;
+}
+
+.gg-td__strip-item span {
+  color: var(--td-muted) !important;
+}
+
+.gg-td__strip-item b {
+  font-size: clamp(17px, 1.7vw, 24px) !important;
+  color: #fff !important;
+}
+
+.gg-td__strip-bar {
+  min-width: 0 !important;
+}
+
+.gg-td .gg-tabs {
+  margin: 18px 0 !important;
+}
+
+.gg-td .gg-tabs button {
+  border-radius: 0 !important;
+  border: 1px solid var(--td-line) !important;
+  background: var(--td-panel) !important;
+  color: var(--td-muted) !important;
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px)) !important;
+}
+
+.gg-td .gg-tabs button.active {
+  color: #060606 !important;
+  border-color: var(--tc, var(--accent)) !important;
+  background: var(--tc, var(--accent)) !important;
+}
+
+.gg-td__resumen,
+.gg-td__bracket,
+.gg-td__equipos,
+.gg-td__reglas,
+.gg-td__org-panel {
+  max-width: none !important;
+}
+
+.gg-td__desc,
+.gg-td__reglas,
+.gg-td__org-panel,
+.gg-td__equipos,
+.gg-td__prizes {
+  border: 1px solid var(--td-line) !important;
+  border-radius: 0 !important;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--tc, var(--accent)) 8%, transparent), transparent 32%),
+    var(--td-panel) !important;
+  padding: clamp(18px, 2vw, 28px) !important;
+  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px)) !important;
+}
+
+.gg-td__stats {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)) !important;
+  gap: 12px !important;
+  border: 0 !important;
+}
+
+.gg-td__stat,
+.gg-td__prize-card {
+  min-height: 112px !important;
+  border: 1px solid var(--td-line) !important;
+  border-radius: 0 !important;
+  background: #111 !important;
+  padding: 18px !important;
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px)) !important;
+}
+
+.gg-td__stat::after {
+  background: var(--tc, var(--accent)) !important;
+}
+
+.gg-td__prize-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)) !important;
+  gap: 12px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+}
+
+.gg-td__equipos {
+  overflow-x: auto !important;
+}
+
+.gg-td__table {
+  min-width: 760px;
+}
+
+.gg-td__table th,
+.gg-td__table tr {
+  border-color: var(--td-line) !important;
+}
+
+.gg-td__tag,
+.gg-td__team-actions button,
+.gg-toggle {
+  border-radius: 0 !important;
+  border-color: var(--td-line) !important;
+  background: #111 !important;
+}
+
+@media (max-width: 980px) {
+  .gg-td__banner-inner {
+    grid-template-columns: 1fr !important;
+  }
+
+  .gg-td__banner-action {
+    display: none !important;
+  }
+
+  .gg-td__strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .gg-td__strip-item:nth-child(2n) {
+    border-right: 0 !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .gg-td {
+    padding: 10px !important;
+  }
+
+  .gg-td__banner {
+    padding: 16px !important;
+  }
+
+  .gg-td__banner-left h1 {
+    font-size: clamp(28px, 12vw, 42px) !important;
+  }
+
+  .gg-td__hero-actions {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+  }
+
+  .gg-td__team-picker {
+    width: 100%;
+  }
+
+  .gg-td__strip {
+    grid-template-columns: 1fr !important;
+  }
+
+  .gg-td__strip-item {
+    border-right: 0 !important;
+    border-bottom: 1px solid var(--td-line) !important;
+  }
+
+  .gg-td__strip-item:last-child {
+    border-bottom: 0 !important;
+  }
+}
+
+/* Clean pass: remove stacked textures and make the side card use the theme */
+.gg-td {
+  --td-panel: var(--bg-card);
+  --td-panel-2: var(--bg-elev);
+  --td-line: var(--line);
+  --td-muted: var(--text-dim);
+  background: transparent !important;
+}
+
+.gg-td__banner {
+  border-color: var(--line) !important;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--tc, var(--accent)) 14%, transparent), transparent 42%),
+    var(--bg-card) !important;
+  box-shadow: 0 18px 50px rgba(0,0,0,.26) !important;
+}
+
+.gg-td__banner::before {
+  background: none !important;
+  opacity: 0 !important;
+}
+
+.gg-td__banner-img {
+  opacity: .18 !important;
+  filter: saturate(.92) contrast(1.02) !important;
+  mask-image: linear-gradient(90deg, transparent 0%, #000 48%, #000 100%) !important;
+}
+
+.gg-td__banner-scrim {
+  background:
+    linear-gradient(90deg, var(--bg-card) 0%, color-mix(in srgb, var(--bg-card) 88%, transparent) 58%, color-mix(in srgb, var(--bg-card) 68%, transparent) 100%),
+    radial-gradient(circle at 0% 18%, color-mix(in srgb, var(--tc, var(--accent)) 18%, transparent), transparent 34%) !important;
+}
+
+.gg-td__game,
+.gg-td__org,
+.gg-td .gg-td__id,
+.gg-td__back,
+.gg-td__strip,
+.gg-td__desc,
+.gg-td__reglas,
+.gg-td__org-panel,
+.gg-td__equipos,
+.gg-td__prizes,
+.gg-td__stat,
+.gg-td__prize-card,
+.gg-td .gg-tabs button {
+  border-color: var(--line) !important;
+  background-color: var(--bg-card) !important;
+}
+
+.gg-td .gg-tabs {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 18px 0 14px !important;
+  padding: 0 !important;
+  gap: 8px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+}
+
+.gg-td .gg-tabs button {
+  min-height: 42px !important;
+  padding: 0 18px !important;
+  flex: 0 0 auto !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 0 !important;
+  background: var(--bg-card) !important;
+  color: var(--text-dim) !important;
+  clip-path: none !important;
+  box-shadow: none !important;
+}
+
+.gg-td .gg-tabs button:hover {
+  color: var(--text) !important;
+  border-color: color-mix(in srgb, var(--tc, var(--accent)) 38%, var(--line)) !important;
+}
+
+.gg-td .gg-tabs button.active,
+.gg-td .gg-tabs .gg-tab--active {
+  color: #06100b !important;
+  border-color: var(--tc, var(--accent)) !important;
+  background: var(--tc, var(--accent)) !important;
+}
+
+.gg-td__game,
+.gg-td__org,
+.gg-td .gg-td__id span,
+.gg-td__strip-item span,
+.gg-td__stat span,
+.gg-td__prize-card span,
+.gg-td__prize-card small {
+  color: var(--text-dim) !important;
+}
+
+.gg-td__banner-left h1,
+.gg-td__strip-item b,
+.gg-td__stat b,
+.gg-td__prize-card b {
+  color: var(--text) !important;
+}
+
+.gg-td__banner-action {
+  align-self: stretch !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.gg-td__visual-stack {
+  width: min(100%, 360px) !important;
+  height: auto !important;
+  min-height: 0 !important;
+}
+
+.gg-td__preview--back,
+.gg-td__seal {
+  display: none !important;
+}
+
+.gg-td__preview--main,
+.gg-td__preview {
+  position: relative !important;
+  inset: auto !important;
+  width: 100% !important;
+  transform: none !important;
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px)) !important;
+  border: 1px solid color-mix(in srgb, var(--tc, var(--accent)) 22%, var(--line)) !important;
+  background: var(--bg-elev) !important;
+  box-shadow: none !important;
+}
+
+.gg-td__preview-img {
+  height: 124px !important;
+  opacity: .72 !important;
+}
+
+.gg-td__preview-body {
+  min-height: 0 !important;
+  background: var(--bg-card) !important;
+  border-top: 1px solid var(--line) !important;
+}
+
+.gg-td__preview-body b {
+  color: var(--text) !important;
+}
+
+.gg-td__preview-body span {
+  color: var(--text-dim) !important;
+}
+
+.gg-td__preview-body strong {
+  color: var(--tc, var(--accent)) !important;
+}
+
+.gg-td__banner-action > .gg-td__team-picker,
+.gg-td__banner-action > .gg-btn {
+  display: none !important;
+}
+
+.gg-td__strip {
+  background: var(--bg-card) !important;
+}
+
+.gg-td__strip-item {
+  background: transparent !important;
+}
+
+.gg-td__desc,
+.gg-td__reglas,
+.gg-td__org-panel,
+.gg-td__equipos,
+.gg-td__prizes {
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--tc, var(--accent)) 6%, transparent), transparent 38%),
+    var(--bg-card) !important;
+}
+
+.gg-td__stat,
+.gg-td__prize-card,
+.gg-td__tag,
+.gg-td__team-actions button,
+.gg-toggle {
+  background: var(--bg-elev) !important;
+}
+
+@media (max-width: 980px) {
+  .gg-td__banner-action {
+    display: none !important;
+  }
+}
+
+/* Space pass: use the available desktop width instead of leaving a tiny panel */
+.gg-page.gg-td,
+.gg-td {
+  width: min(100%, 1780px) !important;
+  max-width: 1780px !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.gg-td__banner {
+  min-height: clamp(560px, 70vh, 760px) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  padding: clamp(24px, 3vw, 44px) clamp(24px, 4vw, 64px) clamp(18px, 2vw, 28px) !important;
+}
+
+.gg-td__banner-inner {
+  flex: 1 !important;
+  grid-template-columns: minmax(520px, 1fr) minmax(420px, 560px) !important;
+  gap: clamp(42px, 6vw, 96px) !important;
+  width: 100% !important;
+}
+
+.gg-td__banner-left {
+  align-self: center !important;
+  max-width: 860px !important;
+}
+
+.gg-td__banner-left h1 {
+  max-width: 860px !important;
+  font-size: clamp(48px, 5.4vw, 86px) !important;
+}
+
+.gg-td__creator {
+  width: min(100%, 560px) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+  margin: 2px 0 8px !important;
+  padding: 12px 14px !important;
+  border: 1px solid color-mix(in srgb, var(--tc, var(--accent)) 34%, var(--line)) !important;
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--tc, var(--accent)) 14%, transparent), transparent 70%),
+    color-mix(in srgb, var(--bg-card) 82%, transparent) !important;
+  box-shadow: inset 3px 0 0 var(--tc, var(--accent)) !important;
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px)) !important;
+}
+
+.gg-td__creator-avatar {
+  width: 58px !important;
+  height: 58px !important;
+  flex: 0 0 58px !important;
+  display: grid !important;
+  place-items: center !important;
+  border: 1px solid var(--tc, var(--accent)) !important;
+  background: var(--tc, var(--accent)) !important;
+  color: #06100b !important;
+  font-family: var(--font-display) !important;
+  font-size: 19px !important;
+  font-weight: 900 !important;
+  overflow: hidden !important;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px)) !important;
+}
+
+.gg-td__creator-avatar img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
+.gg-td__creator-copy {
+  min-width: 0 !important;
+  display: grid !important;
+  gap: 3px !important;
+  line-height: 1.12 !important;
+}
+
+.gg-td__creator-copy span {
+  color: var(--text-dim) !important;
+  font-size: 10px !important;
+  font-weight: 900 !important;
+  letter-spacing: .16em !important;
+  text-transform: uppercase !important;
+}
+
+.gg-td__creator-copy b {
+  max-width: 100% !important;
+  color: var(--text) !important;
+  font-family: var(--font-display) !important;
+  font-size: clamp(20px, 1.65vw, 28px) !important;
+  font-weight: 900 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+.gg-td__creator-copy small {
+  color: var(--tc, var(--accent)) !important;
+  font-size: 11px !important;
+  font-weight: 900 !important;
+  letter-spacing: .08em !important;
+  text-transform: uppercase !important;
+}
+
+.gg-td__lead {
+  max-width: 820px !important;
+  font-size: clamp(16px, 1.15vw, 21px) !important;
+}
+
+.gg-td__ids {
+  max-width: 820px !important;
+}
+
+.gg-td__hero-actions .gg-btn {
+  min-width: 188px !important;
+}
+
+.gg-td__banner-action {
+  align-self: center !important;
+  justify-content: center !important;
+}
+
+.gg-td__visual-stack {
+  width: min(100%, 540px) !important;
+}
+
+.gg-td__preview--main,
+.gg-td__preview {
+  width: min(100%, 540px) !important;
+}
+
+.gg-td__preview-img {
+  height: clamp(220px, 18vw, 310px) !important;
+}
+
+.gg-td__preview-body {
+  padding: 24px 26px !important;
+}
+
+.gg-td__preview-body b {
+  font-size: clamp(20px, 1.5vw, 28px) !important;
+}
+
+.gg-td__preview-body span {
+  font-size: 15px !important;
+}
+
+.gg-td__preview-creator {
+  display: block !important;
+  max-width: 100% !important;
+  margin-top: 10px !important;
+  color: color-mix(in srgb, var(--tc, var(--accent)) 78%, var(--text)) !important;
+  font-size: 13px !important;
+  font-weight: 900 !important;
+  letter-spacing: .06em !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+}
+
+.gg-td__preview-body strong {
+  margin-top: 10px !important;
+  font-size: clamp(26px, 2vw, 38px) !important;
+}
+
+.gg-td__strip {
+  width: 100% !important;
+  margin-top: clamp(24px, 4vw, 48px) !important;
+  grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+}
+
+.gg-td__strip-item {
+  min-height: 104px !important;
+  padding: 18px 22px !important;
+}
+
+.gg-td__strip-item b {
+  font-size: clamp(19px, 1.6vw, 30px) !important;
+}
+
+.gg-td__detail-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 14px !important;
+  margin-top: 14px !important;
+}
+
+.gg-td__tab-panel {
+  display: grid !important;
+  gap: 14px !important;
+}
+
+.gg-td__info-panel {
+  min-width: 0 !important;
+  border: 1px solid var(--td-line) !important;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--tc, var(--accent)) 7%, transparent), transparent 36%),
+    var(--bg-card) !important;
+  padding: clamp(16px, 1.8vw, 24px) !important;
+  clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px)) !important;
+}
+
+.gg-td__info-panel--wide {
+  grid-column: 1 / -1 !important;
+}
+
+.gg-td__info-panel .gg-td__section-head {
+  align-items: flex-start !important;
+  gap: 12px !important;
+  margin-bottom: 16px !important;
+  padding-bottom: 12px !important;
+  border-bottom: 1px solid var(--td-line) !important;
+}
+
+.gg-td__info-panel .gg-td__section-head h3 {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  color: var(--text) !important;
+}
+
+.gg-td__info-panel .gg-td__section-head h3 svg {
+  width: 18px !important;
+  height: 18px !important;
+  color: var(--tc, var(--accent)) !important;
+}
+
+.gg-td__info-list {
+  display: grid !important;
+  gap: 10px !important;
+}
+
+.gg-td__info-row {
+  display: grid !important;
+  grid-template-columns: minmax(120px, .8fr) minmax(0, 1.2fr) !important;
+  gap: 12px !important;
+  align-items: center !important;
+  min-height: 44px !important;
+  padding: 10px 12px !important;
+  border: 1px solid color-mix(in srgb, var(--td-line) 82%, transparent) !important;
+  background: var(--bg-elev) !important;
+}
+
+.gg-td__info-row span {
+  color: var(--text-dim) !important;
+  font-size: 10px !important;
+  font-weight: 900 !important;
+  letter-spacing: .12em !important;
+  text-transform: uppercase !important;
+}
+
+.gg-td__info-row b {
+  min-width: 0 !important;
+  color: var(--text) !important;
+  font-size: 14px !important;
+  overflow-wrap: anywhere !important;
+  text-align: right !important;
+}
+
+.gg-td__info-row--ok b {
+  color: var(--tc, var(--accent)) !important;
+}
+
+.gg-td__info-row--warn b {
+  color: #ffcc66 !important;
+}
+
+.gg-td__link-list,
+.gg-td__staff-grid,
+.gg-td__brand-row,
+.gg-td__sponsor-list {
+  display: grid !important;
+  gap: 12px !important;
+}
+
+.gg-td__link-list--grid {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)) !important;
+}
+
+.gg-td__contact-link,
+.gg-td__staff-card,
+.gg-td__brand-card,
+.gg-td__sponsor {
+  min-width: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  min-height: 64px !important;
+  padding: 12px !important;
+  border: 1px solid var(--td-line) !important;
+  background: var(--bg-elev) !important;
+  color: inherit !important;
+  text-decoration: none !important;
+}
+
+.gg-td__contact-link > span,
+.gg-td__staff-avatar,
+.gg-td__brand-mark {
+  width: 38px !important;
+  height: 38px !important;
+  flex: 0 0 38px !important;
+  display: grid !important;
+  place-items: center !important;
+  border: 0 !important;
+  background: color-mix(in srgb, var(--tc, var(--accent)) 12%, var(--bg-card)) !important;
+  color: var(--tc, var(--accent)) !important;
+  box-shadow: inset 2px 0 0 var(--tc, var(--accent)) !important;
+  overflow: hidden !important;
+}
+
+.gg-td__contact-link svg,
+.gg-td__staff-avatar svg,
+.gg-td__brand-mark svg {
+  width: 19px !important;
+  height: 19px !important;
+  stroke-width: 1.8 !important;
+}
+
+.gg-td__staff-avatar img,
+.gg-td__brand-mark img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
+.gg-td__contact-link div,
+.gg-td__staff-card div,
+.gg-td__brand-card div,
+.gg-td__sponsor {
+  min-width: 0 !important;
+}
+
+.gg-td__contact-link b,
+.gg-td__staff-card b,
+.gg-td__brand-card b,
+.gg-td__sponsor b {
+  display: block !important;
+  color: var(--text) !important;
+  font-size: 15px !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+.gg-td__contact-link small,
+.gg-td__staff-card span,
+.gg-td__brand-card small,
+.gg-td__sponsor small {
+  display: block !important;
+  margin-top: 3px !important;
+  color: var(--text-dim) !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  letter-spacing: .08em !important;
+  text-transform: uppercase !important;
+  overflow-wrap: anywhere !important;
+}
+
+.gg-td__staff-grid {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) !important;
+}
+
+.gg-td__staff-card.is-muted {
+  opacity: .72 !important;
+}
+.gg-td__staff-card.is-pending {
+  opacity: .78;
+  border-style: dashed !important;
+}
+.gg-td__staff-card.is-pending span { color: #f4c46b !important; }
+
+.gg-td__discord-req {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: flex-start;
+  margin: 14px 0 0;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #5865F255;
+  background: #5865F212;
+  font-size: 13px;
+  line-height: 1.55;
+}
+.gg-td__discord-req svg { width: 18px; height: 18px; flex-shrink: 0; color: #5865F2; margin-top: 1px; }
+.gg-td__discord-req a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 5px 10px;
+  border-radius: 7px;
+  background: #5865F2;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.gg-td__discord-req a:hover { filter: brightness(1.08); }
+
+.gg-td__brand-row {
+  grid-template-columns: minmax(260px, 1fr) auto !important;
+  align-items: center !important;
+}
+
+.gg-td__social-row {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 10px !important;
+  justify-content: flex-end !important;
+}
+
+.gg-td__social-link {
+  width: 40px !important;
+  height: 40px !important;
+  display: grid !important;
+  place-items: center !important;
+  border: 1px solid color-mix(in srgb, var(--tc, var(--accent)) 24%, var(--td-line)) !important;
+  background: color-mix(in srgb, var(--tc, var(--accent)) 9%, var(--bg-elev)) !important;
+  color: var(--tc, var(--accent)) !important;
+  text-decoration: none !important;
+}
+
+.gg-td__social-link:hover {
+  border-color: var(--tc, var(--accent)) !important;
+  background: color-mix(in srgb, var(--tc, var(--accent)) 16%, var(--bg-elev)) !important;
+}
+
+.gg-td__social-link svg {
+  width: 17px !important;
+  height: 17px !important;
+}
+
+.gg-td__social-row--contact {
+  justify-content: flex-start !important;
+  margin-top: 14px !important;
+}
+
+.gg-td__sponsor-list {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)) !important;
+  margin-top: 12px !important;
+}
+
+.gg-td__empty-panel {
+  min-height: 180px !important;
+  display: grid !important;
+  place-items: center !important;
+  gap: 8px !important;
+  padding: 28px !important;
+  border: 1px dashed color-mix(in srgb, var(--tc, var(--accent)) 32%, var(--td-line)) !important;
+  background: var(--bg-elev) !important;
+  text-align: center !important;
+}
+
+.gg-td__empty-panel > span {
+  width: 46px !important;
+  height: 46px !important;
+  display: grid !important;
+  place-items: center !important;
+  color: var(--tc, var(--accent)) !important;
+}
+
+.gg-td__empty-panel b {
+  color: var(--text) !important;
+  font-size: 18px !important;
+}
+
+.gg-td__empty-panel small {
+  max-width: 420px !important;
+  color: var(--text-dim) !important;
+  font-size: 13px !important;
+}
+
+@media (max-width: 1180px) {
+  .gg-td__banner {
+    min-height: auto !important;
+  }
+
+  .gg-td__banner-inner {
+    grid-template-columns: 1fr !important;
+  }
+
+  .gg-td__banner-action {
+    display: none !important;
+  }
+
+  .gg-td__detail-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .gg-td__creator {
+    align-items: flex-start !important;
+    padding: 10px 12px !important;
+  }
+
+  .gg-td__creator-avatar {
+    width: 48px !important;
+    height: 48px !important;
+    flex-basis: 48px !important;
+    font-size: 16px !important;
+  }
+
+  .gg-td__creator-copy b {
+    font-size: 20px !important;
+    white-space: normal !important;
+  }
+
+  .gg-td__info-row {
+    grid-template-columns: 1fr !important;
+  }
+
+  .gg-td__info-row b {
+    text-align: left !important;
+  }
+
+  .gg-td__brand-row {
+    grid-template-columns: 1fr !important;
+  }
+
+  .gg-td__social-row {
+    justify-content: flex-start !important;
+  }
+
+  .gg-td .gg-tabs {
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    padding-bottom: 6px !important;
+    scrollbar-width: thin !important;
+  }
+
+  .gg-td .gg-tabs button {
+    min-width: max-content !important;
+  }
+}
+
+/* ── Tournament Footer ──────────────────────────────────── */
+.gg-td__footer {
+  margin-top: 42px;
+  border: 1px solid var(--line);
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--tc, var(--accent)) 6%, transparent), transparent 42%),
+    var(--bg-card);
+  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+  padding: clamp(24px, 3vw, 42px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+/* GlitchGang branding */
+.gg-td__footer-brand-strip {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.gg-td__footer-gg-logo {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border: 2px solid var(--tc, var(--accent));
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--tc, var(--accent)) 22%, transparent), transparent 60%),
+    var(--bg-elev);
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  overflow: hidden;
+}
+
+.gg-td__footer-gg-logo span {
+  color: var(--tc, var(--accent));
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: .1em;
+}
+
+.gg-td__footer-gg-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gg-td__footer-gg-copy {
+  display: grid;
+  gap: 3px;
+  text-align: left;
+}
+
+.gg-td__footer-gg-copy b {
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: clamp(20px, 1.6vw, 28px);
+  font-weight: 900;
+  letter-spacing: .04em;
+}
+
+.gg-td__footer-gg-copy small {
+  color: var(--text-dim);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .06em;
+}
+
+/* Social media links */
+.gg-td__footer-social {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.gg-td__footer-social a {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--tc, var(--accent)) 24%, var(--line));
+  background: color-mix(in srgb, var(--tc, var(--accent)) 8%, var(--bg-elev));
+  color: var(--text-dim);
+  text-decoration: none;
+  transition: border-color .2s ease, background .2s ease, color .2s ease, transform .18s ease;
+}
+
+.gg-td__footer-social a:hover {
+  border-color: var(--tc, var(--accent));
+  background: color-mix(in srgb, var(--tc, var(--accent)) 18%, var(--bg-elev));
+  color: var(--tc, var(--accent));
+  transform: translateY(-3px);
+}
+
+.gg-td__footer-social a svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Footer bottom */
+.gg-td__footer-bottom {
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  text-align: center;
+  width: 100%;
+}
+
+.gg-td__footer-bottom small {
+  color: var(--text-dim);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .08em;
+}
+
+@media (max-width: 640px) {
+  .gg-td__footer {
+    padding: 18px;
+    gap: 18px;
+  }
+
+  .gg-td__footer-brand-strip {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .gg-td__footer-gg-copy {
+    text-align: center;
+  }
+}
+
+/* ── Sponsor logo fix (sponsors tab) ─────────────────────── */
+.gg-td__sponsor-logo {
+  width: 56px !important;
+  height: 56px !important;
+  flex: 0 0 56px !important;
+  display: grid !important;
+  place-items: center !important;
+  border: 1px solid color-mix(in srgb, var(--tc, var(--accent)) 28%, var(--line)) !important;
+  background: color-mix(in srgb, var(--tc, var(--accent)) 10%, var(--bg-card)) !important;
+  overflow: hidden !important;
+}
+
+.gg-td__sponsor-logo img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
+.gg-td__sponsor-logo svg {
+  width: 22px !important;
+  height: 22px !important;
+  color: var(--tc, var(--accent)) !important;
+}
+
+/* Sponsor card layout fix */
+.gg-td__sponsor {
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+  min-height: 72px !important;
+  padding: 14px !important;
+  border: 1px solid var(--line) !important;
+  background: var(--bg-elev) !important;
+  text-decoration: none !important;
+  color: inherit !important;
+  transition: border-color .2s ease, transform .18s ease !important;
+}
+
+.gg-td__sponsor:hover {
+  border-color: color-mix(in srgb, var(--tc, var(--accent)) 42%, var(--line)) !important;
+  transform: translateY(-2px) !important;
+}
+
+.gg-td__sponsor > div {
+  min-width: 0 !important;
+  flex: 1 !important;
+}
+
+.gg-td__sponsor b {
+  display: block !important;
+  color: var(--text) !important;
+  font-family: var(--font-display) !important;
+  font-size: 16px !important;
+  font-weight: 900 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+.gg-td__sponsor small {
+  display: block !important;
+  margin-top: 3px !important;
+  color: var(--text-dim) !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  letter-spacing: .08em !important;
+  text-transform: uppercase !important;
+}
+
+.gg-td__sponsor-list {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)) !important;
+  gap: 12px !important;
+}
+
+
+/* ── Tournament Data Cubes (3 horizontal) ──────────────── */
+.gg-td__data-cubes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(10px, 1.5vw, 16px);
+  margin-top: clamp(22px, 3vw, 34px);
+}
+
+.gg-td__cube {
+  border: 1px solid var(--td-line, var(--line));
+  background: var(--bg-elev);
+  overflow: hidden;
+  min-width: 0;
+}
+
+.gg-td__cube-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--td-line, var(--line));
+  background: color-mix(in srgb, var(--tc, var(--accent)) 6%, var(--bg-card));
+}
+
+.gg-td__cube-head > span {
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  flex: none;
+  background: color-mix(in srgb, var(--tc, var(--accent)) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--tc, var(--accent)) 28%, var(--td-line, var(--line)));
+  color: var(--tc, var(--accent));
+}
+
+.gg-td__cube-head > span svg {
+  width: 14px;
+  height: 14px;
+}
+
+.gg-td__cube-head b {
+  flex: 1;
+  min-width: 0;
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+.gg-td__cube-head small {
+  color: var(--text-dim);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.gg-td__cube-dl {
+  margin: 0;
+  padding: 0;
+}
+
+.gg-td__cube-dl > div {
+  display: grid;
+  grid-template-columns: minmax(104px, .75fr) minmax(0, 1.25fr);
+  gap: 10px;
+  align-items: center;
+  min-height: 38px;
+  padding: 8px 16px;
+  border-bottom: 1px solid color-mix(in srgb, var(--td-line, var(--line)) 55%, transparent);
+  transition: background .12s ease;
+}
+
+.gg-td__cube-dl > div:last-child {
+  border-bottom: 0;
+}
+
+.gg-td__cube-dl > div:hover {
+  background: color-mix(in srgb, var(--tc, var(--accent)) 4%, transparent);
+}
+
+.gg-td__cube-dl dt {
+  color: var(--text-dim);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.gg-td__cube-dl dd {
+  margin: 0;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 700;
+  text-align: right;
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+
+.gg-td__cube-dl dd.is-ok {
+  color: var(--tc, var(--accent));
+}
+
+.gg-td__cube-dl dd.is-warn {
+  color: var(--warn-text, #ffcc66);
+}
+
+@media (max-width: 980px) {
+  .gg-td__data-cubes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .gg-td__data-cubes {
+    grid-template-columns: 1fr;
+  }
+
+  .gg-td__cube-head {
+    align-items: flex-start;
+  }
+
+  .gg-td__cube-dl > div {
+    grid-template-columns: 1fr;
+    gap: 3px;
+  }
+
+  .gg-td__cube-dl dd {
+    text-align: left;
+  }
+}
+
+/* Mobile readability fix for public tournament detail */
+.gg-td__strip,
+.gg-td__stats {
+  min-width: 0;
+}
+
+.gg-td__strip-item,
+.gg-td__stat {
+  min-width: 0;
+}
+
+.gg-td__strip-item span,
+.gg-td__stat span {
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.gg-td__strip-item b,
+.gg-td__stat b {
+  max-width: 100%;
+  line-height: 1.12;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 760px) {
+  .gg-td__strip {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+    padding: 12px !important;
+    overflow: visible !important;
+  }
+
+  .gg-td__strip-item {
+    width: auto !important;
+    min-height: 78px !important;
+    padding: 12px !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+  }
+
+  .gg-td__strip-item span {
+    width: 100%;
+    gap: 6px !important;
+    font-size: 10px !important;
+    font-weight: 800 !important;
+    letter-spacing: .08em !important;
+    white-space: normal !important;
+  }
+
+  .gg-td__strip-item b {
+    display: block;
+    width: 100%;
+    font-size: 20px !important;
+    text-align: left;
+    white-space: normal !important;
+  }
+
+  .gg-td__strip-bar {
+    grid-column: 1 / -1;
+    min-height: 58px !important;
+  }
+
+  .gg-td__stats {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+
+  .gg-td__stat {
+    min-height: 0 !important;
+    padding: 14px !important;
+    display: grid !important;
+    grid-template-columns: minmax(0, .95fr) minmax(0, 1.25fr) !important;
+    align-items: center !important;
+    gap: 12px !important;
+  }
+
+  .gg-td__stat span {
+    font-size: 10px !important;
+    letter-spacing: .08em !important;
+  }
+
+  .gg-td__stat b {
+    font-size: 19px !important;
+    text-align: right;
+  }
+}
+
+@media (max-width: 430px) {
+  .gg-td {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+
+  .gg-td__strip {
+    grid-template-columns: 1fr !important;
+  }
+
+  .gg-td__strip-item {
+    min-height: 64px !important;
+  }
+
+  .gg-td__strip-item b {
+    font-size: 18px !important;
+  }
+
+  .gg-td__stat {
+    grid-template-columns: 1fr !important;
+    gap: 7px !important;
+  }
+
+  .gg-td__stat b {
+    text-align: left;
+    font-size: 18px !important;
+  }
+
+  .gg-td .gg-tabs {
+    gap: 8px !important;
+    padding-bottom: 8px;
+    overflow-x: auto;
+  }
+
+  .gg-td .gg-tabs button {
+    flex: 0 0 auto;
+    min-width: max-content;
+    padding: 12px 16px !important;
+    font-size: 13px !important;
+  }
+}
+
+/* Telefonos: cifras/KPIs en 2 columnas, no una debajo de la otra. */
+@media (max-width: 640px) {
+  .gg-td__stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+/* Telefonos: datos rapidos del torneo (premio, inscripcion, fecha, hora,
+   equipos) en 2 columnas; la barra de cupos ocupa la fila completa. */
+@media (max-width: 640px) {
+  .gg-td__strip {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 12px 14px !important;
+  }
+
+  .gg-td__strip-item {
+    min-width: 0 !important;
+    width: auto !important;
+    margin: 0 !important;
+    padding: 10px 0 !important;
+    border-bottom: 0 !important;
+  }
+
+  .gg-td__strip-item b {
+    font-size: 17px !important;
+    overflow-wrap: anywhere;
+  }
+
+  .gg-td__strip-bar {
+    grid-column: 1 / -1;
+    max-width: none !important;
+  }
+}
+
+/* ── Logo del torneo junto al nombre (cuadro glitch) ── */
+.gg-td__title-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-width: 0;
+}
+
+.gg-td__title-row h1 { min-width: 0; margin: 0; }
+
+.gg-td__tour-logo {
+  position: relative;
+  flex: 0 0 auto;
+  width: 84px;
+  height: 84px;
+  padding: 8px;
+  background: color-mix(in srgb, var(--tc, var(--accent)) 10%, var(--card, #111));
+  border: 2px solid var(--tc, var(--accent));
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+  box-shadow: 0 0 22px color-mix(in srgb, var(--tc, var(--accent)) 30%, transparent);
+}
+
+/* Capas desfasadas cian / magenta: el "glitch" del cuadro */
+.gg-td__tour-logo::before,
+.gg-td__tour-logo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+.gg-td__tour-logo::before {
+  border-left: 3px solid #00f0ff;
+  border-top: 3px solid #00f0ff;
+  transform: translate(-3px, -2px);
+  opacity: .7;
+}
+
+.gg-td__tour-logo::after {
+  border-right: 3px solid #ff2bd6;
+  border-bottom: 3px solid #ff2bd6;
+  transform: translate(3px, 2px);
+  opacity: .7;
+}
+
+.gg-td__tour-logo img {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(-1px 0 0 rgba(0, 240, 255, .55)) drop-shadow(1px 0 0 rgba(255, 43, 214, .55));
+}
+
+@media (max-width: 560px) {
+  .gg-td__title-row { gap: 12px; }
+  .gg-td__tour-logo { width: 60px; height: 60px; padding: 6px; }
+}
+

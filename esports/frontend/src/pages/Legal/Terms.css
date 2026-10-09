@@ -1,0 +1,30 @@
+.gg-terms { min-height: 100vh; background: var(--bg, #0a0b0f); color: var(--text, #e7e7ea); }
+.gg-terms__bar {
+  position: sticky; top: 0; z-index: 5;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 22px; background: rgba(10,11,15,.85); backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line, #20232b);
+}
+.gg-terms__back { display: inline-flex; align-items: center; gap: 6px; background: none; border: none; color: var(--text-dim, #9aa0aa); font-weight: 600; font-size: 14px; cursor: pointer; }
+.gg-terms__back:hover { color: var(--accent, #00E676); }
+.gg-terms__back svg { width: 16px; height: 16px; transform: rotate(180deg); }
+.gg-terms__brand { font-family: var(--font-display); font-weight: 800; letter-spacing: .04em; }
+.gg-terms__brand b { color: var(--accent, #00E676); }
+
+.gg-terms__wrap { max-width: 860px; margin: 0 auto; padding: 32px 22px 80px; }
+.gg-terms__head { margin-bottom: 24px; }
+.gg-terms__tag { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--accent, #00E676); }
+.gg-terms__tag svg { width: 15px; height: 15px; }
+.gg-terms__head h1 { font-family: var(--font-display); font-size: 32px; font-weight: 900; margin: 8px 0 6px; }
+.gg-terms__head p { color: var(--text-dim, #9aa0aa); font-size: 14px; margin: 0; }
+
+.gg-terms__toc { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 6px 16px; margin-bottom: 28px; padding: 16px; border: 1px solid var(--line, #20232b); border-radius: 12px; background: var(--bg-card, #11131a); }
+.gg-terms__toc a { font-size: 13px; color: var(--text-dim, #9aa0aa); text-decoration: none; padding: 4px 0; }
+.gg-terms__toc a:hover { color: var(--accent, #00E676); }
+
+.gg-terms__sec { margin-bottom: 26px; scroll-margin-top: 80px; }
+.gg-terms__sec h2 { font-size: 18px; font-weight: 800; margin: 0 0 10px; }
+.gg-terms__sec p { font-size: 14px; line-height: 1.65; color: var(--text-dim, #c2c6cd); margin: 0 0 8px; }
+.gg-terms__contact { border-top: 1px solid var(--line, #20232b); padding-top: 20px; }
+.gg-terms__contact b { color: var(--text, #e7e7ea); }
+

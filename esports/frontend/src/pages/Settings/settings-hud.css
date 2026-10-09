@@ -1,0 +1,200 @@
+/* ═══════════════════════════════════════════════════════════════
+   GlitchGang · restyle de /ajustes (Settings)
+
+   Capa de override. Va DESPUÉS de Settings.css:
+
+     import './Settings.css'
+     import './settings-hud.css'   // esta
+
+   (No se llama settings.css: en Windows/macOS chocaría con
+   Settings.css por no distinguir mayúsculas.)
+
+   No cambia markup ni clases (gset-*, gset-2fa-*, gg-btn, gg-badge).
+   Misma escala que Chat y Amigos: espacio 4·8·12·16·24·32,
+   tipo 24·16·14·12. Sin blur, sin loops; transiciones ≤150ms.
+
+   Arreglos además del lenguaje HUD:
+   1. Móvil: Settings.css pone width:100% a todo hijo de
+      .gset-row__ctrl, y el toggle se estiraba a lo ancho. Las filas
+      con toggle se quedan en horizontal.
+   2. El modal 2FA usaba naranja #ff5a1f y blur(8px); pasa al
+      acento y a un velo plano.
+   3. Áreas táctiles de 44px en nav, toggles, inputs y botones.
+   ═══════════════════════════════════════════════════════════════ */
+.gset{--gs-s1:var(--bg-elev);--gs-s2:color-mix(in srgb,var(--text) 6%,var(--bg-elev));--gs-in:var(--bg);--gs-line:var(--line);--gs-line2:color-mix(in srgb,var(--text) 16%,transparent);--gs-mu:var(--text-dim);--gs-dan:#f87171;--gs-mono:'IBM Plex Mono',ui-monospace,monospace;--gs-ease:cubic-bezier(.4,0,.2,1)}
+.gset .gset-card,.gset .gset-input,.gset .gset__nav-item,.gset .gg-btn,.gset .gset-lang__opt,.gset .gset-ref,.gset .gset-ref__stats div,.gset .gset-connect__icon,.gset .gset-support__icon,.gset .gset-account img,.gset .gset-pagos-empty span,.gset .gset-toggle,.gset-2fa__panel,.gset-2fa__qr-card,.gset-2fa__digits input,.gset-2fa__manual code,.gset-2fa__manual button,.gset-2fa__cancel,.gset-2fa__verify,.gset-2fa__close{border-radius:0}
+
+/* ── Cabecera ─────────────────────────────────────────────────── */
+.gset__head{margin-bottom:32px}
+.gset__head h1{font-weight:700;font-size:24px;line-height:32px;letter-spacing:.01em;margin:0 0 4px}
+.gset__head p{font-size:14px;line-height:20px;color:var(--gs-mu)}
+.gset__layout{grid-template-columns:240px minmax(0,1fr);gap:32px}
+
+/* ── Nav lateral ──────────────────────────────────────────────── */
+.gset__nav{top:24px;gap:24px}
+.gset__nav-group{gap:4px}
+.gset__nav-label{font-family:var(--gs-mono);font-size:12px;line-height:16px;letter-spacing:.12em;padding:0 12px 4px}
+.gset__nav-item{position:relative;min-height:44px;padding:0 12px;gap:12px;border:0;font-size:14px;line-height:20px;transition:background .15s var(--gs-ease),color .15s var(--gs-ease);clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,0 100%)}
+.gset__nav-item:hover{background:color-mix(in srgb,var(--text) 5%,transparent);color:var(--text)}
+.gset__nav-item.active{background:linear-gradient(90deg,rgba(var(--accent-rgb),.14),rgba(var(--accent-rgb),.03));color:var(--text);border:0}
+.gset__nav-item.active::before{content:'';position:absolute;left:0;top:10px;bottom:10px;width:2px;background:var(--accent)}
+.gset__nav-item.active .gset__nav-icon{color:var(--accent)}
+.gset__nav-item:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+
+/* ── Contenido ────────────────────────────────────────────────── */
+.gset__crumb{display:flex;align-items:center;gap:12px;font-family:var(--gs-mono);font-size:12px;line-height:16px;letter-spacing:.12em;color:var(--accent);margin-bottom:16px}
+.gset__crumb::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(var(--accent-rgb),.4),transparent)}
+
+.gset-card{background:var(--gs-s1);border:1px solid var(--gs-line);padding:24px;margin-bottom:16px;clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px))}
+.gset-card__head{margin-bottom:8px}
+.gset-card__head h3{font-weight:600;font-size:16px;line-height:24px}
+.gset-card__head p{font-size:12px;line-height:16px;color:var(--gs-mu);margin:4px 0 0}
+/* Zona de peligro: la única tarjeta con "Cerrar sesión" dentro. */
+.gset-card:has(.gg-btn--danger){border-color:rgba(248,113,113,.28)}
+.gset-card:has(.gg-btn--danger) .gset-card__head h3{color:var(--gs-dan)}
+
+/* ── Filas ────────────────────────────────────────────────────── */
+.gset-row{min-height:64px;padding:12px 0;gap:16px;border-bottom-color:var(--gs-line)}
+.gset-row__text{gap:4px}
+.gset-row__text span{font-size:14px;line-height:20px}
+.gset-row__text small{font-size:12px;line-height:16px;color:var(--gs-mu)}
+
+/* ── Inputs ───────────────────────────────────────────────────── */
+.gset-input{height:44px;min-width:280px;padding:0 12px;background:var(--gs-in);border:1px solid var(--gs-line2);font-size:14px;transition:border-color .15s,box-shadow .15s;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,0 100%)}
+.gset-input:hover{border-color:color-mix(in srgb,var(--text) 24%,transparent)}
+.gset-input:focus{border-color:var(--accent);box-shadow:inset 0 0 0 1px rgba(var(--accent-rgb),.35)}
+.gset-input::placeholder{color:var(--gs-mu)}
+select.gset-input{appearance:none;padding-right:36px;background:var(--gs-in) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%238b93a3' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 12px center;cursor:pointer}
+textarea.gset-input{height:auto;min-height:120px;padding:12px;line-height:20px}
+.gset-field{padding:12px 0}
+.gset-field label{font-family:var(--gs-mono);font-size:12px;line-height:16px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
+.gset-actions{margin-top:16px;padding-top:16px;border-top:1px solid var(--gs-line)}
+
+/* ── Botones (solo dentro de Ajustes) ─────────────────────────── */
+.gset .gg-btn,.gset-2fa .gg-btn{height:40px;white-space:nowrap;flex:none;padding:0 16px;gap:8px;font-family:var(--font-display);font-size:14px;font-weight:600;letter-spacing:.02em;transition:background .15s,color .15s,border-color .15s}
+.gset .gg-btn svg{width:16px;height:16px}
+.gset .gg-btn:active{transform:scale(.97)}
+.gset .gg-btn--primary{background:var(--accent);color:#06070b;border-color:transparent;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,0 100%)}
+.gset .gg-btn--primary:hover{background:color-mix(in srgb,var(--accent) 86%,#fff);box-shadow:none;transform:none}
+.gset .gg-btn--ghost{background:transparent;border:1px solid var(--gs-line2);color:var(--text)}
+.gset .gg-btn--ghost:hover{border-color:rgba(var(--accent-rgb),.6);color:var(--accent)}
+.gset .gg-btn--danger{background:rgba(239,68,68,.12);border:1px solid rgba(248,113,113,.35);color:var(--gs-dan)}
+.gset .gg-btn--danger:hover{background:rgba(239,68,68,.2)}
+.gset .gg-badge{height:20px;white-space:nowrap;flex:none;padding:0 8px;border-radius:0;font-family:var(--gs-mono);font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;border:1px solid rgba(var(--accent-rgb),.45)}
+
+/* ── Toggle: rectángulo con chaflán, perilla cuadrada ─────────── */
+.gset-toggle{width:44px;height:24px;background:var(--gs-s2);border:1px solid var(--gs-line2);transition:background .15s,border-color .15s;clip-path:polygon(0 0,calc(100% - 6px) 0,100% 6px,100% 100%,0 100%)}
+.gset-toggle::before{content:'';position:absolute;inset:-10px 0}
+.gset-toggle__knob{top:3px;left:3px;width:16px;height:16px;border-radius:0;background:var(--gs-mu);transition:transform .15s var(--gs-ease),background .15s}
+.gset-toggle.on{background:var(--accent);border-color:var(--accent)}
+.gset-toggle.on .gset-toggle__knob{transform:translateX(20px);background:var(--bg)}
+.gset-toggle:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+/* ── Cuenta ───────────────────────────────────────────────────── */
+.gset-account{gap:16px}
+.gset-account img{width:64px;height:64px;border:1px solid rgba(var(--accent-rgb),.4);clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px))}
+.gset-account__info{gap:4px}
+.gset-account__info b{font-weight:600;font-size:16px;line-height:24px}
+.gset-account__info span{font-size:12px;line-height:16px;color:var(--gs-mu)}
+.gset-account__info .gg-badge{margin-top:4px}
+
+/* ── Conexiones y soporte ─────────────────────────────────────── */
+.gset-connect,.gset-support{min-height:64px;padding:12px 0;gap:12px;border-bottom-color:var(--gs-line)}
+.gset-connect__icon,.gset-support__icon{width:40px;height:40px;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px))}
+.gset-connect__info,.gset-support__body{gap:4px;min-width:0}
+.gset-connect__info b,.gset-support__body b{font-size:14px;line-height:20px;font-weight:600}
+.gset-connect__info small,.gset-support__body small{font-size:12px;line-height:16px;color:var(--gs-mu)}
+
+/* ── Apariencia ───────────────────────────────────────────────── */
+.gset-lang{gap:8px}
+.gset-lang__opt{min-height:44px;padding:0 16px;gap:8px;background:var(--gs-in);border:1px solid var(--gs-line2);transition:border-color .15s,background .15s;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,0 100%)}
+.gset-lang__opt:hover{border-color:color-mix(in srgb,var(--text) 26%,transparent)}
+.gset-lang__opt.active{border-color:var(--accent);background:rgba(var(--accent-rgb),.1)}
+
+/* ── Plan, referidos, facturas ────────────────────────────────── */
+.gset-plan{gap:16px}
+.gset-plan__renew{font-size:14px;color:var(--gs-mu);margin-left:12px}
+.gset-plan__renew b{color:var(--text);font-weight:600}
+.gset-ref{padding:8px 8px 8px 16px;gap:12px;background:var(--gs-in);border:1px solid var(--gs-line2);margin-bottom:16px;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%)}
+.gset-ref__url{font-family:var(--gs-mono);font-size:12px;line-height:16px;color:var(--gs-mu);overflow-wrap:anywhere}
+.gset-ref__stats{gap:12px}
+.gset-ref__stats div{padding:16px;background:var(--gs-s2);border:1px solid var(--gs-line);text-align:left;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%)}
+.gset-ref__stats b{font-weight:700;font-size:24px;line-height:32px}
+.gset-ref__stats span{font-family:var(--gs-mono);font-size:12px;line-height:16px;letter-spacing:.12em;text-transform:uppercase;color:var(--gs-mu)}
+.gset-inv table{font-size:14px}
+.gset-inv th{height:32px;padding:0 12px 8px;font-family:var(--gs-mono);font-size:12px;font-weight:400;letter-spacing:.12em;border-bottom-color:var(--gs-line2)}
+.gset-inv td{height:48px;padding:0 12px;border-bottom-color:var(--gs-line)}
+.gset-inv tbody tr{transition:background .12s}
+.gset-inv tbody tr:hover{background:rgba(var(--accent-rgb),.04)}
+.gset-inv code{font-family:var(--gs-mono);font-size:12px;color:var(--gs-mu)}
+
+/* ── Comprobantes vacío ───────────────────────────────────────── */
+.gset-pagos{gap:16px}
+.gset-pagos-empty{padding:32px 24px;border:1px dashed var(--gs-line2);display:grid;justify-items:center;gap:8px}
+.gset-pagos-empty span{width:56px;height:56px;margin:0 0 8px;background:rgba(var(--accent-rgb),.1);clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px))}
+.gset-pagos-empty span svg{width:24px;height:24px}
+.gset-pagos-empty p{max-width:360px;font-size:14px;line-height:20px;margin:0 0 8px;text-wrap:pretty}
+
+/* ── Modal 2FA: acento, velo plano, dígitos grandes ───────────── */
+.gset-2fa{background:rgba(0,0,0,.72);backdrop-filter:none;-webkit-backdrop-filter:none;padding:16px}
+.gset-2fa__panel{width:min(100%,400px);color:var(--text);background:color-mix(in srgb,var(--text) 5%,var(--bg-elev));border:1px solid color-mix(in srgb,var(--text) 16%,transparent);box-shadow:0 24px 80px rgba(0,0,0,.55);clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,16px 100%,0 calc(100% - 16px))}
+.gset-2fa__top{min-height:64px;padding:16px 12px 16px 24px;border-bottom:1px solid color-mix(in srgb,var(--text) 8%,transparent)}
+.gset-2fa__eyebrow{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;line-height:16px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.gset-2fa__top h3{max-width:none;font-weight:600;font-size:16px;line-height:24px}
+.gset-2fa__close{width:44px;height:44px;color:var(--text-dim)}
+.gset-2fa__close:hover{background:color-mix(in srgb,var(--text) 6%,transparent);color:var(--text)}
+.gset-2fa__close svg{width:18px;height:18px}
+.gset-2fa__section{padding:24px 24px 0}
+.gset-2fa__section-title{gap:8px;font-size:14px;line-height:20px;color:var(--text)}
+.gset-2fa__section-title b{font-weight:600}
+.gset-2fa__section p{margin:4px 0 12px;font-size:12px;line-height:16px;color:var(--text-dim)}
+.gset-2fa__scan-mark,.gset-2fa__code-mark{border-radius:0;border-color:var(--accent);opacity:1}
+.gset-2fa__code-mark{background:linear-gradient(90deg,transparent 0 18%,var(--accent) 18% 26%,transparent 26% 38%,var(--accent) 38% 48%,transparent 48% 60%,var(--accent) 60% 70%,transparent 70% 100%)}
+.gset-2fa__qr-card{grid-template-columns:112px minmax(0,1fr);gap:16px;padding:12px;background:var(--bg);border:1px solid color-mix(in srgb,var(--text) 12%,transparent)}
+.gset-2fa__qr{width:112px;border-radius:0;background:color-mix(in srgb,var(--text) 5%,var(--bg-elev));border-color:rgba(var(--accent-rgb),.35)}
+.gset-2fa__qr span{color:var(--accent)}
+.gset-2fa__manual{gap:8px}
+.gset-2fa__manual span{font-size:12px;line-height:16px;font-weight:500;color:var(--text-dim)}
+.gset-2fa__manual code{height:36px;display:flex;align-items:center;padding:0 12px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.08em;color:var(--text);background:color-mix(in srgb,var(--text) 5%,var(--bg-elev));border-color:color-mix(in srgb,var(--text) 12%,transparent)}
+.gset-2fa__manual button{min-height:36px;padding:0 12px;font-family:var(--font-display);font-size:14px;font-weight:600;background:transparent;border-color:color-mix(in srgb,var(--text) 16%,transparent);transition:border-color .15s,color .15s}
+.gset-2fa__manual button:hover{background:transparent;border-color:rgba(var(--accent-rgb),.6);color:var(--accent)}
+.gset-2fa__digits{gap:8px}
+.gset-2fa__digits input{height:52px;font:700 24px/1 var(--font-display);background:var(--bg);border-color:color-mix(in srgb,var(--text) 16%,transparent);caret-color:var(--accent);transition:border-color .15s;clip-path:polygon(0 0,calc(100% - 6px) 0,100% 6px,100% 100%,0 100%)}
+.gset-2fa__digits input:focus{border-color:var(--accent);box-shadow:inset 0 0 0 1px rgba(var(--accent-rgb),.4)}
+.gset-2fa__actions{padding:24px;gap:8px;justify-content:flex-end}
+.gset-2fa__cancel,.gset-2fa__verify{min-height:44px;font-family:var(--font-display);font-size:14px;font-weight:600;letter-spacing:.02em}
+.gset-2fa__cancel{padding:0 16px;color:var(--text);background:transparent;border-color:color-mix(in srgb,var(--text) 16%,transparent)}
+.gset-2fa__cancel:hover{border-color:color-mix(in srgb,var(--text) 30%,transparent)}
+.gset-2fa__verify{padding:0 24px;color:#06070b;background:var(--accent);box-shadow:none;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,0 100%)}
+.gset-2fa__verify:hover{filter:none;background:color-mix(in srgb,var(--accent) 86%,#fff)}
+
+/* ── Tablet ───────────────────────────────────────────────────── */
+@media (max-width:820px){
+.gset__layout{grid-template-columns:minmax(0,1fr);gap:24px}
+.gset__nav{gap:8px}
+.gset__nav-item{width:auto;border:1px solid var(--gs-line)}
+.gset__nav-item.active{border-color:rgba(var(--accent-rgb),.45)}
+.gset__nav-item.active::before{display:none}}
+
+/* ── Celular ──────────────────────────────────────────────────── */
+@media (max-width:640px){
+.gset__head{margin-bottom:24px}
+.gset__nav{margin:0 -16px;padding:0 16px 4px}
+.gset__nav-group{gap:8px}
+.gset-card{padding:16px}
+.gset-row{gap:12px}
+.gset-input{min-width:0}
+/* Filas con toggle: horizontal y toggle a su tamaño, no al 100%. */
+.gset-row:has(.gset-toggle){flex-direction:row;align-items:center}
+.gset-row__ctrl:has(.gset-toggle){width:auto}
+.gset-row__ctrl>.gset-toggle{width:44px}
+/* "Actual" en sesiones activas tampoco debe estirarse. */
+.gset-row__ctrl>.gg-badge{width:auto}
+.gset .gg-btn{height:44px;justify-content:center}
+.gset-plan__renew{display:block;margin:8px 0 0}
+.gset-2fa__qr-card{grid-template-columns:1fr;justify-items:center;text-align:center}
+.gset-2fa__manual{width:100%;align-items:center}
+.gset-2fa__actions>*{flex:1}}
+
+@media (prefers-reduced-motion:reduce){.gset *,.gset-2fa *{transition:none!important}}
+

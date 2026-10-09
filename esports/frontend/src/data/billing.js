@@ -1,0 +1,67 @@
+export const PLANS = [
+  {
+    id: 'free',
+    name: 'Básico',
+    price: { monthly: 0, annual: 0 },
+    highlight: false,
+    badge: null,
+    features: [
+      'Acceso a torneos públicos',
+      'Perfil básico',
+      '1 equipo activo',
+      'Chat en comunidad',
+      'Estadísticas básicas',
+    ],
+    cta: 'Plan actual',
+    ctaVariant: 'ghost',
+  },
+  {
+    id: 'pro',
+    name: 'Pro Trial',
+    price: { monthly: 9.99, annual: 7.99 },
+    highlight: true,
+    badge: 'POPULAR',
+    features: [
+      'Todo lo de Básico',
+      'Bot de Discord privado',
+      '5 equipos activos',
+      'Dashboard de torneos avanzado',
+      'Pack de iconos premium',
+      'Estadísticas detalladas',
+      'Soporte prioritario',
+    ],
+    cta: 'Empezar Pro',
+    ctaVariant: 'primary',
+  },
+  {
+    id: 'team',
+    name: 'Team',
+    price: { monthly: 24.99, annual: 19.99 },
+    highlight: false,
+    badge: null,
+    features: [
+      'Todo lo de Pro',
+      'Hasta 10 equipos activos',
+      'Imágenes y assets personalizados',
+      'Panel de organización de torneos',
+      'API access',
+      'Facturación centralizada',
+      'Manager de cuenta dedicado',
+    ],
+    cta: 'Contratar Team',
+    ctaVariant: 'ghost',
+  },
+]
+
+export const BENEFITS_TABLE = [
+  { feature: 'Torneos públicos',        free: true,   pro: true,  team: true  },
+  { feature: 'Torneos privados',        free: false,  pro: true,  team: true  },
+  { feature: 'Bot Discord',             free: false,  pro: true,  team: true  },
+  { feature: 'Pack de iconos',          free: false,  pro: true,  team: true  },
+  { feature: 'Dashboard avanzado',      free: false,  pro: true,  team: true  },
+  { feature: 'Assets personalizados',   free: false,  pro: false, team: true  },
+  { feature: 'API access',              free: false,  pro: false, team: true  },
+  { feature: 'Soporte prioritario',     free: false,  pro: true,  team: true  },
+  { feature: 'Manager dedicado',        free: false,  pro: false, team: true  },
+]
+

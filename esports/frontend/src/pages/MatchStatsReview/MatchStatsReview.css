@@ -1,0 +1,7 @@
+.match-stats-review { width: 100%; max-width: 1440px; margin: 0 auto; padding: clamp(16px, 3vw, 36px); min-width: 0; }
+.match-stats-review h1 { font-size: clamp(22px, 3vw, 32px); margin: 20px 0 12px; }
+.match-stats-review > p { line-height: 1.6; color: var(--text-dim, inherit); }
+.match-stats-review > a { color: var(--accent, #65df97); }
+.match-stats__audit { margin: 14px 0; padding: 12px; border: 1px solid var(--line, #555); border-radius: 8px; }
+.match-stats__audit li { margin: 7px 0; font-size: 13px; }
+

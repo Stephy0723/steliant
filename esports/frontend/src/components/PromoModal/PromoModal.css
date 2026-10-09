@@ -1,0 +1,371 @@
+/* Modal de anuncio patrocinado — version unica y limpia.
+   (Antes habia 3 "versiones finales" apiladas una sobre otra que se
+   pisaban por cascada; esto es solo el resultado final, sin las capas
+   muertas.) */
+
+.gg-promo-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(0, 0, 0, .72);
+  backdrop-filter: blur(7px);
+}
+
+/* Centra al modal por flex, sin tocarle el transform — ese lo usa la
+   animacion de entrada/salida (scale/y) y si compartiera elemento con el
+   centrado, uno pisaria al otro. pointer-events:none deja pasar el click al
+   backdrop de atras en cualquier punto que no sea el modal mismo. */
+.gg-promo-modal-pos {
+  position: fixed;
+  inset: 0;
+  z-index: 10001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.gg-promo-modal-pos > * {
+  pointer-events: auto;
+}
+
+.gg-promo-modal {
+  --promo-edge: var(--accent);
+  position: relative;
+  width: min(560px, calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: auto auto 2px;
+  align-content: start;
+  color: var(--text);
+  background: #0a0c10;
+  border: 1px solid color-mix(in srgb, var(--promo-edge) 34%, rgba(255, 255, 255, .12));
+  border-radius: 14px;
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, .66),
+    0 0 0 1px rgba(255, 255, 255, .04) inset;
+}
+
+.gg-promo-modal::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  border: 1px solid rgba(255, 255, 255, .08);
+  border-radius: inherit;
+}
+
+.gg-promo-modal__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(circle at 100% 0%, color-mix(in srgb, var(--promo-edge) 20%, transparent), transparent 38%),
+    linear-gradient(135deg, rgba(255, 255, 255, .055), transparent 44%),
+    var(--promo-bg, #0a0c10);
+  filter: saturate(1.12) contrast(1.05);
+  opacity: .92;
+}
+
+.gg-promo-modal__scan {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(255, 255, 255, .035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, .026) 1px, transparent 1px);
+  background-size: 42px 42px, 42px 42px;
+  opacity: .1;
+  mix-blend-mode: screen;
+}
+
+.gg-promo-modal__sheen {
+  display: none;
+}
+
+.gg-promo-modal__topbar {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 18px 20px 0;
+}
+
+.gg-promo-modal__ad-label,
+.gg-promo-modal__brand,
+.gg-promo-modal__cd-label {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+.gg-promo-modal__ad-label {
+  color: rgba(243, 245, 248, .58);
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.gg-promo-modal__close-wrap,
+.gg-promo-modal__countdown {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.gg-promo-modal__countdown {
+  min-height: 34px;
+  padding: 4px 10px 4px 4px;
+  border: 1px solid rgba(255, 255, 255, .11);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, .22);
+  backdrop-filter: blur(12px);
+}
+
+.gg-promo-modal__ring {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  flex: none;
+}
+
+.gg-promo-modal__ring svg {
+  width: 30px;
+  height: 30px;
+  transform: rotate(-90deg);
+}
+
+.gg-promo-modal__ring .track {
+  fill: rgba(0, 0, 0, .18);
+  stroke: rgba(255, 255, 255, .14);
+  stroke-width: 3;
+}
+
+.gg-promo-modal__ring .fill {
+  fill: none;
+  stroke: var(--promo-edge);
+  stroke-width: 3;
+  stroke-dasharray: 251;
+  stroke-dashoffset: calc(251 - var(--progress, 0));
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1s linear;
+  filter: drop-shadow(0 0 8px var(--promo-edge));
+}
+
+.gg-promo-modal__ring span {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--promo-edge);
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.gg-promo-modal__cd-label {
+  color: rgba(243, 245, 248, .68);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
+.gg-promo-modal__close-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 34px;
+  padding: 0 14px;
+  border: 1px solid color-mix(in srgb, var(--promo-edge) 36%, rgba(255, 255, 255, .14));
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--promo-edge) 14%, rgba(255, 255, 255, .06));
+  color: #fff;
+  cursor: pointer;
+  font: 800 11px "IBM Plex Mono", ui-monospace, monospace;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  transition: transform .18s ease, border-color .18s ease, background .18s ease;
+}
+
+.gg-promo-modal__close-btn:hover {
+  transform: translateY(-1px);
+  border-color: var(--promo-edge);
+  background: color-mix(in srgb, var(--promo-edge) 22%, rgba(255, 255, 255, .08));
+}
+
+.gg-promo-modal__close-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+.gg-promo-modal__body {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  min-height: 0;
+  padding: 26px 34px 32px;
+  gap: 10px;
+}
+
+.gg-promo-modal__badge {
+  display: inline-flex;
+  align-self: flex-start;
+  min-height: 24px;
+  align-items: center;
+  padding: 0 11px;
+  border: 1px solid color-mix(in srgb, var(--promo-edge) 55%, rgba(255, 255, 255, .22));
+  border-radius: 7px;
+  background: var(--promo-edge);
+  color: #05070b;
+  box-shadow: 0 10px 24px color-mix(in srgb, var(--promo-edge) 28%, transparent);
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.gg-promo-modal__brand {
+  margin-top: 2px;
+  color: rgba(243, 245, 248, .5);
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.gg-promo-modal__title {
+  max-width: 100%;
+  margin: 0;
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: clamp(26px, 4vw, 36px);
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1.05;
+  text-shadow: 0 12px 34px rgba(0, 0, 0, .5);
+}
+
+.gg-promo-modal__sub {
+  max-width: 100%;
+  margin: 0;
+  color: rgba(243, 245, 248, .82);
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.gg-promo-modal__desc {
+  max-width: 100%;
+  margin: 0;
+  color: rgba(243, 245, 248, .62);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.gg-promo-modal__actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.gg-promo-modal__actions .gg-btn {
+  min-height: 42px;
+  border-radius: 8px;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 9.5px;
+  font-weight: 900;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.gg-promo-modal__actions .gg-btn--primary {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  background: var(--promo-edge);
+  color: #05070b;
+  border: 1px solid color-mix(in srgb, var(--promo-edge) 70%, #fff);
+  box-shadow: 0 14px 34px color-mix(in srgb, var(--promo-edge) 32%, transparent);
+}
+
+.gg-promo-modal__actions .gg-btn--primary::after {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 -45%;
+  width: 36%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .44), transparent);
+  transform: skewX(-18deg);
+  animation: promoButtonShine 2.8s ease-in-out infinite;
+}
+
+.gg-promo-modal__actions .gg-btn--ghost {
+  min-width: 150px;
+  border: 1px solid rgba(255, 255, 255, .13);
+  background: rgba(255, 255, 255, .045);
+  color: rgba(243, 245, 248, .78);
+}
+
+.gg-promo-modal__accent-bar {
+  position: relative;
+  z-index: 5;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--promo-edge), transparent);
+  box-shadow: 0 0 24px var(--promo-edge);
+}
+
+@keyframes promoButtonShine {
+  0%, 45% { left: -45%; }
+  100% { left: 130%; }
+}
+
+@media (max-width: 640px) {
+  .gg-promo-modal {
+    width: min(420px, calc(100vw - 20px));
+    max-height: calc(100dvh - 20px);
+    border-radius: 12px;
+  }
+
+  .gg-promo-modal__topbar {
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px 16px 0;
+  }
+
+  .gg-promo-modal__cd-label {
+    display: none;
+  }
+
+  .gg-promo-modal__body {
+    padding: 22px 18px 24px;
+  }
+
+  .gg-promo-modal__title {
+    font-size: clamp(24px, 8vw, 31px);
+  }
+
+  .gg-promo-modal__actions .gg-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gg-promo-modal__actions .gg-btn--primary::after {
+    animation: none !important;
+  }
+}
+

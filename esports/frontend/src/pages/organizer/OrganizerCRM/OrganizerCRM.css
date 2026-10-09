@@ -1,0 +1,182 @@
+/* ═══════════════════════════════════════════════════
+   Centro de Torneos · CRM (nativo, datos del bot)
+   ═══════════════════════════════════════════════════ */
+
+.ocrm { max-width: 1200px; margin: 0 auto; padding: 4px 0 40px; }
+.ocrm svg { width: 18px; height: 18px; flex: none; }
+
+/* ── Header ── */
+.ocrm__header {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 20px; flex-wrap: wrap; margin-bottom: 20px;
+}
+.ocrm__header h1 {
+  font-family: var(--font-display); font-size: 26px; font-weight: 900;
+  color: var(--text); margin: 0;
+}
+.ocrm__header p { margin: 5px 0 0; font-size: 13px; color: var(--text-dim); display: flex; align-items: center; gap: 10px; }
+.ocrm__conn { font-size: 11px; font-weight: 800; padding: 3px 9px; border-radius: 99px; }
+.ocrm__conn.on { color: #22c55e; background: rgba(34,197,94,.12); }
+.ocrm__conn.off { color: var(--danger); background: rgba(var(--danger-rgb),.12); }
+.ocrm__refresh {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 10px 16px; border-radius: 10px; border: none; cursor: pointer;
+  font-size: 13px; font-weight: 700;
+  background: linear-gradient(135deg, var(--accent), rgba(var(--accent-rgb), .82)); color: #fff;
+  transition: transform .15s, opacity .15s;
+}
+.ocrm__refresh:hover:not(:disabled) { transform: translateY(-1px); }
+.ocrm__refresh:disabled { opacity: .6; cursor: default; }
+
+/* ── Tabs ── */
+.ocrm__tabs {
+  display: flex; gap: 4px; border-bottom: 1px solid var(--line);
+  margin-bottom: 22px; overflow-x: auto;
+}
+.ocrm__tab {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 11px 16px; background: none; border: none; cursor: pointer;
+  border-bottom: 2px solid transparent;
+  color: var(--text-dim); font-size: 13.5px; font-weight: 600; white-space: nowrap;
+  transition: color .15s, border-color .15s;
+}
+.ocrm__tab svg { width: 16px; height: 16px; }
+.ocrm__tab:hover { color: var(--text); }
+.ocrm__tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+.ocrm__tab-badge {
+  font-size: 10px; font-weight: 800; color: #fff; background: var(--danger);
+  padding: 1px 6px; border-radius: 99px;
+}
+
+/* ── Estados ── */
+.ocrm__state { padding: 40px; text-align: center; color: var(--text-dim); font-size: 14px; }
+.ocrm__offline {
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  padding: 56px 24px; text-align: center;
+  background: var(--bg-card); border: 1px solid var(--line); border-radius: 16px;
+}
+.ocrm__offline-icon {
+  width: 56px; height: 56px; display: grid; place-items: center;
+  background: rgba(var(--danger-rgb),.12); color: var(--danger); border-radius: 14px;
+}
+.ocrm__offline-icon svg { width: 26px; height: 26px; }
+.ocrm__offline h3 { margin: 0; font-size: 18px; font-weight: 800; color: var(--text); }
+.ocrm__offline p { margin: 0; font-size: 13px; color: var(--text-dim); }
+.ocrm__offline-hint { font-size: 12px; }
+.ocrm__offline code, .ocrm__offline-hint code {
+  background: var(--bg-elev); border: 1px solid var(--line); border-radius: 5px;
+  padding: 1px 6px; font-size: 11.5px; color: var(--text);
+}
+.ocrm__offline .ocrm__refresh { margin-top: 8px; }
+
+/* ── Paneles / cards ── */
+.ocrm__panel { display: flex; flex-direction: column; gap: 18px; }
+.ocrm__card {
+  background: var(--bg-card); border: 1px solid var(--line);
+  border-radius: 14px; padding: 18px;
+}
+.ocrm__card h3 {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 14px; font-weight: 700; color: var(--text); margin: 0 0 14px;
+}
+.ocrm__card h3 svg { width: 16px; height: 16px; color: var(--accent); }
+.ocrm__muted { color: var(--text-dim); font-size: 13px; }
+.ocrm__grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+/* ── Métricas ── */
+.ocrm__metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.ocrm__metric {
+  display: flex; align-items: center; gap: 13px;
+  background: var(--bg-card); border: 1px solid var(--line);
+  border-radius: 14px; padding: 16px;
+}
+.ocrm__metric-icon { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 11px; }
+.ocrm__metric-icon svg { width: 19px; height: 19px; }
+.ocrm__metric b { display: block; font-family: var(--font-display); font-size: 22px; font-weight: 800; color: var(--text); line-height: 1.1; }
+.ocrm__metric span { font-size: 12px; color: var(--text-dim); }
+
+/* ── Torneo activo + KV ── */
+.ocrm__active-name { font-size: 16px; font-weight: 800; color: var(--text); margin-bottom: 8px; }
+.ocrm__active-meta { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-dim); }
+.ocrm__kv { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.ocrm__kv li { display: flex; justify-content: space-between; font-size: 13px; }
+.ocrm__kv span { color: var(--text-dim); }
+.ocrm__kv b { color: var(--text); font-weight: 600; }
+.ocrm-on { color: #22c55e !important; }
+.ocrm-off { color: #9ca3af !important; }
+
+/* ── Badges ── */
+.ocrm__badge {
+  display: inline-flex; align-items: center;
+  font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 99px;
+  text-transform: uppercase; letter-spacing: .03em;
+}
+.ocrm__badge--green { background: rgba(34,197,94,.14); color: #22c55e; }
+.ocrm__badge--blue { background: rgba(59,130,246,.14); color: #3b82f6; }
+.ocrm__badge--red { background: rgba(var(--danger-rgb),.14); color: var(--danger); }
+.ocrm__badge--gray { background: rgba(107,114,128,.16); color: #9ca3af; }
+
+/* ── Torneos cards ── */
+.ocrm__tcards { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+.ocrm__tcard {
+  background: var(--bg-card); border: 1px solid var(--line);
+  border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 14px;
+  transition: transform .18s, border-color .18s;
+}
+.ocrm__tcard:hover { transform: translateY(-3px); border-color: rgba(var(--accent-rgb), .3); }
+.ocrm__tcard-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.ocrm__tcard-head b { font-size: 15px; font-weight: 800; color: var(--text); }
+.ocrm__tcard-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 12px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.ocrm__tcard-stats > div { display: flex; flex-direction: column; gap: 2px; }
+.ocrm__tcard-stats b { font-family: var(--font-display); font-size: 17px; font-weight: 800; color: var(--text); }
+.ocrm__tcard-stats span { font-size: 11px; color: var(--text-dim); }
+.ocrm__tcard-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+
+/* ── Tabla leaderboard ── */
+.ocrm__table-wrap {
+  background: var(--bg-card); border: 1px solid var(--line);
+  border-radius: 14px; overflow: hidden;
+}
+.ocrm__table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+.ocrm__table thead { background: var(--bg-elev); }
+.ocrm__table th {
+  padding: 12px 16px; text-align: left; font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .04em; color: var(--text-dim);
+}
+.ocrm__table td { padding: 12px 16px; border-top: 1px solid var(--line); color: var(--text); }
+.ocrm__table tbody tr:hover { background: rgba(var(--accent-rgb), .04); }
+.ocrm__leader { background: rgba(var(--accent-rgb), .05); }
+.ocrm__rank { font-size: 16px; }
+.ocrm__team-name { font-weight: 700; }
+.ocrm__win { color: #22c55e; font-weight: 700; }
+.ocrm__loss { color: var(--danger); font-weight: 700; }
+
+/* ── Disputas ── */
+.ocrm__disputes { display: flex; flex-direction: column; gap: 10px; }
+.ocrm__dispute {
+  display: flex; align-items: center; gap: 13px;
+  background: var(--bg-card); border: 1px solid var(--line);
+  border-radius: 12px; padding: 14px;
+}
+.ocrm__dispute-icon { width: 38px; height: 38px; display: grid; place-items: center; background: rgba(245,158,11,.14); color: #f59e0b; border-radius: 10px; }
+.ocrm__dispute-body { flex: 1; display: flex; flex-direction: column; }
+.ocrm__dispute-body b { font-size: 14px; color: var(--text); }
+
+/* ── Empty ── */
+.ocrm__empty {
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+  padding: 56px 24px; text-align: center;
+  background: var(--bg-card); border: 1px dashed var(--line); border-radius: 16px;
+}
+.ocrm__empty-icon {
+  width: 52px; height: 52px; display: grid; place-items: center;
+  background: rgba(var(--accent-rgb), .1); color: var(--accent); border-radius: 14px;
+}
+.ocrm__empty-icon svg { width: 24px; height: 24px; }
+.ocrm__empty p { margin: 0; color: var(--text-dim); font-size: 14px; }
+
+@media (max-width: 860px) {
+  .ocrm__metrics { grid-template-columns: repeat(2, 1fr); }
+  .ocrm__grid2 { grid-template-columns: 1fr; }
+}
+

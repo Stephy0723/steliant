@@ -1,0 +1,327 @@
+.gg-sponsor-banner {
+  --sb-safe-color: var(--sb-color, var(--accent));
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  margin-bottom: 20px;
+  border: 1px solid color-mix(in srgb, var(--sb-safe-color) 36%, rgba(255,255,255,.1));
+  border-radius: 8px;
+  background:
+    linear-gradient(100deg, color-mix(in srgb, var(--sb-safe-color) 16%, #080a0f) 0%, rgba(12,14,19,.96) 48%, rgba(7,9,13,.98) 100%),
+    var(--bg-card);
+  box-shadow:
+    0 16px 42px rgba(0,0,0,.34),
+    0 0 28px color-mix(in srgb, var(--sb-safe-color) 14%, transparent);
+}
+
+.gg-sponsor-banner::before,
+.gg-sponsor-banner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.gg-sponsor-banner::before {
+  opacity: .18;
+  background-image:
+    linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px),
+    linear-gradient(rgba(255,255,255,.055) 1px, transparent 1px);
+  background-size: 44px 44px;
+  animation: sponsorGridSlide 12s linear infinite;
+}
+
+.gg-sponsor-banner::after {
+  width: 36%;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,.14), transparent);
+  transform: translateX(-130%) skewX(-18deg);
+  animation: sponsorSweep 5.5s ease-in-out infinite;
+}
+
+.gg-sponsor-banner__pulse {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--sb-safe-color);
+  box-shadow: 0 0 0 0 color-mix(in srgb, var(--sb-safe-color) 52%, transparent);
+  transform: translateY(-50%);
+  animation: sponsorPulse 1.8s ease-out infinite;
+}
+
+.gg-sponsor-banner__ticker {
+  display: none;
+}
+
+.gg-sponsor-banner__inner {
+  position: relative;
+  z-index: 1;
+  min-height: 76px;
+  display: grid;
+  grid-template-columns: minmax(230px, auto) minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 18px;
+  padding: 14px 20px 14px 40px;
+}
+
+.gg-sponsor-banner__left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.gg-sponsor-banner__label {
+  position: relative;
+  flex: none;
+  padding-left: 12px;
+  color: rgba(243,245,248,.62);
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .14em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.gg-sponsor-banner__label::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--sb-safe-color);
+  transform: translateY(-50%);
+}
+
+.gg-sponsor-banner__logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.gg-sponsor-banner__initials {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  flex: none;
+  border: 1px solid color-mix(in srgb, var(--sb-safe-color) 54%, rgba(255,255,255,.16));
+  border-radius: 8px;
+  background: var(--sb-safe-color);
+  color: #05070b;
+  box-shadow: 0 10px 26px color-mix(in srgb, var(--sb-safe-color) 34%, transparent);
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.gg-sponsor-banner__initials img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 4px;
+}
+
+.gg-sponsor-banner__name {
+  min-width: 0;
+  overflow: hidden;
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1.1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.gg-sponsor-banner__center {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.gg-sponsor-banner__badge {
+  min-height: 28px;
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+  padding: 0 12px;
+  border: 1px solid color-mix(in srgb, var(--sb-safe-color) 50%, rgba(255,255,255,.18));
+  border-radius: 7px;
+  background: color-mix(in srgb, var(--sb-safe-color) 18%, rgba(255,255,255,.06));
+  color: color-mix(in srgb, var(--sb-safe-color) 82%, #fff);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.03);
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 9.5px;
+  font-weight: 900;
+  letter-spacing: .12em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.gg-sponsor-banner__tagline {
+  min-width: 0;
+  overflow: hidden;
+  color: rgba(243,245,248,.78);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.3;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.gg-sponsor-banner__right {
+  display: flex;
+  justify-content: flex-end;
+  min-width: 0;
+}
+
+.gg-sponsor-banner__right .gg-btn {
+  position: relative;
+  min-height: 40px;
+  max-width: 230px;
+  overflow: hidden;
+  justify-content: center;
+  border: 1px solid color-mix(in srgb, var(--sb-safe-color) 70%, #fff);
+  border-radius: 8px;
+  background: var(--sb-safe-color);
+  color: #05070b;
+  box-shadow: 0 12px 26px color-mix(in srgb, var(--sb-safe-color) 25%, transparent);
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .12em;
+  line-height: 1;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: normal;
+  transition: transform .18s ease, filter .18s ease;
+}
+
+.gg-sponsor-banner__right .gg-btn:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+.gg-sponsor-banner__right .gg-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 -45%;
+  width: 34%;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,.42), transparent);
+  transform: skewX(-18deg);
+  animation: sponsorButtonShine 3.2s ease-in-out infinite;
+}
+
+.gg-sponsor-banner__line {
+  position: relative;
+  z-index: 1;
+  height: 2px;
+  opacity: .9;
+  background: linear-gradient(90deg, transparent, var(--sb-safe-color), transparent);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--sb-safe-color) 60%, transparent);
+  animation: sponsorLine 2.8s ease-in-out infinite;
+}
+
+.gg-sponsor-banner--compact .gg-sponsor-banner__inner {
+  min-height: 58px;
+  padding-block: 10px;
+}
+
+.gg-sponsor-banner--compact .gg-sponsor-banner__tagline {
+  display: none;
+}
+
+@keyframes sponsorGridSlide {
+  to { background-position: 44px 44px; }
+}
+
+@keyframes sponsorSweep {
+  0%, 54% { transform: translateX(-130%) skewX(-18deg); opacity: 0; }
+  68% { opacity: .72; }
+  100% { transform: translateX(330%) skewX(-18deg); opacity: 0; }
+}
+
+@keyframes sponsorPulse {
+  70%, 100% { box-shadow: 0 0 0 12px color-mix(in srgb, var(--sb-safe-color) 0%, transparent); }
+}
+
+@keyframes sponsorButtonShine {
+  0%, 48% { left: -45%; }
+  100% { left: 130%; }
+}
+
+@keyframes sponsorLine {
+  0%, 100% { opacity: .45; }
+  50% { opacity: 1; }
+}
+
+@media (max-width: 900px) {
+  .gg-sponsor-banner__inner {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .gg-sponsor-banner__center {
+    grid-column: 1 / -1;
+    order: 3;
+  }
+}
+
+@media (max-width: 620px) {
+  .gg-sponsor-banner__pulse {
+    display: none;
+  }
+
+  .gg-sponsor-banner__inner {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .gg-sponsor-banner__left {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .gg-sponsor-banner__center {
+    display: flex;
+    grid-column: auto;
+    flex-wrap: wrap;
+    order: initial;
+  }
+
+  .gg-sponsor-banner__tagline {
+    white-space: normal;
+  }
+
+  .gg-sponsor-banner__right,
+  .gg-sponsor-banner__right .gg-btn {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gg-sponsor-banner::before,
+  .gg-sponsor-banner::after,
+  .gg-sponsor-banner__pulse,
+  .gg-sponsor-banner__right .gg-btn::after,
+  .gg-sponsor-banner__line {
+    animation: none !important;
+  }
+}
+

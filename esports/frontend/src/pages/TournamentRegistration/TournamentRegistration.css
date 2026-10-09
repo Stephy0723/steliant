@@ -1,0 +1,448 @@
+.treg {
+  --tr-line: color-mix(in srgb, var(--tr-color, var(--accent)) 22%, var(--line));
+  display: grid;
+  gap: clamp(18px, 2vw, 28px);
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: clamp(16px, 3vw, 34px);
+}
+
+.treg-hero,
+.treg-panel {
+  border: 1px solid var(--tr-line);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--tr-color, var(--accent)) 8%, transparent), transparent 42%), var(--bg-card);
+  clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px));
+}
+
+.treg-hero {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 18px;
+  padding: clamp(20px, 4vw, 42px);
+  min-height: clamp(280px, 38vw, 460px);
+}
+
+.treg-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(90deg, rgba(4, 6, 10, .94), rgba(4, 6, 10, .68) 46%, rgba(4, 6, 10, .92)),
+    linear-gradient(180deg, transparent 0%, rgba(4, 6, 10, .88) 100%);
+}
+
+.treg-hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(1.08) contrast(1.05);
+}
+
+.treg-hero__content,
+.treg-price {
+  position: relative;
+  z-index: 2;
+}
+
+.treg-hero__content {
+  display: grid;
+  gap: clamp(20px, 3vw, 34px);
+}
+
+.treg-hero__main {
+  display: grid;
+  grid-template-columns: clamp(70px, 10vw, 104px) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(14px, 2vw, 22px);
+}
+
+.treg-game-mark {
+  width: clamp(70px, 10vw, 104px);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--tr-color, var(--accent)) 60%, var(--line));
+  background: rgba(0, 0, 0, .58);
+  color: var(--tr-color, var(--accent));
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 900;
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+}
+
+.treg-game-mark img {
+  width: 76%;
+  height: 76%;
+  object-fit: contain;
+}
+
+.treg-back {
+  width: fit-content;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--tr-line);
+  background: var(--bg-elev);
+  color: var(--text);
+  padding: 10px 14px;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.treg-back svg,
+.treg-kicker svg,
+.treg-panel__head svg {
+  width: 17px;
+  height: 17px;
+}
+
+.treg-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--tr-color, var(--accent));
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.treg h1 {
+  margin: 12px 0 8px;
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: clamp(34px, 5vw, 68px);
+  line-height: .98;
+}
+
+.treg p {
+  margin: 0;
+  color: var(--text-dim);
+}
+
+.treg-price {
+  min-width: 160px;
+  padding: 16px;
+  border: 1px solid var(--tr-line);
+  background: var(--bg-elev);
+  text-align: right;
+}
+
+.treg-price small,
+.treg-panel__head small,
+.treg-facts dt,
+.treg-team small {
+  color: var(--text-dim);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.treg-price b {
+  display: block;
+  margin-top: 6px;
+  color: var(--tr-color, var(--accent));
+  font-family: var(--font-display);
+  font-size: 26px;
+}
+
+.treg-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(320px, .75fr);
+  gap: 18px;
+}
+
+.treg-panel {
+  min-width: 0;
+  padding: clamp(16px, 2vw, 24px);
+}
+
+.treg-panel__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding-bottom: 14px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid var(--tr-line);
+}
+
+.treg-panel__head h2 {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  color: var(--text);
+  font-size: clamp(18px, 2vw, 24px);
+}
+
+.treg-panel__head h2 svg {
+  color: var(--tr-color, var(--accent));
+}
+
+.treg-teams {
+  display: grid;
+  gap: 12px;
+}
+
+.treg-team {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid var(--line);
+  background: var(--bg-elev);
+  color: var(--text);
+  padding: 12px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.treg-team.is-active {
+  border-color: var(--tr-color, var(--accent));
+  box-shadow: inset 3px 0 0 var(--tr-color, var(--accent));
+}
+
+.treg-team__logo {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--tr-line);
+  background: color-mix(in srgb, var(--tr-color, var(--accent)) 12%, var(--bg-card));
+  color: var(--tr-color, var(--accent));
+  font-family: var(--font-display);
+  font-weight: 900;
+  overflow: hidden;
+}
+
+.treg-team__logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.treg-team b {
+  display: block;
+  overflow: hidden;
+  color: var(--text);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.treg-team__body {
+  min-width: 0;
+}
+
+.treg-team svg {
+  color: var(--tr-color, var(--accent));
+}
+
+.treg-team__status {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  background: var(--bg-card);
+}
+
+.treg-team__status svg {
+  width: 17px;
+  height: 17px;
+}
+
+.treg-team__status.is-ok {
+  border-color: color-mix(in srgb, var(--tr-color, var(--accent)) 48%, var(--line));
+  color: var(--tr-color, var(--accent));
+}
+
+.treg-team__status.is-warn {
+  border-color: color-mix(in srgb, #ffcc66 42%, var(--line));
+  color: var(--warn-text, #ffcc66);
+}
+
+.treg-facts {
+  display: grid;
+  gap: 10px;
+  margin: 0 0 18px;
+}
+
+.treg-facts div {
+  display: grid;
+  grid-template-columns: minmax(110px, .8fr) minmax(0, 1.2fr);
+  gap: 10px;
+  align-items: center;
+  min-height: 42px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  background: var(--bg-elev);
+}
+
+.treg-facts dd {
+  min-width: 0;
+  margin: 0;
+  color: var(--text);
+  font-weight: 900;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+.treg-facts dd.is-ok {
+  color: var(--tr-color, var(--accent));
+}
+
+.treg-facts dd.is-warn {
+  color: var(--warn-text, #ffcc66);
+}
+
+.treg-state-note {
+  margin: -4px 0 18px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--bg-elev) 82%, transparent);
+  color: var(--text-dim);
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.treg-state-note.is-ok {
+  border-color: color-mix(in srgb, var(--tr-color, var(--accent)) 42%, var(--line));
+  color: var(--tr-color, var(--accent));
+}
+
+.treg-state-note.is-warn {
+  border-color: color-mix(in srgb, #ffcc66 34%, var(--line));
+  color: var(--warn-text, #ffcc66);
+}
+
+.treg-checklist {
+  display: grid;
+  gap: 10px;
+  margin: 0 0 18px;
+}
+
+.treg-checklist div {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  align-items: start;
+  gap: 10px;
+  padding: 11px 12px;
+  border: 1px solid var(--line);
+  background: var(--bg-elev);
+}
+
+.treg-checklist span {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid currentColor;
+}
+
+.treg-checklist svg {
+  width: 15px;
+  height: 15px;
+}
+
+.treg-checklist p {
+  align-self: center;
+  margin: 0;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.treg-checklist .is-ok {
+  color: var(--tr-color, var(--accent));
+}
+
+.treg-checklist .is-warn {
+  color: var(--warn-text, #ffcc66);
+}
+
+.treg-checklist .is-info {
+  color: var(--text-dim);
+}
+
+.treg-checklist .is-info a {
+  color: var(--accent);
+}
+
+.treg-empty {
+  display: grid;
+  place-items: center;
+  gap: 12px;
+  min-height: 220px;
+  padding: 24px;
+  border: 1px dashed var(--tr-line);
+  background: var(--bg-elev);
+  text-align: center;
+}
+
+.treg-empty b {
+  color: var(--text);
+  font-size: 20px;
+}
+
+@media (max-width: 860px) {
+  .treg-hero,
+  .treg-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .treg-price {
+    width: 100%;
+    text-align: left;
+  }
+}
+
+@media (max-width: 520px) {
+  .treg {
+    padding: 12px;
+  }
+
+  .treg-team,
+  .treg-facts div {
+    grid-template-columns: 1fr;
+  }
+
+  .treg-hero {
+    min-height: auto;
+  }
+
+  .treg-hero__main {
+    grid-template-columns: 1fr;
+  }
+
+  .treg-facts dd {
+    text-align: left;
+  }
+}
+
+/* Telefonos: resumen (apertura, cierre, estado, equipo) en 2 columnas. */
+@media (max-width: 520px) {
+  .treg-facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .treg-facts div {
+    gap: 4px;
+    align-content: start;
+  }
+}
+

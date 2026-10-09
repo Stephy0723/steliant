@@ -1,0 +1,1027 @@
+/* ==========================================================
+   STELIANT ESPORTS · Admin QR Verification (Premium HUD Redesign)
+   ========================================================== */
+
+/* ── KPIs en cabecera ── */
+.gg-valid__kpis {
+  display: flex;
+  gap: 14px;
+}
+
+.gg-valid__kpi {
+  text-align: center;
+  padding: 12px 20px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-md)) 0, 100% var(--gga-cut-md), 100% 100%, var(--gga-cut-md) 100%, 0 calc(100% - var(--gga-cut-md)));
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.03);
+  min-width: 90px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(8px);
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.gg-valid__kpi:hover {
+  transform: translateY(-2px);
+  border-color: rgba(var(--accent-rgb), 0.3);
+}
+
+.gg-valid__kpi b {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 24px;
+  line-height: 1.1;
+  font-weight: 700;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.gg-valid__kpi span {
+  font-size: 11px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  display: inline-block;
+  margin-top: 4px;
+  font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+
+.gg-valid__kpi.ok b {
+  color: var(--accent);
+  text-shadow: 0 0 12px rgba(var(--accent-rgb), 0.35);
+}
+
+.gg-valid__kpi.bad b {
+  color: var(--danger);
+  text-shadow: 0 0 12px rgba(239, 68, 68, 0.35);
+}
+
+/* ── Layout ── */
+.gg-valid__grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 1024px) {
+  .gg-valid__grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+/* ── Tarjeta del escáner (Cyberpunk HUD Card) ── */
+.gg-valid__scan-card {
+  border: 1px solid var(--line);
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-lg)) 0, 100% var(--gga-cut-lg), 100% 100%, var(--gga-cut-lg) 100%, 0 calc(100% - var(--gga-cut-lg)));
+  overflow: hidden;
+  position: relative;
+  background: 
+    linear-gradient(180deg, rgba(14, 17, 24, 0.85), rgba(7, 8, 13, 0.95)),
+    radial-gradient(130% 90% at 50% -20%, rgba(var(--accent-rgb), 0.15), transparent 70%);
+  box-shadow: var(--shadow-card);
+  backdrop-filter: blur(16px);
+  transition: border-color 0.3s;
+}
+
+.gg-valid__scan-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.005) 0 1px, transparent 1px 3px);
+  opacity: 0.8;
+}
+
+.gg-valid__scan-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--line);
+  position: relative;
+  z-index: 2;
+}
+
+.gg-valid__logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm)));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(var(--accent-rgb), 0.3);
+}
+
+.gg-valid__logo svg {
+  width: 22px;
+  height: 22px;
+}
+
+.gg-valid__scan-head b {
+  font-family: var(--font-display);
+  font-size: 16px;
+  letter-spacing: 1px;
+  display: block;
+}
+
+.gg-valid__scan-head small {
+  font-size: 11px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+  font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+
+.gg-valid__secure {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(var(--accent-rgb), 0.08);
+  border: 1px solid rgba(var(--accent-rgb), 0.25);
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm)));
+  padding: 5px 12px;
+  box-shadow: 0 0 10px rgba(var(--accent-rgb), 0.1);
+  font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+
+.gg-valid__secure svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* ── Visor del Escáner (HUD Sci-Fi) ── */
+.gg-valid__viewport {
+  position: relative;
+  margin: 24px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-lg)) 0, 100% var(--gga-cut-lg), 100% 100%, var(--gga-cut-lg) 100%, 0 calc(100% - var(--gga-cut-lg)));
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--bg);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.03);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.gg-valid__viewport.live {
+  border-color: rgba(var(--accent-rgb), 0.3);
+  box-shadow: 0 0 25px rgba(var(--accent-rgb), 0.15), inset 0 0 40px rgba(0,0,0,0.7);
+}
+
+.gg-valid__viewport-idle {
+  text-align: center;
+  color: var(--text-dim);
+  padding: 30px;
+  z-index: 5;
+}
+
+.gg-valid__qr-icon {
+  display: inline-flex;
+  width: 68px;
+  height: 68px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm)));
+  background: rgba(var(--accent-rgb), 0.06);
+  border: 1px solid rgba(var(--accent-rgb), 0.2);
+  margin-bottom: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s;
+}
+
+.gg-valid__viewport:hover .gg-valid__qr-icon {
+  transform: scale(1.06) rotate(5deg);
+}
+
+.gg-valid__qr-icon svg {
+  width: 32px;
+  height: 32px;
+  color: var(--accent);
+  filter: drop-shadow(0 0 8px rgba(var(--accent-rgb), 0.4));
+}
+
+.gg-valid__viewport-idle p {
+  font-size: 14px;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.gg-valid__viewport-idle b {
+  color: var(--text);
+  font-family: var(--font-display);
+}
+
+.gg-valid__reader {
+  width: 100%;
+  height: 100%;
+}
+
+.gg-valid__reader video {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
+}
+
+/* Marco de enfoque del escaneo (Sci-Fi Crosshair) */
+.gg-valid__frame {
+  position: absolute;
+  inset: 15%;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.gg-valid__frame i {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border: 3px solid var(--accent);
+  filter: drop-shadow(0 0 6px rgba(var(--accent-rgb), 0.8));
+}
+
+.gg-valid__frame i:nth-child(1) { top: 0; left: 0; border-right: 0; border-bottom: 0; border-top-left-radius: 10px; }
+.gg-valid__frame i:nth-child(2) { top: 0; right: 0; border-left: 0; border-bottom: 0; border-top-right-radius: 10px; }
+.gg-valid__frame i:nth-child(3) { bottom: 0; left: 0; border-right: 0; border-top: 0; border-bottom-left-radius: 10px; }
+.gg-valid__frame i:nth-child(4) { bottom: 0; right: 0; border-left: 0; border-top: 0; border-bottom-right-radius: 10px; }
+
+/* Láser con brillo ambiental */
+.gg-valid__laser {
+  position: absolute;
+  left: 5%;
+  right: 5%;
+  top: 0;
+  height: 2px;
+  z-index: 11;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  box-shadow: 
+    0 0 15px 3px rgba(var(--accent-rgb), 0.85),
+    0 0 30px 6px rgba(var(--accent-rgb), 0.3);
+  animation: gg-laser 2.5s ease-in-out infinite;
+}
+
+@keyframes gg-laser {
+  0%, 100% { top: 8%; opacity: 0.3; }
+  10%, 90% { opacity: 1; }
+  50% { top: 92%; opacity: 0.8; }
+}
+
+/* ── Formulario e Inputs ── */
+.gg-valid__form {
+  padding: 0 24px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  position: relative;
+  z-index: 2;
+}
+
+.gg-valid__inputwrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.gg-valid__inputicon {
+  position: absolute;
+  left: 16px;
+  color: var(--text-dim);
+  display: inline-flex;
+  pointer-events: none;
+}
+
+.gg-valid__inputicon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.gg-valid__inputwrap input {
+  width: 100%;
+  padding: 15px 44px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm)));
+  border: 1px solid var(--line);
+  background: rgba(0, 0, 0, 0.3) !important;
+  color: var(--text);
+  font: inherit;
+  font-size: 14px;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  letter-spacing: 0.5px;
+  transition: all 0.2s;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.gg-valid__inputwrap input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 
+    0 0 0 3px rgba(var(--accent-rgb), 0.15),
+    inset 0 2px 8px rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.5) !important;
+}
+
+.gg-valid__clear {
+  position: absolute;
+  right: 14px;
+  background: none;
+  border: 0;
+  color: var(--text-dim);
+  cursor: pointer;
+  display: inline-flex;
+  padding: 4px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px));
+  transition: background 0.15s, color 0.15s;
+}
+
+.gg-valid__clear:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+}
+
+.gg-valid__clear svg {
+  width: 14px;
+  height: 14px;
+}
+
+.gg-valid__buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.gg-valid__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm)));
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.gg-valid__btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.gg-valid__btn:hover {
+  border-color: rgba(var(--accent-rgb), 0.35);
+  background: rgba(255, 255, 255, 0.06);
+  transform: translateY(-1px);
+}
+
+.gg-valid__btn.primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 4px 15px rgba(var(--accent-rgb), 0.25);
+}
+
+.gg-valid__btn.primary:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 6px 18px rgba(var(--accent-rgb), 0.35);
+}
+
+.gg-valid__btn.ghost:hover {
+  color: var(--accent);
+}
+
+.gg-valid__btn.danger {
+  color: #ff6b6b;
+  border-color: rgba(239, 68, 68, 0.35);
+  background: rgba(239, 68, 68, 0.06);
+}
+
+.gg-valid__btn.danger:hover {
+  background: rgba(239, 68, 68, 0.12);
+  border-color: rgba(239, 68, 68, 0.55);
+}
+
+.gg-valid__btn.full {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.gg-valid__foot {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-dim);
+  font-size: 11.5px;
+  margin: 0;
+  padding: 16px 24px;
+  border-top: 1px solid var(--line);
+  position: relative;
+  z-index: 2;
+}
+
+.gg-valid__foot svg {
+  width: 14px;
+  height: 14px;
+  flex: none;
+  color: var(--accent);
+  filter: drop-shadow(0 0 4px rgba(var(--accent-rgb), 0.4));
+}
+
+/* ── Lado: Resultados Holográficos ── */
+.gg-valid__side {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.gg-valid__result-card {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-lg)) 0, 100% var(--gga-cut-lg), 100% 100%, var(--gga-cut-lg) 100%, 0 calc(100% - var(--gga-cut-lg)));
+  padding: 26px;
+  background: linear-gradient(180deg, rgba(16, 20, 30, 0.8), rgba(10, 12, 18, 0.95));
+  box-shadow: var(--shadow-card);
+  backdrop-filter: blur(12px);
+  overflow: hidden;
+}
+
+/* Estado de espera (Vacío) */
+.gg-valid__result-card.empty {
+  text-align: center;
+  padding: 68px 24px;
+  color: var(--text-dim);
+  border-style: dashed;
+}
+
+.gg-valid__empty-icon {
+  display: inline-flex;
+  width: 64px;
+  height: 64px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm)));
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--line);
+  margin-bottom: 18px;
+}
+
+.gg-valid__empty-icon svg {
+  width: 28px;
+  height: 28px;
+  color: var(--text-dim);
+  opacity: 0.6;
+}
+
+.gg-valid__result-card.empty h3 {
+  font-family: var(--font-display);
+  font-size: 18px;
+  margin: 0 0 8px 0;
+  color: var(--text);
+  letter-spacing: 0.5px;
+}
+
+.gg-valid__result-card.empty p {
+  font-size: 13.5px;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Resultado Válido (Holograma Esmeralda) */
+.gg-valid__result-card.ok {
+  border-color: rgba(34, 197, 94, 0.45);
+  box-shadow: 
+    0 12px 40px -15px rgba(34, 197, 94, 0.12),
+    0 0 30px rgba(34, 197, 94, 0.05),
+    inset 0 0 15px rgba(34, 197, 94, 0.05);
+}
+
+.gg-valid__result-card.ok::before {
+  content: '';
+  position: absolute;
+  top: -40%; left: -40%;
+  width: 80%; height: 80%;
+  background: radial-gradient(circle, rgba(34, 197, 94, 0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Resultado Incorrecto / Alerta (Holograma Carmesí) */
+.gg-valid__result-card.bad {
+  border-color: rgba(239, 68, 68, 0.45);
+  box-shadow: 
+    0 12px 40px -15px rgba(239, 68, 68, 0.12),
+    0 0 30px rgba(239, 68, 68, 0.05),
+    inset 0 0 15px rgba(239, 68, 68, 0.05);
+  animation: gg-badge-pulse 4s infinite ease-in-out;
+}
+
+.gg-valid__result-card.bad::before {
+  content: '';
+  position: absolute;
+  top: -40%; left: -40%;
+  width: 80%; height: 80%;
+  background: radial-gradient(circle, rgba(239, 68, 68, 0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+@keyframes gg-badge-pulse {
+  0%, 100% { border-color: rgba(239, 68, 68, 0.45); }
+  50% { border-color: rgba(239, 68, 68, 0.75); }
+}
+
+/* Sello oficial rotado en esquina */
+.gg-valid__stamp {
+  position: absolute;
+  top: 22px;
+  right: -42px;
+  transform: rotate(35deg);
+  font-size: 11px;
+  font-family: var(--font-display);
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  padding: 6px 50px;
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+.gg-valid__result-card.ok .gg-valid__stamp {
+  background: linear-gradient(90deg, #16a34a, #22c55e);
+}
+
+.gg-valid__result-card.bad .gg-valid__stamp {
+  background: linear-gradient(90deg, #dc2626, var(--danger));
+}
+
+/* Cabecera del resultado */
+.gg-valid__result-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.gg-valid__badge {
+  width: 54px;
+  height: 54px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm)));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.gg-valid__result-card.ok .gg-valid__badge {
+  background: rgba(34, 197, 94, 0.12);
+  color: #22c55e;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  filter: drop-shadow(0 0 6px rgba(34, 197, 94, 0.4));
+}
+
+.gg-valid__result-card.bad .gg-valid__badge {
+  background: rgba(239, 68, 68, 0.12);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  filter: drop-shadow(0 0 6px rgba(239, 68, 68, 0.4));
+}
+
+.gg-valid__badge svg {
+  width: 26px;
+  height: 26px;
+}
+
+.gg-valid__result-head h3 {
+  font-family: var(--font-display);
+  font-size: 20px;
+  margin: 0 0 4px 0;
+  letter-spacing: 0.5px;
+}
+
+.gg-valid__reason {
+  color: var(--text-dim);
+  font-size: 13px;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Etiqueta de tipo de elemento */
+.gg-valid__kindtag {
+  display: inline-block;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(var(--accent-rgb), 0.08);
+  border: 1px solid rgba(var(--accent-rgb), 0.25);
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm)));
+  padding: 5px 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  position: relative;
+  z-index: 2;
+  font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+
+/* Bloque de detalles de metadatos */
+.gg-valid__details {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-md)) 0, 100% var(--gga-cut-md), 100% 100%, var(--gga-cut-md) 100%, 0 calc(100% - var(--gga-cut-md)));
+  overflow: hidden;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+.gg-valid__details > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 11px 16px;
+  background: rgba(14, 17, 24, 0.6);
+  transition: background 0.15s;
+}
+
+.gg-valid__details > div:hover {
+  background: rgba(14, 17, 24, 0.85);
+}
+
+.gg-valid__details span {
+  color: var(--text-dim);
+  font-size: 12.5px;
+  font-weight: 500;
+}
+
+.gg-valid__details b {
+  font-size: 13.5px;
+  text-align: right;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text);
+}
+
+.gg-valid__details b.mono {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.03);
+  padding: 2px 6px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px));
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.gg-valid__st {
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  padding: 3px 8px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 5px) 0, 100% 5px, 100% 100%, 5px 100%, 0 calc(100% - 5px));
+  font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+
+.gg-valid__st.activo {
+  color: var(--accent);
+  background: rgba(var(--accent-rgb), 0.1);
+  border: 1px solid rgba(var(--accent-rgb), 0.2);
+}
+
+.gg-valid__st.ban {
+  color: #ff5c5c;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+/* Detalle de Jugador (Ficha de Censo) */
+.gg-valid__player {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  position: relative;
+  z-index: 2;
+}
+
+.gg-valid__player img {
+  width: 72px;
+  height: 72px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm)));
+  object-fit: cover;
+  border: 2px solid var(--line);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  flex: none;
+}
+
+.gg-valid__verif {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(var(--accent-rgb), 0.12);
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px));
+  padding: 3px;
+  color: var(--accent);
+  border: 1px solid rgba(var(--accent-rgb), 0.25);
+  box-shadow: 0 0 6px rgba(var(--accent-rgb), 0.2);
+}
+
+.gg-valid__verif svg {
+  width: 11px;
+  height: 11px;
+}
+
+/* ── Panel de Facturas & Historial ── */
+.gg-valid__panelblock {
+  margin-top: 32px;
+  background: rgba(14, 17, 24, 0.55);
+  border: 1px solid var(--line);
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-lg)) 0, 100% var(--gga-cut-lg), 100% 100%, var(--gga-cut-lg) 100%, 0 calc(100% - var(--gga-cut-lg)));
+  padding: 24px;
+  box-shadow: var(--shadow-card);
+  backdrop-filter: blur(12px);
+  overflow: hidden;
+}
+
+.gg-valid__block-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.gg-valid__block-head h3 {
+  font-family: var(--font-display);
+  font-size: 18px;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.gg-valid__block-head h3 svg {
+  color: var(--accent);
+  filter: drop-shadow(0 0 5px rgba(var(--accent-rgb), 0.35));
+}
+
+.gg-admin-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-width: 260px;
+}
+
+.gg-admin-search__icon {
+  position: absolute;
+  left: 12px;
+  color: var(--text-dim);
+  pointer-events: none;
+}
+
+.gg-admin-search__icon svg {
+  width: 15px;
+  height: 15px;
+}
+
+.gg-admin-search input {
+  width: 100%;
+  padding: 10px 34px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm)));
+  border: 1px solid var(--line);
+  background: rgba(0, 0, 0, 0.2) !important;
+  color: var(--text);
+  font-size: 13px;
+  transition: all 0.2s;
+}
+
+.gg-admin-search input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.1);
+  background: rgba(0, 0, 0, 0.3) !important;
+}
+
+.gg-admin-search__clear {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: 0;
+  color: var(--text-dim);
+  cursor: pointer;
+  padding: 2px;
+}
+
+.gg-admin-search__clear svg {
+  width: 13px;
+  height: 13px;
+}
+
+.gg-valid__clearhist {
+  background: none;
+  border: 1px solid rgba(255,255,255,0.06);
+  color: var(--text-dim);
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm)));
+  transition: all 0.15s;
+}
+
+.gg-valid__clearhist:hover {
+  color: #ff5c5c;
+  background: rgba(239, 68, 68, 0.08);
+  border-color: rgba(239, 68, 68, 0.2);
+}
+
+.gg-valid__inv-wrap {
+  overflow-x: auto;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-md)) 0, 100% var(--gga-cut-md), 100% 100%, var(--gga-cut-md) 100%, 0 calc(100% - var(--gga-cut-md)));
+  border: 1px solid var(--line);
+}
+
+.gg-valid__inv-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 13.5px;
+}
+
+.gg-valid__inv-table th {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 14px 18px;
+  color: var(--text-dim);
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-size: 11.5px;
+  border-bottom: 1px solid var(--line);
+}
+
+.gg-valid__inv-table td {
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  vertical-align: middle;
+  background: rgba(255,255,255,0.005);
+}
+
+.gg-valid__inv-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.gg-valid__inv-table tr:hover td {
+  background: rgba(255, 255, 255, 0.015);
+}
+
+.gg-valid__inv-table code {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 12.5px;
+  color: var(--text);
+}
+
+.gg-valid__inv-table small {
+  display: block;
+  font-size: 10.5px;
+  color: var(--text-dim);
+  margin-top: 3px;
+}
+
+.gg-valid__pst {
+  display: inline-block;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+  font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+
+.gg-valid__pst.paid, .gg-valid__pst.aprobado {
+  color: var(--accent);
+  background: rgba(var(--accent-rgb), 0.1);
+  border: 1px solid rgba(var(--accent-rgb), 0.2);
+}
+
+.gg-valid__pst.pending, .gg-valid__pst.pendiente {
+  color: #fbbf24;
+  background: rgba(251, 191, 36, 0.1);
+  border: 1px solid rgba(251, 191, 36, 0.2);
+}
+
+.gg-valid__vbtn {
+  background: rgba(var(--accent-rgb), 0.08);
+  border: 1px solid rgba(var(--accent-rgb), 0.25);
+  color: var(--accent);
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  padding: 7px 14px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm)));
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s;
+}
+
+.gg-valid__vbtn:hover {
+  background: var(--accent);
+  color: #000;
+  border-color: transparent;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(var(--accent-rgb), 0.2);
+}
+
+.gg-valid__vbtn svg {
+  width: 12px;
+  height: 12px;
+}
+
+.gg-valid__inv-empty {
+  text-align: center;
+  color: var(--text-dim);
+  padding: 30px !important;
+}
+
+/* Historial Fila de Estado */
+.gg-valid__inv-table tr.ok td {
+  border-left: 3px solid var(--accent);
+}
+
+.gg-valid__inv-table tr.bad td {
+  border-left: 3px solid var(--danger);
+}
+
+.gg-valid__hres {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 700;
+  font-family: var(--font-display);
+}
+
+.gg-valid__hres svg {
+  width: 14px;
+  height: 14px;
+}
+
+.gg-valid__hres.ok {
+  color: var(--accent);
+}
+
+.gg-valid__hres.bad {
+  color: #f87171;
+}
+

@@ -1,0 +1,65 @@
+.gg-role-id-corner {
+  position: absolute;
+  z-index: 8;
+  top: 12px;
+  right: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  max-width: min(72%, 430px);
+  min-width: 0;
+  padding: 6px 9px;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--rc, var(--panel-accent, var(--accent))) 34%, var(--line));
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--bg-elev) 86%, transparent);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .24);
+  color: var(--text);
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: .055em;
+  white-space: nowrap;
+  backdrop-filter: blur(10px);
+}
+
+.gg-role-id-corner__public,
+.gg-role-id-corner__internal {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.gg-role-id-corner__public { flex: 0 0 auto; color: var(--rc, var(--panel-accent, var(--accent))); }
+.gg-role-id-corner__internal { flex: 1 1 auto; color: var(--text-dim); }
+.gg-role-id-corner__slash { flex: none; color: var(--text-dim); opacity: .72; }
+
+.gg-role-id-corner--tournament {
+  --rc: var(--gc, var(--tc, var(--panel-accent, var(--accent))));
+}
+
+.pnl-hero--role-id,
+.cc-hero--role-id,
+.bp-identity--role-id { padding-top: 58px !important; }
+
+@media (max-width: 640px) {
+  .gg-role-id-corner {
+    top: 9px;
+    right: 9px;
+    max-width: calc(100% - 18px);
+    padding: 6px 8px;
+    font-size: 9px;
+    gap: 5px;
+  }
+
+  .gg-role-id-corner__public { flex-shrink: 0; }
+  .gg-role-id-corner__internal { flex-shrink: 1; }
+  .gg-role-id-corner--tournament { font-size: 8.5px; letter-spacing: .035em; }
+}
+
+@media (max-width: 380px) {
+  .gg-role-id-corner { max-width: calc(100% - 14px); right: 7px; }
+}
+

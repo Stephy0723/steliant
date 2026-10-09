@@ -1,0 +1,53 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Documento de entorno (¡CRUCIAL ignorarlo para no filtrar tu token de Discord!)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Node modules
+node_modules/
+frontend/node_modules/
+api/node_modules/
+
+# Frontend Build
+frontend/dist/
+frontend/build/
+
+# El build real del dashboard (vite outDir) va aqui, no en frontend/dist —
+# es un artefacto generado por "npm run dashboard:build", no codigo fuente.
+# Trackearlo causaba que cada deploy dejara el arbol de trabajo "sucio" y
+# bloqueara el siguiente "git pull" en el VPS.
+api/public/app/
+
+# Configuración del Editor y OS
+.DS_Store
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Bases de datos JSON locales (Descomentar la línea de abajo si no quieres subir los datos reales al repositorio)
+# data/*.json
+
+# Base de datos SQLite local del bot (datos runtime, no código)
+data/*.db
+data/*.db-shm
+data/*.db-wal
+
+# Base de datos SQLite local del bot (datos runtime, no código)
+data/*.db
+data/*.db-shm
+data/*.db-wal

@@ -1,0 +1,44 @@
+.ao-list { padding: 0; overflow: hidden; margin-bottom: 18px; }
+.ao-list__head {
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+  padding: 16px 18px; border-bottom: 1px solid var(--line);
+}
+.ao-list__head h3 { margin: 0; font-size: 15px; font-weight: 800; color: var(--text); }
+.ao-filters { display: flex; gap: 6px; flex-wrap: wrap; }
+.ao-empty { padding: 32px; text-align: center; }
+
+.ao-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.ao-table { width: 100%; min-width: 560px; border-collapse: collapse; font-size: 13px; }
+.ao-table th {
+  text-align: left; padding: 10px 18px; font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .03em; color: var(--text-dim);
+  border-bottom: 1px solid var(--line);
+  font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+.ao-table td { padding: 12px 18px; border-bottom: 1px solid var(--line); color: var(--text); vertical-align: top; }
+.ao-table tr:last-child td { border-bottom: none; }
+.ao-mono { font-family: monospace; font-size: 12px; color: var(--text-dim); }
+.ao-mono-input { font-family: monospace; font-size: 12px; background: var(--bg); border: 1px solid var(--line); color: var(--text); padding: 4px 6px; width: 100%; min-width: 160px; }
+.ao-dim { color: var(--text-dim); font-size: 12px; margin-top: 2px; }
+.ao-row-actions { display: flex; gap: 6px; }
+
+.ao-form {
+  background: var(--bg-elev); border: 1px solid var(--line); border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-md)) 0, 100% var(--gga-cut-md), 100% 100%, var(--gga-cut-md) 100%, 0 calc(100% - var(--gga-cut-md)));
+  padding: 16px; margin-top: 12px; display: flex; flex-direction: column; gap: 12px;
+}
+.ao-form__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.ao-form label { display: flex; flex-direction: column; gap: 5px; font-size: 12px; color: var(--text-dim); font-weight: 600; }
+.ao-form input {
+  background: var(--bg-card); border: 1px solid var(--line); border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - var(--gga-cut-sm)) 0, 100% var(--gga-cut-sm), 100% 100%, var(--gga-cut-sm) 100%, 0 calc(100% - var(--gga-cut-sm)));
+  padding: 8px 10px; font-size: 13px; color: var(--text); font-family: inherit;
+}
+.ao-form input:focus { outline: none; border-color: var(--accent); }
+.ao-error { margin: 0; font-size: 12px; color: var(--danger); }
+.ao-form__actions { display: flex; justify-content: flex-end; gap: 8px; }
+
+@media (max-width: 720px) {
+  .ao-form__grid { grid-template-columns: 1fr; }
+}
+

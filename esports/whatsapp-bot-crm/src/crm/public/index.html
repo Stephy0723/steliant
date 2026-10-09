@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>GlitchGang CRM</title>
+  <link rel="stylesheet" href="/crm/assets/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark small">GG</span><div><strong>GlitchGang</strong><small>Bot CRM</small></div></div>
+      <nav id="nav">
+        <button data-view="dashboard" class="active">📊 Dashboard</button>
+        <button data-view="ranking">🏅 Ranking</button>
+        <button data-view="analytics">📈 Análisis</button>
+        <hr style="border:none;border-top:1px solid var(--line);margin:8px 0;opacity:.5">
+        <button data-view="contacts">👥 Usuarios</button>
+        <button data-view="teams">⚽ Equipos</button>
+        <button data-view="tournaments">🏆 Torneos</button>
+        <button data-view="matches">🎮 Partidas</button>
+        <button data-view="groups">💬 Grupos</button>
+        <button data-view="checkins">✅ Check-ins</button>
+        <button data-view="conversations">💭 Conversaciones</button>
+        <button data-view="commandLogs">⌨️ Comandos</button>
+        <button data-view="loginAttempts">Accesos</button>
+        <button data-view="notes">📝 Notas</button>
+        <button data-view="settings">⚙️ Configuración</button>
+      </nav>
+      <button id="logout" class="logout">Cerrar sesión</button>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <span class="eyebrow">CENTRO DE OPERACIONES</span>
+          <h1 id="pageTitle">Dashboard</h1>
+        </div>
+        <div class="status-pill"><span></span> CRM activo</div>
+      </header>
+
+      <section id="content"></section>
+    </main>
+  </div>
+
+  <dialog id="modal">
+    <form method="dialog" id="modalForm">
+      <div class="modal-head"><h2 id="modalTitle">Nuevo registro</h2><button value="cancel" class="icon-btn">×</button></div>
+      <div id="modalFields" class="form-grid"></div>
+      <div class="modal-actions"><button value="cancel" class="secondary">Cancelar</button><button id="saveBtn" type="button">Guardar</button></div>
+    </form>
+  </dialog>
+
+  <script src="/crm/assets/app.js"></script>
+  <script src="/crm/assets/team-wizard.js"></script>
+</body>
+</html>

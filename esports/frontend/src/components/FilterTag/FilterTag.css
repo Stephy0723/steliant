@@ -1,0 +1,33 @@
+.gg-filter-tag {
+  display: inline-flex; align-items: center;
+  padding: 5px 13px; border-radius: 20px;
+  border: 1px solid var(--line);
+  background: var(--bg-card);
+  font-size: 12px; font-weight: 600; color: var(--text-dim);
+  cursor: pointer; transition: border-color .15s, color .15s, background .15s;
+  white-space: nowrap;
+}
+.gg-filter-tag:hover {
+  border-color: var(--accent); color: var(--text);
+}
+.gg-filter-tag.active {
+  border-color: var(--accent);
+  background: rgba(var(--accent-rgb), .12);
+  color: var(--accent);
+}
+/* Dark variant for video hero */
+.gg-filter-tag.dark {
+  background: rgba(0, 0, 0, .45);
+  border-color: rgba(255,255,255,.25);
+  color: rgba(255,255,255,.85);
+  backdrop-filter: blur(4px);
+}
+.gg-filter-tag.dark:hover {
+  border-color: rgba(255,255,255,.6); color: #fff;
+}
+.gg-filter-tag.dark.active {
+  border-color: var(--accent);
+  background: rgba(var(--accent-rgb), .2);
+  color: var(--accent);
+}
+

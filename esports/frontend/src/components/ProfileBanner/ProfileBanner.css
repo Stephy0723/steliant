@@ -1,0 +1,504 @@
+.gg-profile-banner {
+  --pb-a: var(--accent);
+  --pb-paper: color-mix(in srgb, var(--bg) 88%, var(--bg-elev) 12%);
+  --pb-panel: color-mix(in srgb, var(--bg-elev) 72%, transparent);
+  --pb-hair: color-mix(in srgb, var(--text) 14%, transparent);
+  --pb-media-text: color-mix(in srgb, var(--text) 86%, #ffffff 14%);
+  --pb-media-muted: color-mix(in srgb, var(--text-dim) 76%, transparent);
+  --pb-contrast: var(--bg);
+  --pb-clip: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 22px 100%, 0 calc(100% - 22px));
+  color: var(--text);
+  font-family: var(--font-body);
+  min-width: 0;
+}
+
+.gg-profile-banner__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+  min-width: 0;
+}
+
+.gg-profile-banner__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  min-width: 0;
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+
+.gg-profile-banner__eyebrow::before {
+  content: "";
+  width: 16px;
+  height: 2px;
+  background: var(--pb-a);
+  box-shadow: 0 0 10px var(--pb-a);
+}
+
+.gg-profile-banner__edit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex: none;
+  min-height: 36px;
+  padding: 9px 15px;
+  border: 1px solid color-mix(in srgb, var(--pb-a) 45%, transparent);
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 9px) 0, 100% 9px, 100% 100%, 9px 100%, 0 calc(100% - 9px));
+  background: color-mix(in srgb, var(--pb-a) 10%, transparent);
+  color: var(--pb-a);
+  cursor: pointer;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  transition: background .2s, color .2s, transform .15s;
+}
+
+.gg-profile-banner__edit:hover {
+  background: var(--pb-a);
+  color: var(--pb-contrast);
+  transform: translateY(-1px);
+}
+
+.gg-profile-banner__edit svg {
+  width: 13px;
+  height: 13px;
+}
+
+.gg-profile-banner__frame {
+  position: relative;
+  min-width: 0;
+  background: var(--pb-a);
+  clip-path: var(--pb-clip);
+  filter: drop-shadow(0 18px 42px color-mix(in srgb, var(--bg) 76%, transparent));
+}
+
+.gg-profile-banner__cover {
+  position: relative;
+  min-height: 180px;
+  aspect-ratio: 5 / 1;
+  overflow: hidden;
+  margin: 2px;
+  background: var(--pb-paper);
+  clip-path: var(--pb-clip);
+}
+
+.gg-profile-banner__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gg-profile-banner__ph {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(80% 120% at 82% 0%, color-mix(in srgb, var(--pb-a) 20%, transparent), transparent 58%),
+    linear-gradient(120deg, color-mix(in srgb, var(--bg-elev) 86%, var(--pb-a) 14%), var(--pb-paper) 62%);
+}
+
+.gg-profile-banner__scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--bg) 92%, transparent), color-mix(in srgb, var(--bg) 62%, transparent) 46%, color-mix(in srgb, var(--bg) 22%, transparent)),
+    linear-gradient(0deg, color-mix(in srgb, var(--bg) 94%, transparent), transparent 58%);
+}
+
+.gg-profile-banner__scan {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(0deg, color-mix(in srgb, var(--text) 4%, transparent) 0 1px, transparent 1px 3px);
+  mix-blend-mode: overlay;
+}
+
+.gg-profile-banner__rail {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 5;
+  width: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 0;
+  border-right: 1px solid var(--pb-hair);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--pb-a) 18%, transparent), transparent 70%);
+}
+
+.gg-profile-banner__vtext {
+  color: var(--pb-a);
+  font-family: var(--font-display);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  writing-mode: vertical-rl;
+}
+
+.gg-profile-banner__ticks {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.gg-profile-banner__ticks i {
+  width: 4px;
+  height: 4px;
+  background: var(--pb-a);
+  opacity: .75;
+}
+
+.gg-profile-banner__bk {
+  position: absolute;
+  z-index: 6;
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid var(--pb-a);
+  opacity: .9;
+}
+
+.gg-profile-banner__bk--tr {
+  top: 10px;
+  right: 10px;
+  border-left: none;
+  border-bottom: none;
+}
+
+.gg-profile-banner__bk--br {
+  right: 10px;
+  bottom: 10px;
+  border-left: none;
+  border-top: none;
+}
+
+.gg-profile-banner__code {
+  position: absolute;
+  top: 12px;
+  left: 44px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  max-width: calc(100% - 96px);
+  gap: 8px;
+  color: var(--pb-media-muted);
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 8.5px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.gg-profile-banner__code b {
+  color: var(--pb-a);
+  font-weight: 600;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.gg-profile-banner__eq {
+  position: absolute;
+  top: 14px;
+  right: 22px;
+  z-index: 5;
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 15px;
+}
+
+.gg-profile-banner__eq i {
+  width: 3px;
+  background: var(--pb-a);
+  opacity: .8;
+  animation: gg-profile-banner-eq 1.6s ease-in-out infinite;
+}
+
+@keyframes gg-profile-banner-eq {
+  0%, 100% { height: 20%; }
+  50% { height: 100%; }
+}
+
+.gg-profile-banner__body {
+  position: absolute;
+  left: 46px;
+  right: 24px;
+  bottom: 18px;
+  z-index: 5;
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+.gg-profile-banner__name-wrap {
+  min-width: 0;
+  flex: 1 1 260px;
+}
+
+.gg-profile-banner__micro {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--pb-media-muted);
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 7.5px;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+}
+
+.gg-profile-banner__name {
+  margin: 0;
+  color: var(--pb-media-text);
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4.6vw, 50px);
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: .92;
+  text-shadow: 0 0 26px color-mix(in srgb, var(--pb-a) 45%, transparent), 0 4px 18px color-mix(in srgb, var(--bg) 82%, transparent);
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.gg-profile-banner__game {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 5px;
+  padding: 6px 12px;
+  background: var(--pb-a);
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+  color: var(--pb-contrast);
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  box-shadow: 0 6px 22px -8px var(--pb-a);
+  max-width: 100%;
+}
+
+.gg-profile-banner__game svg {
+  width: 12px;
+  height: 12px;
+}
+
+.gg-profile-banner__meta {
+  display: grid;
+  grid-auto-flow: column;
+  margin-left: auto;
+  border: 1px solid var(--pb-hair);
+  background: var(--pb-panel);
+  backdrop-filter: blur(6px);
+  min-width: 0;
+}
+
+.gg-profile-banner__meta span {
+  padding: 7px 16px;
+  border-right: 1px solid var(--pb-hair);
+  text-align: center;
+}
+
+.gg-profile-banner__meta span:last-child {
+  border-right: none;
+}
+
+.gg-profile-banner__meta b {
+  display: block;
+  color: var(--pb-media-text);
+  font-family: var(--font-display);
+  font-size: 17px;
+  line-height: 1.1;
+}
+
+.gg-profile-banner__meta em {
+  color: var(--pb-media-muted);
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 7.5px;
+  font-style: normal;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 680px) {
+  .gg-profile-banner__eq {
+    display: none;
+  }
+
+  .gg-profile-banner {
+    --pb-clip: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+  }
+
+  .gg-profile-banner__top {
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .gg-profile-banner__eyebrow {
+    font-size: 13px;
+    letter-spacing: .12em;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+  }
+
+  .gg-profile-banner__eyebrow::before {
+    width: 12px;
+    flex: none;
+  }
+
+  .gg-profile-banner__cover {
+    min-height: 310px;
+    aspect-ratio: auto;
+  }
+
+  .gg-profile-banner__scrim {
+    background:
+      linear-gradient(180deg, color-mix(in srgb, var(--bg) 76%, transparent), color-mix(in srgb, var(--bg) 92%, transparent) 66%, color-mix(in srgb, var(--bg) 96%, transparent)),
+      linear-gradient(90deg, color-mix(in srgb, var(--bg) 88%, transparent), color-mix(in srgb, var(--bg) 54%, transparent));
+  }
+
+  .gg-profile-banner__rail {
+    width: 24px;
+  }
+
+  .gg-profile-banner__vtext {
+    font-size: 7px;
+    letter-spacing: .2em;
+  }
+
+  .gg-profile-banner__code {
+    top: 14px;
+    left: 34px;
+    right: 14px;
+    max-width: none;
+    font-size: 7.5px;
+    letter-spacing: .14em;
+  }
+
+  .gg-profile-banner__body {
+    left: 34px;
+    right: 14px;
+    bottom: 16px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .gg-profile-banner__name-wrap {
+    flex-basis: auto;
+  }
+
+  .gg-profile-banner__micro {
+    margin-bottom: 6px;
+    font-size: 7px;
+    letter-spacing: .18em;
+  }
+
+  .gg-profile-banner__name {
+    font-size: clamp(28px, 10vw, 40px);
+    line-height: .98;
+  }
+
+  .gg-profile-banner__game {
+    align-self: flex-start;
+    margin-bottom: 0;
+    padding: 7px 10px;
+    font-size: 9px;
+    letter-spacing: .1em;
+    line-height: 1.15;
+    white-space: normal;
+  }
+
+  .gg-profile-banner__meta {
+    grid-auto-flow: unset;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .gg-profile-banner__meta span {
+    min-width: 0;
+    padding: 8px 6px;
+  }
+
+  .gg-profile-banner__meta b,
+  .gg-profile-banner__meta em {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .gg-profile-banner__edit span {
+    display: none;
+  }
+}
+
+@media (max-width: 440px) {
+  .gg-profile-banner__top {
+    margin-bottom: 10px;
+  }
+
+  .gg-profile-banner__cover {
+    min-height: 340px;
+  }
+
+  .gg-profile-banner__rail,
+  .gg-profile-banner__bk {
+    display: none;
+  }
+
+  .gg-profile-banner__code {
+    left: 14px;
+  }
+
+  .gg-profile-banner__body {
+    left: 14px;
+  }
+
+  .gg-profile-banner__name {
+    font-size: clamp(25px, 11vw, 34px);
+  }
+
+  .gg-profile-banner__meta {
+    grid-template-columns: 1fr;
+  }
+
+  .gg-profile-banner__meta span {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    border-right: none;
+    border-bottom: 1px solid var(--pb-hair);
+    text-align: left;
+  }
+
+  .gg-profile-banner__meta span:last-child {
+    border-bottom: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gg-profile-banner__eq i {
+    height: 60%;
+    animation: none;
+  }
+}
+

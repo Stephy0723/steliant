@@ -1,0 +1,133 @@
+.rr { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.rr svg { width: 14px; height: 14px; flex: none; }
+.rr-muted { margin: 0; font-size: 13px; color: var(--text-dim); }
+.rr-error { display: flex; align-items: center; gap: 6px; margin: 0; font-size: 13px; color: var(--danger, #ef4444); }
+
+.rr-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 8px 14px; border-radius: 9px; border: 1px solid var(--accent);
+  background: var(--accent); color: #0b0b0b; font: inherit; font-size: 13px; font-weight: 800;
+  cursor: pointer; text-decoration: none; white-space: nowrap;
+}
+.rr-btn:disabled { opacity: .5; cursor: not-allowed; }
+.rr-btn--ghost { background: transparent; border-color: var(--line); color: var(--text); }
+.rr-btn--xs { padding: 5px 10px; font-size: 12px; }
+
+.rr-chip {
+  display: inline-flex; align-items: center; gap: 4px; padding: 3px 9px; border-radius: 999px;
+  font-size: 11.5px; font-weight: 800; white-space: nowrap;
+  background: rgba(255,255,255,.06); color: var(--text-dim);
+}
+.rr-chip--ok { background: rgba(34,197,94,.14); color: #22c55e; }
+.rr-chip--warn { background: rgba(245,158,11,.14); color: #f59e0b; }
+.rr-chip--bad { background: rgba(239,68,68,.14); color: var(--danger, #ef4444); }
+
+/* Lista */
+.rr-filters { display: flex; align-items: flex-end; gap: 10px; flex-wrap: wrap; }
+.rr-filters label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; font-weight: 700; color: var(--text-dim); }
+.rr-filters select, .rr-decide select, .rr-decide input[type=number], .rr-decide textarea, .rr-appeal textarea {
+  padding: 8px 10px; border-radius: 9px; border: 1px solid var(--line); background: var(--bg-card); color: var(--text); font: inherit; font-size: 13px;
+}
+.rr-filters .rr-check { flex-direction: row; align-items: center; padding-bottom: 8px; }
+.rr-empty { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 28px 16px; border: 1px dashed var(--line); border-radius: 12px; color: var(--text-dim); text-align: center; }
+.rr-empty svg { width: 22px; height: 22px; }
+.rr-empty p { margin: 0; font-size: 13px; max-width: 420px; }
+
+.rr-list { display: flex; flex-direction: column; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.rr-row {
+  display: grid; grid-template-columns: minmax(0, 1.4fr) auto minmax(0, 1.6fr) auto; align-items: center; gap: 12px;
+  width: 100%; padding: 12px 14px; border-radius: 11px; border: 1px solid var(--line); border-left: 3px solid var(--line);
+  background: var(--bg-card); color: var(--text); font: inherit; text-align: left; cursor: pointer;
+}
+.rr-row:hover { border-color: var(--accent); }
+.rr-row.is-urgent { border-left-color: var(--danger, #ef4444); background: rgba(239,68,68,.06); }
+.rr-row__main { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.rr-row__main small { font-size: 11.5px; color: var(--text-dim); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rr-row__main b { font-size: 13.5px; }
+.rr-row__main > span { font-size: 12.5px; color: var(--text-dim); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rr-row__state { display: flex; gap: 6px; flex-wrap: wrap; }
+.rr-row__reason { font-size: 12.5px; color: var(--text); min-width: 0; }
+.rr-row__meta { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; font-size: 11.5px; color: var(--text-dim); white-space: nowrap; }
+.rr-row__meta span:last-child { display: inline-flex; align-items: center; gap: 4px; }
+.rr-row.is-urgent .rr-row__meta span:last-child { color: var(--danger, #ef4444); font-weight: 800; }
+
+/* Caso */
+.rr-back { align-self: flex-start; }
+.rr-case__head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; }
+.rr-case__head small { font-size: 12px; color: var(--text-dim); }
+.rr-case__head h3 { margin: 2px 0; font-size: 18px; color: var(--text); }
+.rr-case__head p { margin: 0; font-size: 13px; color: var(--text-dim); }
+.rr-case__actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.rr-note { margin: 0; padding: 8px 12px; border-radius: 9px; background: var(--bg-card); border: 1px solid var(--line); font-size: 13px; color: var(--text); display: flex; align-items: center; gap: 6px; }
+.rr-note--ok { border-color: rgba(34,197,94,.45); }
+.rr-note--bad { border-color: rgba(239,68,68,.5); }
+.rr-reasons { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.rr-reasons li { padding: 4px 10px; border-radius: 999px; background: rgba(245,158,11,.12); color: #f59e0b; font-size: 12px; font-weight: 700; }
+
+.rr-sides { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.rr-side { display: flex; flex-direction: column; gap: 10px; min-width: 0; padding: 12px; border-radius: 12px; border: 1px solid var(--line); background: var(--bg-card); }
+.rr-side__head { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.rr-side__head b { font-size: 14px; color: var(--text); }
+.rr-flag { display: inline-flex; align-items: center; gap: 5px; margin: 0; font-size: 12px; font-weight: 700; color: #f59e0b; }
+.rr-shots { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 6px; }
+.rr-shots a { position: relative; display: block; overflow: hidden; aspect-ratio: 16 / 9; border-radius: 8px; border: 1px solid var(--line); }
+.rr-shots img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.rr-shots span { position: absolute; left: 0; right: 0; bottom: 0; padding: 3px 6px; font-size: 10.5px; font-weight: 700; color: #fff; background: linear-gradient(transparent, rgba(0,0,0,.75)); }
+
+.rr-read { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.rr-read__head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0; font-size: 12.5px; color: var(--text); }
+.rr-read__head > span { color: var(--text-dim); }
+.rr-table { overflow-x: auto; border: 1px solid var(--line); border-radius: 9px; }
+.rr-table table { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+.rr-table th, .rr-table td { padding: 5px 7px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; color: var(--text); }
+.rr-table th { color: var(--text-dim); font-weight: 700; background: rgba(255,255,255,.02); }
+.rr-table th:first-child, .rr-table td:first-child, .rr-table td:nth-child(2), .rr-table th:nth-child(2) { text-align: left; }
+.rr-table td small { color: var(--text-dim); }
+.rr-table tr.is-unknown td:first-child { color: #f59e0b; }
+.rr-table td.is-diff { background: rgba(239,68,68,.16); color: var(--danger, #ef4444); font-weight: 800; }
+.rr-table td.is-doubt { background: rgba(245,158,11,.12); }
+.rr-team-dot { display: inline-block; width: 7px; height: 7px; margin-right: 5px; border-radius: 50%; background: var(--accent); }
+.rr-team-dot[data-side=B] { background: var(--text-dim); }
+
+.rr-roster summary, .rr-history summary { cursor: pointer; font-size: 13px; font-weight: 700; color: var(--text); }
+.rr-roster ul { margin: 8px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 4px; font-size: 12.5px; color: var(--text); }
+.rr-roster small { color: var(--text-dim); }
+
+.rr-decide { display: flex; flex-direction: column; gap: 10px; padding: 14px; border-radius: 12px; border: 1px solid var(--accent); background: var(--bg-card); }
+.rr-decide h4 { margin: 0; font-size: 14px; color: var(--text); }
+.rr-decide fieldset { display: flex; flex-direction: column; gap: 10px; margin: 0; padding: 0; border: 0; min-width: 0; }
+.rr-decide fieldset > label { display: flex; flex-direction: column; gap: 4px; font-size: 12.5px; font-weight: 700; color: var(--text-dim); }
+.rr-decide__options { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 6px; }
+.rr-decide__options label { display: flex; align-items: center; gap: 6px; padding: 8px 10px; border-radius: 9px; border: 1px solid var(--line); font-size: 13px; font-weight: 700; color: var(--text); cursor: pointer; }
+.rr-decide__options label.is-on { border-color: var(--accent); }
+.rr-decide .rr-btn { align-self: flex-end; white-space: normal; text-align: center; }
+
+.rr-history ul, .rr-history ol { margin: 8px 0 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px; font-size: 12.5px; color: var(--text); }
+.rr-history time { color: var(--text-dim); font-size: 11.5px; }
+
+.rr-appeal { display: flex; flex-direction: column; gap: 6px; width: 100%; }
+.rr-appeal > div { display: flex; justify-content: flex-end; gap: 6px; }
+
+/* Grabaciones de voz */
+.rr-voice { display: flex; flex-direction: column; gap: 8px; }
+.rr-voice h4 { margin: 0; font-size: 14px; color: var(--text); }
+.rr-voice__rec { gap: 8px; }
+.rr-voice__chips { display: flex; gap: 4px; flex-wrap: wrap; justify-content: flex-end; }
+.rr-voice__room { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.rr-voice__room input[type=range] { flex: 1 1 140px; min-width: 0; accent-color: var(--accent); }
+.rr-voice__time { font-size: 11.5px; color: var(--text-dim); font-variant-numeric: tabular-nums; }
+.rr-voice__tracks { display: flex; flex-direction: column; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.rr-voice__tracks li { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; padding-top: 6px; border-top: 1px solid var(--line); }
+.rr-voice__who { display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap; min-width: 0; font-size: 12.5px; color: var(--text); }
+.rr-voice__who small { color: var(--text-dim); }
+.rr-voice__player { display: flex; align-items: center; gap: 6px; flex: 1 1 260px; min-width: 0; }
+.rr-voice__player audio { flex: 1; min-width: 0; height: 32px; }
+
+@media (max-width: 760px) {
+  .rr-row { grid-template-columns: minmax(0, 1fr) auto; }
+  .rr-row__reason { grid-column: 1 / -1; }
+  .rr-row__meta { grid-column: 1 / -1; flex-direction: row; justify-content: space-between; }
+  .rr-sides { grid-template-columns: 1fr; }
+  .rr-decide .rr-btn { align-self: stretch; }
+}
+

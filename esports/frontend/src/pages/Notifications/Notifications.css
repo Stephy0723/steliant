@@ -1,0 +1,288 @@
+/* ═══════════════════════════════════════════════════
+   Notificaciones — bandeja HUD (mismo lenguaje que GG / consola):
+   esquinas cortadas, mono en mayúsculas, visor en las esquinas,
+   scanlines y split RGB al pasar el ratón.
+   ═══════════════════════════════════════════════════ */
+
+.gg-notifs-page {
+  --nf-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
+  --nf-cut: 12px;
+  --nf-clip: polygon(0 0, calc(100% - var(--nf-cut)) 0, 100% var(--nf-cut), 100% 100%, var(--nf-cut) 100%, 0 calc(100% - var(--nf-cut)));
+  --nf-panel: color-mix(in srgb, var(--bg-elev) 94%, var(--bg));
+  --nf-scan: repeating-linear-gradient(180deg, color-mix(in srgb, var(--bg) 55%, transparent) 0 1px, transparent 1px 3px);
+  --nf-admin: #f97316;
+  --nf-r: 255, 46, 99;
+  --nf-c: 0, 240, 255;
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+/* ── Acciones de cabecera ── */
+.gg-notifs-header-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.gg-notifs-header-actions .gg-btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  min-height: 34px; padding: 0 12px;
+  border-radius: 3px;
+  font: 600 11px var(--nf-mono); letter-spacing: .12em; text-transform: uppercase;
+}
+.gg-notifs-header-actions .gg-btn svg { width: 14px; height: 14px; }
+.gg-btn--danger {
+  background: rgba(var(--danger-rgb), .08); color: var(--danger);
+  border: 1px solid rgba(var(--danger-rgb), .35);
+  cursor: pointer; transition: background .15s, border-color .15s;
+}
+.gg-btn--danger:hover { background: rgba(var(--danger-rgb), .16); border-color: var(--danger); }
+
+/* ── Tabs: barra de canales ── */
+.gg-notif-tabs {
+  position: relative;
+  display: flex; gap: 2px;
+  margin-bottom: 18px;
+  padding: 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  background: var(--nf-panel);
+  border: 1px solid var(--line);
+  clip-path: var(--nf-clip);
+}
+.gg-notif-tabs::-webkit-scrollbar { display: none; }
+.gg-notif-tab {
+  position: relative;
+  display: inline-flex; align-items: center; gap: 8px;
+  min-height: 34px; padding: 0 14px;
+  border: 0; border-radius: 2px;
+  background: transparent; color: var(--text-dim);
+  font: 600 11px var(--nf-mono); letter-spacing: .14em; text-transform: uppercase;
+  white-space: nowrap; cursor: pointer;
+  transition: background .15s, color .15s;
+}
+.gg-notif-tab::before { content: '//'; opacity: .35; font-weight: 400; }
+.gg-notif-tab:hover { color: var(--text); background: color-mix(in srgb, var(--text) 5%, transparent); }
+.gg-notif-tab.active {
+  background: rgba(var(--accent-rgb), .12);
+  color: var(--accent);
+  box-shadow: inset 0 -2px 0 var(--accent);
+}
+.gg-notif-tab.active::before { opacity: .7; }
+.gg-notif-tab__badge {
+  min-width: 18px; height: 16px; padding: 0 5px;
+  display: inline-grid; place-items: center;
+  font: 700 10px/16px var(--nf-mono); letter-spacing: 0;
+  border-radius: 2px;
+  background: var(--accent); color: color-mix(in srgb, var(--bg) 92%, #000);
+}
+
+/* ── Lista ── */
+.gg-notifs-list { display: flex; flex-direction: column; gap: 8px; }
+
+.gg-notif-row {
+  --notif-tone: var(--accent);
+  position: relative;
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 14px 16px 14px 18px;
+  background: var(--nf-panel);
+  border: 1px solid var(--line);
+  clip-path: var(--nf-clip);
+  cursor: pointer;
+  transition: background .15s, border-color .15s;
+}
+/* barra de canal a la izquierda (solo sin leer) */
+.gg-notif-row::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 3px; background: var(--notif-tone);
+  box-shadow: 0 0 12px var(--notif-tone);
+  opacity: 0; transition: opacity .15s;
+}
+/* esquina de visor abajo a la derecha */
+.gg-notif-row::after {
+  content: ''; position: absolute; right: 0; bottom: 0; width: 14px; height: 14px;
+  pointer-events: none;
+  background:
+    linear-gradient(var(--notif-tone), var(--notif-tone)) 100% 100% / 14px 2px no-repeat,
+    linear-gradient(var(--notif-tone), var(--notif-tone)) 100% 100% / 2px 14px no-repeat;
+  opacity: 0; transition: opacity .15s;
+}
+.gg-notif-row:hover {
+  border-color: color-mix(in srgb, var(--notif-tone) 45%, var(--line));
+  background: color-mix(in srgb, var(--notif-tone) 5%, var(--nf-panel));
+}
+.gg-notif-row:hover::after { opacity: .9; }
+.gg-notif-row:not(.read) {
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--notif-tone) 10%, transparent), transparent 55%),
+    var(--nf-panel);
+  border-color: color-mix(in srgb, var(--notif-tone) 28%, var(--line));
+}
+.gg-notif-row:not(.read)::before { opacity: 1; }
+.gg-notif-row.read { opacity: .78; }
+.gg-notif-row.read:hover { opacity: 1; }
+
+/* prioritario (admin / tickets) */
+.gg-notif-row--admin {
+  --notif-tone: var(--nf-admin);
+  border-color: rgba(249, 115, 22, .45);
+  background:
+    repeating-linear-gradient(135deg, rgba(249, 115, 22, .06) 0 8px, transparent 8px 16px),
+    var(--nf-panel);
+}
+.gg-notif-row--admin::before { opacity: 1; width: 4px; }
+.gg-notif-row--admin .gg-notif-row__title::after {
+  content: 'PRIORITARIO';
+  display: inline-block;
+  margin-left: 8px; padding: 1px 6px;
+  font: 700 9.5px/1.5 var(--nf-mono); letter-spacing: .16em;
+  vertical-align: 2px;
+  color: var(--nf-admin);
+  border: 1px solid var(--nf-admin);
+}
+
+/* ── Miniatura: marco de visor ── */
+.gg-notif-row__thumb {
+  position: relative;
+  width: 46px; height: 46px; flex: none;
+  display: grid; place-items: center;
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+}
+.gg-notif-row__thumb--icon {
+  background: color-mix(in srgb, var(--notif-tone) 12%, transparent);
+  color: var(--notif-tone);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--notif-tone) 40%, transparent);
+}
+.gg-notif-row__thumb--icon svg { width: 20px; height: 20px; }
+.gg-notif-row__thumb--image {
+  overflow: hidden;
+  background: color-mix(in srgb, var(--notif-tone) 12%, var(--bg));
+}
+.gg-notif-row__thumb--image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.gg-notif-row__thumb--image::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: var(--nf-scan); opacity: .45;
+}
+.gg-notif-row__thumb--mono {
+  background: linear-gradient(150deg, hsl(var(--thumb-hue) 70% 40%), hsl(var(--thumb-hue) 55% 18%));
+  color: #fff;
+  font-family: var(--font-display); font-weight: 800; font-size: 15px;
+}
+.gg-notif-row__thumb--mono::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: var(--nf-scan); opacity: .5;
+}
+
+/* ── Cuerpo ── */
+.gg-notif-row__body { flex: 1; min-width: 0; }
+.gg-notif-row__title {
+  margin: 0;
+  font-family: var(--font-display); font-size: 15px; font-weight: 800; line-height: 1.25;
+  color: var(--text);
+}
+.gg-notif-row:hover .gg-notif-row__title { text-shadow: -1px 0 rgba(var(--nf-r), .55), 1px 0 rgba(var(--nf-c), .55); }
+.gg-notif-row__kind {
+  display: inline-block;
+  max-width: 100%;
+  margin-top: 5px;
+  font: 600 10px var(--nf-mono); letter-spacing: .16em; text-transform: uppercase;
+  color: var(--notif-tone);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.gg-notif-row__kind::before { content: '▸ '; opacity: .7; }
+.gg-notif-row__desc {
+  margin: 4px 0 0;
+  font-size: 13px; line-height: 1.5; color: var(--text-dim);
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.gg-notif-row__body time {
+  display: block; margin-top: 6px;
+  font: 400 10.5px var(--nf-mono); letter-spacing: .08em;
+  color: var(--text-dim); opacity: .75;
+}
+.gg-notif-row__body time::before { content: 'T+ '; opacity: .6; }
+
+.gg-notif-row__dot {
+  width: 8px; height: 8px; flex: none; margin-top: 6px;
+  background: var(--notif-tone);
+  box-shadow: 0 0 10px var(--notif-tone);
+  animation: nf-blink 1.6s steps(1) infinite;
+}
+
+/* ── Acciones (aparecen al pasar el ratón en escritorio) ── */
+.gg-notif-row__actions {
+  display: flex; gap: 6px; flex: none; align-self: center;
+  opacity: 0; transition: opacity .15s;
+}
+.gg-notif-row:hover .gg-notif-row__actions,
+.gg-notif-row:focus-within .gg-notif-row__actions { opacity: 1; }
+.gg-notif-row__actions button {
+  min-height: 30px; padding: 0 10px;
+  border: 1px solid var(--line-hi); border-radius: 2px;
+  background: color-mix(in srgb, var(--bg) 40%, transparent);
+  color: var(--text-dim);
+  font: 600 10.5px var(--nf-mono); letter-spacing: .12em; text-transform: uppercase;
+  white-space: nowrap; cursor: pointer;
+  transition: color .15s, border-color .15s, background .15s;
+}
+.gg-notif-row__actions button:hover { color: var(--notif-tone); border-color: var(--notif-tone); }
+.gg-notif-row__actions button:first-child { color: var(--notif-tone); border-color: color-mix(in srgb, var(--notif-tone) 50%, var(--line)); }
+.gg-notif-row__actions button.danger { color: var(--danger); border-color: rgba(var(--danger-rgb), .35); }
+.gg-notif-row__actions button.danger:hover { background: rgba(var(--danger-rgb), .1); border-color: var(--danger); }
+
+/* ── Vacío: pantalla sin señal ── */
+.gg-notifs-empty {
+  position: relative;
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+  padding: 56px 24px; text-align: center;
+  background: var(--nf-panel);
+  border: 1px dashed var(--line-hi);
+  clip-path: var(--nf-clip);
+}
+.gg-notifs-empty::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: var(--nf-scan); opacity: .35;
+}
+.gg-notifs-empty__icon {
+  width: 52px; height: 52px; display: grid; place-items: center;
+  color: var(--accent);
+  background: rgba(var(--accent-rgb), .1);
+  box-shadow: inset 0 0 0 1px rgba(var(--accent-rgb), .4);
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+}
+.gg-notifs-empty__icon svg { width: 24px; height: 24px; }
+.gg-notifs-empty p {
+  margin: 0;
+  font: 500 12px var(--nf-mono); letter-spacing: .12em; text-transform: uppercase;
+  color: var(--text-dim);
+}
+.gg-notifs-empty p::before { content: '> '; color: var(--accent); }
+
+/* ── Archivadas ── */
+.gg-notifs-archive { margin-top: 22px; display: flex; flex-direction: column; gap: 8px; }
+.gg-notifs-archive__toggle {
+  display: flex; align-items: center; justify-content: space-between;
+  width: 100%; min-height: 44px; padding: 0 16px;
+  background: var(--nf-panel); border: 1px solid var(--line);
+  clip-path: var(--nf-clip);
+  color: var(--text-dim);
+  font: 600 11px var(--nf-mono); letter-spacing: .16em; text-transform: uppercase;
+  cursor: pointer; transition: color .15s, border-color .15s;
+}
+.gg-notifs-archive__toggle span::before { content: '[ '; opacity: .5; }
+.gg-notifs-archive__toggle span::after { content: ' ]'; opacity: .5; }
+.gg-notifs-archive__toggle:hover { color: var(--text); border-color: var(--line-hi); }
+.gg-notifs-archive__toggle svg { width: 16px; height: 16px; }
+.gg-notif-row.archived { opacity: .55; filter: grayscale(.4); }
+.gg-notif-row.archived:hover { opacity: .85; filter: none; }
+
+@keyframes nf-blink { 50% { opacity: .25; } }
+
+@media (max-width: 640px) {
+  .gg-notif-row { flex-wrap: wrap; padding: 13px 14px 13px 16px; }
+  .gg-notif-row__actions { opacity: 1; width: 100%; padding-left: 60px; }
+  .gg-notif-row__actions button { flex: 1; min-height: 34px; }
+}
+@media (max-width: 400px) {
+  .gg-notif-row__actions { padding-left: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gg-notif-row__dot { animation: none; }
+}
+html.gg-perf .gg-notif-row__dot { animation: none; }
+

@@ -1,0 +1,39 @@
+.cd-page {
+  display: grid;
+  place-items: center;
+  padding: 42px 20px;
+}
+
+.cd-card {
+  width: min(520px, 100%);
+  margin-top: 0;
+}
+
+.cd-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.gg-role-tag--discord {
+  --tag: #5865F2;
+  --tag-bg: #0a0c1e;
+}
+
+.cd-hint {
+  margin-top: 12px !important;
+  font-size: 12px !important;
+}
+
+/* Vuelta al wizard de Crear equipo */
+.cd-return {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  margin-top: 14px; padding: 12px 14px;
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--line));
+  background: color-mix(in srgb, var(--accent) 7%, transparent);
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+}
+.cd-return b { display: block; font: 700 11px 'IBM Plex Mono', ui-monospace, monospace; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+.cd-return small { font-size: 12.5px; color: var(--text-dim); }
+.cd-return svg { width: 13px; height: 13px; }
+

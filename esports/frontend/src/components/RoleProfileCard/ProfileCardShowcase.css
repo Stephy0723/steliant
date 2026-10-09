@@ -1,0 +1,37 @@
+.pcs { display: grid; gap: 12px; justify-items: center; width: 100%; }
+.pcs__tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
+.pcs__tab {
+  padding: 6px 14px; font: inherit; font-size: 12px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; cursor: pointer;
+  color: var(--text-dim, #8b93a7); background: rgba(255, 255, 255, .04); border: 1px solid var(--line, rgba(255, 255, 255, .12));
+}
+.pcs__tab:hover { color: var(--text, #f3f5f8); }
+.pcs__tab.is-on { color: #04130a; background: var(--accent, #22c55e); border-color: var(--accent, #22c55e); }
+
+.pcs__manage { display: grid; gap: 10px; width: 100%; max-width: 300px; }
+.pcs__link {
+  justify-self: center; display: inline-flex; align-items: center; gap: 6px; padding: 0; background: none; border: 0; cursor: pointer;
+  color: var(--accent, #22c55e); font: inherit; font-size: 12.5px; font-weight: 600;
+}
+.pcs__link svg { width: 14px; height: 14px; }
+.pcs__panel { display: grid; gap: 10px; padding: 12px; border: 1px solid var(--line, rgba(255, 255, 255, .12)); background: rgba(255, 255, 255, .035); }
+.pcs__panel p { margin: 0; font-size: 12px; line-height: 1.5; color: var(--text-dim, #8b93a7); }
+.pcs__opts { display: flex; flex-wrap: wrap; gap: 6px; }
+.pcs__opt {
+  display: inline-flex; align-items: center; gap: 6px; padding: 6px 11px; font-size: 12.5px; font-weight: 600; cursor: pointer;
+  color: var(--text-dim, #8b93a7); border: 1px solid var(--line, rgba(255, 255, 255, .12));
+}
+.pcs__opt input { accent-color: var(--accent, #22c55e); }
+.pcs__opt.is-on { color: var(--accent, #22c55e); border-color: var(--accent, #22c55e); }
+.pcs__save {
+  justify-self: end; display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; font: inherit; font-size: 12.5px; font-weight: 700; cursor: pointer;
+  color: #04130a; background: var(--accent, #22c55e); border: 0;
+}
+.pcs__save svg { width: 14px; height: 14px; }
+.pcs__save:disabled { opacity: .6; cursor: default; }
+
+.rpp__toggle {
+  display: flex; align-items: flex-start; gap: 9px; max-width: 280px; padding: 10px 12px; cursor: pointer; font-size: 12.5px; line-height: 1.4;
+  color: var(--text, #f3f5f8); border: 1px solid var(--line, rgba(255, 255, 255, .12)); background: rgba(255, 255, 255, .035);
+}
+.rpp__toggle input { margin-top: 2px; accent-color: var(--panel-accent, var(--accent, #22c55e)); }
+

@@ -1,0 +1,320 @@
+/* Tour Steliant — all copy (ES/EN), route data and photography. */
+
+const U = (id: string, w = 1200) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=72`;
+
+export const IMG = {
+  heroRoad: U("1544620347-c4fd4a3d5957", 2000),
+  busRoad: U("1605068263928-dc295689add1", 1600),
+  interior: U("1532939163844-547f958e91b4", 1600),
+  interior2: U("1656501029164-d1fefd9689f9", 1400),
+  cabin: U("1515616428283-3c97ebd69070", 1400),
+  aerial: U("1697302611781-5166533305da", 2000),
+  aerial2: U("1636378163213-ded48bf09b05", 1600),
+  sdNight: U("1591720170982-c36bac4f7710", 2000),
+  sdAerial: U("1591720058005-078a274dc111", 1600),
+  waterfall: U("1555669320-429edc655c9f", 1400),
+  sunset: U("1730337585136-1e53544c36b8", 2000),
+  group: U("1528215747454-3d0e0902fff2", 1400),
+  palms: U("1611952961634-349806683d73", 1400),
+  parcelHand: U("1566576721346-d4a3b4eaeb55", 1600),
+  parcelVan: U("1580674285054-bed31e145f59", 1400),
+  parcelFragile: U("1541544181051-e46607bc22a4", 1200),
+  coffee: U("1610632380989-680fe40816c6", 2000),
+  ter: U("1692017827893-f97d95397b49", 1600),
+  cafeCake: U("1632859509881-f557437f5d33", 1200),
+  cafePlantain: U("1788530757669-417558f26bef", 1200),
+  cafeDrink: U("1790276319667-f6daf9eb1266", 1200),
+  cafePlate: U("1632859965308-d15227508c4b", 1200),
+  cafeLatte: U("1512568400610-62da28bc8a13", 1200),
+};
+
+export type CityId = "sdq" | "puj" | "pop" | "sti" | "ter" | "jar" | "rom" | "sam";
+export type Tag = "beach" | "capital" | "north" | "city" | "mountain";
+
+export const CITIES: Record<CityId, { name: string; region: string; lat: number; lng: number; img: string; tag: Tag; price: number; duration: string; trips: number; rating: number }> = {
+  sdq: { name: "Santo Domingo", region: "Distrito Nacional", lat: 18.4861, lng: -69.9312, img: U("1716718279401-5a730590f75b"), tag: "capital", price: 350, duration: "1h 45m", trips: 32, rating: 4.8 },
+  puj: { name: "Punta Cana", region: "La Altagracia", lat: 18.5601, lng: -68.3725, img: U("1705507972578-78537a2dda73"), tag: "beach", price: 850, duration: "4h 30m", trips: 18, rating: 4.9 },
+  pop: { name: "Puerto Plata", region: "Costa Norte", lat: 19.7934, lng: -70.6884, img: U("1684805675906-e2c924d77fd1"), tag: "north", price: 620, duration: "3h 15m", trips: 12, rating: 4.7 },
+  sti: { name: "Santiago", region: "Cibao", lat: 19.4517, lng: -70.697, img: U("1558353093-5d0c837b61e7"), tag: "city", price: 480, duration: "2h 30m", trips: 24, rating: 4.8 },
+  ter: { name: "Las Terrenas", region: "Samaná", lat: 19.311, lng: -69.5428, img: U("1692017827893-f97d95397b49"), tag: "beach", price: 780, duration: "3h 45m", trips: 8, rating: 4.9 },
+  jar: { name: "Jarabacoa", region: "La Vega", lat: 19.1176, lng: -70.6362, img: U("1681224765327-4cd9b321ab04"), tag: "mountain", price: 520, duration: "2h 15m", trips: 10, rating: 4.7 },
+  rom: { name: "La Romana", region: "Este", lat: 18.4273, lng: -68.9728, img: U("1683765128972-a3941f07313a"), tag: "city", price: 320, duration: "1h 30m", trips: 14, rating: 4.6 },
+  sam: { name: "Samaná", region: "Península de Samaná", lat: 19.2056, lng: -69.3366, img: U("1586748541308-9e0ae6982dc7"), tag: "mountain", price: 700, duration: "3h 20m", trips: 6, rating: 4.8 },
+};
+export const CITY_ORDER: CityId[] = ["puj", "sdq", "pop", "sti", "ter", "jar", "rom", "sam"];
+
+export type Route = { from: CityId; to: CityId; times: string[]; price: number; duration: string; vip: boolean };
+export const ROUTES: Route[] = [
+  { from: "sdq", to: "puj", times: ["05:30", "06:30", "07:30", "08:30", "09:30", "10:30", "12:00", "13:30", "15:00", "16:30", "18:00", "19:30", "21:00", "22:30"], price: 850, duration: "4h 30m", vip: true },
+  { from: "sdq", to: "sti", times: ["05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "14:00", "16:00", "18:00", "20:00", "22:00"], price: 480, duration: "2h 30m", vip: true },
+  { from: "sti", to: "pop", times: ["06:00", "07:30", "09:00", "10:30", "12:00", "13:30", "15:00", "16:30", "18:00", "20:00"], price: 260, duration: "1h 15m", vip: false },
+  { from: "sdq", to: "ter", times: ["06:00", "08:00", "10:00", "13:00", "16:00", "19:00"], price: 780, duration: "3h 45m", vip: true },
+  { from: "sdq", to: "jar", times: ["06:30", "08:30", "11:00", "14:00", "17:00", "20:00"], price: 520, duration: "2h 15m", vip: false },
+  { from: "sdq", to: "rom", times: ["06:00", "07:30", "09:00", "10:30", "12:00", "14:00", "16:00", "18:00", "20:00"], price: 320, duration: "1h 30m", vip: false },
+  { from: "sdq", to: "sam", times: ["07:00", "09:30", "12:00", "15:00", "18:00"], price: 700, duration: "3h 20m", vip: true },
+];
+
+export const CAFE = [
+  { id: 1, cat: "drinks", price: 85, popular: true },
+  { id: 2, cat: "drinks", price: 70, popular: false },
+  { id: 4, cat: "drinks", price: 95, popular: true },
+  { id: 5, cat: "drinks", price: 90, popular: false },
+  { id: 6, cat: "bites", price: 180, popular: true },
+  { id: 7, cat: "bites", price: 120, popular: true },
+  { id: 8, cat: "bites", price: 95, popular: false },
+  { id: 10, cat: "snacks", price: 75, popular: true },
+  { id: 11, cat: "snacks", price: 110, popular: false },
+  { id: 12, cat: "snacks", price: 95, popular: false },
+  { id: 13, cat: "sweets", price: 85, popular: true },
+  { id: 15, cat: "sweets", price: 120, popular: true },
+] as const;
+export const CAFE_CATS = { drinks: IMG.cafeDrink, bites: IMG.cafePlate, snacks: IMG.cafePlantain, sweets: IMG.cafeCake } as const;
+
+const es = {
+  nav: { home: "Inicio", dest: "Destinos", hours: "Horarios", vip: "VIP", track: "Tracking", parcel: "Paquetería", cafe: "Cafetería", promo: "Promos", book: "Reservar", theme: "Cambiar tema", menu: "Menú", close: "Cerrar" },
+  common: { from: "Origen", to: "Destino", date: "Fecha", pax: "Pasajeros", anyDest: "Cualquier destino", perTrip: "por viaje", trips: "salidas/día", search: "Buscar viaje", seeHours: "Ver horarios", book: "Reservar", demo: "Demostración: no se procesa ningún pago ni envío.", copied: "Copiado", copy: "Copiar", sample: "Contenido de ejemplo", next: "Siguiente", back: "Atrás" },
+  tags: { all: "Todos", beach: "Playa", capital: "Capital", north: "Costa Norte", city: "Ciudad", mountain: "Montaña" } as Record<string, string>,
+  cityDesc: {
+    sdq: "La ciudad más antigua del Nuevo Mundo: Zona Colonial, Malecón y vida nocturna.",
+    puj: "Arena blanca, aguas turquesa y los resorts más famosos del Caribe.",
+    pop: "Teleférico, fortaleza y playas en la Costa Norte.",
+    sti: "La ciudad corazón del Cibao, industrial, cultural y orgullosa.",
+    ter: "Pueblo bohemio entre palmeras y mar transparente.",
+    jar: "Ríos, cascadas y aire de montaña en la Cordillera Central.",
+    rom: "Altos de Chavón, Casa de Campo y el muelle de Bayahíbe.",
+    sam: "Ballenas jorobadas, cayos y naturaleza salvaje.",
+  } as Record<CityId, string>,
+  home: {
+    eyebrow: "Transporte terrestre · República Dominicana",
+    title: ["Recorre la isla", "con otra", "clase"],
+    lede: "Autobuses premium entre 40+ ciudades, asientos que eliges en un mapa y tu viaje en vivo desde el teléfono.",
+    board: "Próxima salida",
+    gate: "Andén",
+    onTime: "A tiempo",
+    boarding: "Abordando",
+    destEyebrow: "Destinos",
+    destTitle: ["Ocho rutas", "que valen el viaje"],
+    destAll: "Ver todos los destinos",
+    servEyebrow: "Servicios",
+    servTitle: ["Todo el viaje,", "en un solo boleto"],
+    serv: [
+      { k: "vip", t: "Clase VIP", d: "Asientos de cuero reclinables, pantalla individual y servicio a bordo." },
+      { k: "parcel", t: "Paquetería", d: "Envíos el mismo día entre terminales, con rastreo en tiempo real." },
+      { k: "cafe", t: "Cafetería", d: "Café dominicano y bocados criollos entregados en tu asiento." },
+      { k: "track", t: "Tracking", d: "Sigue tu autobús en el mapa y comparte la llegada con tu familia." },
+    ],
+    mapEyebrow: "Red de rutas",
+    mapTitle: ["De Santo Domingo", "a toda la isla"],
+    mapNote: "Coordenadas reales de cada terminal.",
+    stats: [{ v: 40, s: "+", l: "Ciudades conectadas" }, { v: 1200, s: "+", l: "Salidas por semana" }, { v: 98, s: "%", l: "Llegadas puntuales" }, { v: 15, s: "", l: "Años en la carretera" }],
+    quotesEyebrow: "Pasajeros",
+    quotes: [
+      { q: "Reservé el asiento junto a la ventana desde el celular y el bus salió exacto a las 7:30. Así da gusto viajar.", n: "Carolina M.", r: "Santo Domingo → Punta Cana" },
+      { q: "La clase VIP vale cada peso: dormí todo el camino a Santiago y el café estaba buenísimo.", n: "Luis A.", r: "Santo Domingo → Santiago" },
+      { q: "Mandé unos documentos a Puerto Plata y llegaron antes del mediodía. Los seguí en el mapa.", n: "Rosa P.", r: "Paquetería Express" },
+    ],
+    ctaTitle: ["Tu asiento", "te espera"],
+    ctaText: "Elige ruta, horario y asiento en menos de un minuto.",
+  },
+  pages: {
+    dest: { eyebrow: "Destinos", title: ["Del Caribe", "a la montaña"], lede: "Playas, ciudades coloniales y valles frescos. Elige a dónde y nosotros ponemos la carretera." },
+    hours: { eyebrow: "Horarios", title: ["Salidas", "en tiempo real"], lede: "Elige una ruta y mira el tablero como en la terminal. Toca un horario para reservar." },
+    book: { eyebrow: "Reservas", title: ["Elige tu", "asiento"], lede: "Ruta, asiento, datos y pago. Tu boleto con código QR al final." },
+    vip: { eyebrow: "Clase VIP", title: ["El lujo", "también viaja"], lede: "Asientos de cuero con reclinación de 160°, pantalla individual, WiFi y atención a bordo." },
+    track: { eyebrow: "Tracking", title: ["Tu autobús,", "en vivo"], lede: "Ubicación, velocidad y hora estimada de llegada de cada unidad en ruta." },
+    parcel: { eyebrow: "Paquetería", title: ["Envíos", "el mismo día"], lede: "Tus paquetes viajan en nuestras rutas y llegan a la terminal destino en horas." },
+    cafe: { eyebrow: "Cafetería", title: ["Sabor criollo", "en tu asiento"], lede: "Pide desde tu asiento: café dominicano, empanadas, tostones y dulces caseros." },
+    promo: { eyebrow: "Promociones", title: ["Viaja más,", "paga menos"], lede: "Ofertas por tiempo limitado, descuentos de grupo y beneficios para viajeros frecuentes." },
+  },
+  dest: { filter: "Filtrar", from: "Desde", details: "Detalles", close: "Cerrar", rating: "Valoración" },
+  hours: { route: "Ruta", depart: "Salida", status: "Estado", seats: "Asientos", fare: "Tarifa", now: "Hora local", full: "Lleno", few: "Últimos", ok: "Disponible", boarding: "Abordando", departed: "Salió", classVip: "VIP + Estándar", classStd: "Estándar", choose: "Elige una ruta" },
+  book: {
+    steps: ["Ruta", "Asientos", "Pasajeros", "Pago", "Boleto"],
+    time: "Horario", chooseSeats: "Elige tus asientos", seatsLeft: "asientos libres", driver: "Conductor", door: "Puerta",
+    legend: { free: "Libre", taken: "Ocupado", mine: "Tu selección", vip: "VIP" },
+    selected: "Seleccionados", total: "Total", passenger: "Pasajero", name: "Nombre completo", doc: "Cédula o pasaporte", email: "Correo", phone: "Teléfono",
+    card: "Número de tarjeta", holder: "Titular", exp: "Vence", cvc: "CVC", pay: "Pagar", ticket: "Boleto de abordaje", gate: "Andén", seat: "Asiento", boardBy: "Abordar antes de", newTrip: "Nueva reserva",
+    needSeats: "Elige {n} asiento(s) para continuar.", needData: "Completa los datos de cada pasajero.", needCard: "Completa los datos de la tarjeta (usa cualquier número de prueba).",
+    paid: "Pago de demostración aprobado.",
+  },
+  vip: {
+    classesEyebrow: "Clases", classesTitle: ["Tres formas", "de llegar"],
+    classes: [
+      { n: "Estándar", p: 350, f: ["Asiento reclinable 120°", "Aire acondicionado", "WiFi", "Equipaje 20 kg"] },
+      { n: "VIP", p: 850, f: ["Cuero reclinable 160°", "Pantalla individual", "WiFi rápido", "Snack y bebida", "Equipaje 30 kg"] },
+      { n: "Ejecutivo", p: 1400, f: ["Cama-asiento 180°", "Cabina de 12 plazas", "Comida caliente", "Embarque prioritario", "Equipaje 40 kg"] },
+    ],
+    pick: "Elegir", popular: "Más elegido",
+    amenEyebrow: "A bordo", amenTitle: ["Pensado", "para llegar descansado"],
+    amen: [
+      { t: "Reclinación 160°", d: "Reposapiernas y apoyacabezas ajustables." },
+      { t: "Pantalla individual", d: "Películas, series y mapa del viaje." },
+      { t: "WiFi y USB-C", d: "Conexión estable durante todo el trayecto." },
+      { t: "Servicio a bordo", d: "Azafata, bebidas y snacks incluidos." },
+    ],
+  },
+  track: { buses: "Unidades en ruta", search: "Código de boleto", find: "Buscar", speed: "Velocidad", eta: "Llegada", progress: "Recorrido", live: "En vivo", share: "Compartir llegada", shared: "Enlace de seguimiento copiado (demo)", notFound: "Usa un código de ejemplo: TS-2048, TS-3150 o TS-4417.", legendBus: "Autobús", legendRoute: "Ruta", legendStop: "Terminal" },
+  parcel: {
+    tabs: ["Enviar", "Rastrear", "Planes"],
+    type: "Tipo de envío", types: ["Documento", "Paquete", "Frágil", "Refrigerado"], weight: "Peso (kg)", sender: "Remitente", receiver: "Destinatario", phone: "Teléfono", content: "Contenido",
+    estimate: "Estimado", eta: "Entrega estimada", send: "Registrar envío", sent: "Envío registrado (demo). Código: ",
+    trackPh: "Ej. PQ-58210", trackBtn: "Rastrear", status: "En tránsito",
+    timeline: [{ l: "Recibido en terminal origen", t: "08:15" }, { l: "Procesado en Santo Domingo", t: "09:30" }, { l: "En camino a destino", t: "10:45" }, { l: "En terminal Santiago", t: "13:30" }, { l: "Entregado", t: "14:30" }],
+    plans: [
+      { n: "Express", eta: "Mismo día · 8 h", p: "RD$350", f: ["Hasta 5 kg", "Rastreo en tiempo real", "Seguro básico", "Aviso por SMS"] },
+      { n: "Prioridad", eta: "Mismo día · 4 h", p: "RD$650", f: ["Hasta 20 kg", "GPS en vivo", "Seguro completo", "Firma digital", "Foto de entrega"] },
+      { n: "Empresas", eta: "Volumen y contrato", p: "Cotizar", f: ["Sin límite de peso", "Recogida en oficina", "Factura electrónica", "Integración por API", "Soporte 24/7"] },
+    ],
+    choose: "Elegir plan",
+    feats: [{ t: "Mismo día", d: "En todas las rutas frecuentes." }, { t: "Asegurado", d: "Seguro incluido en cada envío." }, { t: "40+ terminales", d: "Recoge en la terminal más cercana." }],
+  },
+  cafe: {
+    cats: { all: "Todo", drinks: "Bebidas", bites: "Bocados", snacks: "Picaderas", sweets: "Dulces" } as Record<string, string>,
+    items: { 1: ["Café espresso", "Café dominicano de altura"], 2: ["Jugo de chinola", "Fruta de la pasión recién exprimida"], 4: ["Batida de mamey", "Batida criolla tropical"], 5: ["Café con leche", "Cremoso, como en casa"], 6: ["Sándwich de pollo", "Pechuga, lechuga, tomate y mayo"], 7: ["Empanada de carne", "Receta tradicional dominicana"], 8: ["Pastelito vegetal", "Relleno de vegetales salteados"], 10: ["Tostones", "Plátano verde frito y crujiente"], 11: ["Chicharrón", "Cerdo crujiente con limón"], 12: ["Mix de nueces", "Maní, nueces y semillas"], 13: ["Dulce de leche", "Postre criollo de la abuela"], 15: ["Bizcocho dominicano", "Esponjoso, con suspiro"] } as Record<number, [string, string]>,
+    popular: "Favorito", add: "Agregar", cart: "Tu pedido", empty: "Tu pedido está vacío. Agrega algo rico.", seat: "Asiento", order: "Pedir a mi asiento", ordered: "Pedido enviado a tu asiento (demo).",
+    feats: [{ t: "Entrega en asiento", d: "Sin levantarte." }, { t: "100% dominicano", d: "Productores locales." }, { t: "Hecho al momento", d: "Bocados calientes." }],
+  },
+  promo: {
+    ends: "Termina en", d: "d", h: "h", m: "m", s: "s", code: "Código", off: "dto.",
+    items: [
+      { t: "Fin de semana flash", d: "40% en todas las rutas de viernes a domingo.", pct: 40, code: "FINDE40", img: "sunset" },
+      { t: "Primer viaje VIP", d: "Tu primer viaje en clase VIP a mitad de precio.", pct: 50, code: "VIPHOLA", img: "interior" },
+      { t: "Grupos de 4+", d: "Viajen juntos y todos ahorran 30%.", pct: 30, code: "GRUPO30", img: "group" },
+    ],
+    clubEyebrow: "Club Steliant", clubTitle: ["Cada viaje", "suma millas"], clubText: "Acumula 1 milla por cada RD$100 y canjéalas por viajes, upgrades a VIP y cafetería.",
+    tiers: [{ n: "Azul", m: "0+" }, { n: "Larimar", m: "2,500+" }, { n: "Ámbar", m: "8,000+" }],
+    join: "Unirme al club", joined: "¡Bienvenido al Club Steliant! (demo)",
+  },
+  x: {
+    explore: "Explorar", megaRoutes: "Rutas populares",
+    mega: [["/destinos", "Destinos", "Playas, montaña y ciudades coloniales", "aerial"], ["/horarios", "Horarios", "Tablero de salidas en tiempo real", "busRoad"], ["/vip", "Clase VIP", "Cuero, pantalla y servicio a bordo", "interior"], ["/reservas", "Reservar", "Elige tu asiento en el mapa del bus", "interior2"]] as [string, string, string, string][],
+    ticker: ["Próxima salida", "Andén", "A tiempo", "Abordando"],
+    trip: { title: "Tu próximo viaje", leaves: "Sale en", see: "Ver boleto", seat: "Asiento", gate: "Andén", d: "d", h: "h", m: "m", s: "s" },
+    pay: { myTicket: "Mi boleto", goPay: "Ir a pagar", payTitle: "Pago seguro", card: "Tarjeta", fee: "Cargo por servicio", subtotal: "Subtotal", processing: "Procesando pago…", approved: "Pago aprobado", printing: "Imprimiendo tu boleto…", ready: "¡Tu boleto está listo! Lo tienes en el botón flotante.", payWith: "Pagar con", secure: "Pago cifrado de extremo a extremo · Demostración" },
+    mosaic: ["40+ ciudades", "un solo boleto"],
+  },
+  footer: { tag: "Transporte terrestre premium en República Dominicana.", news: "Ofertas en tu correo", newsPh: "tu@correo.com", subscribe: "Suscribirme", subscribed: "Suscripción de demostración registrada.", credit: "Plantilla diseñada por Steliant", cols: ["Viajar", "Servicios"] },
+};
+
+type Dict = typeof es;
+
+const en: Dict = {
+  nav: { home: "Home", dest: "Destinations", hours: "Schedules", vip: "VIP", track: "Tracking", parcel: "Parcels", cafe: "Café", promo: "Deals", book: "Book", theme: "Toggle theme", menu: "Menu", close: "Close" },
+  common: { from: "From", to: "To", date: "Date", pax: "Passengers", anyDest: "Any destination", perTrip: "per trip", trips: "departures/day", search: "Find a trip", seeHours: "See schedules", book: "Book", demo: "Demo: no payment or shipment is processed.", copied: "Copied", copy: "Copy", sample: "Sample content", next: "Next", back: "Back" },
+  tags: { all: "All", beach: "Beach", capital: "Capital", north: "North Coast", city: "City", mountain: "Mountains" },
+  cityDesc: {
+    sdq: "The oldest city in the New World: Colonial Zone, Malecón and nightlife.",
+    puj: "White sand, turquoise water and the Caribbean's best-known resorts.",
+    pop: "Cable car, fortress and beaches on the North Coast.",
+    sti: "The heart of the Cibao: industrious, cultural and proud.",
+    ter: "A bohemian village between palm trees and clear sea.",
+    jar: "Rivers, waterfalls and mountain air in the Cordillera Central.",
+    rom: "Altos de Chavón, Casa de Campo and the Bayahíbe pier.",
+    sam: "Humpback whales, cays and untouched nature.",
+  },
+  home: {
+    eyebrow: "Ground transport · Dominican Republic",
+    title: ["Travel the island", "in a different", "class"],
+    lede: "Premium coaches between 40+ cities, seats you pick on a map and your trip live on your phone.",
+    board: "Next departure", gate: "Gate", onTime: "On time", boarding: "Boarding",
+    destEyebrow: "Destinations", destTitle: ["Eight routes", "worth the ride"], destAll: "See all destinations",
+    servEyebrow: "Services", servTitle: ["The whole trip,", "on one ticket"],
+    serv: [
+      { k: "vip", t: "VIP class", d: "Reclining leather seats, personal screen and on-board service." },
+      { k: "parcel", t: "Parcels", d: "Same-day shipping between terminals with live tracking." },
+      { k: "cafe", t: "Café", d: "Dominican coffee and local bites delivered to your seat." },
+      { k: "track", t: "Tracking", d: "Follow your coach on the map and share your arrival." },
+    ],
+    mapEyebrow: "Route network", mapTitle: ["From Santo Domingo", "to the whole island"], mapNote: "Real coordinates for every terminal.",
+    stats: [{ v: 40, s: "+", l: "Connected cities" }, { v: 1200, s: "+", l: "Departures per week" }, { v: 98, s: "%", l: "On-time arrivals" }, { v: 15, s: "", l: "Years on the road" }],
+    quotesEyebrow: "Passengers",
+    quotes: [
+      { q: "I booked the window seat on my phone and the coach left right at 7:30. That's how travel should be.", n: "Carolina M.", r: "Santo Domingo → Punta Cana" },
+      { q: "VIP class is worth every peso: I slept all the way to Santiago and the coffee was great.", n: "Luis A.", r: "Santo Domingo → Santiago" },
+      { q: "I sent documents to Puerto Plata and they arrived before noon. I followed them on the map.", n: "Rosa P.", r: "Express Parcels" },
+    ],
+    ctaTitle: ["Your seat", "is waiting"], ctaText: "Pick a route, time and seat in under a minute.",
+  },
+  pages: {
+    dest: { eyebrow: "Destinations", title: ["From the Caribbean", "to the mountains"], lede: "Beaches, colonial cities and cool valleys. You choose where; we bring the road." },
+    hours: { eyebrow: "Schedules", title: ["Departures", "in real time"], lede: "Pick a route and read the board like at the terminal. Tap a time to book." },
+    book: { eyebrow: "Booking", title: ["Pick your", "seat"], lede: "Route, seat, details and payment. Your QR ticket at the end." },
+    vip: { eyebrow: "VIP class", title: ["Luxury", "travels too"], lede: "Leather seats reclining to 160°, personal screen, WiFi and on-board attendants." },
+    track: { eyebrow: "Tracking", title: ["Your coach,", "live"], lede: "Location, speed and estimated arrival for every coach on the road." },
+    parcel: { eyebrow: "Parcels", title: ["Same-day", "shipping"], lede: "Your parcels ride our routes and reach the destination terminal within hours." },
+    cafe: { eyebrow: "Café", title: ["Island flavor", "at your seat"], lede: "Order from your seat: Dominican coffee, empanadas, tostones and homemade sweets." },
+    promo: { eyebrow: "Deals", title: ["Travel more,", "pay less"], lede: "Limited-time offers, group discounts and perks for frequent travelers." },
+  },
+  dest: { filter: "Filter", from: "From", details: "Details", close: "Close", rating: "Rating" },
+  hours: { route: "Route", depart: "Departs", status: "Status", seats: "Seats", fare: "Fare", now: "Local time", full: "Full", few: "Last seats", ok: "Available", boarding: "Boarding", departed: "Departed", classVip: "VIP + Standard", classStd: "Standard", choose: "Choose a route" },
+  book: {
+    steps: ["Route", "Seats", "Passengers", "Payment", "Ticket"],
+    time: "Time", chooseSeats: "Choose your seats", seatsLeft: "seats left", driver: "Driver", door: "Door",
+    legend: { free: "Free", taken: "Taken", mine: "Your pick", vip: "VIP" },
+    selected: "Selected", total: "Total", passenger: "Passenger", name: "Full name", doc: "ID or passport", email: "Email", phone: "Phone",
+    card: "Card number", holder: "Cardholder", exp: "Expires", cvc: "CVC", pay: "Pay", ticket: "Boarding pass", gate: "Gate", seat: "Seat", boardBy: "Board by", newTrip: "New booking",
+    needSeats: "Choose {n} seat(s) to continue.", needData: "Fill in each passenger's details.", needCard: "Fill in the card details (any test number works).",
+    paid: "Demo payment approved.",
+  },
+  vip: {
+    classesEyebrow: "Classes", classesTitle: ["Three ways", "to arrive"],
+    classes: [
+      { n: "Standard", p: 350, f: ["120° reclining seat", "Air conditioning", "WiFi", "20 kg luggage"] },
+      { n: "VIP", p: 850, f: ["160° reclining leather", "Personal screen", "Fast WiFi", "Snack and drink", "30 kg luggage"] },
+      { n: "Executive", p: 1400, f: ["180° flat seat", "12-seat cabin", "Hot meal", "Priority boarding", "40 kg luggage"] },
+    ],
+    pick: "Choose", popular: "Most chosen",
+    amenEyebrow: "On board", amenTitle: ["Designed", "to arrive rested"],
+    amen: [
+      { t: "160° recline", d: "Adjustable leg and head rests." },
+      { t: "Personal screen", d: "Movies, series and the trip map." },
+      { t: "WiFi and USB-C", d: "A steady connection the whole way." },
+      { t: "On-board service", d: "Attendant, drinks and snacks included." },
+    ],
+  },
+  track: { buses: "Coaches on the road", search: "Ticket code", find: "Search", speed: "Speed", eta: "Arrival", progress: "Progress", live: "Live", share: "Share arrival", shared: "Tracking link copied (demo)", notFound: "Try a sample code: TS-2048, TS-3150 or TS-4417.", legendBus: "Coach", legendRoute: "Route", legendStop: "Terminal" },
+  parcel: {
+    tabs: ["Send", "Track", "Plans"],
+    type: "Shipment type", types: ["Document", "Parcel", "Fragile", "Chilled"], weight: "Weight (kg)", sender: "Sender", receiver: "Recipient", phone: "Phone", content: "Contents",
+    estimate: "Estimate", eta: "Estimated delivery", send: "Register shipment", sent: "Shipment registered (demo). Code: ",
+    trackPh: "e.g. PQ-58210", trackBtn: "Track", status: "In transit",
+    timeline: [{ l: "Received at origin terminal", t: "08:15" }, { l: "Processed in Santo Domingo", t: "09:30" }, { l: "On the way", t: "10:45" }, { l: "At Santiago terminal", t: "13:30" }, { l: "Delivered", t: "14:30" }],
+    plans: [
+      { n: "Express", eta: "Same day · 8 h", p: "RD$350", f: ["Up to 5 kg", "Live tracking", "Basic insurance", "SMS alerts"] },
+      { n: "Priority", eta: "Same day · 4 h", p: "RD$650", f: ["Up to 20 kg", "Live GPS", "Full insurance", "Digital signature", "Delivery photo"] },
+      { n: "Business", eta: "Volume and contract", p: "Quote", f: ["No weight limit", "Office pickup", "E-invoicing", "API integration", "24/7 support"] },
+    ],
+    choose: "Choose plan",
+    feats: [{ t: "Same day", d: "On every frequent route." }, { t: "Insured", d: "Coverage included with every shipment." }, { t: "40+ terminals", d: "Pick up at the nearest terminal." }],
+  },
+  cafe: {
+    cats: { all: "All", drinks: "Drinks", bites: "Bites", snacks: "Snacks", sweets: "Sweets" },
+    items: { 1: ["Espresso", "High-altitude Dominican coffee"], 2: ["Passion fruit juice", "Freshly squeezed chinola"], 4: ["Mamey shake", "Tropical island shake"], 5: ["Café con leche", "Creamy, like at home"], 6: ["Chicken sandwich", "Breast, lettuce, tomato and mayo"], 7: ["Beef empanada", "Traditional Dominican recipe"], 8: ["Veggie pastelito", "Filled with sautéed vegetables"], 10: ["Tostones", "Crispy fried green plantain"], 11: ["Chicharrón", "Crispy pork with lime"], 12: ["Nut mix", "Peanuts, nuts and seeds"], 13: ["Dulce de leche", "Grandma's island dessert"], 15: ["Dominican cake", "Fluffy, with meringue"] },
+    popular: "Favorite", add: "Add", cart: "Your order", empty: "Your order is empty. Add something tasty.", seat: "Seat", order: "Order to my seat", ordered: "Order sent to your seat (demo).",
+    feats: [{ t: "Seat delivery", d: "No need to get up." }, { t: "100% Dominican", d: "Local producers." }, { t: "Made to order", d: "Hot bites." }],
+  },
+  promo: {
+    ends: "Ends in", d: "d", h: "h", m: "m", s: "s", code: "Code", off: "off",
+    items: [
+      { t: "Weekend flash", d: "40% off every route, Friday to Sunday.", pct: 40, code: "FINDE40", img: "sunset" },
+      { t: "First VIP trip", d: "Your first VIP trip at half price.", pct: 50, code: "VIPHOLA", img: "interior" },
+      { t: "Groups of 4+", d: "Travel together and everyone saves 30%.", pct: 30, code: "GRUPO30", img: "group" },
+    ],
+    clubEyebrow: "Steliant Club", clubTitle: ["Every trip", "earns miles"], clubText: "Earn 1 mile per RD$100 and redeem for trips, VIP upgrades and café orders.",
+    tiers: [{ n: "Blue", m: "0+" }, { n: "Larimar", m: "2,500+" }, { n: "Amber", m: "8,000+" }],
+    join: "Join the club", joined: "Welcome to the Steliant Club! (demo)",
+  },
+  x: {
+    explore: "Explore", megaRoutes: "Popular routes",
+    mega: [["/destinos", "Destinations", "Beaches, mountains and colonial cities", "aerial"], ["/horarios", "Schedules", "Live departure board", "busRoad"], ["/vip", "VIP class", "Leather, screens and on-board service", "interior"], ["/reservas", "Book", "Pick your seat on the coach map", "interior2"]],
+    ticker: ["Next departure", "Gate", "On time", "Boarding"],
+    trip: { title: "Your next trip", leaves: "Leaves in", see: "View ticket", seat: "Seat", gate: "Gate", d: "d", h: "h", m: "m", s: "s" },
+    pay: { myTicket: "My ticket", goPay: "Go to payment", payTitle: "Secure payment", card: "Card", fee: "Service fee", subtotal: "Subtotal", processing: "Processing payment…", approved: "Payment approved", printing: "Printing your ticket…", ready: "Your ticket is ready! Find it in the floating button.", payWith: "Pay with", secure: "End-to-end encrypted payment · Demo" },
+    mosaic: ["40+ cities", "one ticket"],
+  },
+  footer: { tag: "Premium ground transport in the Dominican Republic.", news: "Deals in your inbox", newsPh: "you@email.com", subscribe: "Subscribe", subscribed: "Demo subscription registered.", credit: "Template designed by Steliant", cols: ["Travel", "Services"] },
+};
+
+export const T = { es, en };
+export type Lang = keyof typeof T;
+export type { Dict };

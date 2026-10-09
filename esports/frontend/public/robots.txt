@@ -1,0 +1,32 @@
+# GlitchGang: se indexan las paginas publicas; paneles privados y API no.
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin
+Disallow: /ajustes
+Disallow: /editar-perfil
+Disallow: /dashboard
+Disallow: /mensajes
+Disallow: /notificaciones
+Disallow: /amigos
+Disallow: /mis-pagos
+Disallow: /comprobante
+Disallow: /solicitar-rol
+Disallow: /mi-equipo
+Disallow: /mi-comunidad
+Disallow: /jugador
+Disallow: /organizador/
+Disallow: /creador
+Disallow: /marca/
+Disallow: /coach
+Disallow: /caster
+Disallow: /analista
+Disallow: /moderador
+Disallow: /conectar-discord
+Disallow: /conectar-whatsapp
+Disallow: /vincular-discord
+Disallow: /vincular-whatsapp
+Disallow: /verify-email
+Disallow: /reset-password
+Disallow: /forgot
+

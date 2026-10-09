@@ -1,0 +1,48 @@
+.gg-toasts {
+  position: fixed; z-index: 1000; right: 20px; bottom: 20px;
+  display: flex; flex-direction: column; gap: 10px;
+  max-width: min(380px, calc(100vw - 40px)); pointer-events: none;
+}
+.gg-toast {
+  position: relative; overflow: hidden; pointer-events: auto; cursor: pointer;
+  display: flex; align-items: flex-start; gap: 11px;
+  padding: 13px 14px 14px; border-radius: 13px;
+  background: var(--bg-elev); border: 1px solid var(--line);
+  box-shadow: 0 16px 44px rgba(0, 0, 0, .5);
+  --tcol: var(--accent);
+}
+.gg-toast--success { --tcol: #22c55e; }
+.gg-toast--error   { --tcol: var(--danger); }
+.gg-toast--info    { --tcol: #1E9DE3; }
+.gg-toast--warn    { --tcol: #f59e0b; }
+.gg-toast::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--tcol); }
+
+.gg-toast__icon {
+  width: 30px; height: 30px; flex: none; display: grid; place-items: center;
+  border-radius: 9px; background: color-mix(in srgb, var(--tcol) 18%, transparent); color: var(--tcol);
+}
+.gg-toast__icon svg { width: 17px; height: 17px; }
+.gg-toast__body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; padding-top: 2px; }
+.gg-toast__body b { font-size: 13.5px; font-family: var(--font-display); }
+.gg-toast__body span { font-size: 13px; color: var(--text); opacity: .9; line-height: 1.4; word-break: break-word; }
+.gg-toast__action {
+  align-self: flex-start;
+  margin-top: 7px;
+  padding: 6px 10px;
+  border: 1px solid color-mix(in srgb, var(--tcol) 55%, transparent);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--tcol) 14%, transparent);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 800;
+}
+.gg-toast__action:hover { background: color-mix(in srgb, var(--tcol) 24%, transparent); }
+.gg-toast__close { background: none; border: none; color: var(--text-dim); cursor: pointer; flex: none; padding: 2px; margin: -2px -2px 0 0; }
+.gg-toast__close:hover { color: var(--text); }
+.gg-toast__close svg { width: 15px; height: 15px; }
+.gg-toast__bar { position: absolute; left: 0; bottom: 0; height: 2px; background: var(--tcol); opacity: .6; animation: gg-toast-bar linear forwards; transform-origin: left; }
+@keyframes gg-toast-bar { from { transform: scaleX(1); } to { transform: scaleX(0); } }
+
+@media (max-width: 520px) { .gg-toasts { right: 12px; left: 12px; bottom: 12px; max-width: none; } }
+

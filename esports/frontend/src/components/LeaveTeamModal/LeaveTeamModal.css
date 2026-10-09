@@ -1,0 +1,123 @@
+/* Confirmación "Salir del equipo" — HUD de GG: esquinas cortadas, visor en
+   rojo de peligro, rayas de advertencia, mono en mayúsculas y split RGB. */
+.gg-leave {
+  --lt-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
+  --lt-danger: #ff5a72;
+  --lt-clip: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+  --lt-clip-sm: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+  position: fixed; inset: 0; z-index: 1200;
+  display: grid; place-items: center;
+  padding: 16px;
+  background: color-mix(in srgb, var(--bg, #05070a) 78%, transparent);
+}
+
+.gg-leave__card {
+  position: relative;
+  width: min(460px, 100%);
+  display: flex; flex-direction: column; gap: 16px;
+  padding: 20px;
+  background:
+    repeating-linear-gradient(180deg, color-mix(in srgb, var(--bg) 40%, transparent) 0 1px, transparent 1px 3px),
+    color-mix(in srgb, var(--bg-elev, #11141a) 96%, var(--lt-danger));
+  border: 1px solid color-mix(in srgb, var(--lt-danger) 45%, var(--line, #222));
+  clip-path: var(--lt-clip);
+  box-shadow: 0 30px 80px rgba(0,0,0,.55);
+  color: var(--text, #f3f5f8);
+}
+.gg-leave__card::before,
+.gg-leave__card::after {
+  content: ''; position: absolute; width: 20px; height: 20px; pointer-events: none;
+}
+.gg-leave__card::before {
+  top: 0; left: 0;
+  background:
+    linear-gradient(var(--lt-danger), var(--lt-danger)) 0 0 / 20px 2px no-repeat,
+    linear-gradient(var(--lt-danger), var(--lt-danger)) 0 0 / 2px 20px no-repeat;
+}
+.gg-leave__card::after {
+  right: 0; bottom: 0;
+  background:
+    linear-gradient(var(--lt-danger), var(--lt-danger)) 100% 100% / 20px 2px no-repeat,
+    linear-gradient(var(--lt-danger), var(--lt-danger)) 100% 100% / 2px 20px no-repeat;
+}
+
+.gg-leave__eyebrow {
+  display: inline-flex; align-items: center; gap: 6px;
+  font: 600 10.5px var(--lt-mono); letter-spacing: .16em; text-transform: uppercase;
+  color: var(--lt-danger);
+}
+.gg-leave__eyebrow svg { width: 14px; height: 14px; }
+
+.gg-leave__team { display: flex; align-items: center; gap: 14px; }
+.gg-leave__crest {
+  width: 58px; height: 58px; flex: none;
+  display: grid; place-items: center; overflow: hidden;
+  clip-path: var(--lt-clip-sm);
+  border: 1px solid color-mix(in srgb, var(--lt-team) 55%, transparent);
+  background: color-mix(in srgb, var(--lt-team) 14%, var(--bg));
+  color: var(--lt-team);
+  box-shadow: 0 0 22px color-mix(in srgb, var(--lt-team) 30%, transparent);
+}
+.gg-leave__crest img { width: 100%; height: 100%; object-fit: cover; }
+.gg-leave__crest b { font: 700 16px var(--lt-mono); letter-spacing: .06em; }
+.gg-leave__team > div { min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.gg-leave .gg-leave__team h3 {
+  position: relative; isolation: isolate;
+  margin: 0;
+  font-size: 21px !important; font-weight: 800; line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+.gg-leave__team h3::before,
+.gg-leave__team h3::after {
+  content: attr(data-text); position: absolute; inset: 0; z-index: -1; opacity: .5; pointer-events: none;
+}
+.gg-leave__team h3::before { color: rgba(255, 46, 99, .8); transform: translate(-2px, 0); animation: lt-glitch 2.6s steps(2, end) infinite; }
+.gg-leave__team h3::after  { color: rgba(0, 240, 255, .8); transform: translate(2px, 0); animation: lt-glitch 2.6s steps(2, end) infinite reverse; }
+@keyframes lt-glitch {
+  0%, 86%, 100% { clip-path: inset(0 0 100% 0); }
+  88% { clip-path: inset(10% 0 55% 0); }
+  93% { clip-path: inset(60% 0 8% 0); }
+}
+.gg-leave__team small { font: 500 11px var(--lt-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--text-dim, #8b93a3); }
+
+.gg-leave__list {
+  list-style: none; margin: 0; padding: 12px 14px;
+  display: flex; flex-direction: column; gap: 9px;
+  clip-path: var(--lt-clip-sm);
+  border: 1px solid color-mix(in srgb, var(--lt-danger) 30%, transparent);
+  background:
+    repeating-linear-gradient(135deg, color-mix(in srgb, var(--lt-danger) 6%, transparent) 0 8px, transparent 8px 16px),
+    color-mix(in srgb, var(--lt-danger) 4%, transparent);
+}
+.gg-leave__list li { display: flex; align-items: flex-start; gap: 9px; font-size: 13px; line-height: 1.45; color: var(--text-dim, #8b93a3); }
+.gg-leave__list svg { width: 15px; height: 15px; flex: none; margin-top: 1px; color: var(--lt-danger); }
+
+.gg-leave__actions { display: grid; grid-template-columns: 1fr 1.4fr; gap: 8px; }
+.gg-leave__btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 44px; padding: 0 14px;
+  clip-path: var(--lt-clip-sm);
+  border: 1px solid var(--line, #2a2f38);
+  background: color-mix(in srgb, var(--text) 4%, transparent);
+  color: var(--text, #f3f5f8);
+  font: 700 11.5px var(--lt-mono); letter-spacing: .14em; text-transform: uppercase;
+  cursor: pointer;
+  transition: filter .15s, border-color .15s, color .15s;
+}
+.gg-leave__btn svg { width: 15px; height: 15px; }
+.gg-leave__btn:hover:not(:disabled) { border-color: color-mix(in srgb, var(--text) 30%, transparent); }
+.gg-leave__btn--danger { border-color: transparent; background: var(--lt-danger); color: #14060a; }
+.gg-leave__btn--danger:hover:not(:disabled) { filter: brightness(1.08); }
+.gg-leave__btn:disabled { opacity: .55; cursor: progress; }
+
+@media (max-width: 480px) {
+  .gg-leave__card { padding: 16px; }
+  .gg-leave__actions { grid-template-columns: 1fr; }
+  .gg-leave__actions .gg-leave__btn--danger { order: -1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gg-leave__team h3::before, .gg-leave__team h3::after { animation: none; opacity: 0; }
+}
+html.gg-perf .gg-leave__team h3::before,
+html.gg-perf .gg-leave__team h3::after { animation: none; opacity: 0; }
+

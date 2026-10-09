@@ -1,0 +1,159 @@
+/* A diferencia de NotFound (que reemplaza toda la pantalla fuera de
+   cualquier layout), esto se monta DENTRO del layout de cada rol -- el
+   sidebar/topbar de ese panel se queda visible, solo el contenido muestra
+   este estado. Por eso no fuerza 100vh ni un fondo que tape al layout. */
+.gg-soon {
+  min-height: min(60vh, 520px);
+  display: grid;
+  place-items: center;
+  padding: clamp(20px, 5vw, 40px) 16px;
+  text-align: center;
+  color: var(--text, #fff);
+}
+
+.gg-soon__card {
+  position: relative;
+  width: min(560px, 100%);
+  padding: clamp(32px, 7vw, 56px) clamp(22px, 5vw, 44px);
+  border: 1px solid color-mix(in srgb, var(--accent, #00e5a0) 26%, rgba(255,255,255,.12));
+  border-radius: 20px;
+  background:
+    linear-gradient(135deg, rgba(var(--accent-rgb, 0, 229, 160), .1), transparent 46%),
+    color-mix(in srgb, var(--bg-card, #11141a) 88%, transparent);
+  box-shadow: 0 34px 90px rgba(0,0,0,.44), inset 0 1px 0 rgba(255,255,255,.06);
+  overflow: hidden;
+}
+
+.gg-soon__card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+  background-size: 30px 30px;
+  opacity: .4;
+}
+
+.gg-soon__scan {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .28;
+  mix-blend-mode: screen;
+  background: repeating-linear-gradient(180deg, transparent 0 9px, rgba(255,255,255,.035) 10px 11px);
+  animation: soon-scan 2.7s linear infinite;
+}
+
+.gg-soon__badge,
+.gg-soon__eyebrow,
+.gg-soon h1,
+.gg-soon__copy,
+.gg-soon__actions {
+  position: relative;
+  z-index: 1;
+}
+
+.gg-soon__badge {
+  width: 66px;
+  height: 66px;
+  margin: 0 auto;
+  display: grid;
+  place-items: center;
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--accent, #00e5a0) 16%, transparent);
+  color: var(--accent, #00e5a0);
+  border: 1px solid color-mix(in srgb, var(--accent, #00e5a0) 40%, transparent);
+  box-shadow: 0 0 0 0 rgba(var(--accent-rgb, 0, 229, 160), .4);
+  animation: soon-pulse 2.4s ease-in-out infinite;
+}
+
+.gg-soon__badge svg { width: 30px; height: 30px; }
+
+.gg-soon__eyebrow {
+  margin: 20px 0 8px;
+  color: color-mix(in srgb, var(--accent, #00e5a0) 82%, white 8%);
+  font: 900 11px var(--font-display, inherit);
+  letter-spacing: .2em;
+  text-transform: uppercase;
+}
+
+.gg-soon h1 {
+  margin: 0;
+  color: var(--text, #fff);
+  font: 900 clamp(24px, 4.2vw, 34px) / 1.15 var(--font-display, inherit);
+}
+
+.gg-soon__copy {
+  width: min(420px, 100%);
+  margin: 14px auto 0;
+  color: var(--text-dim, #9ca3af);
+  font-size: 14.5px;
+  line-height: 1.6;
+}
+
+.gg-soon__actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 28px;
+}
+
+.gg-soon__btn {
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid color-mix(in srgb, var(--text, #fff) 14%, transparent);
+  border-radius: 8px;
+  background: rgba(255,255,255,.045);
+  color: var(--text, #fff);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font: 900 13px var(--font-display, inherit);
+  cursor: pointer;
+  transition: transform .18s ease, border-color .18s ease, background .18s ease;
+}
+
+.gg-soon__btn svg { width: 16px; height: 16px; }
+
+.gg-soon__btn:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--accent, #00e5a0) 46%, white 6%);
+  background: rgba(255,255,255,.08);
+}
+
+.gg-soon__btn--primary {
+  border-color: var(--accent, #00e5a0);
+  background: var(--accent, #00e5a0);
+  color: #04130a;
+  box-shadow: 0 14px 34px rgba(var(--accent-rgb, 0, 229, 160), .22);
+}
+
+@keyframes soon-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(var(--accent-rgb, 0, 229, 160), .38); }
+  50% { box-shadow: 0 0 0 14px rgba(var(--accent-rgb, 0, 229, 160), 0); }
+}
+
+@keyframes soon-scan {
+  from { transform: translateY(-24px); }
+  to { transform: translateY(24px); }
+}
+
+@media (max-width: 560px) {
+  .gg-soon__actions { display: grid; }
+  .gg-soon__btn { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gg-soon *,
+  .gg-soon *::before,
+  .gg-soon *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+}
+

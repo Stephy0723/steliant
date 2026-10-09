@@ -1,0 +1,1032 @@
+/* ============================================================================
+   Create-Team Wizard  ·  faithful port of "CrearEquipo-B-Enfoque"
+   Console / terminal aesthetic. Intentionally dark regardless of app theme,
+   exactly like the source mockup. Scoped under .gg-teams .dcb so it never
+   leaks into the rest of the Teams page.
+   ========================================================================== */
+
+.gg-teams .dcb,
+.gg-teams .dcb *,
+.gg-teams .dcb *::before,
+.gg-teams .dcb *::after { box-sizing: border-box; }
+
+.gg-teams .dcb {
+  /* Todo sale del tema del usuario (ThemeContext): fondo, texto y acento.
+     Antes tenia una paleta propia azul-oscura y verde fijo que no respetaba
+     AMOLED/claro ni el color de acento elegido. */
+  --dcb-bg: var(--bg);
+  --dcb-bg-2: var(--bg);
+  --dcb-line: var(--line);
+  --dcb-line-hi: color-mix(in srgb, var(--text) 16%, transparent);
+  --dcb-ink: var(--text);
+  --dcb-dim: var(--text-dim);
+  --dcb-card: var(--bg-card);
+  --dcb-elev: var(--bg-elev);
+  --dcb-glass: color-mix(in srgb, var(--bg-elev) 72%, transparent);
+  --dcb-on-accent: var(--accent-contrast, #04130b);
+  --dcb-warn: #f5a524;
+  --dcb-violet: #7c3aed;
+  --dcb-mono: "IBM Plex Mono", "SFMono-Regular", ui-monospace, Menlo, Consolas, monospace;
+
+  width: 100%;
+  margin: 0 auto;
+  color: var(--dcb-ink);
+  font-family: var(--font-body, "Sora", system-ui, sans-serif);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* The wizard flows in the page (the body scrolls). Bottom padding just clears
+   the fixed console bar so the panel's last row is never hidden behind it. */
+.gg-teams .dcb--wizard {
+  /* Eat the scroll container's own bottom padding so the panel is the true
+     last thing on the page, then reserve exactly the fixed console bar's
+     height — scrolled to the bottom, the accent strip lands flush on the bar. */
+  margin-bottom: calc(-1 * clamp(32px, 3vw, 44px));
+  padding-bottom: 66px;
+}
+.gg-teams .dcb--wizard .dcb__panel { padding-bottom: 10px; }
+/* While the wizard is open, drop the site footer so the panel is the last thing
+   on the page and the fixed console bar reads as attached to it. */
+.gg-content:has(.dcb--wizard) > .gg-footer { display: none; }
+/* Si el paso es corto, el panel se estira hasta la barra fija en vez de
+   terminar a media pantalla con la franja de acento flotando. Cadena flex
+   desde el contenedor de scroll (.gg-content) hasta el panel. */
+.gg-content:has(.dcb--wizard) { display: flex; flex-direction: column; }
+.gg-content:has(.dcb--wizard) > .gg-teams {
+  flex: 1 0 auto; min-height: 0; padding-bottom: 0;
+  display: flex; flex-direction: column;
+}
+.gg-teams .gg-teams__wizard-card.gg-team-create-wizard:has(> .dcb--wizard),
+.gg-teams .dcb--wizard,
+.gg-teams .dcb--wizard .dcb__frame,
+.gg-teams .dcb--wizard .dcb__panel { flex: 1 0 auto; display: flex; flex-direction: column; }
+.gg-teams .dcb--wizard .dcb__accent { margin-top: auto; }
+.gg-teams .dcb--wizard .dcb__step { margin-bottom: 24px; }
+
+.gg-teams .dcb-mono { font-family: var(--dcb-mono); }
+
+/* ─── shared bits ────────────────────────────────────────────────────────── */
+.gg-teams .dcb-ticks { display: inline-flex; gap: 3px; }
+.gg-teams .dcb-ticks i {
+  width: 4px; height: 4px; display: block;
+  background: var(--accent); opacity: .75;
+}
+
+/* ─── buttons (stand-in for the DS Button) ───────────────────────────────── */
+.gg-teams .dcb-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 40px; padding: 0 18px;
+  border: 1px solid var(--dcb-line-hi); border-radius: 10px;
+  background: transparent; color: var(--dcb-ink);
+  font-family: var(--font-display, inherit);
+  font-size: 12px; font-weight: 600; letter-spacing: .05em;
+  white-space: nowrap; cursor: pointer;
+  transition: transform .15s ease, border-color .15s ease, background-color .15s ease, opacity .15s ease;
+}
+.gg-teams .dcb-btn:hover { transform: translateY(-1px); border-color: rgba(var(--accent-rgb), .55); }
+.gg-teams .dcb-btn:disabled { opacity: .4; cursor: not-allowed; transform: none; }
+.gg-teams .dcb-btn--primary {
+  border-color: var(--accent); background: var(--accent); color: var(--dcb-on-accent); font-weight: 700;
+}
+.gg-teams .dcb-btn--primary:hover { background: color-mix(in srgb, var(--accent) 88%, #fff); }
+/* clickable even when the step isn't complete (it then shows what's missing),
+   but visually damped so "ready" reads as the go state */
+.gg-teams .dcb__actionbar .dcb-btn--primary:not([data-ready]) {
+  background: color-mix(in srgb, var(--accent) 40%, var(--dcb-elev));
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--dcb-line-hi));
+  color: color-mix(in srgb, var(--dcb-on-accent) 55%, var(--dcb-ink));
+}
+.gg-teams .dcb-btn--ghost { background: color-mix(in srgb, var(--text) 2.5%, transparent); }
+.gg-teams .dcb-btn--lg { min-height: 46px; padding: 0 24px; font-size: 13px; }
+.gg-teams .dcb-btn--sm { min-height: 32px; padding: 0 13px; font-size: 11px; }
+
+/* ═══ EMPTY / INTRO SCREEN ═══════════════════════════════════════════════ */
+.gg-teams .dcb-empty { padding: 6px 0 40px; }
+
+.gg-teams .dcb-empty__eyebrow {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 14px;
+}
+.gg-teams .dcb-empty__eyebrow .dcb-mono {
+  font-size: 9.5px; letter-spacing: .24em; text-transform: uppercase; color: var(--dcb-dim);
+}
+.gg-teams .dcb-empty__h {
+  margin: 0 0 12px; max-width: 16ch;
+  font-family: var(--font-display, inherit);
+  font-size: clamp(30px, 5vw, 40px); font-weight: 700;
+  line-height: 1.05; letter-spacing: -.02em; text-transform: uppercase;
+}
+.gg-teams .dcb-empty__p {
+  margin: 0 0 28px; max-width: 48ch;
+  font-size: 16px; line-height: 1.65; color: var(--dcb-dim);
+}
+.gg-teams .dcb-empty__actions {
+  display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 34px;
+}
+.gg-teams .dcb-empty__steps { display: flex; flex-direction: column; gap: 10px; }
+
+.gg-teams .dcb-srow {
+  display: flex; gap: 16px; align-items: center;
+  padding: 15px 18px;
+  border: 1px solid var(--dcb-line); background: var(--dcb-card);
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+}
+.gg-teams .dcb-srow__num {
+  flex: none; width: 26px;
+  font-size: 11px; font-weight: 600; letter-spacing: .18em; color: var(--accent);
+}
+.gg-teams .dcb-srow__body { flex: 1; min-width: 0; }
+.gg-teams .dcb-srow__title {
+  font-family: var(--font-display, inherit);
+  font-size: 14px; font-weight: 600; letter-spacing: .02em; text-transform: uppercase;
+}
+.gg-teams .dcb-srow__desc { margin-top: 3px; font-size: 12.5px; color: var(--dcb-dim); }
+.gg-teams .dcb-srow__stripe {
+  flex: none; width: 54px; height: 10px;
+  background: repeating-linear-gradient(90deg, rgba(var(--accent-rgb), .5) 0 2px, transparent 2px 5px);
+}
+.gg-teams .dcb-srow__time { flex: none; font-size: 10px; letter-spacing: .16em; color: var(--dcb-dim); }
+
+/* ═══ WIZARD SHELL ══════════════════════════════════════════════════════ */
+.gg-teams .dcb__frame {
+  position: relative;
+  padding: 2px;
+  background: linear-gradient(160deg, rgba(var(--accent-rgb), .55), rgba(var(--accent-rgb), .06) 45%, rgba(var(--accent-rgb), .3));
+  clip-path: polygon(22px 0, 100% 0, 100% calc(100% - 22px), calc(100% - 22px) 100%, 0 100%, 0 22px);
+}
+.gg-teams .dcb__panel {
+  position: relative; overflow: hidden;
+  padding: 22px 24px 26px 46px;
+  background: var(--dcb-bg);
+  clip-path: polygon(21px 0, 100% 0, 100% calc(100% - 21px), calc(100% - 21px) 100%, 0 100%, 0 21px);
+}
+
+/* left rail */
+.gg-teams .dcb__rail {
+  position: absolute; left: 0; top: 0; bottom: 0; width: 26px;
+  display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+  padding: 16px 0;
+  border-right: 1px solid var(--dcb-line);
+}
+.gg-teams .dcb__rail-ticks { display: flex; flex-direction: column; gap: 3px; }
+.gg-teams .dcb__rail-ticks i { width: 4px; height: 4px; display: block; background: var(--accent); opacity: .75; }
+.gg-teams .dcb__rail-label {
+  writing-mode: vertical-rl;
+  font-family: var(--font-display, inherit);
+  font-size: 9px; font-weight: 700; letter-spacing: .26em; text-transform: uppercase; color: var(--accent);
+}
+.gg-teams .dcb__rail .dcb-mono { font-size: 9px; letter-spacing: .3em; color: var(--accent); }
+
+/* corner brackets */
+.gg-teams .dcb__corner { position: absolute; width: 16px; height: 16px; }
+.gg-teams .dcb__corner--tr {
+  right: 12px; top: 12px;
+  border-top: 1.5px solid rgba(var(--accent-rgb), .7);
+  border-right: 1.5px solid rgba(var(--accent-rgb), .7);
+}
+.gg-teams .dcb__corner--bl {
+  left: 38px; bottom: 12px;
+  border-bottom: 1.5px solid rgba(var(--accent-rgb), .7);
+  border-left: 1.5px solid rgba(var(--accent-rgb), .7);
+}
+
+/* header */
+.gg-teams .dcb__head {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 20px; flex-wrap: wrap; margin-bottom: 18px;
+}
+.gg-teams .dcb__head-main { min-width: 0; }
+.gg-teams .dcb__head-code {
+  margin-bottom: 8px;
+  font-size: 9.5px; letter-spacing: .24em; text-transform: uppercase; color: var(--dcb-dim);
+}
+.gg-teams .dcb__head-title {
+  margin: 0 0 6px;
+  font-family: var(--font-display, inherit);
+  font-size: clamp(22px, 3.4vw, 30px); font-weight: 700;
+  letter-spacing: -.01em; text-transform: uppercase; line-height: 1.04;
+}
+.gg-teams .dcb__head-sub { margin: 0; font-size: 14px; color: var(--dcb-dim); }
+
+.gg-teams .dcb__meter { display: flex; align-items: flex-end; gap: 10px; text-align: right; }
+.gg-teams .dcb__eq { display: flex; align-items: flex-end; gap: 2px; height: 26px; }
+.gg-teams .dcb__eq i { width: 3px; display: block; background: var(--accent); opacity: .8; }
+.gg-teams .dcb__pct b {
+  display: block;
+  font-family: var(--font-display, inherit);
+  font-size: 28px; font-weight: 700; color: var(--accent); line-height: 1;
+}
+.gg-teams .dcb__pct span {
+  display: block; margin-top: 5px;
+  font-family: var(--dcb-mono);
+  font-size: 8px; letter-spacing: .22em; text-transform: uppercase; color: var(--dcb-dim);
+}
+
+/* segmented progress bars */
+.gg-teams .dcb__bars {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-bottom: 24px;
+}
+.gg-teams .dcb__bar {
+  display: grid; gap: 8px; border: 0; padding: 0; background: transparent;
+  text-align: left; cursor: pointer;
+}
+.gg-teams .dcb__bar-track {
+  height: 6px; overflow: hidden;
+  background: repeating-linear-gradient(90deg, color-mix(in srgb, var(--text) 14%, transparent) 0 3px, transparent 3px 7px);
+}
+.gg-teams .dcb__bar-fill {
+  display: block; height: 100%;
+  background: repeating-linear-gradient(90deg, var(--accent) 0 3px, transparent 3px 7px);
+  transition: width .35s cubic-bezier(.16, 1, .3, 1);
+}
+.gg-teams .dcb__bar-meta {
+  display: flex; justify-content: space-between; gap: 8px;
+  font-family: var(--dcb-mono); font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase;
+}
+.gg-teams .dcb__bar-meta > span:first-child { color: var(--dcb-dim); white-space: nowrap; }
+.gg-teams .dcb__bar-meta > span:last-child { color: var(--dcb-dim); letter-spacing: .14em; }
+.gg-teams .dcb__bar[data-active] .dcb__bar-meta > span:first-child { color: var(--dcb-ink); }
+
+/* step wrapper */
+.gg-teams .dcb__step { display: grid; gap: 12px; min-width: 0; }
+
+/* ─── accordion (step 1) ─────────────────────────────────────────────────── */
+.gg-teams .dcb-acc {
+  overflow: hidden;
+  border: 1px solid var(--dcb-line); background: var(--dcb-card);
+  transition: border-color .2s ease, background-color .2s ease;
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+}
+.gg-teams .dcb-acc[data-open] {
+  border-color: rgba(var(--accent-rgb), .35);
+  background: var(--dcb-glass);
+}
+.gg-teams .dcb-acc__trigger {
+  width: 100%;
+  display: flex; align-items: center; gap: 14px;
+  padding: 15px 20px; border: 0; background: transparent;
+  text-align: left; cursor: pointer; color: var(--dcb-ink);
+}
+.gg-teams .dcb-acc__code {
+  flex: none; font-size: 10px; letter-spacing: .18em; color: var(--dcb-warn);
+}
+.gg-teams .dcb-acc__code[data-done] { color: var(--accent); }
+.gg-teams .dcb-acc__dot {
+  flex: none; width: 20px; height: 20px;
+  display: grid; place-items: center;
+  border: 1px solid var(--dcb-line-hi); color: var(--dcb-on-accent);
+}
+.gg-teams .dcb-acc__dot svg { width: 12px; height: 12px; color: var(--dcb-dim); }
+.gg-teams .dcb-acc__dot[data-done] { border-color: var(--accent); background: var(--accent); }
+.gg-teams .dcb-acc__dot[data-done] svg { color: var(--dcb-on-accent); }
+.gg-teams .dcb-acc__label { flex: 1; min-width: 0; }
+.gg-teams .dcb-acc__title {
+  display: block;
+  font-family: var(--font-display, inherit);
+  font-size: 15px; font-weight: 600; letter-spacing: .02em; text-transform: uppercase;
+  color: var(--dcb-dim);
+}
+.gg-teams .dcb-acc[data-open] .dcb-acc__title,
+.gg-teams .dcb-acc[data-done] .dcb-acc__title { color: var(--dcb-ink); }
+.gg-teams .dcb-acc__summary {
+  display: block; margin-top: 3px;
+  font-size: 12.5px; color: var(--dcb-dim);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.gg-teams .dcb-acc__state {
+  flex: none; padding: 4px 10px;
+  border: 1px solid var(--dcb-line-hi);
+  font-family: var(--dcb-mono); font-size: 9.5px; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--dcb-warn);
+}
+.gg-teams .dcb-acc__state[data-done] { border-color: rgba(var(--accent-rgb), .5); color: var(--accent); }
+
+.gg-teams .dcb-acc__body { overflow: hidden; }
+.gg-teams .dcb-acc__inner {
+  display: flex; flex-direction: column; gap: 16px;
+  padding: 4px 20px 22px;
+}
+
+/* ─── fields ─────────────────────────────────────────────────────────────── */
+.gg-teams .dcb-grid {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px;
+}
+.gg-teams .dcb-grid--identity { grid-template-columns: 2fr 1fr; }
+
+.gg-teams .dcb-field { display: grid; gap: 6px; min-width: 0; }
+.gg-teams .dcb-field--full { grid-column: 1 / -1; }
+.gg-teams .dcb-field > span {
+  font-size: 13px; font-weight: 500; color: var(--dcb-dim);
+}
+.gg-teams .dcb-field > span em {
+  color: color-mix(in srgb, var(--dcb-dim) 78%, transparent);
+  font-size: 11px;
+  font-style: normal;
+  text-transform: uppercase;
+}
+.gg-teams .dcb-input {
+  width: 100%; min-height: 46px;
+  padding: 11px 15px;
+  border: 1px solid var(--dcb-line); border-radius: 10px;
+  background: var(--dcb-elev); color: var(--dcb-ink);
+  font: inherit; font-size: 15px; outline: 0;
+  transition: border-color .16s ease, box-shadow .16s ease;
+}
+.gg-teams .dcb-input::placeholder { color: color-mix(in srgb, var(--dcb-dim) 70%, transparent); }
+.gg-teams .dcb-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(var(--accent-rgb), .15);
+}
+.gg-teams select.dcb-input { appearance: none; cursor: pointer; }
+.gg-teams .dcb-textarea { min-height: 92px; line-height: 1.6; resize: vertical; padding: 12px 15px; }
+.gg-teams .dcb-count { font-size: 12px; color: var(--dcb-dim); }
+.gg-teams .dcb-auto-tag {
+  min-height: 64px;
+  display: grid;
+  align-content: center;
+  gap: 3px;
+  border: 1px solid var(--dcb-line);
+  border-radius: 10px;
+  padding: 10px 14px;
+  background: rgba(var(--accent-rgb), .08);
+}
+.gg-teams .dcb-auto-tag > span,
+.gg-teams .dcb-auto-tag > small {
+  color: var(--dcb-dim);
+  font-size: 12px;
+}
+.gg-teams .dcb-auto-tag > b {
+  color: var(--accent);
+  font-family: var(--font-display, inherit);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: .08em;
+}
+.gg-teams .dcb-badge-note {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  padding: 12px 14px;
+  border: 1px solid rgba(var(--accent-rgb), .26);
+  border-radius: 10px;
+  background: rgba(var(--accent-rgb), .07);
+}
+.gg-teams .dcb-badge-note > span {
+  color: var(--dcb-dim);
+  font-size: 12px;
+}
+.gg-teams .dcb-badge-note > b {
+  color: var(--dcb-ink);
+  font-size: 13px;
+}
+.gg-teams .dcb-mini-help {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  margin-left: auto;
+  border: 1px solid rgba(var(--accent-rgb), .35);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--accent);
+  font: 700 12px/1 var(--dcb-mono);
+  cursor: help;
+}
+.gg-teams .dcb-mini-help > span {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 8px);
+  z-index: 4;
+  width: min(300px, 76vw);
+  padding: 10px 12px;
+  border: 1px solid var(--dcb-line);
+  border-radius: 10px;
+  background: var(--dcb-elev);
+  color: var(--dcb-ink);
+  font: 500 12px/1.5 var(--font-body, inherit);
+  text-align: left;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(4px);
+  transition: opacity .16s ease, transform .16s ease;
+  box-shadow: 0 16px 34px rgba(0,0,0,.28);
+}
+.gg-teams .dcb-mini-help:hover > span,
+.gg-teams .dcb-mini-help:focus-visible > span {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── validation / required state ────────────────────────────────────────── */
+.gg-teams .dcb {
+  --dcb-danger: #ff5a72;
+  --dcb-danger-rgb: 255, 90, 114;
+}
+.gg-teams .dcb-input[data-invalid] {
+  border-color: rgba(var(--dcb-danger-rgb), .6);
+  box-shadow: inset 3px 0 0 var(--dcb-danger);
+}
+.gg-teams .dcb-input[data-invalid]:focus {
+  border-color: var(--dcb-danger);
+  box-shadow: inset 3px 0 0 var(--dcb-danger), 0 0 0 3px rgba(var(--dcb-danger-rgb), .15);
+}
+.gg-teams .dcb-choice[data-invalid] > span,
+.gg-teams .dcb-req {
+  color: var(--dcb-danger);
+}
+.gg-teams .dcb-req { font-weight: 600; font-style: normal; }
+.gg-teams .dcb-ok {
+  color: var(--accent); display: inline-flex; align-items: center; gap: 4px;
+}
+.gg-teams .dcb-ok svg { width: 11px; height: 11px; }
+.gg-teams .dcb-games[data-invalid] {
+  outline: 1px solid rgba(var(--dcb-danger-rgb), .35);
+  outline-offset: 6px; border-radius: 4px;
+}
+.gg-teams .dcb-prefill {
+  display: flex; align-items: center; gap: 6px; margin: 0;
+  font-size: 12px; color: var(--accent);
+}
+.gg-teams .dcb-prefill svg { width: 12px; height: 12px; }
+
+/* label with a leading icon (Game ID / Discord / WhatsApp) */
+.gg-teams .dcb-field__ic {
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.gg-teams .dcb-field__ic svg { width: 13px; height: 13px; color: var(--dcb-dim); }
+
+/* linked / verified account chip (captain's Discord & WhatsApp) */
+.gg-teams .dcb-linked {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  min-height: 46px; padding: 8px 14px;
+  border: 1px solid rgba(var(--accent-rgb), .4); border-radius: 10px;
+  background: rgba(var(--accent-rgb), .08);
+}
+.gg-teams .dcb-linked b {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font-display, inherit); font-size: 14px; font-weight: 600; color: var(--dcb-ink);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.gg-teams .dcb-linked b svg { width: 13px; height: 13px; color: var(--accent); flex: none; }
+.gg-teams .dcb-linked small {
+  flex: none; font-family: var(--dcb-mono); font-size: 9px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--accent);
+}
+.gg-teams .dcb-linkcta {
+  font-size: 11.5px; color: var(--accent); text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* "Connect with Discord" / "Verify WhatsApp" button-links in the captain slot */
+.gg-teams .dcb-verify-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 46px; padding: 0 16px;
+  border: 1px solid var(--dcb-line-hi); border-radius: 10px;
+  background: var(--dcb-elev); color: var(--dcb-ink);
+  font-family: var(--font-display, inherit); font-size: 13px; font-weight: 600;
+  text-decoration: none; cursor: pointer;
+  transition: border-color .15s ease, background-color .15s ease, color .15s ease;
+}
+.gg-teams .dcb-verify-btn svg { width: 15px; height: 15px; }
+.gg-teams .dcb-verify-btn:hover { border-color: var(--accent); background: rgba(var(--accent-rgb), .08); }
+.gg-teams .dcb-verify-btn[data-invalid] {
+  border-color: rgba(var(--dcb-danger-rgb), .7); color: var(--dcb-danger);
+  box-shadow: inset 3px 0 0 var(--dcb-danger);
+}
+
+/* ─── roster counter bar + help ─────────────────────────────────────────── */
+.gg-teams .dcb-roster-bar {
+  position: relative;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 13px 16px; border-radius: 12px;
+  border: 1px solid rgba(var(--dcb-danger-rgb), .35);
+  background: rgba(var(--dcb-danger-rgb), .06);
+}
+.gg-teams .dcb-roster-bar[data-done] {
+  border-color: rgba(var(--accent-rgb), .4);
+  background: rgba(var(--accent-rgb), .07);
+}
+.gg-teams .dcb-roster-bar > div > b {
+  display: block; font-family: var(--font-display, inherit);
+  font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: .02em;
+  color: var(--dcb-danger);
+}
+.gg-teams .dcb-roster-bar[data-done] > div > b { color: var(--accent); }
+.gg-teams .dcb-roster-bar > div > span { display: block; margin-top: 3px; font-size: 12px; color: var(--dcb-dim); }
+.gg-teams .dcb-help__pop b { font-weight: 600; text-transform: none; letter-spacing: 0; }
+
+.gg-teams .dcb-help {
+  position: relative; flex: none;
+  width: 24px; height: 24px; border-radius: 50%;
+  display: grid; place-items: center;
+  border: 1px solid var(--dcb-line-hi); background: var(--dcb-elev);
+  color: var(--dcb-dim); font-family: var(--dcb-mono); font-size: 13px; font-weight: 700;
+  cursor: pointer;
+}
+.gg-teams .dcb-help:hover,
+.gg-teams .dcb-help[data-open] { border-color: var(--accent); color: var(--accent); }
+.gg-teams .dcb-help__pop {
+  position: absolute; right: 0; top: calc(100% + 8px); z-index: 10;
+  width: min(78vw, 300px);
+  padding: 12px 14px;
+  border: 1px solid var(--dcb-line-hi); border-radius: 10px;
+  background: var(--dcb-elev); box-shadow: 0 18px 40px rgba(0, 0, 0, .6);
+  font-family: var(--font-body, sans-serif); font-size: 12px; font-weight: 400;
+  line-height: 1.5; letter-spacing: 0; text-transform: none; text-align: left;
+  color: var(--dcb-dim); cursor: default;
+}
+.gg-teams .dcb-help__pop b { color: var(--dcb-ink); }
+
+/* ─── slot form: captain badge + incomplete outline ─────────────────────── */
+.gg-teams .dcb-rform[data-incomplete] { border-color: rgba(var(--dcb-danger-rgb), .45); }
+.gg-teams .dcb-rform__cap {
+  margin-left: 8px; padding: 1px 7px; border-radius: 999px;
+  background: rgba(var(--accent-rgb), .16); color: var(--accent);
+  font-family: var(--dcb-mono); font-size: 8.5px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase; vertical-align: 2px;
+}
+
+/* chip selectors (stand-in for DS FilterTag) */
+.gg-teams .dcb-choice { display: grid; gap: 8px; }
+.gg-teams .dcb-choice > span {
+  font-size: 13px; font-weight: 500; color: var(--dcb-dim);
+}
+.gg-teams .dcb-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.gg-teams .dcb-chip {
+  display: inline-flex; align-items: center; gap: 8px;
+  min-height: 30px; padding: 0 14px;
+  border: 1px solid var(--dcb-line); border-radius: 999px;
+  background: var(--dcb-elev); color: var(--dcb-dim);
+  font: inherit; font-size: 12.5px; font-weight: 500; cursor: pointer;
+  transition: transform .15s ease, border-color .15s ease, color .15s ease, background-color .15s ease;
+}
+.gg-teams .dcb-chip span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.gg-teams .dcb-chip small {
+  min-width: 20px;
+  height: 20px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--text) 6%, transparent);
+  color: var(--dcb-dim);
+  font-family: var(--dcb-mono);
+  font-size: 10px;
+  font-weight: 600;
+}
+.gg-teams .dcb-chip:hover { transform: translateY(-1px); border-color: rgba(var(--accent-rgb), .4); color: var(--dcb-ink); }
+.gg-teams .dcb-chip[data-active] {
+  border-color: rgba(var(--accent-rgb), .55);
+  background: rgba(var(--accent-rgb), .12);
+  color: var(--accent);
+}
+.gg-teams .dcb-chip[data-active] small {
+  background: rgba(var(--accent-rgb), .18);
+  color: var(--accent);
+}
+.gg-teams .dcb-more-select {
+  display: grid;
+  gap: 6px;
+  max-width: 360px;
+  margin-top: 2px;
+}
+.gg-teams .dcb-more-select > span {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--dcb-dim);
+}
+.gg-teams .dcb-more-select select {
+  min-height: 40px;
+}
+
+/* game grid */
+.gg-teams .dcb-games {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 10px;
+}
+.gg-teams .dcb-game {
+  display: flex; align-items: center; gap: 10px;
+  min-width: 0;
+  min-height: 52px;
+  padding: 10px 12px;
+  border: 1px solid var(--dcb-line); border-radius: 13px;
+  background: var(--dcb-elev); color: var(--dcb-dim);
+  font: inherit; text-align: left; cursor: pointer;
+  transition: border-color .18s ease, background-color .18s ease, color .18s ease;
+}
+.gg-teams .dcb-game:hover { border-color: rgba(var(--accent-rgb), .35); color: var(--dcb-ink); }
+.gg-teams .dcb-game[data-active] {
+  border-color: rgba(var(--accent-rgb), .5); background: rgba(var(--accent-rgb), .08); color: var(--dcb-ink);
+}
+.gg-teams .dcb-game__ic {
+  flex: none; width: 30px; height: 30px;
+  display: grid; place-items: center; overflow: hidden; border-radius: 9px;
+  background: rgba(var(--accent-rgb), .1); color: var(--accent);
+  font-family: var(--dcb-mono); font-size: 10px; font-weight: 700;
+}
+.gg-teams .dcb-game__ic svg { width: 16px; height: 16px; }
+.gg-teams .dcb-game__ic img { width: 100%; height: 100%; object-fit: contain; padding: 4px; }
+.gg-teams .dcb-game__name {
+  min-width: 0;
+  font-size: 13px; font-weight: 500;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+
+/* tier grid */
+.gg-teams .dcb-tiers {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px;
+}
+.gg-teams .dcb-tier {
+  display: flex; align-items: center; gap: 11px;
+  padding: 13px 14px;
+  border: 1px solid var(--dcb-line); border-radius: 13px;
+  background: var(--dcb-elev); color: var(--dcb-ink);
+  font: inherit; text-align: left; cursor: pointer;
+  transition: border-color .18s ease, background-color .18s ease;
+}
+.gg-teams .dcb-tier[data-active] { border-color: rgba(var(--accent-rgb), .5); background: rgba(var(--accent-rgb), .1); }
+.gg-teams .dcb-tier__box {
+  flex: none; width: 18px; height: 18px; border-radius: 6px;
+  display: grid; place-items: center;
+  border: 1px solid var(--dcb-line-hi); color: var(--dcb-on-accent);
+}
+.gg-teams .dcb-tier__box svg { width: 12px; height: 12px; color: var(--dcb-dim); }
+.gg-teams .dcb-tier[data-active] .dcb-tier__box { border-color: var(--accent); background: var(--accent); }
+.gg-teams .dcb-tier[data-active] .dcb-tier__box svg { color: var(--dcb-on-accent); }
+.gg-teams .dcb-tier__label { display: block; font-size: 13.5px; font-weight: 600; }
+.gg-teams .dcb-tier[data-active] .dcb-tier__label { color: var(--accent); }
+.gg-teams .dcb-tier__desc { display: block; margin-top: 2px; font-size: 11.5px; color: var(--dcb-dim); }
+
+/* ─── step 2 · roster ────────────────────────────────────────────────────── */
+.gg-teams .dcb__step--roster { gap: 18px; }
+.gg-teams .dcb-slots {
+  display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px;
+}
+.gg-teams .dcb-slot {
+  min-height: 150px; width: 100%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 9px;
+  padding: 16px 12px; text-align: center; cursor: pointer;
+  border: 1px dashed var(--dcb-line-hi); border-radius: 16px;
+  background: transparent;
+  font: inherit; color: inherit;
+  transition: border-color .15s ease, background-color .15s ease, transform .15s ease;
+}
+.gg-teams .dcb-slot:hover { transform: translateY(-2px); }
+/* only the captain slot goes red when incomplete — the rest are optional */
+.gg-teams .dcb-slot[data-incomplete] {
+  border-style: solid; border-color: rgba(var(--dcb-danger-rgb), .6);
+  background: rgba(var(--dcb-danger-rgb), .06);
+}
+.gg-teams .dcb-slot[data-filled] {
+  border-style: solid; border-color: rgba(var(--accent-rgb), .35);
+  background: rgba(var(--accent-rgb), .06);
+}
+.gg-teams .dcb-slot__av {
+  width: 44px; height: 44px; border-radius: 50%; overflow: hidden;
+  display: grid; place-items: center;
+  border: 1px solid var(--dcb-line-hi);
+  background: rgba(var(--accent-rgb), .12); color: var(--accent);
+  font-family: var(--font-display, inherit); font-weight: 700; font-size: 15px;
+}
+.gg-teams .dcb-slot__av img { width: 100%; height: 100%; object-fit: cover; }
+.gg-teams .dcb-slot__name {
+  font-size: 13px; font-weight: 600; color: var(--dcb-dim);
+  max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.gg-teams .dcb-slot[data-filled] .dcb-slot__name { color: var(--dcb-ink); }
+.gg-teams .dcb-slot__role { margin-top: -4px; font-size: 11.5px; color: var(--dcb-dim); }
+.gg-teams .dcb-slot__cap {
+  padding: 2px 8px; border-radius: 999px;
+  background: rgba(var(--accent-rgb), .16); color: var(--accent);
+  font-family: var(--font-display, inherit); font-size: 9px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+}
+
+.gg-teams .dcb-rcard {
+  border: 1px solid var(--dcb-line); border-radius: 18px;
+  background: var(--dcb-card); padding: 20px;
+}
+.gg-teams .dcb-rtabs {
+  display: flex; gap: 22px; flex-wrap: wrap;
+  border-bottom: 1px solid var(--dcb-line); margin-bottom: 18px;
+}
+.gg-teams .dcb-rtab {
+  padding: 0 0 12px; border: 0; border-bottom: 2px solid transparent; background: transparent;
+  font-family: var(--font-display, inherit); font-size: 13.5px; font-weight: 600;
+  color: var(--dcb-dim); cursor: pointer;
+}
+.gg-teams .dcb-rtab[data-active] { color: var(--accent); border-color: var(--accent); }
+
+.gg-teams .dcb-invite { display: flex; flex-direction: column; gap: 12px; }
+/* Roster del asistente: solo el puesto del capitan */
+.gg-teams .dcb-capslot { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.gg-teams .dcb-capslot > span { width: 100%; font: 600 11px var(--dcb-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--dcb-dim); }
+.gg-teams .dcb-capslot__opt {
+  min-height: 34px; padding: 0 12px; border-radius: 999px; cursor: pointer;
+  border: 1px solid var(--dcb-line); background: var(--dcb-elev); color: var(--dcb-dim); font: inherit; font-size: 12.5px; font-weight: 700;
+}
+.gg-teams .dcb-capslot__opt[data-active] { border-color: var(--dcb-line-hi); color: var(--dcb-ink); box-shadow: inset 0 0 0 1px var(--dcb-line-hi); }
+.gg-teams .dcb-capslot__opt:focus-visible { outline: 2px solid var(--dcb-line-hi); outline-offset: 2px; }
+.gg-teams .dcb-capslot__note {
+  display: flex; gap: 8px; align-items: flex-start; margin: 0; padding: 12px 14px;
+  border: 1px dashed var(--dcb-line); border-radius: 13px; color: var(--dcb-dim); font-size: 13px; line-height: 1.5;
+}
+.gg-teams .dcb-capslot__note svg { width: 16px; height: 16px; flex: none; margin-top: 2px; }
+.gg-teams .dcb-invite__link {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 14px; border: 1px solid var(--dcb-line); border-radius: 13px; background: var(--dcb-elev);
+}
+.gg-teams .dcb-invite__link > span {
+  flex: 1; min-width: 0;
+  font-family: var(--font-display, inherit); font-size: 13px; color: var(--dcb-dim);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.gg-teams .dcb-invite p { margin: 0; font-size: 12.5px; line-height: 1.6; color: var(--dcb-dim); }
+
+.gg-teams .dcb-rforms { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.gg-teams .dcb-rform {
+  display: grid; gap: 13px;
+  padding: 14px; border: 1px solid var(--dcb-line); border-radius: 14px; background: var(--dcb-elev);
+}
+.gg-teams .dcb-rform[data-optional] { border-style: dashed; }
+.gg-teams .dcb-rform__head {
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 10px; align-items: center;
+}
+.gg-teams .dcb-rform__head strong {
+  display: block; font-family: var(--font-display, inherit); font-size: 14px; color: var(--dcb-ink);
+}
+.gg-teams .dcb-rform__head small { display: block; font-size: 11px; color: var(--dcb-dim); }
+.gg-teams .dcb-rform__head em {
+  font-family: var(--dcb-mono); font-style: normal; font-weight: 700; font-size: 10px;
+  letter-spacing: .14em; color: var(--accent);
+}
+.gg-teams .dcb-rform__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.gg-teams .dcb-rform .dcb-input { min-height: 42px; font-size: 14px; }
+
+/* ─── step 3 · publish ───────────────────────────────────────────────────── */
+.gg-teams .dcb-publish {
+  display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 22px; align-items: start;
+}
+.gg-teams .dcb-tcard__frame {
+  padding: 2px;
+  background: linear-gradient(150deg, var(--accent), rgba(var(--accent-rgb), .25) 55%, var(--dcb-violet));
+  clip-path: polygon(22px 0, 100% 0, 100% calc(100% - 22px), calc(100% - 22px) 100%, 0 100%, 0 22px);
+  filter: drop-shadow(0 18px 40px rgba(0, 0, 0, .8));
+}
+.gg-teams .dcb-tcard {
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column; min-height: 420px;
+  background: var(--dcb-bg);
+  clip-path: polygon(21px 0, 100% 0, 100% calc(100% - 21px), calc(100% - 21px) 100%, 0 100%, 0 21px);
+}
+.gg-teams .dcb-tcard__rail {
+  position: absolute; left: 0; top: 0; bottom: 0; width: 24px; z-index: 3;
+  display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+  padding: 12px 0; border-right: 1px solid var(--dcb-line);
+}
+.gg-teams .dcb-tcard__rail > span { font-family: var(--dcb-mono); font-size: 8px; letter-spacing: .3em; color: var(--accent); }
+.gg-teams .dcb-tcard__rail-label {
+  writing-mode: vertical-rl;
+  font-family: var(--font-display, inherit) !important;
+  font-size: 9px !important; font-weight: 700; letter-spacing: .26em; text-transform: uppercase;
+}
+.gg-teams .dcb-tcard__top {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 12px 14px 10px 34px;
+}
+.gg-teams .dcb-tcard__brand {
+  font-family: var(--font-display, inherit); font-size: 20px; font-weight: 700;
+  letter-spacing: .02em; color: var(--accent); line-height: .9;
+}
+.gg-teams .dcb-tcard__code { font-size: 7.5px; letter-spacing: .22em; text-transform: uppercase; color: var(--dcb-dim); }
+.gg-teams .dcb-tcard__stage {
+  position: relative; flex: 1;
+  margin: 0 12px 0 34px; padding: 16px 14px 14px;
+  display: flex; flex-direction: column; justify-content: flex-end; text-align: center;
+  border: 1px solid var(--dcb-line); overflow: hidden;
+  background:
+    radial-gradient(120% 80% at 50% 0%, rgba(var(--accent-rgb), .18), transparent 65%),
+    linear-gradient(180deg, rgba(4, 5, 9, .2), rgba(4, 5, 9, .96));
+}
+.gg-teams .dcb-tcard__scan {
+  position: absolute; inset: 0; pointer-events: none; mix-blend-mode: overlay;
+  background: repeating-linear-gradient(0deg, color-mix(in srgb, var(--text) 3%, transparent) 0 1px, transparent 1px 3px);
+}
+.gg-teams .dcb-tcard__crest {
+  width: 66px; height: 66px; margin: 0 auto 10px;
+  display: grid; place-items: center; border-radius: 50%;
+  border: 2px solid var(--accent); background: var(--dcb-elev);
+  font-family: var(--font-display, inherit); font-size: 19px; font-weight: 700; color: var(--accent);
+}
+.gg-teams .dcb-tcard__name { font-family: var(--font-display, inherit); font-size: 21px; font-weight: 700; line-height: 1.05; }
+.gg-teams .dcb-tcard__meta {
+  display: inline-flex; align-self: center; gap: 6px; margin-top: 8px;
+  padding: 3px 11px; border-radius: 999px;
+  background: rgba(var(--accent-rgb), .16); color: var(--accent);
+  font-size: 10px; font-weight: 700; letter-spacing: .03em;
+}
+.gg-teams .dcb-tcard__tiers { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.gg-teams .dcb-tcard__tiers span {
+  padding: 2px 9px; border: 1px solid rgba(var(--accent-rgb), .5); color: var(--accent);
+  font-family: var(--dcb-mono); font-size: 9px; letter-spacing: .16em; text-transform: uppercase;
+}
+.gg-teams .dcb-tcard__members { display: flex; justify-content: center; margin-top: 14px; }
+.gg-teams .dcb-tcard__av {
+  width: 28px; height: 28px; margin-right: -8px; border-radius: 50%;
+  display: grid; place-items: center;
+  border: 2px solid var(--dcb-bg); background: rgba(var(--accent-rgb), .18); color: var(--accent);
+  font-family: var(--font-display, inherit); font-size: 11px; font-weight: 700;
+}
+.gg-teams .dcb-tcard__stats {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  margin: 12px 0 0 34px; border-top: 1px solid var(--dcb-line);
+}
+.gg-teams .dcb-tcard__stats > div { padding: 7px 4px; text-align: center; border-right: 1px solid var(--dcb-line); min-width: 0; }
+.gg-teams .dcb-tcard__stats b {
+  display: block; font-family: var(--font-display, inherit); font-size: 12px; font-weight: 600;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.gg-teams .dcb-tcard__stats span { font-family: var(--dcb-mono); font-size: 7px; letter-spacing: .18em; text-transform: uppercase; color: var(--dcb-dim); }
+.gg-teams .dcb-tcard__serial {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 12px 10px 34px; border-top: 1px solid var(--dcb-line);
+}
+.gg-teams .dcb-tcard__serial > span:first-child { font-size: 10px; letter-spacing: .08em; color: var(--accent); }
+.gg-teams .dcb-tcard__serial-stripe {
+  flex: 1; height: 12px; opacity: .85;
+  background: repeating-linear-gradient(90deg, var(--accent) 0 2px, transparent 2px 4px, var(--accent) 4px 5px, transparent 5px 9px);
+}
+
+.gg-teams .dcb-summary { display: flex; flex-direction: column; gap: 12px; }
+.gg-teams .dcb-summary__row {
+  display: flex; justify-content: space-between; gap: 16px;
+  padding-bottom: 11px; border-bottom: 1px solid var(--dcb-line);
+}
+.gg-teams .dcb-summary__row > span:first-child { font-size: 12.5px; color: var(--dcb-dim); }
+.gg-teams .dcb-summary__row > span:last-child { font-size: 13px; font-weight: 500; text-align: right; color: var(--dcb-ink); }
+.gg-teams .dcb-summary__row > span:last-child[data-empty] { color: var(--dcb-dim); }
+.gg-teams .dcb-summary__actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 6px; }
+
+/* ─── panel accent + console action bar ──────────────────────────────────── */
+.gg-teams .dcb__accent {
+  display: flex; align-items: center; gap: 10px;
+  margin-top: 24px; padding-top: 14px; border-top: 1px solid var(--dcb-line);
+}
+.gg-teams .dcb__accent > span:first-child { font-size: 9.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--dcb-dim); }
+.gg-teams .dcb__accent-stripe {
+  flex: 1; height: 10px;
+  background: repeating-linear-gradient(45deg, rgba(var(--accent-rgb), .55) 0 2px, transparent 2px 6px);
+}
+.gg-teams .dcb__accent-state { font-size: 9.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); }
+
+/* Pinned to the viewport bottom like the mockup. Fixed (not sticky) because the
+   app scrolls the document body and an ancestor (.gg-main) is overflow:hidden,
+   which would kill a sticky bar. `left` tracks the dashboard sidebar so the bar
+   starts at the content edge (next to the profile icon), not under the rail. */
+.gg-teams .dcb__actionbar {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 15;
+  border-top: 1px solid var(--dcb-line);
+  background: color-mix(in srgb, var(--bg) 94%, transparent);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  transition: left .26s cubic-bezier(.4, 0, .2, 1);
+}
+@media (min-width: 901px) {
+  .gg-app:has(.gg-side) .gg-teams .dcb__actionbar { left: 258px; }
+  .gg-app:has(.gg-side.collapsed) .gg-teams .dcb__actionbar { left: 70px; }
+}
+.gg-teams .dcb__actionbar-inner {
+  width: min(100%, 1760px);
+  margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 14px clamp(16px, 2.4vw, 32px);
+}
+.gg-teams .dcb__actionbar-right { display: flex; align-items: center; gap: 16px; }
+.gg-teams .dcb__actionbar-stripe {
+  flex: none; width: 70px; height: 12px;
+  background: repeating-linear-gradient(90deg, rgba(var(--accent-rgb), .75) 0 2px, transparent 2px 4px, rgba(var(--accent-rgb), .75) 4px 5px, transparent 5px 9px);
+}
+.gg-teams .dcb__actionbar-status {
+  display: block; text-align: right; max-width: 44ch;
+  border: 0; background: transparent; font: inherit; color: inherit; padding: 4px 2px;
+  border-radius: 6px;
+}
+.gg-teams .dcb__actionbar-status[data-actionable] { cursor: pointer; }
+.gg-teams .dcb__actionbar-status[data-actionable]:hover { background: color-mix(in srgb, var(--text) 4%, transparent); }
+.gg-teams .dcb__actionbar-status > span:first-child {
+  display: block;
+  font-family: var(--dcb-mono); font-size: 11.5px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--dcb-warn);
+}
+.gg-teams .dcb__actionbar-status > span:first-child[data-tone="ok"] { color: var(--accent); }
+.gg-teams .dcb__actionbar-status > span:last-child {
+  display: block; margin-top: 3px;
+  font-family: var(--dcb-mono); font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--dcb-dim);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+
+/* ═══ RESPONSIVE ════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .gg-teams .dcb-publish { grid-template-columns: 1fr; }
+  .gg-teams .dcb-tcard__frame { max-width: 320px; }
+  .gg-teams .dcb-slots { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
+  .gg-teams .dcb-rforms { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 680px) {
+  .gg-teams .dcb__frame,
+  .gg-teams .dcb-srow { clip-path: none; }
+  .gg-teams .dcb__panel { clip-path: none; padding: 20px 16px 22px; }
+  .gg-teams .dcb__rail { display: none; }
+  .gg-teams .dcb__corner { display: none; }
+  .gg-teams .dcb__head { gap: 14px; }
+  .gg-teams .dcb__meter { align-self: flex-start; }
+  .gg-teams .dcb__bars { grid-template-columns: 1fr; gap: 12px; }
+  .gg-teams .dcb-acc { clip-path: none; }
+  .gg-teams .dcb-acc__trigger { flex-wrap: wrap; padding: 14px; }
+  .gg-teams .dcb-acc__label { flex-basis: 100%; order: 3; }
+  .gg-teams .dcb-acc__state { margin-left: auto; }
+  .gg-teams .dcb-acc__inner { padding: 4px 14px 18px; }
+  .gg-teams .dcb-grid,
+  .gg-teams .dcb-grid--identity,
+  .gg-teams .dcb-rform__grid { grid-template-columns: 1fr; }
+  .gg-teams .dcb-field--full { grid-column: auto; }
+  .gg-teams .dcb-games { grid-template-columns: 1fr 1fr; }
+  .gg-teams .dcb-tiers { grid-template-columns: 1fr; }
+  .gg-teams .dcb-slots { grid-template-columns: repeat(2, 1fr); }
+  .gg-teams .dcb-rcard { padding: 16px; }
+  /* Movil: estado arriba a todo el ancho, Atras | Siguiente abajo a mitades. */
+  .gg-teams .dcb__actionbar-inner {
+    flex-wrap: wrap; gap: 8px 10px;
+    padding: 10px 12px calc(10px + env(safe-area-inset-bottom, 0px));
+  }
+  .gg-teams .dcb__actionbar-right { display: contents; }
+  .gg-teams .dcb__actionbar-stripe { display: none; }
+  .gg-teams .dcb__actionbar-status {
+    order: -1; flex: 1 0 100%; min-width: 0; max-width: none;
+    text-align: left; padding: 0 2px;
+  }
+  .gg-teams .dcb__actionbar-status > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .gg-teams .dcb__actionbar .dcb-btn { flex: 1 1 0; min-width: 0; }
+  /* La barra movil es mas alta (dos filas): reservar su altura. */
+  .gg-teams .dcb--wizard { padding-bottom: 118px; }
+}
+
+@media (max-width: 420px) {
+  .gg-teams .dcb-games,
+  .gg-teams .dcb-slots { grid-template-columns: 1fr; }
+  .gg-teams .dcb-empty__actions .dcb-btn,
+  .gg-teams .dcb__actionbar .dcb-btn { flex: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gg-teams .dcb *,
+  .gg-teams .dcb *::before,
+  .gg-teams .dcb *::after { transition-duration: .01ms !important; }
+}
+
+.gg-teams .dcb-join-code { display: flex; gap: 10px; margin: -20px 0 34px; max-width: 460px; }
+.gg-teams .dcb-join-code .dcb-input { flex: 1; min-width: 0; }
+
+/* El boton flotante del asistente GG tapaba "Continuar": se sube por encima
+   de la barra fija mientras el wizard esta abierto. (--lift lo pone el propio
+   componente inline, por eso se mueve bottom.) */
+:root:has(.gg-teams .dcb__actionbar) .ggc-dock:not(.ggc-dock--msg) { bottom: 86px; }
+@media (max-width: 680px) {
+  :root:has(.gg-teams .dcb__actionbar) .ggc-dock:not(.ggc-dock--msg) { bottom: calc(112px + env(safe-area-inset-bottom, 0px)); }
+}
+
+/* Reglas de elegibilidad (femenino, universidad): aviso con visor HUD */
+.gg-teams .dcb-rule {
+  --rule: var(--accent);
+  display: flex; align-items: flex-start; gap: 10px;
+  margin-top: 4px; padding: 10px 12px;
+  border: 1px solid color-mix(in srgb, var(--rule) 40%, var(--dcb-line));
+  background: color-mix(in srgb, var(--rule) 7%, transparent);
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+  font-size: 12.5px; line-height: 1.5; color: var(--dcb-ink);
+}
+.gg-teams .dcb-rule > svg { width: 16px; height: 16px; flex: none; margin-top: 1px; color: var(--rule); }
+.gg-teams .dcb-rule > span { flex: 1; min-width: 0; }
+.gg-teams .dcb-rule b {
+  display: block; margin-bottom: 2px;
+  font: 700 11px var(--dcb-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--rule);
+}
+.gg-teams .dcb-rule[data-bad] {
+  --rule: var(--dcb-warn);
+  background:
+    repeating-linear-gradient(135deg, color-mix(in srgb, var(--dcb-warn) 6%, transparent) 0 8px, transparent 8px 16px),
+    color-mix(in srgb, var(--dcb-warn) 5%, transparent);
+}
+.gg-teams .dcb-rule--action { align-items: center; flex-wrap: wrap; }
+.gg-teams .dcb-rule--action .dcb-verify-btn { min-height: 38px; }
+.gg-teams .dcb-tiers > .dcb-field__hint,
+.gg-teams .dcb-tiers > .dcb-rule { grid-column: 1 / -1; }
+.gg-teams .dcb-tiers > .dcb-field__hint { margin: 4px 0 0; }
+

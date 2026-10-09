@@ -1,0 +1,255 @@
+/* ═══════════════════════════════════════════════════
+   Organizer · Ver Torneo (solo lectura)
+   ═══════════════════════════════════════════════════ */
+
+.otv { max-width: 1100px; margin: 0 auto; padding: 20px 24px 60px; }
+.otv svg { width: 18px; height: 18px; flex: none; }
+
+.otv__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 16px;
+  padding: 0;
+  transition: color .15s;
+}
+.otv__back:hover { color: var(--accent); }
+.otv__back svg { transform: rotate(180deg); width: 15px; height: 15px; }
+
+/* ── Hero ── */
+.otv__hero {
+  border-radius: 18px;
+  padding: 26px;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 18px;
+}
+.otv__hero--art { min-height: 180px; display: flex; align-items: flex-end; background: var(--bg-elev); }
+.otv__hero-bg {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  z-index: 0;
+}
+.otv__hero-scrim {
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(90deg, rgba(0,0,0,.85) 0%, rgba(0,0,0,.55) 55%, rgba(0,0,0,.3) 100%);
+}
+.otv__hero-logo {
+  position: absolute; right: 22px; bottom: 18px; z-index: 1;
+  height: 54px; width: auto; opacity: .9;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,.5));
+}
+.otv__hero-content { position: relative; z-index: 2; width: 100%; }
+.otv__hero-top { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.otv__game {
+  font-size: 11px;
+  font-weight: 800;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  background: rgba(0,0,0,.4);
+  padding: 5px 11px;
+  border-radius: 8px;
+  backdrop-filter: blur(4px);
+}
+.otv__status {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 5px 11px;
+  border-radius: 99px;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+  background: rgba(0,0,0,.4);
+  color: #fff;
+  backdrop-filter: blur(4px);
+}
+.otv__status--live { background: var(--danger); }
+.otv__hero h1 {
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 900;
+  color: #fff;
+  margin: 0 0 14px;
+  text-shadow: 0 2px 8px rgba(0,0,0,.3);
+}
+.otv__hero-meta { display: flex; gap: 18px; flex-wrap: wrap; }
+.otv__hero-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  opacity: .92;
+}
+.otv__hero-meta svg { width: 15px; height: 15px; }
+.otv__readonly {
+  position: absolute;
+  top: 18px; right: 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: rgba(0,0,0,.4);
+  padding: 6px 11px;
+  border-radius: 99px;
+  backdrop-filter: blur(4px);
+}
+.otv__readonly svg { width: 14px; height: 14px; }
+
+/* ── Stats ── */
+.otv__stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 18px; }
+.otv__stat {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 16px;
+}
+.otv__stat-icon {
+  width: 42px; height: 42px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(var(--accent-rgb), .12);
+  color: var(--accent);
+  border-radius: 11px;
+  flex: none;
+}
+.otv__stat-body { display: flex; flex-direction: column; line-height: 1.25; }
+.otv__stat-label { font-size: 12px; color: var(--text-dim); }
+.otv__stat-value { font-family: var(--font-display); font-size: 18px; font-weight: 800; color: var(--text); }
+.otv__stat-sub { font-size: 11px; color: var(--accent); font-weight: 600; }
+
+/* ── Grid ── */
+.otv__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.otv__card {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 18px;
+}
+.otv__card--wide { grid-column: 1 / -1; }
+.otv__card h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 14px;
+}
+.otv__card h3 svg { width: 16px; height: 16px; color: var(--accent); }
+.otv__card p { margin: 0; font-size: 14px; color: var(--text-dim); line-height: 1.6; }
+.otv__muted { color: var(--text-dim); font-size: 13px; }
+
+/* ── Prizes ── */
+.otv__prizes { display: flex; flex-direction: column; gap: 10px; }
+.otv__prize {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  padding: 12px 14px;
+}
+.otv__prize-medal { font-size: 22px; flex: none; }
+.otv__prize-info { flex: 1; display: flex; flex-direction: column; }
+.otv__prize-info b { font-size: 14px; color: var(--text); }
+.otv__prize-info span { font-size: 12px; color: var(--text-dim); }
+.otv__prize-amount { font-family: var(--font-display); font-size: 16px; font-weight: 800; color: var(--accent); }
+
+/* ── Collabs ── */
+.otv__collabs { display: flex; flex-direction: column; gap: 10px; }
+.otv__collab { display: flex; align-items: center; gap: 11px; }
+.otv__collab img { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; flex: none; }
+.otv__collab-fallback {
+  width: 38px; height: 38px; border-radius: 50%; flex: none;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(var(--accent-rgb), .15); color: var(--accent);
+  font-size: 12px; font-weight: 700;
+}
+.otv__collab b { display: block; font-size: 14px; color: var(--text); }
+.otv__collab span { font-size: 12px; color: var(--text-dim); }
+
+/* ── Integrations ── */
+.otv__integrations { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.otv__integration {
+  display: flex; align-items: center; gap: 13px;
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--brand, var(--accent));
+  border-radius: 11px;
+  padding: 14px;
+}
+.otv__integration-logo {
+  width: 44px; height: 44px;
+  display: flex; align-items: center; justify-content: center;
+  background: color-mix(in srgb, var(--brand) 14%, transparent);
+  color: var(--brand);
+  border-radius: 11px;
+  flex: none;
+}
+.otv__integration-logo svg { width: 22px; height: 22px; }
+.otv__integration-body { display: flex; flex-direction: column; }
+.otv__integration-body b { font-size: 14px; color: var(--text); }
+.otv__integration-body span { font-size: 12px; }
+.otv__on { color: #22c55e; }
+.otv__off { color: #9ca3af; }
+
+/* ── CTA ── */
+.otv__cta { margin-top: 20px; display: flex; justify-content: center; }
+.otv-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border-radius: 11px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+}
+.otv-btn svg { width: 16px; height: 16px; }
+.otv-btn--primary {
+  background: linear-gradient(135deg, var(--accent), rgba(var(--accent-rgb), .82));
+  color: #fff;
+  box-shadow: 0 8px 22px rgba(var(--accent-rgb), .28);
+}
+.otv-btn--primary:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(var(--accent-rgb), .38); }
+.otv-btn--ghost {
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  color: var(--text);
+}
+.otv-btn--ghost:hover { border-color: var(--accent); color: var(--accent); }
+.otv-btn--sm { padding: 8px 14px; font-size: 13px; }
+
+/* ── Rules ── */
+.otv__rules-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+.otv__rules-head h3 { margin: 0; }
+.otv__rules-actions { display: flex; gap: 8px; }
+.otv__rules { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; }
+.otv__rules li { font-size: 13.5px; color: var(--text-dim); line-height: 1.5; }
+
+/* ── Not found ── */
+.otv-notfound { display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 80px 24px; text-align: center; }
+.otv-notfound__icon {
+  width: 60px; height: 60px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(var(--danger-rgb),.12); color: var(--danger); border-radius: 16px;
+}
+.otv-notfound__icon svg { width: 28px; height: 28px; }
+
+/* ── Responsive ── */
+@media (max-width: 860px) {
+  .otv__stats { grid-template-columns: repeat(2, 1fr); }
+  .otv__grid { grid-template-columns: 1fr; }
+  .otv__integrations { grid-template-columns: 1fr; }
+}
+

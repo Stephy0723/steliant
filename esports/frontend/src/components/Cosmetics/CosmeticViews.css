@@ -1,0 +1,30 @@
+/* Cajas de los cosmeticos: cada diseno se dibuja a su tamano original
+   (marco 180, placa 380x76, carta 300x464) y se escala desde la esquina. */
+.gx-frame,
+.gx-plate,
+.gx-card {
+  position: relative;
+  display: inline-block;
+  flex: none;
+  vertical-align: middle;
+}
+
+.gx-frame__in,
+.gx-plate__in,
+.gx-card__in {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform-origin: 0 0;
+}
+
+.gx-frame__in { width: 180px; height: 180px; }
+.gx-plate__in { width: 380px; height: 76px; }
+.gx-card__in { width: 300px; height: 464px; }
+
+.gx-status {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+}
+

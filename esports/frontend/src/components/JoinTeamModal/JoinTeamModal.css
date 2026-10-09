@@ -1,0 +1,104 @@
+/* Solicitud para unirse a un equipo eligiendo rol — mismo HUD que
+   LeaveTeamModal (esquinas cortadas, mono en mayusculas), con el color del
+   equipo en vez del rojo de peligro. */
+.gg-join {
+  --jt-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
+  --jt-clip: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+  --jt-clip-sm: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+  position: fixed; inset: 0; z-index: 1200;
+  display: grid; place-items: center;
+  padding: 16px;
+  background: color-mix(in srgb, var(--bg, #05070a) 78%, transparent);
+}
+
+.gg-join__card {
+  position: relative;
+  width: min(480px, 100%);
+  max-height: calc(100vh - 32px); overflow-y: auto;
+  display: flex; flex-direction: column; gap: 14px;
+  padding: 20px; margin: 0;
+  background:
+    repeating-linear-gradient(180deg, color-mix(in srgb, var(--bg) 40%, transparent) 0 1px, transparent 1px 3px),
+    color-mix(in srgb, var(--bg-elev, #11141a) 96%, var(--jt-team));
+  border: 1px solid color-mix(in srgb, var(--jt-team) 45%, var(--line, #222));
+  clip-path: var(--jt-clip);
+  box-shadow: 0 30px 80px rgba(0,0,0,.55);
+  color: var(--text, #f3f5f8);
+}
+
+.gg-join__eyebrow {
+  display: inline-flex; align-items: center; gap: 6px;
+  font: 600 10.5px var(--jt-mono); letter-spacing: .16em; text-transform: uppercase;
+  color: var(--jt-team);
+}
+.gg-join__eyebrow svg { width: 14px; height: 14px; }
+
+.gg-join__team { display: flex; align-items: center; gap: 14px; }
+.gg-join__crest {
+  width: 52px; height: 52px; flex: none;
+  display: grid; place-items: center; overflow: hidden;
+  clip-path: var(--jt-clip-sm);
+  border: 1px solid color-mix(in srgb, var(--jt-team) 55%, transparent);
+  background: color-mix(in srgb, var(--jt-team) 14%, var(--bg));
+  color: var(--jt-team);
+}
+.gg-join__crest img { width: 100%; height: 100%; object-fit: cover; }
+.gg-join__crest b { font: 700 15px var(--jt-mono); letter-spacing: .06em; }
+.gg-join__team > div { min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.gg-join .gg-join__team h3 { margin: 0; font-size: 20px !important; font-weight: 800; line-height: 1.15; overflow-wrap: anywhere; }
+.gg-join__team small { font: 500 11px var(--jt-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--text-dim, #8b93a3); }
+
+.gg-join__roles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin: 0; padding: 0; border: 0; }
+.gg-join__roles legend { margin-bottom: 8px; font: 600 10.5px var(--jt-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--text-dim, #8b93a3); }
+.gg-join__role {
+  position: relative; display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  min-height: 44px; padding: 0 12px; cursor: pointer;
+  clip-path: var(--jt-clip-sm);
+  border: 1px solid var(--line, #2a2f38);
+  background: color-mix(in srgb, var(--text) 3%, transparent);
+  font-weight: 700; font-size: 13.5px;
+}
+.gg-join__role input { position: absolute; opacity: 0; pointer-events: none; }
+.gg-join__role em { font: 700 9.5px var(--jt-mono); letter-spacing: .14em; text-transform: uppercase; font-style: normal; color: var(--text-dim, #8b93a3); }
+.gg-join__role.is-active { border-color: var(--jt-team); background: color-mix(in srgb, var(--jt-team) 16%, transparent); }
+.gg-join__role.is-active em { color: var(--jt-team); }
+.gg-join__role:has(input:focus-visible) { outline: 2px solid var(--jt-team); outline-offset: 2px; }
+
+.gg-join__role.is-disabled { opacity: .45; cursor: not-allowed; }
+.gg-join__blocked { display: flex; gap: 6px; align-items: flex-start; margin: 0; font-size: 12.5px; line-height: 1.45; color: #f59e0b; }
+.gg-join__blocked svg { width: 14px; height: 14px; flex: none; margin-top: 2px; }
+
+.gg-join__copy { margin: 0; font-size: 12.5px; line-height: 1.5; color: var(--text-dim, #8b93a3); }
+
+.gg-join__message { display: grid; gap: 6px; }
+.gg-join__message span { font: 600 10.5px var(--jt-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--text-dim, #8b93a3); }
+.gg-join__message textarea {
+  resize: vertical; min-height: 72px; padding: 10px 12px;
+  border: 1px solid var(--line, #2a2f38); border-radius: 0; clip-path: var(--jt-clip-sm);
+  background: color-mix(in srgb, var(--bg) 70%, transparent); color: var(--text); font: inherit; font-size: 13px; outline: none;
+}
+.gg-join__message textarea:focus { border-color: var(--jt-team); }
+
+.gg-join__actions { display: grid; grid-template-columns: 1fr 1.5fr; gap: 8px; }
+.gg-join__btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 44px; padding: 0 14px;
+  clip-path: var(--jt-clip-sm);
+  border: 1px solid var(--line, #2a2f38);
+  background: color-mix(in srgb, var(--text) 4%, transparent);
+  color: var(--text, #f3f5f8);
+  font: 700 11.5px var(--jt-mono); letter-spacing: .12em; text-transform: uppercase;
+  cursor: pointer;
+}
+.gg-join__btn svg { width: 15px; height: 15px; }
+.gg-join__btn:hover:not(:disabled) { border-color: color-mix(in srgb, var(--text) 30%, transparent); }
+.gg-join__btn--primary { border-color: transparent; background: var(--jt-team); color: #05070a; }
+.gg-join__btn--primary:hover:not(:disabled) { filter: brightness(1.08); }
+.gg-join__btn:disabled { opacity: .55; cursor: progress; }
+
+@media (max-width: 480px) {
+  .gg-join__card { padding: 16px; }
+  .gg-join__actions { grid-template-columns: 1fr; }
+  .gg-join__actions .gg-join__btn--primary { order: -1; }
+}
+

@@ -1,0 +1,31 @@
+.tournament-data-consent {
+  margin: 16px 0;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg-card);
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.6;
+}
+.tournament-data-consent label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+}
+.tournament-data-consent input[type="checkbox"] {
+  flex: 0 0 18px;
+  width: 18px;
+  height: 18px;
+  margin: 3px 0 0;
+  accent-color: var(--accent);
+}
+.tournament-data-consent span { min-width: 0; }
+.tournament-data-consent a {
+  display: inline-block;
+  margin: 8px 0 0 28px;
+  color: var(--accent);
+  text-decoration: underline;
+}
+

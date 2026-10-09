@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content" />
+    <link rel="icon" type="image/svg+xml" href="/demos/steliant-esports/steliant-logo.png" />
+    <link rel="alternate icon" href="/demos/steliant-esports/favicon.ico" />
+    <title>Steliant Esports · Stephanie López Frías</title>
+    <meta name="description" content="Torneos, equipos y ligas universitarias de esports. Crea tu equipo, inscríbete y compite en Steliant Esports." />
+    <meta name="theme-color" content="#06070b" />
+    <link rel="manifest" href="/demos/steliant-esports/manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="/demos/steliant-esports/GG/exports/gg-mark-256.png" />
+    <!-- Vista previa al compartir el enlace (Discord, WhatsApp, X...). og:image necesita URL absoluta:
+         si el dominio de produccion cambia, actualizar aqui. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Steliant Esports" />
+    <meta property="og:title" content="Steliant Esports — Comunidad Gaming Premium" />
+    <meta property="og:description" content="Torneos, equipos y ligas universitarias de esports. Crea tu equipo, inscríbete y compite." />
+    
+    
+    <meta property="og:locale" content="es_DO" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Steliant Esports — Comunidad Gaming Premium" />
+    <meta name="twitter:description" content="Torneos, equipos y ligas universitarias de esports." />
+    <meta name="twitter:image" content="https://glitchgang.net/GG/exports/gg-mark-512.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <!-- fondo oscuro antes de que cargue el JS: evita el destello blanco antes del preloader -->
+    <style>html,body{background:#06070b}</style>
+    <link rel="stylesheet" href="/demos/steliant-esports/preloader/GGPreloader.css" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <!-- Preloader "Sintonía": arranca aquí, sin esperar al bundle de React (varios MB).
+         Se queda en la calma hasta que App.jsx marca __ggAppReady (tope 10 s).
+         Al terminar marca __ggIntroDone y emite gg:intro-done, que App.jsx escucha. -->
+    <script src="/demos/steliant-esports/preloader/ggPreloader.js"></script>
+    <script>
+      (function () {
+        var el = document.createElement('div')
+        el.className = 'pl--fixed'
+        el.setAttribute('aria-hidden', 'true')
+        // el traductor de LangContext recorre el body y cambiaría la "A" de GANG por "una"
+        el.setAttribute('data-no-translate', '')
+        el.setAttribute('translate', 'no')
+        document.body.appendChild(el)
+        document.documentElement.style.overflow = 'hidden'
+        var t0 = Date.now()
+        window.GGPreloader.create(el, {
+          variant: 'A',
+          reduced: matchMedia('(prefers-reduced-motion: reduce)').matches,
+          hold: function () { return !window.__ggAppReady && Date.now() - t0 < 10000 },
+          onDone: function () {
+            document.documentElement.style.overflow = ''
+            el.remove()
+            window.__ggIntroDone = true
+            window.dispatchEvent(new Event('gg:intro-done'))
+          },
+        }).play()
+      })()
+    </script>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
+

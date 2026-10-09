@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vincular WhatsApp - GlitchGang</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      max-width: 500px;
+      width: 100%;
+      padding: 40px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .header h1 {
+      color: #333;
+      font-size: 28px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .header p {
+      color: #666;
+      font-size: 14px;
+    }
+
+    .step-indicator {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 30px;
+      justify-content: center;
+    }
+
+    .step {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 12px;
+      background: #e0e0e0;
+      color: #999;
+      transition: all 0.3s ease;
+    }
+
+    .step.active {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    .step.completed {
+      background: #4caf50;
+      color: white;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      color: #333;
+      font-weight: 600;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      background: white;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      background: #f8f9ff;
+    }
+
+    .phone-input-wrapper {
+      display: flex;
+      gap: 8px;
+    }
+
+    .country-code {
+      width: 80px;
+    }
+
+    .phone-number {
+      flex: 1;
+    }
+
+    .button {
+      width: 100%;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .info-box {
+      background: #f0f4ff;
+      border-left: 4px solid #667eea;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      color: #555;
+      line-height: 1.6;
+    }
+
+    .success-message {
+      background: #e8f5e9;
+      border-left: 4px solid #4caf50;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      color: #2e7d32;
+      display: none;
+    }
+
+    .success-message.show {
+      display: block;
+    }
+
+    .error-message {
+      background: #ffebee;
+      border-left: 4px solid #f44336;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      color: #c62828;
+      display: none;
+    }
+
+    .error-message.show {
+      display: block;
+    }
+
+    .divider {
+      text-align: center;
+      margin: 30px 0 20px;
+      color: #999;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    .form-section {
+      display: none;
+    }
+
+    .form-section.active {
+      display: block;
+      animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .code-display {
+      background: #fefbea;
+      border: 2px solid #ffd54f;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      margin: 20px 0;
+      font-size: 24px;
+      font-weight: bold;
+      color: #f57f17;
+      letter-spacing: 4px;
+    }
+
+    .timer {
+      text-align: center;
+      font-size: 12px;
+      color: #f57f17;
+      margin-top: 10px;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #e0e0e0;
+      font-size: 12px;
+      color: #999;
+    }
+
+    .loading {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border: 2px solid #e0e0e0;
+      border-radius: 50%;
+      border-top: 2px solid #667eea;
+      animation: spin 0.6s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .flex-between {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .link-button {
+      background: none;
+      border: none;
+      color: #667eea;
+      cursor: pointer;
+      text-decoration: underline;
+      font-size: 12px;
+    }
+
+    .link-button:hover {
+      color: #764ba2;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <h1>📱 Vincular WhatsApp</h1>
+      <p>Conecta tu cuenta de GlitchGang con WhatsApp</p>
+    </div>
+
+    <!-- Step Indicator -->
+    <div class="step-indicator">
+      <div class="step active" id="step-1">1</div>
+      <div class="step" id="step-2">2</div>
+      <div class="step" id="step-3">3</div>
+    </div>
+
+    <!-- Messages -->
+    <div class="error-message" id="errorMessage"></div>
+    <div class="success-message" id="successMessage"></div>
+
+    <!-- STEP 1: Phone Number -->
+    <div class="form-section active" id="section-1">
+      <div class="info-box">
+        🔐 Enviamos un código seguro a tu WhatsApp. Nadie más puede acceder.
+      </div>
+
+      <form id="phoneForm">
+        <div class="form-group">
+          <label for="phoneNumber">📞 Número de WhatsApp</label>
+          <div class="phone-input-wrapper">
+            <select class="country-code" id="countryCode">
+              <option value="+1">+1 🇺🇸</option>
+              <option value="+54">+54 🇦🇷</option>
+              <option value="+55">+55 🇧🇷</option>
+              <option value="+56">+56 🇨🇱</option>
+              <option value="+57">+57 🇨🇴</option>
+              <option value="+502">+502 🇬🇹</option>
+              <option value="+34">+34 🇪🇸</option>
+              <option value="+34">+34 🇪🇸</option>
+              <option value="+52">+52 🇲🇽</option>
+              <option value="+507">+507 🇵🇦</option>
+              <option value="+595">+595 🇵🇾</option>
+              <option value="+51">+51 🇵🇪</option>
+              <option value="+1-787">+1-787 🇵🇷</option>
+              <option value="+598">+598 🇺🇾</option>
+              <option value="+58">+58 🇻🇪</option>
+              <option value="+1-829" selected>+1-829 🇩🇴</option>
+            </select>
+            <input
+              type="tel"
+              class="phone-number"
+              id="phoneNumber"
+              placeholder="8293334455"
+              maxlength="15"
+              required
+            />
+          </div>
+          <small style="color: #999; margin-top: 5px; display: block"
+            >Sin espacios ni guiones</small
+          >
+        </div>
+
+        <button type="submit" class="button btn-primary">
+          Enviar Código
+        </button>
+      </form>
+    </div>
+
+    <!-- STEP 2: Code Verification -->
+    <div class="form-section" id="section-2">
+      <div class="info-box">
+        ✅ Hemos enviado un código a tu WhatsApp. Válido por 5 minutos.
+      </div>
+
+      <form id="codeForm">
+        <div class="form-group">
+          <label for="verificationCode">🔐 Código de verificación</label>
+          <input
+            type="text"
+            id="verificationCode"
+            placeholder="000000"
+            maxlength="6"
+            inputmode="numeric"
+            required
+          />
+        </div>
+
+        <div class="timer">
+          Expira en: <span id="timer">5:00</span>
+        </div>
+
+        <button type="submit" class="button btn-primary" id="verifyBtn">
+          Verificar Código
+        </button>
+
+        <div style="text-align: center; margin-top: 15px">
+          <button type="button" class="link-button" id="requestNewCode">
+            ¿No recibiste el código? Enviar uno nuevo
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- STEP 3: Account Selection / Creation -->
+    <div class="form-section" id="section-3">
+      <div class="info-box">
+        🎮 Selecciona tu cuenta de GlitchGang o crea una nueva.
+      </div>
+
+      <div>
+        <h3 style="color: #333; margin-bottom: 15px; font-size: 14px">
+          ¿Tienes cuenta?
+        </h3>
+
+        <button
+          type="button"
+          class="button btn-primary"
+          id="selectExistingBtn"
+          style="margin-bottom: 10px"
+        >
+          Usar Cuenta Existente
+        </button>
+
+        <button
+          type="button"
+          class="button"
+          id="createNewBtn"
+          style="
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+            margin-bottom: 10px;
+          "
+        >
+          Crear Nueva Cuenta
+        </button>
+      </div>
+
+      <!-- Existing Account Form -->
+      <form id="existingAccountForm" style="display: none; margin-top: 20px">
+        <div class="form-group">
+          <label for="userId">🆔 Username o Email</label>
+          <input
+            type="text"
+            id="userId"
+            placeholder="tu_usuario"
+            required
+          />
+        </div>
+
+        <button type="submit" class="button btn-primary">
+          Vincular Cuenta
+        </button>
+
+        <button
+          type="button"
+          class="link-button"
+          id="backToChoice"
+          style="width: 100%; margin-top: 10px; padding: 10px"
+        >
+          ← Atrás
+        </button>
+      </form>
+
+      <!-- New Account Form -->
+      <form id="newAccountForm" style="display: none; margin-top: 20px">
+        <div class="form-group">
+          <label for="newUsername">🎮 Username</label>
+          <input
+            type="text"
+            id="newUsername"
+            placeholder="tu_usuario_aqui"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="email">📧 Email (Opcional)</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="tu@email.com"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="game">🎮 Juego Favorito</label>
+          <select id="game">
+            <option value="">Seleccionar...</option>
+            <option value="Valorant">Valorant</option>
+            <option value="CS2">CS2</option>
+            <option value="DOTA2">DOTA 2</option>
+            <option value="LoL">League of Legends</option>
+            <option value="Otro">Otro</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="region">📍 Región</label>
+          <select id="region">
+            <option value="">Seleccionar...</option>
+            <option value="Caribe">Caribe</option>
+            <option value="Sudamérica">Sudamérica</option>
+            <option value="Centroamérica">Centroamérica</option>
+            <option value="México">México</option>
+            <option value="España">España</option>
+            <option value="Otro">Otro</option>
+          </select>
+        </div>
+
+        <button type="submit" class="button btn-primary">
+          Crear Cuenta y Vincular
+        </button>
+
+        <button
+          type="button"
+          class="link-button"
+          id="backToChoice2"
+          style="width: 100%; margin-top: 10px; padding: 10px"
+        >
+          ← Atrás
+        </button>
+      </form>
+    </div>
+
+    <!-- Success Section -->
+    <div class="form-section" id="section-success" style="text-align: center">
+      <div style="font-size: 48px; margin-bottom: 20px">✅</div>
+      <h2 style="color: #4caf50; margin-bottom: 10px">¡Vinculación Exitosa!</h2>
+      <p style="color: #666; margin-bottom: 20px">
+        Tu cuenta está conectada a WhatsApp. Ahora puedes usar todos los comandos.
+      </p>
+
+      <div class="info-box" style="background: #e8f5e9; border-left-color: #4caf50; color: #2e7d32">
+        🎮 Usa estos comandos en WhatsApp:
+        <br />
+        • <strong>!perfil</strong> - Ver tu perfil
+        <br />
+        • <strong>!partidas</strong> - Tus próximas partidas
+        <br />
+        • <strong>!checkin</strong> - Hacer check-in
+        <br />
+        • <strong>!equipo</strong> - Tu equipo
+        <br />
+        • <strong>!ranking</strong> - Ver rankings
+      </div>
+
+      <button
+        type="button"
+        class="button btn-primary"
+        onclick="window.location.href = '/crm'"
+      >
+        Ir al CRM
+      </button>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      🔒 Tu información está protegida. No compartimos datos sin tu consentimiento.
+    </div>
+  </div>
+
+  <script>
+    const API_BASE = "/api/whatsapp";
+    let currentPhone = "";
+    let currentCode = "";
+    let timerInterval;
+
+    // Elementos
+    const phoneForm = document.getElementById("phoneForm");
+    const codeForm = document.getElementById("codeForm");
+    const phoneInput = document.getElementById("phoneNumber");
+    const countryCodeSelect = document.getElementById("countryCode");
+    const verificationCodeInput = document.getElementById("verificationCode");
+    const errorMessage = document.getElementById("errorMessage");
+    const successMessage = document.getElementById("successMessage");
+
+    // STEP 1: Phone Number
+    phoneForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const phone = countryCodeSelect.value + phoneInput.value;
+      currentPhone = phone;
+
+      try {
+        showError("");
+        const btn = phoneForm.querySelector("button");
+        btn.disabled = true;
+        btn.innerHTML = '<span class="loading"></span> Enviando...';
+
+        const response = await fetch(`${API_BASE}/request-code`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ phone })
+        });
+
+        const data = await response.json();
+
+        if (!data.success) {
+          throw new Error(data.error || "Error desconocido");
+        }
+
+        // Mostrar código en desarrollo
+        if (data.code) {
+          showSuccess(
+            `📱 Código en desarrollo: ${data.code} (no compartir)`
+          );
+        } else {
+          showSuccess("✅ Código enviado a tu WhatsApp");
+        }
+
+        // Ir a step 2
+        goToStep(2);
+        startTimer();
+      } catch (error) {
+        showError(error.message);
+      } finally {
+        const btn = phoneForm.querySelector("button");
+        btn.disabled = false;
+        btn.innerHTML = "Enviar Código";
+      }
+    });
+
+    // Timer para código
+    function startTimer() {
+      let timeLeft = 300; // 5 minutos
+      const timerElement = document.getElementById("timer");
+
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        const mins = Math.floor(timeLeft / 60);
+        const secs = timeLeft % 60;
+        timerElement.textContent =
+          `${mins}:${secs.toString().padStart(2, "0")}`;
+
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          showError("⏰ El código expiró. Solicita uno nuevo.");
+          document.getElementById("requestNewCode").click();
+        }
+      }, 1000);
+    }
+
+    // Request new code
+    document.getElementById("requestNewCode").addEventListener("click", async (e) => {
+      e.preventDefault();
+      try {
+        showError("");
+        const btn = e.target;
+        btn.disabled = true;
+        btn.innerHTML = '<span class="loading"></span> Enviando...';
+
+        const response = await fetch(`${API_BASE}/request-new-code`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ phone: currentPhone })
+        });
+
+        const data = await response.json();
+        if (!data.success) throw new Error(data.error);
+
+        showSuccess("✅ Nuevo código enviado");
+        clearInterval(timerInterval);
+        startTimer();
+        verificationCodeInput.value = "";
+      } catch (error) {
+        showError(error.message);
+      } finally {
+        const btn = e.target;
+        btn.disabled = false;
+        btn.innerHTML = "¿No recibiste el código? Enviar uno nuevo";
+      }
+    });
+
+    // STEP 2: Code Verification
+    codeForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const code = verificationCodeInput.value;
+
+      try {
+        showError("");
+        const btn = codeForm.querySelector("button");
+        btn.disabled = true;
+        btn.innerHTML = '<span class="loading"></span> Verificando...';
+
+        const response = await fetch(`${API_BASE}/verify-code`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            phone: currentPhone,
+            code: code
+          })
+        });
+
+        const data = await response.json();
+
+        if (!data.success) {
+          throw new Error(data.error || "Código inválido");
+        }
+
+        showSuccess("✅ Código verificado");
+        clearInterval(timerInterval);
+        goToStep(3);
+      } catch (error) {
+        showError(error.message);
+      } finally {
+        const btn = codeForm.querySelector("button");
+        btn.disabled = false;
+        btn.innerHTML = "Verificar Código";
+      }
+    });
+
+    // STEP 3: Account Selection
+    document.getElementById("selectExistingBtn").addEventListener("click", () => {
+      document.getElementById("existingAccountForm").style.display = "block";
+    });
+
+    document.getElementById("createNewBtn").addEventListener("click", () => {
+      document.getElementById("newAccountForm").style.display = "block";
+    });
+
+    document.getElementById("backToChoice").addEventListener("click", () => {
+      document.getElementById("existingAccountForm").style.display = "none";
+    });
+
+    document.getElementById("backToChoice2").addEventListener("click", () => {
+      document.getElementById("newAccountForm").style.display = "none";
+    });
+
+    // Link existing account
+    document.getElementById("existingAccountForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const userId = document.getElementById("userId").value;
+
+      try {
+        showError("");
+        const btn = e.target.querySelector("button[type='submit']");
+        btn.disabled = true;
+        btn.innerHTML = '<span class="loading"></span> Vinculando...';
+
+        const response = await fetch(`${API_BASE}/verify-code`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            phone: currentPhone,
+            code: verificationCodeInput.value,
+            userId
+          })
+        });
+
+        const data = await response.json();
+        if (!data.success) throw new Error(data.error);
+
+        showSuccess("✅ Cuenta vinculada");
+        goToStep("success");
+      } catch (error) {
+        showError(error.message);
+      }
+    });
+
+    // Create new account
+    document.getElementById("newAccountForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const username = document.getElementById("newUsername").value;
+      const email = document.getElementById("email").value || null;
+      const game = document.getElementById("game").value || null;
+      const region = document.getElementById("region").value || null;
+
+      try {
+        showError("");
+        const btn = e.target.querySelector("button[type='submit']");
+        btn.disabled = true;
+        btn.innerHTML = '<span class="loading"></span> Creando...';
+
+        const response = await fetch(`${API_BASE}/verify-code`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            phone: currentPhone,
+            code: verificationCodeInput.value,
+            username,
+            email,
+            game,
+            region
+          })
+        });
+
+        const data = await response.json();
+        if (!data.success) throw new Error(data.error);
+
+        showSuccess("✅ Cuenta creada y vinculada");
+        goToStep("success");
+      } catch (error) {
+        showError(error.message);
+      }
+    });
+
+    // Helper functions
+    function goToStep(step) {
+      document
+        .querySelectorAll(".form-section")
+        .forEach((s) => s.classList.remove("active"));
+
+      if (step === "success") {
+        document.getElementById("section-success").classList.add("active");
+        updateStepIndicator(3);
+        clearInterval(timerInterval);
+      } else {
+        document
+          .getElementById(`section-${step}`)
+          .classList.add("active");
+        updateStepIndicator(step);
+      }
+    }
+
+    function updateStepIndicator(current) {
+      [1, 2, 3].forEach((i) => {
+        const step = document.getElementById(`step-${i}`);
+        step.classList.remove("active", "completed");
+        if (i < current) {
+          step.classList.add("completed");
+        } else if (i === current) {
+          step.classList.add("active");
+        }
+      });
+    }
+
+    function showError(msg) {
+      if (msg) {
+        errorMessage.textContent = msg;
+        errorMessage.classList.add("show");
+        successMessage.classList.remove("show");
+      } else {
+        errorMessage.classList.remove("show");
+      }
+    }
+
+    function showSuccess(msg) {
+      if (msg) {
+        successMessage.textContent = msg;
+        successMessage.classList.add("show");
+        errorMessage.classList.remove("show");
+      } else {
+        successMessage.classList.remove("show");
+      }
+    }
+
+    // Format phone input
+    phoneInput.addEventListener("input", (e) => {
+      e.target.value = e.target.value.replace(/[^\d]/g, "");
+    });
+
+    // Format code input
+    verificationCodeInput.addEventListener("input", (e) => {
+      e.target.value = e.target.value.replace(/[^\d]/g, "").slice(0, 6);
+    });
+  </script>
+</body>
+</html>

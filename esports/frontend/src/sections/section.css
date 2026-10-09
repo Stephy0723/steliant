@@ -1,0 +1,49 @@
+/* ── Shared section styles ── */
+.gg-section {
+  position: relative;
+  z-index: 2;
+  padding: 100px clamp(16px, 5vw, 60px);
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.gg-eyebrow {
+  font-family: var(--font-display);
+  font-size: 12px;
+  letter-spacing: .24em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.gg-eyebrow::before {
+  content: '';
+  display: block;
+  width: 28px;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 1px;
+}
+
+.gg-h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(28px, 4vw, 46px);
+  line-height: 1.06;
+  margin-bottom: 18px;
+  max-width: 18ch;
+}
+
+.gg-lead {
+  color: var(--text-dim);
+  max-width: 580px;
+  line-height: 1.65;
+  font-size: 16px;
+}
+
+@media (max-width: 640px) {
+  .gg-section { padding: 70px clamp(16px, 4vw, 24px); }
+}
+

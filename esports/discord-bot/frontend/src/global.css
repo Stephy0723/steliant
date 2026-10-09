@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Sora:wght@300;400;500;600;700&display=swap');
+
+:root {
+  color-scheme: dark;
+  --font-body: 'Sora', 'Segoe UI', system-ui, sans-serif;
+  --font-display: 'Chakra Petch', 'Sora', system-ui, sans-serif;
+  --bg: #06070b;
+  --bg-alt: #0a0c11;
+  --surface-1: rgba(255, 255, 255, 0.045);
+  --surface-2: rgba(255, 255, 255, 0.065);
+  --surface-3: rgba(255, 255, 255, 0.09);
+  --text-primary: #f3f5f8;
+  --text-secondary: rgba(210, 219, 232, 0.72);
+  --text-muted: rgba(139, 147, 163, 0.65);
+  --accent: #00e676;
+  --accent-blue: #3b82f6;
+  --accent-cyan: #00e676;
+  --accent-purple: #8b5cf6;
+  --accent-pink: #ff4fd8;
+  --accent-green: #00e676;
+  --accent-amber: #facc15;
+  --accent-red: #ef4444;
+  --border: rgba(255, 255, 255, 0.085);
+  --border-hover: rgba(255, 255, 255, 0.16);
+  --sidebar-bg: #050609;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.4);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --transition: 150ms ease;
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --bg: #f5f7f4;
+  --bg-alt: #eef2ec;
+  --surface-1: rgba(6, 20, 12, 0.03);
+  --surface-2: rgba(6, 20, 12, 0.05);
+  --surface-3: rgba(6, 20, 12, 0.08);
+  --text-primary: #0d1210;
+  --text-secondary: rgba(20, 32, 26, 0.72);
+  --text-muted: rgba(40, 56, 48, 0.55);
+  --accent: #0f9e57;
+  --accent-blue: #2f6fe0;
+  --accent-cyan: #0f9e57;
+  --accent-purple: #7c4fe0;
+  --accent-pink: #d6349f;
+  --accent-green: #0f9e57;
+  --accent-amber: #b17f0c;
+  --accent-red: #dc2626;
+  --border: rgba(6, 20, 12, 0.1);
+  --border-hover: rgba(6, 20, 12, 0.18);
+  --sidebar-bg: #ffffff;
+  --shadow-sm: 0 1px 3px rgba(6, 20, 12, 0.06);
+  --shadow-md: 0 4px 16px rgba(6, 20, 12, 0.08);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-size: 14px;
+}
+
+a, button, input, select { -webkit-tap-highlight-color: transparent; }
+img { max-width: 100%; display: block; }
+button, input, select { font: inherit; }
+#root { min-height: 100vh; }
+::selection { background: rgba(0, 230, 118, 0.22); }
+
+/* ── Glitch text — mismo lenguaje visual que la web principal ──
+   Split RGB (verde + rosa) sobre el texto original, con jitter via
+   clip-path. Se dispara agregando la clase .fire; respeta reduced-motion. */
+.gg-glitch {
+  position: relative;
+  display: inline-block;
+}
+
+.gg-glitch::before,
+.gg-glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.gg-glitch::before { color: var(--accent); transform: translateX(-2px); }
+.gg-glitch::after { color: var(--accent-pink); transform: translateX(2px); }
+
+.gg-glitch.fire::before { opacity: 0.85; animation: gg-gl1 0.9s steps(2) 1; }
+.gg-glitch.fire::after { opacity: 0.85; animation: gg-gl2 0.9s steps(2) 1; }
+
+@keyframes gg-gl1 {
+  0% { clip-path: inset(0 0 85% 0); }
+  20% { clip-path: inset(10% 0 60% 0); }
+  40% { clip-path: inset(40% 0 20% 0); }
+  60% { clip-path: inset(70% 0 5% 0); }
+  80% { clip-path: inset(20% 0 50% 0); }
+  100% { clip-path: inset(0 0 100% 0); opacity: 0; }
+}
+
+@keyframes gg-gl2 {
+  0% { clip-path: inset(85% 0 0 0); }
+  20% { clip-path: inset(55% 0 15% 0); }
+  40% { clip-path: inset(15% 0 55% 0); }
+  60% { clip-path: inset(5% 0 70% 0); }
+  80% { clip-path: inset(45% 0 25% 0); }
+  100% { clip-path: inset(100% 0 0 0); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gg-glitch.fire::before,
+  .gg-glitch.fire::after {
+    animation: none;
+    opacity: 0;
+  }
+}

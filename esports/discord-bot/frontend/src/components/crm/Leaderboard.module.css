@@ -1,0 +1,90 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.header h2 {
+  margin: 0 0 4px;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.header p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+}
+
+.tableWrapper {
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.table th {
+  padding: 10px 14px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--border);
+}
+
+.table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-size: 0.84rem;
+  transition: background var(--transition);
+}
+
+.table tr:last-child td { border-bottom: none; }
+.table tbody tr:hover td { background: var(--surface-2); }
+
+.textRight { text-align: right; }
+
+.rankBadge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.crownGold { color: var(--accent-amber); }
+
+.playerName { font-weight: 600; color: var(--text-primary); }
+
+.teamName {
+  font-size: 0.76rem;
+  padding: 2px 8px;
+  background: var(--surface-2);
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.trendUp { color: var(--accent); }
+.trendDown { color: var(--accent-red); }
+.trendSame { color: var(--text-muted); }
+
+.eloScore {
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: var(--accent);
+}
+
+.top1 td { background: linear-gradient(90deg, rgba(0, 230, 118, 0.1) 0%, transparent 100%); }
+.top2 td { background: linear-gradient(90deg, rgba(148, 163, 184, 0.1) 0%, transparent 100%); }
+.top3 td { background: linear-gradient(90deg, rgba(180, 83, 9, 0.1) 0%, transparent 100%); }

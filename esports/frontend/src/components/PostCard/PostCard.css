@@ -1,0 +1,1106 @@
+/* PostCard.css */
+
+.gg-post-card {
+  /* Ya tenía overflow:hidden de antes (recorta igual que clip-path el
+     dropdown de "..." si se abre muy pegado al borde) -- este cambio no
+     agrega riesgo nuevo, solo cambia la forma de esquinas redondas a
+     cortadas para que combine con el resto de la página. */
+  position: relative;
+  background:
+    linear-gradient(135deg, rgba(var(--accent-rgb, 0, 201, 122), .035), transparent 48%),
+    color-mix(in srgb, var(--bg-card, #161616) 94%, var(--bg, #0b0f14) 6%);
+  border: 1px solid color-mix(in srgb, var(--line, #2a2a2a) 86%, var(--accent, #00C97A) 14%);
+  border-radius: 4px;
+  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+  padding: 20px;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: 0 12px 30px color-mix(in srgb, var(--bg, #000) 34%, transparent);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.gg-post-card:hover {
+  border-color: rgba(var(--accent-rgb, 0, 201, 122), 0.28);
+  box-shadow: 0 16px 36px color-mix(in srgb, var(--bg, #000) 42%, transparent);
+}
+
+/* Achievement post variant */
+.gg-post-card.achievement-card {
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  background: linear-gradient(155deg, rgba(245, 158, 11, 0.04) 0%, var(--bg-elev, #161616) 100%);
+}
+
+.gg-post-card.achievement-card:hover {
+  border-color: #f59e0b;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.25), 0 0 15px rgba(245, 158, 11, 0.15);
+}
+
+.gg-post-card__achievement-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 90% 10%, rgba(245, 158, 11, 0.1), transparent 40%);
+  pointer-events: none;
+}
+
+/* Header */
+.gg-post-card__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.gg-post-card__author-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.gg-post-card__author-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.gg-post-card__author-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.gg-post-card__nick {
+  font-family: var(--font-display, inherit);
+  font-weight: 750;
+  font-size: 14.5px;
+  color: var(--text, #eee);
+}
+
+.gg-post-card__time {
+  font-size: 11px;
+  color: var(--text-dim, #888);
+}
+
+.gg-post-card__actions-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.gg-post-card__pin-badge {
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  background: rgba(var(--accent-rgb, 0, 201, 122), 0.1);
+  color: var(--accent, #00C97A);
+  border: 1px solid rgba(var(--accent-rgb, 0, 201, 122), 0.2);
+  padding: 2px 8px;
+  border-radius: 6px;
+  letter-spacing: 0.05em;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.gg-post-card__kind-badge {
+  font-size: 9px;
+  font-weight: 800;
+  text-transform: uppercase;
+  background: color-mix(in srgb, var(--bg-card, #161616) 86%, var(--text, #fff) 5%);
+  color: var(--text-dim, #888);
+  border: 1px solid var(--line, #2a2a2a);
+  padding: 2px 8px;
+  border-radius: 6px;
+  letter-spacing: 0.05em;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.gg-post-card__kind-badge svg {
+  width: 12px;
+  height: 12px;
+}
+
+.gg-post-card__kind-badge.torneo {
+  background: rgba(var(--accent-rgb, 0, 201, 122), 0.08);
+  color: var(--accent, #00C97A);
+  border-color: rgba(var(--accent-rgb, 0, 201, 122), 0.15);
+}
+
+.gg-post-card__kind-badge.evento {
+  background: rgba(245, 158, 11, 0.08);
+  color: #fbbf24;
+  border-color: rgba(245, 158, 11, 0.15);
+}
+
+.gg-post-card__kind-badge.encuesta {
+  background: rgba(139, 92, 246, 0.08);
+  color: #a78bfa;
+  border-color: rgba(139, 92, 246, 0.15);
+}
+
+.gg-post-card__kind-badge.logro {
+  background: rgba(245, 158, 11, 0.12);
+  color: #fbbf24;
+  border-color: rgba(245, 158, 11, 0.25);
+}
+
+/* Dropdown Context Menu */
+.gg-post-card__menu-container {
+  position: relative;
+}
+
+.gg-post-card__menu-trigger {
+  background: transparent;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.gg-post-card__menu-trigger:hover {
+  background: color-mix(in srgb, var(--bg-card, #161616) 86%, var(--text, #fff) 6%);
+}
+
+.gg-post-card__menu-trigger .dot {
+  width: 4px;
+  height: 4px;
+  background: var(--text-dim, #888);
+  border-radius: 50%;
+}
+
+.gg-post-card__dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 100;
+  background: color-mix(in srgb, var(--bg-elev, #161616) 96%, transparent);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--line, #2a2a2a);
+  border-radius: 12px;
+  padding: 6px;
+  min-width: 170px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 4px;
+}
+
+.gg-post-card__dropdown button {
+  background: transparent;
+  border: none;
+  color: var(--text, #eee);
+  font-size: 12px;
+  font-weight: 600;
+  text-align: left;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.18s;
+  width: 100%;
+}
+
+.gg-post-card__dropdown button svg {
+  width: 14px;
+  height: 14px;
+}
+
+.gg-post-card__dropdown button:hover {
+  background: color-mix(in srgb, var(--bg-card, #161616) 86%, var(--accent, #00C97A) 7%);
+  color: var(--text, #eee);
+}
+
+.gg-post-card__dropdown button.danger {
+  color: #ef4444;
+}
+
+.gg-post-card__dropdown button.danger:hover {
+  background: rgba(239, 68, 68, 0.08);
+}
+
+/* Body Content */
+.gg-post-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.gg-post-card__title {
+  font-family: var(--font-display, inherit);
+  font-weight: 800;
+  font-size: 16px;
+  color: var(--text, #eee);
+  margin: 0;
+}
+
+.gg-post-card__text {
+  font-size: 13.5px;
+  color: var(--text, #eee);
+  line-height: 1.55;
+  margin: 0;
+  white-space: pre-line;
+}
+
+/* Poll Option Card */
+.gg-post-card__poll {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.gg-post-card__poll-opt {
+  position: relative;
+  background: color-mix(in srgb, var(--bg-card, #161616) 92%, var(--bg, #000) 8%);
+  border: 1px solid var(--line, #2a2a2a);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text, #eee);
+  text-align: left;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.2s;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.gg-post-card__poll-opt:not(:disabled):hover {
+  border-color: rgba(var(--accent-rgb, 0, 201, 122), 0.22);
+  background: color-mix(in srgb, var(--bg-card, #161616) 88%, var(--accent, #00C97A) 6%);
+}
+
+.gg-post-card__poll-opt.voted {
+  border-color: rgba(139, 92, 246, 0.4);
+}
+
+.gg-post-card__poll-opt .fill {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  background: rgba(139, 92, 246, 0.12);
+  z-index: 1;
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gg-post-card__poll-opt.voted .fill {
+  background: rgba(139, 92, 246, 0.22);
+}
+
+.gg-post-card__poll-opt .text,
+.gg-post-card__poll-opt .pct {
+  position: relative;
+  z-index: 2;
+}
+
+.gg-post-card__poll-opt .pct {
+  font-family: var(--font-display, inherit);
+  font-weight: 800;
+  color: #a78bfa;
+}
+
+.gg-post-card__poll-hint {
+  font-size: 10.5px;
+  color: var(--text-dim, #888);
+  margin-left: 2px;
+}
+
+/* Image Attachment */
+.gg-post-card__image-container {
+  border-radius: 4px;
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  overflow: hidden;
+  border: 1px solid var(--line, #2a2a2a);
+  background: color-mix(in srgb, var(--bg, #090909) 92%, var(--bg-card, #161616) 8%);
+  max-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gg-post-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Document Attachment */
+.gg-post-card__document-attachment {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: color-mix(in srgb, var(--bg-card, #161616) 92%, var(--bg, #000) 8%);
+  border: 1px dashed var(--line, #2a2a2a);
+  border-radius: 12px;
+  padding: 14px 18px;
+  text-decoration: none;
+  transition: all 0.22s;
+}
+
+.gg-post-card__document-attachment:hover {
+  background: color-mix(in srgb, var(--bg-card, #161616) 88%, var(--accent, #00C97A) 6%);
+  border-color: rgba(var(--accent-rgb, 0, 201, 122), 0.22);
+}
+
+.gg-post-card__document-attachment .doc-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 34px;
+  background: rgba(var(--accent-rgb, 0, 201, 122), 0.09);
+  color: var(--accent, #00C97A);
+  border: 1px solid rgba(var(--accent-rgb, 0, 201, 122), 0.18);
+}
+
+.gg-post-card__document-attachment .doc-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.gg-post-card__document-attachment .doc-info {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.gg-post-card__document-attachment .doc-name {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text, #eee);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.gg-post-card__document-attachment .doc-action {
+  font-size: 11px;
+  color: var(--text-dim, #888);
+}
+
+.gg-post-card__document-attachment .download-arrow {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 30px;
+  background: color-mix(in srgb, var(--bg-card, #161616) 86%, var(--text, #fff) 5%);
+  color: var(--text-dim, #888);
+  opacity: 0.7;
+  transition: transform 0.2s, opacity 0.2s, color 0.2s;
+}
+
+.gg-post-card__document-attachment .download-arrow svg {
+  width: 16px;
+  height: 16px;
+}
+
+.gg-post-card__document-attachment:hover .download-arrow {
+  transform: translateY(2px);
+  opacity: 1;
+  color: var(--accent, #00C97A);
+}
+
+/* Achievement Banner */
+.gg-post-card__achievement-banner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(245, 158, 11, 0.04);
+  border: 1px solid rgba(245, 158, 11, 0.15);
+  border-radius: 12px;
+  padding: 16px;
+  margin-top: 4px;
+}
+
+.gg-post-card__achievement-banner .trophy {
+  font-size: 32px;
+  filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.4));
+  animation: float-trophy 2.5s ease-in-out infinite;
+}
+
+@keyframes float-trophy {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.gg-post-card__achievement-banner .ach-details h5 {
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  color: #f59e0b;
+  margin: 0 0 3px;
+}
+
+.gg-post-card__achievement-banner .ach-details h4 {
+  font-family: var(--font-display, inherit);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--text, #eee);
+  margin: 0;
+}
+
+/* E-sports Ticket (Tournaments) */
+.gg-post-card__esports-ticket {
+  background:
+    linear-gradient(155deg, rgba(var(--accent-rgb, 0, 201, 122), 0.055) 0%, transparent 55%),
+    color-mix(in srgb, var(--bg-card, #161616) 92%, var(--bg, #000) 8%);
+  border: 1px solid var(--line, #2a2a2a);
+  border-left: 4px solid var(--accent, #00C97A);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.ticket-body {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ticket-body h4 {
+  font-family: var(--font-display, inherit);
+  font-size: 14.5px;
+  font-weight: 800;
+  color: var(--text, #eee);
+  margin: 0;
+}
+
+.ticket-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.ticket-grid span {
+  font-size: 12px;
+  color: var(--text-dim, #888);
+}
+
+.ticket-grid span b {
+  color: var(--text, #eee);
+  margin-left: 4px;
+}
+
+.ticket-slots {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.slots-progress {
+  height: 4px;
+  background: color-mix(in srgb, var(--bg-card, #161616) 76%, var(--text, #fff) 8%);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.slots-progress .fill {
+  height: 100%;
+  background: var(--accent, #00C97A);
+}
+
+.ticket-slots span {
+  font-size: 10px;
+  color: var(--text-dim, #888);
+}
+
+/* Event Box */
+.gg-post-card__event-box {
+  background: color-mix(in srgb, var(--bg-card, #161616) 92%, var(--bg, #000) 8%);
+  border: 1px solid var(--line, #2a2a2a);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.event-header {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.event-badge {
+  font-size: 9px;
+  font-weight: 900;
+  color: #fbbf24;
+  letter-spacing: 0.05em;
+}
+
+.event-header h4 {
+  font-family: var(--font-display, inherit);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--text, #eee);
+  margin: 0;
+}
+
+.gg-post-card__event-box p {
+  font-size: 12.5px;
+  color: var(--text-dim, #888);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.event-meta {
+  display: flex;
+  gap: 14px;
+  font-size: 12px;
+  color: var(--text, #eee);
+  border-top: 1px solid color-mix(in srgb, var(--line, #2a2a2a) 76%, transparent);
+  padding-top: 10px;
+}
+
+.event-meta a {
+  color: #fbbf24;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.event-meta a:hover {
+  text-decoration: underline;
+}
+
+/* Footer Actions */
+.gg-post-card__foot {
+  display: flex;
+  gap: 20px;
+  border-top: 1px solid color-mix(in srgb, var(--line, #2a2a2a) 76%, transparent);
+  padding-top: 14px;
+}
+
+.gg-post-card__action-btn {
+  background: transparent;
+  border: none;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--text-dim, #888);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+  padding: 6px 12px;
+  border-radius: 8px;
+}
+
+.gg-post-card__action-btn svg {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+}
+
+.gg-post-card__action-btn:hover {
+  background: color-mix(in srgb, var(--bg-card, #161616) 86%, var(--accent, #00C97A) 6%);
+  color: var(--text, #eee);
+}
+
+.gg-post-card__action-btn.active.like {
+  color: #ef4444;
+}
+
+.gg-post-card__action-btn.active.comment {
+  color: var(--accent, #00C97A);
+  background: rgba(var(--accent-rgb, 0, 201, 122), 0.04);
+}
+
+.gg-post-card__action-btn.active.save {
+  color: #fbbf24;
+}
+
+/* Comments Section */
+.gg-post-card__comments-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 4px;
+}
+
+.gg-post-card__comments-divider {
+  height: 1px;
+  background: color-mix(in srgb, var(--line, #2a2a2a) 76%, transparent);
+}
+
+.gg-post-card__comment-composer {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.composer-input-wrap {
+  flex-grow: 1;
+  position: relative;
+  background: color-mix(in srgb, var(--bg-card, #161616) 92%, var(--bg, #000) 8%);
+  border: 1px solid var(--line, #2a2a2a);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  padding-right: 8px;
+}
+
+.composer-input-wrap input {
+  flex-grow: 1;
+  background: transparent;
+  border: none;
+  color: var(--text, #eee);
+  font-size: 13px;
+  padding: 10px 14px;
+  outline: none;
+}
+
+.emoji-quick-select {
+  display: flex;
+  gap: 4px;
+}
+
+.emoji-quick-select button {
+  background: transparent;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: transform 0.15s;
+}
+
+.emoji-quick-select button:hover {
+  transform: scale(1.2);
+}
+
+.gg-post-card__comments-login-hint {
+  font-size: 12px;
+  color: var(--text-dim, #888);
+  text-align: center;
+  margin: 6px 0;
+}
+
+.gg-post-card__comments-loading,
+.gg-post-card__comments-empty {
+  font-size: 12px;
+  color: var(--text-dim, #888);
+  text-align: center;
+  padding: 10px 0;
+}
+
+.gg-post-card__comments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.gg-post-card__comment-item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.comment-main {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.comment-body {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: color-mix(in srgb, var(--bg-card, #161616) 92%, var(--bg, #000) 8%);
+  border: 1px solid color-mix(in srgb, var(--line, #2a2a2a) 82%, transparent);
+  border-radius: 12px;
+  padding: 10px 14px;
+}
+
+.comment-author-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.comment-author {
+  font-size: 12.5px;
+  font-weight: 750;
+  color: var(--text, #eee);
+}
+
+.comment-date {
+  font-size: 10px;
+  color: var(--text-dim, #888);
+}
+
+.comment-text {
+  font-size: 12.5px;
+  color: var(--text, #eee);
+  line-height: 1.45;
+  margin: 2px 0;
+}
+
+.comment-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.comment-act {
+  background: transparent;
+  border: none;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-dim, #888);
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.comment-act:hover {
+  color: var(--text, #eee);
+  background: color-mix(in srgb, var(--bg-card, #161616) 86%, var(--accent, #00C97A) 6%);
+}
+
+.comment-act.active {
+  color: #3b82f6;
+}
+
+.comment-act.danger:hover {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.06);
+}
+
+/* Replies (nested comments) */
+.comment-replies {
+  margin-left: 36px;
+  border-left: 2px solid color-mix(in srgb, var(--line, #2a2a2a) 78%, transparent);
+  padding-left: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.reply-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.reply-body {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: color-mix(in srgb, var(--bg-card, #161616) 94%, var(--bg, #000) 6%);
+  border-radius: 10px;
+  padding: 8px 12px;
+}
+
+/* Inline Reply Composer */
+.gg-post-card__reply-composer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 36px;
+  padding-top: 4px;
+}
+
+.reply-indicator {
+  font-size: 16px;
+  color: var(--text-dim, #888);
+}
+
+.reply-input-wrap {
+  flex-grow: 1;
+  position: relative;
+  background: color-mix(in srgb, var(--bg-card, #161616) 92%, var(--bg, #000) 8%);
+  border: 1px solid var(--line, #2a2a2a);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  padding-right: 6px;
+}
+
+.reply-input-wrap input {
+  flex-grow: 1;
+  background: transparent;
+  border: none;
+  color: var(--text, #eee);
+  font-size: 12px;
+  padding: 8px 12px;
+  outline: none;
+}
+
+/* Challenges, Recruitment & Team Cards in Feed */
+.gg-post-card__challenge-box,
+.gg-post-card__recruitment-box {
+  background: color-mix(in srgb, var(--bg-card, #161616) 92%, var(--bg, #000) 8%);
+  border: 1px solid var(--line, #2a2a2a);
+  border-radius: 12px;
+  padding: 16px;
+  margin-top: 10px;
+}
+
+.gg-post-card__challenge-box {
+  border-left: 3px solid #ff4655; /* Valorant Red / Challenge Accent */
+}
+
+.gg-post-card__recruitment-box {
+  border-left: 3px solid var(--primary, #ffd700); /* Gold/Cyan Recruit Accent */
+}
+
+.challenge-badge,
+.recruitment-badge,
+.team-badge {
+  display: inline-block;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+.challenge-badge {
+  color: #ff4655;
+  background: rgba(255, 70, 85, 0.1);
+}
+
+.recruitment-badge {
+  color: var(--primary, #ffd700);
+  background: rgba(255, 215, 0, 0.1);
+}
+
+.team-badge {
+  color: var(--accent, #00C97A);
+  background: rgba(var(--accent-rgb, 0, 201, 122), 0.1);
+}
+
+.challenge-meta,
+.recruitment-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 13px;
+  color: var(--text-dim, #888);
+  margin-top: 8px;
+  border-top: 1px dashed color-mix(in srgb, var(--line, #2a2a2a) 76%, transparent);
+  padding-top: 8px;
+}
+
+.gg-post-card__team-showcase {
+  background: color-mix(in srgb, var(--bg-card, #161616) 92%, var(--bg, #000) 8%);
+  border: 1px solid var(--line, #2a2a2a);
+  border-radius: 12px;
+  padding: 16px;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.team-info-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.team-logo-img {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 1px solid var(--line, #2a2a2a);
+}
+
+.team-text-meta h4 {
+  font-size: 15px;
+  font-weight: 700;
+  margin: 2px 0;
+  color: var(--text, #eee);
+}
+
+.team-text-meta span {
+  font-size: 12px;
+  color: var(--text-dim, #888);
+}
+
+@media (max-width: 640px) {
+  .gg-post-card {
+    padding: 14px;
+    border-radius: 14px;
+    gap: 12px;
+  }
+
+  .gg-post-card__head,
+  .gg-post-card__foot,
+  .gg-post-card__esports-ticket,
+  .gg-post-card__team-showcase,
+  .gg-post-card__comment-composer,
+  .gg-post-card__reply-composer {
+    align-items: stretch;
+  }
+
+  .gg-post-card__head {
+    gap: 10px;
+  }
+
+  .gg-post-card__actions-right {
+    gap: 6px;
+  }
+
+  .gg-post-card__kind-badge,
+  .gg-post-card__pin-badge {
+    max-width: 116px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .gg-post-card__foot {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .gg-post-card__action-btn {
+    justify-content: center;
+    min-height: 36px;
+    padding: 8px;
+    background: color-mix(in srgb, var(--bg-card, #161616) 88%, var(--bg, #000) 8%);
+  }
+
+  .gg-post-card__esports-ticket,
+  .gg-post-card__team-showcase,
+  .gg-post-card__comment-composer,
+  .gg-post-card__reply-composer {
+    flex-direction: column;
+  }
+
+  .ticket-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ticket-ids {
+    flex-direction: column;
+    gap: 6px !important;
+  }
+
+  .composer-input-wrap,
+  .reply-input-wrap {
+    width: 100%;
+  }
+
+  .emoji-quick-select {
+    display: none;
+  }
+
+  .comment-replies,
+  .gg-post-card__reply-composer {
+    margin-left: 18px;
+  }
+}
+
+/* ── Confirmar / Reportar (reemplaza confirm()/prompt() nativos) ── */
+.gg-post-confirm-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(4, 5, 8, .72);
+  backdrop-filter: blur(6px);
+}
+
+.gg-post-confirm {
+  width: 100%;
+  max-width: 380px;
+  padding: 22px 24px;
+  border-radius: 4px;
+  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+  background: var(--bg-elev, #161616);
+  border: 1px solid var(--line, #2a2a2a);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, .5);
+}
+
+.gg-post-confirm h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+}
+.gg-post-confirm h3 svg { width: 16px; height: 16px; color: var(--accent); }
+
+.gg-post-confirm > p {
+  margin: 0 0 16px;
+  color: var(--text-dim, #999);
+  font-size: 13.5px;
+  line-height: 1.55;
+}
+
+.gg-post-report textarea {
+  width: 100%;
+  resize: vertical;
+  padding: 10px 12px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  border: 1px solid var(--line, #2a2a2a);
+  background: rgba(255, 255, 255, .03);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.gg-post-report textarea:focus { outline: none; border-color: var(--accent); }
+
+.gg-post-confirm__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+.gg-post-confirm__actions button {
+  padding: 9px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--line, #2a2a2a);
+  background: transparent;
+  color: var(--text);
+  font-weight: 700;
+  font-size: 12.5px;
+  cursor: pointer;
+  transition: filter .15s, transform .15s;
+}
+.gg-post-confirm__actions button:hover { transform: translateY(-1px); }
+.gg-post-confirm__actions button.ghost:hover { border-color: var(--accent); color: var(--accent); }
+.gg-post-confirm__actions button.primary { background: var(--accent); border-color: var(--accent); color: #04130a; }
+.gg-post-confirm__actions button.danger { background: #ef4444; border-color: #ef4444; color: #fff; }
+.gg-post-confirm__actions button.primary:hover,
+.gg-post-confirm__actions button.danger:hover { filter: brightness(1.08); }
+

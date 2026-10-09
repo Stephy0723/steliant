@@ -1,0 +1,51 @@
+/* Nick con sugerencias al invitar (NickSuggest.jsx). Lista solida, amigos primero. */
+.gg-nicksug { position: relative; min-width: 0; }
+.gg-nicksug > input {
+  width: 100%; min-width: 0; min-height: 44px; padding: 0 14px; border-radius: 12px;
+  border: 1px solid var(--line); background: var(--bg-card, var(--bg-elev)); color: var(--text);
+  font: inherit; font-size: 14px; outline: none;
+}
+.gg-nicksug > input::placeholder { color: var(--text-dim); }
+.gg-nicksug > input:focus { border-color: var(--mtp-accent, var(--accent, #22c55e)); }
+
+.gg-nicksug__list {
+  position: absolute; z-index: 30; top: calc(100% + 6px); left: 0; right: 0;
+  max-height: 320px; overflow-y: auto; margin: 0; padding: 6px; list-style: none;
+  border-radius: 14px; border: 1px solid var(--line);
+  background: linear-gradient(var(--bg-elev, #151820), var(--bg-elev, #151820)), var(--bg, #0b0d12);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, .55);
+}
+.gg-nicksug__empty { padding: 12px; color: var(--text-dim); font-size: 13px; }
+
+.gg-nicksug__item {
+  display: grid; grid-template-columns: 38px minmax(0, 1fr) auto; align-items: center; gap: 10px;
+  padding: 8px 10px; border-radius: 10px; cursor: pointer;
+}
+.gg-nicksug__item + .gg-nicksug__item { margin-top: 2px; }
+.gg-nicksug__item.is-active { background: color-mix(in srgb, var(--text) 8%, transparent); }
+.gg-nicksug__item.is-blocked .gg-nicksug__who { opacity: .7; }
+
+.gg-nicksug__avatar {
+  width: 38px; height: 38px; border-radius: 50%; overflow: hidden; display: grid; place-items: center;
+  background: color-mix(in srgb, var(--text) 10%, transparent); color: var(--text); font-size: 12px; font-weight: 800;
+}
+.gg-nicksug__avatar img { width: 100%; height: 100%; object-fit: cover; }
+.gg-nicksug__who { display: grid; gap: 2px; min-width: 0; }
+.gg-nicksug__who b { color: var(--text); font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.gg-nicksug__who small { color: var(--text-dim); font-size: 11.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.gg-nicksug__tags { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; max-width: 180px; }
+.gg-nicksug__tag {
+  display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 999px;
+  font-style: normal; font-size: 10.5px; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;
+}
+.gg-nicksug__tag svg { width: 11px; height: 11px; flex: none; }
+.gg-nicksug__tag--friend { color: #60a5fa; background: rgba(96, 165, 250, .12); border: 1px solid rgba(96, 165, 250, .35); }
+.gg-nicksug__tag--ok { color: #22c55e; background: rgba(34, 197, 94, .12); border: 1px solid rgba(34, 197, 94, .35); }
+.gg-nicksug__tag--no { color: #f59e0b; background: rgba(245, 158, 11, .1); border: 1px solid rgba(245, 158, 11, .35); }
+
+@media (max-width: 520px) {
+  .gg-nicksug__item { grid-template-columns: 34px minmax(0, 1fr); }
+  .gg-nicksug__tags { grid-column: 2; flex-direction: row; align-items: center; flex-wrap: wrap; max-width: none; }
+}
+

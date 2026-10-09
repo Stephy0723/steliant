@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>GlitchGang CRM — Acceso</title>
+  <link rel="stylesheet" href="/crm/assets/styles.css">
+</head>
+<body class="login-page">
+  <main class="login-card">
+    <div class="brand-mark">GG</div>
+    <h1>GlitchGang CRM</h1>
+    <p>Administración del bot de WhatsApp, torneos, equipos y check-ins.</p>
+    <form id="loginForm">
+      <label>Usuario<input name="username" autocomplete="username" required></label>
+      <label>Contraseña<input name="password" type="password" autocomplete="current-password" required></label>
+      <label class="check-row"><input name="remember" type="checkbox" value="true"> Recordarme por 30 dias</label>
+      <button type="submit">Entrar al CRM</button>
+      <div id="error" class="error"></div>
+    </form>
+  </main>
+  <script>
+    document.querySelector("#loginForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const body = Object.fromEntries(new FormData(e.currentTarget));
+      const res = await fetch("/crm/auth/login", {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify(body)
+      });
+      if (res.ok) location.href="/crm";
+      else {
+        const data = await res.json().catch(() => ({}));
+        document.querySelector("#error").textContent = data.message || "Usuario o contraseña incorrectos.";
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "name": "GlitchGang",
+  "short_name": "GlitchGang",
+  "description": "Comunidad gaming: torneos, equipos y ligas universitarias.",
+  "lang": "es",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#06070b",
+  "theme_color": "#06070b",
+  "icons": [
+    { "src": "/GG/gg-mark.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/favicon.ico", "sizes": "16x16 32x32 48x48", "type": "image/x-icon" }
+  ]
+}
+

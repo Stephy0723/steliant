@@ -1,0 +1,47 @@
+/* Tokens propios: este CSS carga desde index.html antes que index.css (que viene
+   con el bundle), así que no puede depender de sus variables. Valores = index.css. */
+.pl{--accent:#00E676;--accent-rgb:0,230,118;--font-display:'Chakra Petch',sans-serif;--text:#f3f5f8;--text-dim:#8b93a3;--font-mono:'IBM Plex Mono',ui-monospace,monospace;
+--glitch-r:#ff2e63;--glitch-r-rgb:255,46,99;--glitch-c:#00f0ff;--glitch-c-rgb:0,240,255;
+--scanline-strong:repeating-linear-gradient(180deg,rgba(0,0,0,.35) 0 1px,transparent 1px 3px);
+--crt-line:0 0 18px 2px rgba(var(--accent-rgb),.55),0 0 2px rgba(255,255,255,.6);}
+/* Preloader "Señal" — capas. Todo transform/opacity/clip-path. */
+.pl{position:absolute;inset:0;overflow:hidden;container-type:size;font-family:var(--font-display);color:var(--text);cursor:pointer;-webkit-tap-highlight-color:transparent;user-select:none}
+.pl--fixed{position:fixed;z-index:9999}
+.pl-cover{position:absolute;inset:0}
+.pl-cover i{position:absolute;display:block;background:#030406}
+.pl-screen{position:absolute;inset:0;transform-origin:50% 50%}
+.pl--crt .pl-screen,.pl--fade .pl-screen{background:#030406}
+.pl-noise{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated;opacity:0}
+.pl-roll{position:absolute;left:0;right:0;height:22%;background:linear-gradient(180deg,transparent,rgba(255,255,255,.07) 45%,rgba(var(--accent-rgb),.05) 55%,transparent);opacity:0}
+.pl-bars i{position:absolute;left:-10%;right:-10%;display:block;opacity:0}
+.pl-bars i:nth-child(4n+1){background:repeating-linear-gradient(90deg,rgba(var(--accent-rgb),.22) 0 3px,transparent 3px 9px)}
+.pl-bars i:nth-child(4n+2){background:linear-gradient(90deg,transparent,rgba(var(--glitch-r-rgb),.2) 30%,rgba(var(--glitch-c-rgb),.2) 70%,transparent)}
+.pl-bars i:nth-child(4n+3){background:rgba(255,255,255,.05)}
+.pl-bars i:nth-child(4n){background:repeating-linear-gradient(90deg,rgba(var(--glitch-c-rgb),.16) 0 12px,transparent 12px 20px)}
+.pl-center{position:absolute;inset:0;display:grid;place-items:center;align-content:center;gap:0}
+.pl-brand{position:relative;font-size:min(8.2cqw,12cqh);line-height:1}
+.pl-l,.pl-s{position:absolute;inset:0}
+.pl-r{position:relative}
+.pl-lock{display:flex;flex-direction:column;align-items:center;gap:.28em}
+.pl-mark{width:1.9em;height:1.15em;overflow:visible;fill:currentColor}
+.pl-mark .notch{fill:var(--accent)}
+.pl-word{display:flex;align-items:center;gap:.02em;font-weight:600;letter-spacing:.02em;white-space:nowrap}
+.pl-word .dot{width:.28em;height:.28em;margin:0 .12em;border-radius:2px;background:var(--accent);box-shadow:0 0 10px rgba(var(--accent-rgb),.7);flex:none}
+.pl-word .ch{position:relative;display:inline-grid}.pl-word .ch i{font-style:normal}
+.pl-word .ch em{position:absolute;inset:0;display:grid;place-items:center;font-style:normal;font-family:var(--font-mono);font-weight:500;font-size:.82em}
+.pl-r,.pl-c{mix-blend-mode:screen;opacity:0}
+.pl-r,.pl-r .ch em{color:var(--glitch-r)}
+.pl-c,.pl-c .ch em{color:var(--glitch-c)}
+.pl-r .notch,.pl-r .dot{fill:var(--glitch-r);background:var(--glitch-r);box-shadow:none}
+.pl-c .notch,.pl-c .dot{fill:var(--glitch-c);background:var(--glitch-c);box-shadow:none}
+.pl-by{margin-top:1.6em;font-family:var(--font-mono);font-size:max(10px,.17em);letter-spacing:.3em;color:var(--text-dim);opacity:0;padding-left:.3em}
+.pl-brand .pl-by{position:absolute;left:0;right:0;top:100%;text-align:center;margin-top:1.4em}
+.pl-log{position:absolute;left:5cqw;top:5cqh;font-family:var(--font-mono);font-size:clamp(10px,1.5cqw,13px);line-height:1.8;color:var(--text-dim);white-space:pre}
+.pl-log b{color:var(--accent);font-weight:500}
+.pl-scan{position:absolute;inset:0;background:var(--scanline-strong);pointer-events:none}
+.pl-vig{position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 50%,transparent 55%,rgba(0,0,0,.55));pointer-events:none}
+.pl-skip{position:absolute;left:0;right:0;bottom:max(18px,4cqh);text-align:center;font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:var(--text-dim);opacity:0;transition:opacity .4s}
+.pl--live .pl-skip{opacity:.7}
+.pl--glow .pl-screen{background:#cfeedd;box-shadow:var(--crt-line)}
+.pl--glow .pl-center,.pl--glow .pl-noise,.pl--glow .pl-scan{opacity:0!important}
+

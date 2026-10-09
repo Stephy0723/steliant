@@ -1,0 +1,114 @@
+/* TEMPORAL — Laboratorio de capturas. Borrar junto con AdminStatsLab.jsx. */
+.gg-statslab { display: flex; flex-direction: column; gap: 18px; --statslab-warn: #fbbf24; --statslab-bad: var(--danger, #f87171); }
+.gg-statslab__tag {
+  display: inline-block; vertical-align: middle; margin-left: 8px; padding: 2px 8px;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--statslab-warn); border: 1px solid color-mix(in srgb, var(--statslab-warn) 45%, transparent);
+}
+.gg-statslab__hint { font-size: 12px; color: var(--text-dim); margin: 8px 0 0; line-height: 1.5; }
+.gg-statslab__error { font-size: 13px; color: var(--statslab-bad); margin: 0; }
+
+.gg-statslab__top { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 18px; align-items: start; }
+.gg-statslab__upload { display: flex; flex-direction: column; gap: 14px; }
+.gg-statslab__upload > h3 { margin-bottom: 0; }
+.gg-statslab__drop {
+  position: relative; display: grid; place-items: center; min-height: 180px; cursor: pointer;
+  border: 1px dashed var(--line); background: var(--bg); overflow: hidden;
+}
+.gg-statslab__drop:hover { border-color: var(--accent); }
+.gg-statslab__drop input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.gg-statslab__drop > span { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 24px; text-align: center; color: var(--text-dim); }
+.gg-statslab__drop > span svg { width: 26px; height: 26px; color: var(--accent); }
+.gg-statslab__drop b { color: var(--text); font-size: 14px; }
+.gg-statslab__drop small { font-size: 12px; }
+.gg-statslab__drop img { display: block; width: 100%; max-height: 340px; object-fit: contain; }
+.gg-statslab__names { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.gg-statslab__names label { display: flex; flex-direction: column; gap: 6px; font-size: 12px; color: var(--text-dim); }
+.gg-statslab__names input {
+  padding: 9px 11px; font: inherit; font-size: 14px; color: var(--text);
+  background: var(--bg); border: 1px solid var(--line); border-radius: 0;
+}
+.gg-statslab__names input:focus { outline: none; border-color: var(--accent); }
+
+.gg-statslab__history ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; max-height: 360px; overflow-y: auto; }
+.gg-statslab__history li { display: flex; align-items: stretch; border: 1px solid var(--line); background: var(--bg); }
+.gg-statslab__history li.active { border-color: var(--accent); }
+.gg-statslab__history li > button:first-child {
+  flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; padding: 9px 11px;
+  text-align: left; background: none; border: 0; color: var(--text); cursor: pointer; font: inherit;
+}
+.gg-statslab__history li b { font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.gg-statslab__history li small { font-size: 11px; color: var(--text-dim); }
+.gg-statslab__del { width: 38px; display: grid; place-items: center; background: none; border: 0; border-left: 1px solid var(--line); color: var(--text-dim); cursor: pointer; }
+.gg-statslab__del:hover { color: var(--statslab-bad); }
+.gg-statslab__del svg { width: 15px; height: 15px; }
+.gg-statslab__accuracy { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 12px; font-size: 12px; color: var(--text-dim); }
+.gg-statslab__accuracy b { font-size: 16px; margin-right: 3px; }
+.gg-statslab__accuracy .is-ok b { color: var(--accent); }
+.gg-statslab__accuracy .is-minor b { color: var(--statslab-warn); }
+.gg-statslab__accuracy .is-bad b { color: var(--statslab-bad); }
+
+.gg-statslab__result { display: flex; flex-direction: column; gap: 18px; }
+.gg-statslab__meta { display: flex; flex-wrap: wrap; gap: 8px; }
+.gg-statslab__meta span {
+  padding: 4px 9px; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px;
+  color: var(--text-dim); border: 1px solid var(--line); background: var(--bg-card);
+}
+.gg-statslab__meta span.is-unsure { color: var(--statslab-warn); border-color: color-mix(in srgb, var(--statslab-warn) 45%, transparent); }
+
+.gg-statslab__teams { display: flex; flex-direction: column; gap: 14px; }
+.gg-statslab__team { border: 1px solid var(--line); background: var(--bg-card); }
+.gg-statslab__team.is-winner { border-color: var(--accent); }
+.gg-statslab__team > header { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 16px; border-bottom: 1px solid var(--line); }
+.gg-statslab__team h4 { margin: 2px 0 0; font-family: var(--font-display); font-size: 17px; color: var(--text); }
+.gg-statslab__side { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--text-dim); }
+.gg-statslab__score { display: flex; align-items: baseline; gap: 6px; }
+.gg-statslab__score b { font-family: var(--font-display); font-size: 30px; color: var(--text); line-height: 1; }
+.gg-statslab__score small { font-size: 11px; color: var(--text-dim); }
+.gg-statslab__badge { align-self: center; padding: 3px 8px; font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--accent-contrast, #04120a); background: var(--accent); }
+.gg-statslab__warn { display: flex; align-items: center; gap: 6px; margin: 0; padding: 8px 16px; font-size: 12px; color: var(--statslab-warn); border-bottom: 1px solid var(--line); }
+.gg-statslab__warn svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+.gg-statslab__tablewrap { overflow-x: auto; }
+.gg-statslab__table { width: 100%; border-collapse: collapse; font-size: 13px; font-variant-numeric: tabular-nums; }
+.gg-statslab__table th, .gg-statslab__table td { padding: 9px 12px; text-align: right; white-space: nowrap; border-bottom: 1px solid var(--line); }
+.gg-statslab__table th:first-child, .gg-statslab__table td:first-child,
+.gg-statslab__table th:nth-child(2), .gg-statslab__table td:nth-child(2) { text-align: left; }
+.gg-statslab__table th { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10.5px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--text-dim); }
+.gg-statslab__table th button { background: none; border: 0; padding: 0; font: inherit; color: inherit; letter-spacing: inherit; text-transform: inherit; cursor: pointer; }
+.gg-statslab__table th button.active { color: var(--accent); }
+.gg-statslab__table tbody tr:last-child td { border-bottom: 0; }
+.gg-statslab__table td { color: var(--text); }
+.gg-statslab__table td.is-null { color: var(--text-dim); }
+.gg-statslab__table td.is-unsure { background: color-mix(in srgb, var(--statslab-warn) 16%, transparent); color: var(--statslab-warn); }
+
+.gg-statslab__highlights { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px; }
+.gg-statslab__hl { display: flex; flex-direction: column; gap: 4px; padding: 12px 14px; border: 1px solid var(--line); background: var(--bg); }
+.gg-statslab__hl span { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: .06em; }
+.gg-statslab__hl span small { text-transform: none; letter-spacing: 0; }
+.gg-statslab__hl b { font-size: 14px; color: var(--text); overflow-wrap: anywhere; }
+.gg-statslab__hl em { font-style: normal; font-family: var(--font-display); font-size: 20px; color: var(--accent); }
+.gg-statslab__hl.is-bad em { color: var(--statslab-bad); }
+
+.gg-statslab__verdicts { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+.gg-statslab__verdict { padding: 8px 14px; font: inherit; font-size: 13px; color: var(--text); background: var(--bg); border: 1px solid var(--line); cursor: pointer; }
+.gg-statslab__verdict.is-ok.active { border-color: var(--accent); color: var(--accent); }
+.gg-statslab__verdict.is-minor.active { border-color: var(--statslab-warn); color: var(--statslab-warn); }
+.gg-statslab__verdict.is-bad.active { border-color: var(--statslab-bad); color: var(--statslab-bad); }
+.gg-statslab__note {
+  width: 100%; min-height: 70px; padding: 10px 12px; font: inherit; font-size: 13px; resize: vertical; box-sizing: border-box;
+  color: var(--text); background: var(--bg); border: 1px solid var(--line); border-radius: 0;
+}
+.gg-statslab__note:focus { outline: none; border-color: var(--accent); }
+
+.gg-statslab__raw summary { cursor: pointer; font-size: 13px; color: var(--text-dim); }
+.gg-statslab__raw pre { margin: 10px 0 0; padding: 14px; max-height: 420px; overflow: auto; font-size: 12px; color: var(--text); background: var(--bg); border: 1px solid var(--line); }
+
+@media (max-width: 900px) {
+  .gg-statslab__top { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .gg-statslab__names { grid-template-columns: 1fr; }
+  .gg-statslab__team > header { padding: 12px; }
+}
+

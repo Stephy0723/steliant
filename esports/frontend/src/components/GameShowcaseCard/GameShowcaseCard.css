@@ -1,0 +1,250 @@
+/* ═══════════════════════════════════════════════════
+   GameShowcaseCard — Game Store Style
+   All colors via CSS custom properties.
+   ═══════════════════════════════════════════════════ */
+
+.gsc-card {
+  background:
+    linear-gradient(180deg, rgba(9,12,18,.96), rgba(8,10,16,.98));
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  transition: border-color .25s, box-shadow .25s, transform .25s;
+  position: relative;
+  isolation: isolate;
+  will-change: transform;
+  outline: none;
+  height: 100%;
+}
+.gsc-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gc, var(--accent)), transparent);
+  opacity: 0;
+  transition: opacity .28s;
+  box-shadow: 0 0 16px var(--gc, var(--accent));
+  z-index: 5;
+}
+.gsc-card:hover::before,
+.gsc-card:focus-visible::before { opacity: 1; }
+
+.gsc-card:hover,
+.gsc-card:focus-visible {
+  border-color: color-mix(in srgb, var(--gc, var(--accent)) 45%, transparent);
+  box-shadow:
+    0 24px 72px rgba(0,0,0,.55),
+    0 8px 24px rgba(0,0,0,.35),
+    0 0 0 1px color-mix(in srgb, var(--gc, var(--accent)) 12%, transparent),
+    0 0 60px color-mix(in srgb, var(--gc, var(--accent)) 8%, transparent);
+  transform: translateY(-8px) scale(1.01);
+}
+
+/* ── Cover ── */
+.gsc-cover {
+  position: relative;
+  height: 196px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: #06080d;
+}
+
+/* Scanlines */
+.gsc-cover::before {
+  content: '';
+  position: absolute; inset: 0; z-index: 3;
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent 0px, transparent 3px,
+    rgba(0,0,0,.04) 3px, rgba(0,0,0,.04) 4px
+  );
+  pointer-events: none;
+}
+
+/* Real game image */
+.gsc-img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center top;
+  display: block;
+  filter: brightness(.62) saturate(.82) contrast(1.02);
+  transition: filter .38s ease, transform .55s ease;
+  transform-origin: center;
+  z-index: 0;
+  position: relative;
+}
+.gsc-card:hover .gsc-img {
+  filter: brightness(.72) saturate(.94) contrast(1.04);
+  transform: scale(1.07);
+}
+
+/* CSS art fallback (no image) */
+.gsc-cover__art {
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    155deg,
+    var(--gcb, #0a0a0a) 0%,
+    color-mix(in srgb, var(--gc, var(--accent)) 35%, #050505) 100%
+  );
+}
+
+/* Multi-layer vignette */
+.gsc-cover__vignette {
+  position: absolute; inset: 0; z-index: 2;
+  background:
+    radial-gradient(ellipse 120% 120% at 50% 130%, rgba(0,0,0,.52), transparent 60%),
+    linear-gradient(180deg, rgba(0,0,0,.28) 0%, transparent 40%);
+  pointer-events: none;
+}
+
+/* Bottom gradient — blends into card body */
+.gsc-cover__bottom-grad {
+  position: absolute;
+  bottom: 0; left: 0; right: 0; z-index: 3;
+  height: 60%;
+  background: linear-gradient(
+    to top,
+    rgba(7,10,15,.98) 0%,
+    color-mix(in srgb, var(--gc, #000) 6%, transparent) 55%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+/* Genre pill — top left */
+.gsc-genre {
+  position: absolute; top: 11px; left: 11px; z-index: 4;
+  background: rgba(0,0,0,.72); backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 6px; padding: 4px 10px;
+  font-size: 9px; font-weight: 800;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: rgba(255,255,255,.85);
+}
+
+/* Icon — centered */
+.gsc-icon-wrap {
+  position: absolute; z-index: 4;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -58%);
+  width: 52px; height: 52px;
+  filter: drop-shadow(0 0 16px currentColor);
+  opacity: .85;
+  transition: transform .35s ease, opacity .25s;
+}
+.gsc-icon-wrap svg { width: 100%; height: 100%; }
+.gsc-card:hover .gsc-icon-wrap {
+  transform: translate(-50%, -68%) scale(1.14);
+  opacity: 1;
+}
+
+/* Live badge — bottom right */
+.gsc-live {
+  position: absolute; bottom: 11px; right: 11px; z-index: 4;
+  display: flex; align-items: center; gap: 5px;
+  background: rgba(0,0,0,.72); backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 20px; padding: 4px 10px;
+  font-size: 10px; font-weight: 700; color: rgba(255,255,255,.88);
+}
+.gsc-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #22c55e; box-shadow: 0 0 10px #22c55e;
+  flex-shrink: 0;
+  animation: gsc-pulse 1.8s ease-in-out infinite;
+}
+@keyframes gsc-pulse { 0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.8)} }
+
+/* ── Body ── */
+.gsc-body {
+  padding: 15px 16px 18px;
+  display: flex; flex-direction: column; gap: 10px; flex: 1;
+  position: relative;
+  background:
+    linear-gradient(180deg, rgba(8,11,17,.96), rgba(7,9,15,.99));
+}
+.gsc-body::before {
+  content: '';
+  position: absolute; top: 0; left: 16px; right: 16px; height: 1px;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--gc, var(--accent)) 22%, transparent), transparent);
+}
+
+.gsc-name {
+  font-family: var(--font-display);
+  font-weight: 900; font-size: 16px;
+  line-height: 1.2; color: var(--text);
+  letter-spacing: -.01em;
+  transition: color .2s;
+  margin: 0;
+}
+.gsc-card:hover .gsc-name { color: var(--gc, var(--accent)); }
+
+.gsc-titleblock {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.gsc-company {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.35;
+  color: color-mix(in srgb, var(--gc, var(--accent)) 72%, #d7deea);
+  font-weight: 700;
+}
+
+.gsc-desc {
+  font-size: 12.5px; line-height: 1.58; color: rgba(230,236,244,.82); margin: 0;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Tags */
+.gsc-tags  { display: flex; flex-wrap: wrap; gap: 5px; }
+.gsc-tag {
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 6px; padding: 3px 9px;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: .04em; text-transform: uppercase;
+  color: rgba(226,232,240,.76);
+  cursor: pointer;
+  transition: color .18s, border-color .18s, background .18s, box-shadow .18s;
+}
+.gsc-tag:hover {
+  color: var(--gc, var(--accent));
+  border-color: color-mix(in srgb, var(--gc, var(--accent)) 50%, transparent);
+  background: color-mix(in srgb, var(--gc, var(--accent)) 9%, transparent);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--gc, var(--accent)) 12%, transparent);
+}
+
+/* Footer */
+.gsc-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255,255,255,.05);
+  margin-top: auto;
+}
+.gsc-players { font-size: 11px; color: rgba(226,232,240,.72); font-weight: 600; }
+.gsc-cta {
+  display: flex; align-items: center; gap: 5px;
+  font-size: 11px; font-weight: 800;
+  letter-spacing: .06em; text-transform: uppercase;
+  color: var(--gc, var(--accent));
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity .22s, transform .22s;
+}
+.gsc-cta svg { width: 12px; height: 12px; }
+.gsc-card:hover .gsc-cta { opacity: 1; transform: translateX(0); }
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .gsc-cover { height: 168px; }
+  .gsc-name  { font-size: 15px; }
+  .gsc-body  { padding: 12px 14px 15px; }
+}
+

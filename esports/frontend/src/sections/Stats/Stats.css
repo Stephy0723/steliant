@@ -1,0 +1,57 @@
+.gg-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 48px;
+}
+
+.gg-stat {
+  padding: 28px 24px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bg-card);
+  position: relative;
+  overflow: hidden;
+  transition: border-color .25s, transform .25s;
+}
+.gg-stat:hover {
+  border-color: rgba(var(--accent-rgb),.35);
+  transform: translateY(-3px);
+}
+.gg-stat::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(var(--accent-rgb),.4), transparent);
+  opacity: 0;
+  transition: opacity .25s;
+}
+.gg-stat:hover::before { opacity: 1; }
+
+.gg-stat__num {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 40px;
+  color: var(--accent);
+  display: block;
+  line-height: 1;
+}
+
+.gg-stat__lbl {
+  color: var(--text-dim);
+  font-size: 13.5px;
+  margin-top: 8px;
+  line-height: 1.4;
+}
+
+@media (max-width: 760px) { .gg-stats { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 400px) { .gg-stats { grid-template-columns: 1fr 1fr; gap: 10px; } }
+
+/* Telefonos: cifras/KPIs en 2 columnas, no una debajo de la otra. */
+@media (max-width: 400px) {
+  .gg-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+

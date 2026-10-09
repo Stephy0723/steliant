@@ -1,0 +1,10 @@
+.gg-card-base {
+  background: var(--bg-card); border: 1px solid var(--line); border-radius: var(--radius);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  transition: border-color .2s, box-shadow .2s;
+}
+.gg-card-base--glow:hover {
+  border-color: rgba(var(--accent-rgb),.35);
+  box-shadow: 0 0 24px rgba(var(--accent-rgb),.1);
+}
+

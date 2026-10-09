@@ -1,0 +1,64 @@
+/* ═══════════════════════════════════════════════════
+   DataTable — Premium Gaming Admin Table
+   ═══════════════════════════════════════════════════ */
+
+.gg-datatable-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+}
+
+.gg-datatable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+/* Header */
+.gg-datatable thead { background: rgba(var(--accent-rgb), .04); }
+.gg-datatable th {
+  text-align: left;
+  padding: 12px 16px;
+  font-family: var(--font-display);
+  font-size: 10px; font-weight: 900;
+  text-transform: uppercase; letter-spacing: .1em;
+  color: var(--accent);
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+.gg-datatable th:first-child { border-radius: 12px 0 0 0; }
+.gg-datatable th:last-child  { border-radius: 0 12px 0 0; }
+
+/* Body rows */
+.gg-datatable td {
+  padding: 13px 16px;
+  color: var(--text);
+  border-bottom: 1px solid rgba(255,255,255,.04);
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.gg-datatable tbody tr:last-child td { border-bottom: none; }
+.gg-datatable tbody tr:last-child td:first-child { border-radius: 0 0 0 12px; }
+.gg-datatable tbody tr:last-child td:last-child  { border-radius: 0 0 12px 0; }
+
+.gg-datatable tbody tr {
+  transition: background .15s;
+}
+.gg-datatable tbody tr:hover td {
+  background: rgba(var(--accent-rgb), .04);
+}
+
+/* Actions cell */
+.gg-datatable__actions {
+  display: flex; gap: 6px; align-items: center; justify-content: flex-end;
+}
+
+/* Empty state */
+.gg-datatable__empty {
+  text-align: center;
+  color: var(--text-dim);
+  padding: 32px;
+  font-size: 13px;
+}
+

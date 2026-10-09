@@ -1,0 +1,223 @@
+.panel {
+  padding: 28px;
+  border-radius: 28px;
+  border: 1px solid var(--border-soft);
+  background: var(--panel-elevated);
+  box-shadow: var(--shadow-card);
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.sectionLabel {
+  display: inline-block;
+  margin-bottom: 10px;
+  color: var(--accent-cyan);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.head h3,
+.modalHead h4 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2vw, 1.95rem);
+  letter-spacing: -0.04em;
+}
+
+.head p,
+.cardHead p,
+.flowItem p,
+.utilityItem p,
+.messageCard p,
+.modalGrid p {
+  margin: 0;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.grid {
+  display: grid;
+  gap: 16px;
+}
+
+.card {
+  padding: 22px;
+  border-radius: 24px;
+  border: 1px solid rgba(144, 169, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.cardHead,
+.flowItem,
+.utilityItem,
+.authCard,
+.modalHead {
+  display: flex;
+  gap: 14px;
+}
+
+.cardHead {
+  margin-bottom: 18px;
+}
+
+.flowList,
+.utilityList,
+.systemList,
+.modalGrid {
+  display: grid;
+  gap: 14px;
+}
+
+.flowItem,
+.utilityItem,
+.authCard,
+.messageCard,
+.systemList div {
+  padding: 16px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.flowIcon {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 14px;
+  color: #07111e;
+  background: linear-gradient(135deg, #00e676, #00c896);
+}
+
+.flowItem strong,
+.utilityItem strong,
+.systemList strong,
+.modalGrid strong {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.utilityItem svg {
+  color: var(--accent-cyan);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.authCard {
+  align-items: center;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  object-fit: cover;
+}
+
+.authCard a {
+  margin-left: auto;
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.systemList div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.systemList span {
+  color: var(--text-muted);
+}
+
+.helpButton {
+  position: fixed;
+  right: 30px;
+  bottom: 30px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  width: 62px;
+  height: 62px;
+  justify-content: center;
+  border: 1px solid rgba(132, 162, 255, 0.22);
+  border-radius: 22px;
+  background: var(--panel-elevated);
+  color: var(--text-primary);
+  box-shadow: 0 24px 48px rgba(6, 12, 25, 0.35);
+  cursor: pointer;
+}
+
+.helpButton span {
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+.modalScrim {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(2, 6, 16, 0.72);
+  backdrop-filter: blur(14px);
+  z-index: 20;
+}
+
+.modal {
+  width: min(980px, 100%);
+  max-height: 90vh;
+  overflow: auto;
+  padding: 28px;
+  border-radius: 30px;
+  border: 1px solid var(--border-strong);
+  background:
+    radial-gradient(circle at top, rgba(91, 142, 255, 0.18), transparent 36%),
+    var(--modal-surface);
+  box-shadow: var(--shadow-panel);
+}
+
+.modalHead {
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.modalHead button {
+  min-height: 48px;
+  padding: 0 16px;
+  border: 1px solid rgba(147, 172, 255, 0.18);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.modalGrid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.modalGrid section {
+  padding: 18px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+@media (max-width: 900px) {
+  .head,
+  .modalHead,
+  .systemList div {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .modalGrid {
+    grid-template-columns: 1fr;
+  }
+}

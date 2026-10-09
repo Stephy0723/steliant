@@ -1,0 +1,93 @@
+/* Dedicated account-linking pages (Discord / WhatsApp) */
+.gg-link {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 460px;
+}
+.gg-link__lead {
+  margin: 0;
+  color: var(--text-dim);
+  font-size: 14px;
+  line-height: 1.65;
+}
+.gg-link__why {
+  margin: 0;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--bg-card);
+  list-style: none;
+  display: grid;
+  gap: 10px;
+}
+.gg-link__why li {
+  display: grid;
+  grid-template-columns: 18px 1fr;
+  gap: 10px;
+  align-items: start;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--text);
+}
+.gg-link__why li svg { width: 15px; height: 15px; color: var(--accent); margin-top: 2px; }
+.gg-link__why li b { display: block; font-weight: 600; }
+.gg-link__why li span { color: var(--text-dim); }
+
+.gg-link__status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(var(--accent-rgb), .4);
+  background: rgba(var(--accent-rgb), .08);
+  color: var(--text);
+  font-size: 14px;
+}
+.gg-link__status svg { width: 18px; height: 18px; color: var(--accent); flex: none; }
+.gg-link__status b { font-weight: 600; }
+
+.gg-link__form { display: grid; gap: 12px; }
+.gg-link__field { display: grid; gap: 6px; }
+.gg-link__field label { font-size: 13px; font-weight: 500; color: var(--text-dim); }
+.gg-link__field input {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg-elev);
+  color: var(--text);
+  font-size: 16px;
+  outline: 0;
+}
+.gg-link__field input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(var(--accent-rgb), .15);
+}
+.gg-link__field input[data-code] { letter-spacing: .18em; font-family: "IBM Plex Mono", ui-monospace, monospace; }
+
+.gg-link__hint { margin: 0; font-size: 12.5px; color: var(--text-dim); line-height: 1.5; }
+.gg-link__hint b { color: var(--accent); }
+.gg-link__err { margin: 0; font-size: 13px; color: #ff6b81; }
+.gg-link__devcode {
+  margin: 0; padding: 10px 12px; border-radius: 8px;
+  border: 1px dashed var(--line-hi); background: var(--bg-elev);
+  font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 13px; color: var(--text);
+}
+
+.gg-link__discord-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 50px; width: 100%;
+  border: none; border-radius: 10px;
+  background: #5865F2; color: #fff;
+  font-family: var(--font-display, inherit); font-size: 15px; font-weight: 600;
+  cursor: pointer;
+}
+.gg-link__discord-btn:hover { background: #4752c4; }
+.gg-link__discord-btn svg { width: 20px; height: 20px; }
+
+.gg-link__actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
+.gg-link__back { font-size: 13px; color: var(--text-dim); text-decoration: underline; text-underline-offset: 2px; }
+

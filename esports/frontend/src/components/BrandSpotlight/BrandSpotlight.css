@@ -1,0 +1,61 @@
+.gg-brand-spot {
+  border-radius: var(--radius);
+  border: 1px solid rgba(255,255,255,.08);
+  overflow: hidden; position: relative;
+}
+.gg-brand-spot__bg {
+  position: absolute; inset: 0;
+  background: var(--bs-bg);
+  z-index: 0;
+}
+.gg-brand-spot__inner {
+  position: relative; z-index: 1;
+  display: flex; gap: 24px; align-items: flex-start;
+  padding: 28px 32px;
+}
+
+.gg-brand-spot__logo {
+  flex: none; width: 56px; height: 56px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-weight: 800; font-size: 14px; color: #fff;
+  margin-top: 2px;
+}
+.gg-brand-spot__body { flex: 1; display: flex; flex-direction: column; gap: 10px; }
+
+.gg-brand-spot__badge {
+  display: inline-block; align-self: flex-start;
+  background: var(--bs-color); color: #000;
+  font-size: 11px; font-weight: 800; letter-spacing: .06em;
+  text-transform: uppercase; font-family: var(--font-display);
+  padding: 4px 10px; border-radius: 6px;
+}
+.gg-brand-spot__sponsor {
+  font-family: var(--font-display); font-size: 11px; font-weight: 700;
+  letter-spacing: .15em; text-transform: uppercase;
+  color: var(--bs-color);
+}
+.gg-brand-spot__title {
+  font-family: var(--font-display); font-size: clamp(18px, 3vw, 26px);
+  font-weight: 800; color: #fff; margin: 0; line-height: 1.15;
+}
+.gg-brand-spot__sub {
+  font-size: 14px; font-weight: 600; color: rgba(255,255,255,.7); margin: 0;
+}
+.gg-brand-spot__desc {
+  font-size: 13px; line-height: 1.6; color: rgba(255,255,255,.5); margin: 0;
+  max-width: 520px;
+}
+.gg-brand-spot__body .gg-btn {
+  align-self: flex-start; text-decoration: none; display: inline-flex; align-items: center;
+}
+
+.gg-brand-spot__bar {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--bs-color), transparent);
+  z-index: 2;
+}
+
+@media (max-width: 600px) {
+  .gg-brand-spot__inner { flex-direction: column; padding: 20px; }
+}
+

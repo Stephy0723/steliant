@@ -1,0 +1,110 @@
+.gg-brand-card {
+  background: rgba(255,255,255,.035);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 14px;
+  padding: 18px 20px;
+  display: flex; align-items: flex-start; gap: 14px;
+  transition: transform .18s, border-color .18s, box-shadow .18s;
+  position: relative; overflow: hidden;
+}
+.gg-brand-card::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+  background: var(--bc); opacity: 0; border-radius: 3px 0 0 3px;
+  transition: opacity .18s;
+}
+.gg-brand-card:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--bc) 35%, transparent);
+  box-shadow: 0 8px 28px rgba(0,0,0,.25);
+}
+.gg-brand-card:hover::before { opacity: 1; }
+
+.gg-brand-card__logo {
+  width: 48px; height: 48px; border-radius: 50%; flex: none;
+  background: var(--bc);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-weight: 800; font-size: 13px; color: #fff;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--bc) 15%, transparent);
+}
+
+.gg-brand-card__body {
+  flex: 1; display: flex; flex-direction: column; gap: 4px; min-width: 0;
+}
+.gg-brand-card__code {
+  width: fit-content;
+  color: var(--bc);
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .08em;
+}
+.gg-brand-card__name-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+}
+.gg-brand-card__name-row h3 {
+  font-family: var(--font-display); font-size: 15px; font-weight: 700;
+  color: var(--text); margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.gg-brand-card__tier {
+  font-family: var(--font-display); font-size: 9px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  padding: 2px 7px; border-radius: 4px; white-space: nowrap; flex: none;
+}
+.gg-brand-card__tier--platinum { background: rgba(229,228,226,.12); color: #e5e4e2; }
+.gg-brand-card__tier--gold     { background: rgba(255,199,0,.12);   color: #ffc700; }
+.gg-brand-card__tier--silver   { background: rgba(168,169,173,.12); color: #a8a9ad; }
+
+.gg-brand-card__body p {
+  font-size: 12px; color: var(--text-dim); margin: 0;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.gg-brand-card__link {
+  font-size: 11px; font-weight: 600; color: var(--bc);
+  text-decoration: none; margin-top: 4px; display: inline-block;
+  transition: opacity .12s;
+}
+.gg-brand-card__link:hover { opacity: .75; }
+
+.gg-brand-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(var(--accent-rgb), .25);
+  box-shadow: 0 8px 32px rgba(0,0,0,.3);
+}
+
+.gg-brand-card__top {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.gg-brand-card__logo {
+  width: 44px; height: 44px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-weight: 800; font-size: 13px; color: #fff;
+}
+.gg-brand-card__tier {
+  font-family: var(--font-display); font-size: 10px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  padding: 3px 8px; border-radius: 5px;
+}
+.gg-brand-card__tier--platinum { background: rgba(229,228,226,.12); color: #e5e4e2; }
+.gg-brand-card__tier--gold     { background: rgba(255,199,0,.12);   color: #ffc700; }
+.gg-brand-card__tier--silver   { background: rgba(168,169,173,.12); color: #a8a9ad; }
+
+.gg-brand-card__body { display: flex; flex-direction: column; gap: 5px; }
+.gg-brand-card__body h3 {
+  font-family: var(--font-display); font-size: 16px; font-weight: 700;
+  color: var(--text); margin: 0;
+}
+.gg-brand-card__body p {
+  font-size: 13px; color: var(--text-dim); margin: 0;
+}
+.gg-brand-card__cat {
+  font-size: 11px; color: var(--bc);
+  font-weight: 600;
+}
+
+.gg-brand-card__bar {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+  background: var(--bc); opacity: .3;
+  transition: opacity .2s;
+}
+.gg-brand-card:hover .gg-brand-card__bar { opacity: .7; }
+

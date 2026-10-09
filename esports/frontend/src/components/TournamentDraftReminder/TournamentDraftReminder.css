@@ -1,0 +1,9 @@
+.gg-draft-reminder { position: fixed; right: 24px; bottom: 28px; z-index: 1200; width: min(370px, calc(100vw - 32px)); display: flex; gap: 12px; padding: 18px; border: 1px solid #44484a; border-left: 3px solid #00e676; border-radius: 6px; background: #131617; color: #f3f5f5; box-shadow: 0 8px 28px #0005; font-size: 13px; }
+.gg-draft-reminder > div { flex: 1; min-width: 0; }
+.gg-draft-reminder p { margin: 6px 0 12px; color: #b8c0be; overflow-wrap: anywhere; }
+.gg-draft-reminder button { display: inline-flex; align-items: center; gap: 8px; background: transparent; border: 0; color: #00e676; cursor: pointer; font: inherit; padding: 0; }
+.gg-draft-reminder svg { width: 20px; height: 20px; flex-shrink: 0; }
+.gg-draft-reminder__icon { color: #00e676; }
+.gg-draft-reminder .gg-draft-reminder__close { align-self: flex-start; color: #bac1be; min-width: 28px; min-height: 28px; justify-content: center; }
+@media (max-width: 600px) { .gg-draft-reminder { right: 16px; bottom: 88px; } }
+

@@ -1,0 +1,422 @@
+/* Piezas compartidas de las paginas Torneos, Equipos y Grabaciones:
+   barra de filtros, tabla, fichas de datos y resumen numerico. */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.headRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.headRow h2 {
+  margin: 0 0 4px;
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.headRow p {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  max-width: 640px;
+  line-height: 1.5;
+}
+
+.headActions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* ── Resumen numerico ── */
+.summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 10px;
+}
+
+.stat {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface-1);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.stat strong {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.stat span {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* ── Barra de filtros ── */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.search {
+  flex: 1 1 220px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+  height: 36px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface-1);
+  color: var(--text-muted);
+}
+
+.search input {
+  all: unset;
+  flex: 1;
+  color: var(--text-primary);
+  font-size: 0.82rem;
+}
+
+.select {
+  height: 36px;
+  padding: 0 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface-1);
+  color: var(--text-primary);
+  font-size: 0.8rem;
+  max-width: 100%;
+}
+
+.select option { background: var(--bg-alt); color: var(--text-primary); }
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chip {
+  all: unset;
+  cursor: pointer;
+  padding: 6px 11px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  font-size: 0.74rem;
+  color: var(--text-secondary);
+  transition: all var(--transition);
+  white-space: nowrap;
+}
+
+.chip:hover { border-color: var(--border-hover); color: var(--text-primary); }
+
+.chipActive {
+  composes: chip;
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(0, 230, 118, 0.08);
+}
+
+.chip small, .chipActive small {
+  margin-left: 5px;
+  opacity: 0.7;
+  font-variant-numeric: tabular-nums;
+}
+
+.toggle {
+  display: inline-flex;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.toggle button {
+  all: unset;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  color: var(--text-muted);
+}
+
+.toggle button[aria-pressed='true'] {
+  background: var(--surface-3);
+  color: var(--text-primary);
+}
+
+.btn {
+  all: unset;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 34px;
+  padding: 0 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: all var(--transition);
+  white-space: nowrap;
+}
+
+.btn:hover:not(:disabled) { border-color: var(--accent); color: var(--text-primary); }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.btnPrimary {
+  composes: btn;
+  border-color: transparent;
+  background: linear-gradient(135deg, #00e676, #00c896);
+  color: #07111e;
+}
+
+.btnPrimary:hover:not(:disabled) { filter: brightness(1.08); color: #07111e; }
+
+/* ── Tabla ── */
+.tableWrap {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface-1);
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
+.table th {
+  text-align: left;
+  font-size: 0.66rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-muted);
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.table th button {
+  all: unset;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.table th button:hover { color: var(--text-primary); }
+
+.table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+.table tbody tr:last-child td { border-bottom: 0; }
+
+.rowClickable { cursor: pointer; }
+.rowClickable:hover td { background: var(--surface-2); }
+
+.num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.muted { color: var(--text-muted); font-size: 0.74rem; }
+
+.strong { font-weight: 600; color: var(--text-primary); }
+
+.tag {
+  margin-left: 6px;
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  font-family: var(--font-display);
+}
+
+.expandRow td {
+  background: var(--surface-2);
+  padding: 12px 16px 14px;
+}
+
+/* ── Insignias ── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.66rem;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 999px;
+  white-space: nowrap;
+  border: 1px solid transparent;
+}
+
+.badge_green { color: var(--accent-green); background: rgba(0, 230, 118, 0.09); }
+.badge_amber { color: var(--accent-amber); background: rgba(250, 204, 21, 0.1); }
+.badge_blue { color: var(--accent-blue); background: rgba(59, 130, 246, 0.11); }
+.badge_red { color: var(--accent-red); background: rgba(239, 68, 68, 0.1); }
+.badge_muted { color: var(--text-muted); background: var(--surface-2); }
+
+.pillList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.pill {
+  font-size: 0.68rem;
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+/* ── Barra de cupos ── */
+.slots {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 90px;
+}
+
+.slots span { font-size: 0.72rem; color: var(--text-secondary); font-variant-numeric: tabular-nums; }
+
+.slotBar {
+  height: 4px;
+  border-radius: 99px;
+  background: var(--surface-3);
+  overflow: hidden;
+}
+
+.slotBar i {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  border-radius: inherit;
+}
+
+/* ── Fichas de datos (detalle de torneo) ── */
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 10px;
+}
+
+.info {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  background: var(--surface-1);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.info span {
+  font-size: 0.64rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-muted);
+}
+
+.info strong {
+  font-size: 0.84rem;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.info code {
+  font-size: 0.76rem;
+  overflow-wrap: anywhere;
+}
+
+.empty {
+  padding: 28px 16px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-md);
+}
+
+.notice {
+  font-size: 0.76rem;
+  color: var(--text-secondary);
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--surface-1);
+  line-height: 1.5;
+}
+
+.noticeWarn {
+  composes: notice;
+  color: var(--accent-amber);
+  border-color: rgba(250, 204, 21, 0.25);
+}
+
+.roster {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 6px 16px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.roster li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 0.78rem;
+  min-width: 0;
+}
+
+.roster li > span:first-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.linkBtn {
+  all: unset;
+  cursor: pointer;
+  color: var(--accent);
+  font-size: 0.74rem;
+  font-weight: 600;
+}
+
+.linkBtn:hover { text-decoration: underline; }
+
+@media (max-width: 640px) {
+  .toolbar > * { flex: 1 1 100%; }
+  .headActions { width: 100%; }
+}

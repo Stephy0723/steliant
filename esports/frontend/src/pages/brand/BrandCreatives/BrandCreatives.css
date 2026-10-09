@@ -1,0 +1,141 @@
+/* ── Dropzone ─────────────────────────────────────────────────────────── */
+.bcr-dropzone {
+  display: flex; flex-direction: column; align-items: center; gap: 7px; text-align: center;
+  padding: 36px 20px; border: 1.5px dashed var(--line); border-radius: var(--radius);
+  color: var(--text-dim); cursor: pointer; transition: border-color .15s, background .15s;
+  margin-bottom: 12px;
+}
+.bcr-dropzone:hover { border-color: var(--panel-accent); background: rgba(var(--panel-accent-rgb), .04); }
+.bcr-dropzone.uploading { opacity: .6; cursor: not-allowed; }
+.bcr-dropzone svg { width: 30px; height: 30px; color: var(--panel-accent); }
+.bcr-dropzone span { font-size: 14px; color: var(--text); }
+.bcr-dropzone small { font-size: 12.5px; }
+
+/* ── Specs bar ────────────────────────────────────────────────────────── */
+.bcr-specs {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px;
+}
+.bcr-spec {
+  display: flex; flex-direction: column; gap: 2px;
+  background: var(--bg-card); border: 1px solid var(--line); border-radius: 10px;
+  padding: 8px 12px; font-size: 11.5px;
+}
+.bcr-spec b { color: var(--text); font-weight: 700; }
+.bcr-spec span { color: var(--text-dim); }
+
+/* ── Grid ─────────────────────────────────────────────────────────────── */
+.bcr-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.bcr-item {
+  background: var(--bg-elev); border: 1px solid var(--line); border-radius: 14px;
+  overflow: hidden; display: flex; flex-direction: column;
+  transition: border-color .15s;
+}
+.bcr-item:hover { border-color: var(--panel-accent); }
+
+/* Thumbnail */
+.bcr-item__thumb {
+  position: relative; height: 130px; background: var(--bg);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; overflow: hidden;
+}
+.bcr-item__img { width: 100%; height: 100%; object-fit: cover; }
+.bcr-item__icon { font-size: 32px; color: var(--text-dim); }
+.bcr-item__icon svg { width: 32px; height: 32px; }
+.bcr-item__eye {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,.5); opacity: 0; transition: opacity .15s;
+  color: #fff;
+}
+.bcr-item__eye svg { width: 22px; height: 22px; }
+.bcr-item__thumb:hover .bcr-item__eye { opacity: 1; }
+
+/* Info */
+.bcr-item__info { padding: 10px 12px; display: flex; flex-direction: column; gap: 5px; flex: 1; }
+.bcr-item__name { font-size: 12.5px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bcr-item__meta { font-size: 11px; color: var(--text-dim); }
+
+.bcr-item__campaign { cursor: pointer; }
+.bcr-item__campaign:hover .pnl-link { text-decoration: underline; }
+
+.bcr-item__foot { display: flex; align-items: center; gap: 6px; margin-top: 2px; }
+.bcr-item__reject { font-size: 10px; color: #ef4444; display: flex; align-items: center; gap: 3px; cursor: help; }
+.bcr-item__reject svg { width: 10px; height: 10px; }
+.bcr-item__reject-msg { font-size: 11px; color: #ef4444; background: #ef444415; border-radius: 6px; padding: 4px 8px; margin: 0; }
+
+.bcr-del { background: none; border: none; cursor: pointer; color: var(--text-dim); display: inline-grid; place-items: center; margin-left: auto; }
+.bcr-del:hover { color: #ef4444; }
+.bcr-del svg { width: 15px; height: 15px; }
+
+/* Brand creatives skin */
+.bcr-dropzone,
+.bcr-spec,
+.bcr-item,
+.bcr-item__thumb,
+.bcr-preview-box,
+.bcr-item__reject-msg {
+  border-radius: 0;
+}
+
+.bcr-dropzone,
+.bcr-spec,
+.bcr-item,
+.bcr-preview-box {
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+}
+
+.bcr-item,
+.bcr-spec,
+.bcr-preview-box {
+  background: rgba(255, 255, 255, .035);
+}
+
+.bcr-spec,
+.bcr-item__meta,
+.bcr-item__foot {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.bcr-item__name {
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+@media (max-width: 560px) {
+  .bcr-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Preview modal ────────────────────────────────────────────────────── */
+.bcr-preview-overlay {
+  position: fixed; inset: 0; z-index: 200; display: grid; place-items: center;
+  background: rgba(0,0,0,.75); backdrop-filter: blur(6px); padding: 20px;
+}
+.bcr-preview-box {
+  background: var(--bg-elev); border: 1px solid var(--line); border-radius: 16px;
+  max-width: 860px; width: 100%; overflow: hidden;
+}
+.bcr-preview-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 18px; border-bottom: 1px solid var(--line);
+  font-size: 14px; font-weight: 600;
+}
+.bcr-preview-head button { background: none; border: none; cursor: pointer; color: var(--text-dim); }
+.bcr-preview-head button svg { width: 20px; height: 20px; }
+.bcr-preview-media { width: 100%; max-height: 60vh; object-fit: contain; display: block; }
+.bcr-preview-load { display: flex; align-items: center; gap: 8px; padding: 40px; color: var(--text-dim); justify-content: center; }
+
+/* ── Link campaign modal ─────────────────────────────────────────────── */
+.bcr-link-modal {
+  width: 100%; max-width: 380px; background: var(--bg-elev); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 22px; display: flex; flex-direction: column; gap: 14px;
+}
+

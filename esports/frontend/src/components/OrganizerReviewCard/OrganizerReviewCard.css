@@ -1,0 +1,67 @@
+.gg-org-review {
+  border: 1px solid var(--line, #2a2f3a);
+  border-radius: 12px;
+  padding: 14px 16px;
+  background: linear-gradient(135deg, #F0A50012, transparent);
+  margin: 14px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.gg-org-review__title {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text, #f3f5f8);
+}
+.gg-org-review__title svg { width: 15px; height: 15px; color: #F0A500; }
+
+.gg-org-review__picker { display: flex; gap: 4px; }
+.gg-org-review__picker button {
+  background: none; border: none; padding: 2px; cursor: pointer;
+  color: rgba(243, 245, 248, .25);
+}
+.gg-org-review__picker button svg { width: 22px; height: 22px; }
+.gg-org-review__picker button.on { color: #F0A500; }
+
+.gg-org-review textarea {
+  width: 100%;
+  resize: vertical;
+  border-radius: 8px;
+  border: 1px solid var(--line, #2a2f3a);
+  background: var(--bg-elev, #10131a);
+  color: var(--text, #f3f5f8);
+  padding: 9px 10px;
+  font: inherit;
+  font-size: 12.5px;
+  outline: none;
+}
+.gg-org-review textarea:focus { border-color: #F0A500; }
+
+.gg-org-review__error { color: #ef4444; font-size: 12px; margin: 0; }
+
+.gg-org-review__actions { display: flex; gap: 8px; }
+.gg-org-review__submit {
+  padding: 8px 14px; border-radius: 7px; border: none; background: #F0A500; color: #1a1400;
+  font: inherit; font-size: 12.5px; font-weight: 700; cursor: pointer;
+}
+.gg-org-review__submit:disabled { opacity: .6; cursor: default; }
+.gg-org-review__cancel {
+  padding: 8px 14px; border-radius: 7px; border: 1px solid var(--line, #2a2f3a); background: transparent;
+  color: var(--text-dim, #8b93a7); font: inherit; font-size: 12.5px; cursor: pointer;
+}
+
+.gg-org-review--done .gg-org-review__stars { display: flex; gap: 3px; }
+.gg-org-review--done .gg-org-review__stars span { width: 16px; height: 16px; color: rgba(243, 245, 248, .25); }
+.gg-org-review--done .gg-org-review__stars span svg { width: 100%; height: 100%; }
+.gg-org-review--done .gg-org-review__stars span.on { color: #F0A500; }
+.gg-org-review--done p { margin: 0; font-size: 12.5px; color: var(--text-dim, #8b93a7); }
+.gg-org-review__edit {
+  align-self: flex-start; background: none; border: none; padding: 0; margin-top: 2px;
+  color: #F0A500; font: inherit; font-size: 12px; font-weight: 700; cursor: pointer; text-decoration: underline;
+}
+

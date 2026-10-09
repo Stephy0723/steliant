@@ -1,0 +1,78 @@
+/* ── Historial ── */
+
+.pp-hist-summary { display: flex; gap: 10px; }
+.pp-hist-summary > div {
+  text-align: center; background: var(--bg-card); border: 1px solid var(--line);
+  border-radius: 12px; padding: 10px 16px; min-width: 74px;
+}
+.pp-hist-summary b { display: block; font-family: var(--font-display); font-size: 18px; font-weight: 900; color: var(--text); }
+.pp-hist-summary b.green { color: #22c55e; }
+.pp-hist-summary span { font-size: 10px; color: var(--text-dim); text-transform: uppercase; }
+
+.pp-hist-detailed {
+  background: var(--bg-card); border: 1px solid var(--accent); border-radius: 14px;
+  padding: 14px 16px; margin: -8px 0 18px; display: flex; flex-direction: column; gap: 10px;
+}
+.pp-hist-detailed__badge {
+  display: flex; align-items: center; gap: 6px; width: fit-content;
+  font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--accent);
+}
+.pp-hist-detailed__games { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.pp-hist-filters { display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+.pp-hist-filters__group { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.pp-hist-table-card { padding: 6px; }
+.pp-hist-table { display: flex; flex-direction: column; }
+.pp-hist-row {
+  display: grid;
+  grid-template-columns: 110px 2fr 1fr 1.1fr .8fr .7fr 1fr;
+  align-items: center; gap: 10px;
+  padding: 12px 14px; border-radius: 10px;
+}
+.pp-hist-row:not(.pp-hist-row--head):hover { background: var(--bg-elev); }
+.pp-hist-row--head {
+  font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: .07em;
+  color: var(--text-dim); border-bottom: 1px solid var(--line); border-radius: 0;
+}
+.pp-hist-match b { display: block; font-size: 13px; color: var(--text); }
+.pp-hist-match small { font-size: 10.5px; color: var(--text-dim); }
+.pp-hist-team { font-size: 12px; font-weight: 700; color: var(--pp-color); }
+.pp-hist-kda { font-size: 12.5px; color: var(--text-dim); font-variant-numeric: tabular-nums; }
+.pp-hist-rating { font-family: var(--font-display); font-weight: 900; font-size: 14px; }
+.pp-hist-rating.good { color: #22c55e; }
+.pp-hist-rating.bad { color: var(--danger); }
+.pp-hist-rp { font-family: var(--font-display); font-weight: 900; font-size: 14px; }
+.pp-hist-rp.up { color: #22c55e; }
+.pp-hist-rp.down { color: var(--danger); }
+.pp-hist-date { font-size: 11px; color: var(--text-dim); }
+.pp-hist-empty {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 40px; color: var(--text-dim); font-size: 13px;
+}
+.pp-hist-empty svg { width: 16px; height: 16px; }
+
+/* Tournaments */
+.pp-tourns { display: flex; flex-direction: column; gap: 8px; }
+.pp-tourn {
+  display: flex; align-items: center; gap: 14px;
+  background: var(--bg-elev); border: 1px solid var(--line);
+  border-radius: 12px; padding: 11px 14px;
+}
+.pp-tourn__place {
+  font-family: var(--font-display); font-weight: 900; font-size: 14px;
+  min-width: 52px; color: var(--text-dim);
+}
+.pp-tourn__place.podium { color: var(--text); }
+.pp-tourn__info { flex: 1; min-width: 0; }
+.pp-tourn__info b { display: block; font-size: 13px; color: var(--text); }
+.pp-tourn__info small { font-size: 11px; color: var(--text-dim); }
+.pp-tourn__of { font-size: 11px; color: var(--text-dim); }
+.pp-tourn__prize { font-family: var(--font-display); font-weight: 900; font-size: 15px; color: #22c55e; min-width: 64px; text-align: right; }
+.pp-tourn__prize.zero { color: var(--text-dim); }
+
+@media (max-width: 760px) {
+  .hide-sm { display: none !important; }
+  .pp-hist-row { grid-template-columns: 90px 2fr .7fr .7fr; }
+}
+

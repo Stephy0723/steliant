@@ -1,0 +1,382 @@
+/* ═══════════════════════════════════════════════════════════════
+   GlitchGang · restyle del panel /mi-equipo (Team HQ)
+
+   Capa de override. Va DESPUÉS de PanelShell.css y MyTeamPanel.css:
+
+     import './PanelShell.css'
+     import './MyTeamPanel.css'
+     import './team-hq.css'      // esta
+
+   No cambia markup ni nombres de clase: usa los del repo
+   (gg-pnl-*, pnl-*, mtp-*). El contenido va scopeado bajo
+   .mtp-page para ganar a las reglas .mtp-page .mtp-* que ya
+   existen en MyTeamPanel.css (líneas ~4372-4513).
+
+   Lenguaje visual: chaflán, riel de acento, micro-etiquetas mono,
+   scanlines — el mismo de las cartas del sistema.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Guard: the app's own label rules use descendant selectors
+   (MyTeamPanel.css ~2750, 4773-4776, 4819, 4884), so any element nested inside a
+   headline number would inherit the label size. Pin the numbers' children. */
+.mtp-page .mtp-scrim-status-grid>span>b *,
+.mtp-page .mtp-summary-progress__value>strong *,
+.mtp-page .mtp-summary-roster-head>strong *,
+.mtp-page .mtp-summary-metrics>span>b *,
+.mtp-page .mtp-summary-activity>span>b *,
+.mtp-page .mtp-hero h1 *,
+.mtp-page .mtp-summary-team h2 *,
+.mtp-page .pnl-kpi__value *{font:inherit;letter-spacing:inherit;color:inherit;text-transform:inherit}
+
+/* ── Sidebar ─────────────────────────────────────────────────── */
+.gg-pnl-side{border-right:1px solid var(--line)}
+.gg-pnl-side::after{content:'';position:absolute;top:0;bottom:0;right:-1px;width:1px;background:linear-gradient(180deg,transparent,rgba(var(--panel-accent-rgb),.5) 16%,rgba(var(--panel-accent-rgb),.5) 64%,transparent);pointer-events:none}
+.gg-pnl-side__logo-icon{border-radius:0;background:var(--panel-accent);color:#06070b;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px))}
+.gg-pnl-side__logo-text small{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--panel-accent);margin-top:2px}
+.gg-pnl-side__collapse{border-radius:0;clip-path:polygon(0 0,calc(100% - 7px) 0,100% 7px,100% 100%,7px 100%,0 calc(100% - 7px));transition:color .18s,background .18s,border-color .18s}
+.gg-pnl-side__collapse:hover{color:#06070b;background:var(--panel-accent);border-color:transparent}
+
+/* Ficha de equipo: el código en mono y las tres constantes como
+   hoja de datos, no como tres filas sueltas. */
+.gg-pnl-side__context{border-radius:0;background:rgba(var(--panel-accent-rgb),.06);border:1px solid rgba(var(--panel-accent-rgb),.28);gap:0;padding:0;clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px))}
+.gg-pnl-side__context-title{padding:12px 14px 11px;border-bottom:1px solid rgba(var(--panel-accent-rgb),.22);gap:5px}
+.gg-pnl-side__context-title b{font-family:var(--font-display);font-weight:700;font-size:17px;line-height:1.1;overflow-wrap:break-word}
+.gg-pnl-side__context-title small{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:9px;letter-spacing:.2em;color:var(--panel-accent)}
+.gg-pnl-side__context-list{gap:0}
+.gg-pnl-side__context-row{align-items:center;padding:8px 14px;border-top:1px solid rgba(255,255,255,.05)}
+.gg-pnl-side__context-row:first-child{padding:8px 14px;border-top:0}
+.gg-pnl-side__context-row>span{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;flex:none}
+.gg-pnl-side__context-row>b{font-family:var(--font-display);font-size:12.5px;font-weight:600;margin-left:auto}
+.gg-pnl-side__context-row:last-child>b{color:var(--panel-accent)}
+
+.gg-pnl-side__nav{overflow-x:hidden}
+.gg-pnl-side__nav-section{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:8.5px;letter-spacing:.24em;display:flex;align-items:center;gap:8px;padding:14px 4px 8px}
+.gg-pnl-side__nav-section::after{content:'';flex:1;height:1px;background:var(--line)}
+
+/* Riel de acento en el activo, en vez de solo un fondo teñido. */
+.gg-pnl-nav{position:relative;border-radius:0;padding:8px 10px 8px 9px;clip-path:polygon(0 0,calc(100% - 9px) 0,100% 9px,100% 100%,9px 100%,0 calc(100% - 9px))}
+.gg-pnl-nav:hover{background:rgba(255,255,255,.045)}
+.gg-pnl-nav.active{background:linear-gradient(90deg,rgba(var(--panel-accent-rgb),.17),rgba(var(--panel-accent-rgb),.02));color:var(--text);font-weight:600}
+.gg-pnl-nav.active::before{content:'';position:absolute;left:0;top:6px;bottom:6px;width:2px;background:var(--panel-accent);box-shadow:0 0 12px var(--panel-accent)}
+.gg-pnl-nav.active .gg-pnl-nav__icon{color:var(--panel-accent)}
+.gg-pnl-side__bottom .gg-pnl-nav{color:var(--text-dim)}
+.gg-pnl-side__user{border-radius:0;clip-path:polygon(0 0,calc(100% - 11px) 0,100% 11px,100% 100%,11px 100%,0 calc(100% - 11px))}
+.gg-pnl-side__user img,.gg-pnl-side__user-mono{border-radius:0;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px))}
+.gg-pnl-side__user-info small{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:8.5px;letter-spacing:.16em;text-transform:uppercase}
+
+/* ── Topbar ──────────────────────────────────────────────────── */
+.gg-pnl-topbar__title{font-family:var(--font-display);font-weight:700;font-size:17px;letter-spacing:.01em}
+.gg-pnl-topbar__role{border-radius:0;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:9px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;padding:5px 11px;border:1px solid rgba(var(--panel-accent-rgb),.45);background:rgba(var(--panel-accent-rgb),.1)}
+.gg-pnl-topbar__avatar{border-radius:0;clip-path:polygon(0 0,calc(100% - 7px) 0,100% 7px,100% 100%,7px 100%,0 calc(100% - 7px))}
+
+/* ── Botones y tarjetas del panel ────────────────────────────── */
+.mtp-page .pnl-btn{border-radius:0;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10.5px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;padding:11px 17px;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));transition:filter .18s,transform .15s,border-color .18s}
+.mtp-page .pnl-btn:hover{transform:translateY(-1px)}
+.mtp-page .pnl-btn--primary{color:#06070b}
+.mtp-page .pnl-card{border-radius:0;clip-path:polygon(0 0,calc(100% - 18px) 0,100% 18px,100% 100%,18px 100%,0 calc(100% - 18px))}
+.mtp-page .pnl-card__title{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:8.5px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--panel-accent);margin-bottom:14px}
+
+/* ── Hero ────────────────────────────────────────────────────── */
+.mtp-page .mtp-hero{border-radius:0;clip-path:polygon(0 0,calc(100% - 20px) 0,100% 20px,100% 100%,20px 100%,0 calc(100% - 20px))}
+.mtp-page .mtp-hero::after{content:'';position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0 1px,transparent 1px 3px);mix-blend-mode:overlay}
+.mtp-page .mtp-hero__media{background:radial-gradient(ellipse 55% 120% at 0% 0%,rgba(var(--panel-accent-rgb),.18),transparent 68%)}
+.mtp-page .mtp-hero__mark{border-radius:0;background:rgba(var(--panel-accent-rgb),.1);border:1px solid rgba(var(--panel-accent-rgb),.45);clip-path:polygon(0 0,calc(100% - 11px) 0,100% 11px,100% 100%,11px 100%,0 calc(100% - 11px))}
+.mtp-page .mtp-hero h1{font-family:var(--font-display);font-weight:700;font-size:clamp(28px,3.4vw,40px);line-height:1;letter-spacing:.01em;text-transform:uppercase;margin:0;overflow-wrap:break-word}
+.mtp-page .mtp-hero__meta>span{border-radius:0;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;background:rgba(255,255,255,.03);padding:6px 11px;white-space:nowrap}
+.mtp-page .mtp-hero__meta>span svg{color:var(--panel-accent)}
+.mtp-page .mtp-hero .pnl-tag{border-radius:0;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:9px;font-weight:500;letter-spacing:.18em;padding:5px 10px;white-space:nowrap;flex:none}
+
+/* ── KPIs ────────────────────────────────────────────────────── */
+.mtp-page .pnl-kpi{border-radius:0;clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px))}
+.mtp-page .pnl-kpi__icon{border-radius:0;border:1px solid rgba(var(--panel-accent-rgb),.35);clip-path:polygon(0 0,calc(100% - 9px) 0,100% 9px,100% 100%,9px 100%,0 calc(100% - 9px))}
+.mtp-page .pnl-kpi__value{font-size:30px;font-variant-numeric:tabular-nums}
+.mtp-page .pnl-kpi__label{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:8.5px;letter-spacing:.18em;text-transform:uppercase}
+
+/* ── Control competitivo ─────────────────────────────────────── */
+.mtp-page .mtp-scrim-command__head h3{font-family:var(--font-display);font-weight:700;font-size:22px;letter-spacing:.01em}
+.mtp-page .mtp-scrim-command__head p{max-width:74ch;line-height:1.6;text-wrap:pretty}
+
+/* Los tres contadores como banda dividida, no tres tarjetas. Un cero
+   se atenúa: un panel vacío debe verse vacío a propósito. */
+.mtp-page .mtp-scrim-status-grid{gap:0;border:1px solid var(--line);border-radius:0}
+.mtp-page .mtp-scrim-status-grid>span{border:none;border-right:1px solid var(--line);border-radius:0;padding:15px 18px;gap:6px}
+.mtp-page .mtp-scrim-status-grid>span:last-child{border-right:none}
+.mtp-page .mtp-scrim-status-grid>span{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:8.5px;letter-spacing:.18em;text-transform:uppercase}
+.mtp-page .mtp-scrim-status-grid>span>b{display:block;font-family:var(--font-display);font-weight:700;font-size:30px;line-height:1;font-variant-numeric:tabular-nums;color:var(--text)}
+.mtp-page .mtp-scrim-status-grid.is-zero>span>b{color:var(--text-dim)}
+.mtp-page .mtp-scrim-empty{margin-top:0;border-radius:0;border:none;border-top:1px solid var(--line);background:rgba(255,255,255,.015);text-align:left;display:flex;align-items:center;gap:15px;padding:17px 18px}
+.mtp-page .mtp-scrim-empty>b{display:block;font-family:var(--font-display);font-size:14.5px;font-weight:600;color:var(--text);margin-bottom:3px}
+.mtp-page .mtp-scrim-empty>span{font-size:12.5px;line-height:1.55}
+
+/* ── Resumen competitivo ─────────────────────────────────────── */
+.mtp-page .mtp-summary-team__mark{border-radius:0;background:linear-gradient(150deg,rgba(var(--panel-accent-rgb),.16),rgba(255,255,255,.02));border:1px solid rgba(var(--panel-accent-rgb),.45);clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,16px 100%,0 calc(100% - 16px))}
+.mtp-page .mtp-summary-eyebrow{border-radius:0;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:8.5px;font-weight:500;letter-spacing:.16em;color:#06070b;background:var(--panel-accent);padding:3px 8px}
+.mtp-page .mtp-summary-team h2{font-size:36px;line-height:1;letter-spacing:.01em}
+.mtp-page .mtp-summary-chips>span{border-radius:0;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;background:rgba(255,255,255,.03);white-space:nowrap}
+.mtp-page .mtp-summary-chips>span svg{color:var(--panel-accent)}
+
+/* ── Perfil público ──────────────────────────────────────────── */
+.mtp-page .mtp-summary-progress__value strong{font-size:52px;font-variant-numeric:tabular-nums}
+.mtp-page .mtp-summary-progress__value>span{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase}
+.mtp-page .mtp-summary-progress__bar{border-radius:0}
+.mtp-page .mtp-summary-progress__bar i{border-radius:0;box-shadow:0 0 14px -2px var(--panel-accent)}
+.mtp-page .mtp-summary-metrics{gap:1px;background:var(--line);border:1px solid var(--line)}
+.mtp-page .mtp-summary-metrics>span{background:var(--bg-elev);padding:12px 11px;gap:4px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:8px;letter-spacing:.16em;text-transform:uppercase}
+
+/* ── Roster: plazas dibujadas, la capacidad se lee de golpe ──── */
+.mtp-page .mtp-summary-roster-head strong{font-family:var(--font-display);font-weight:700;font-size:16px}
+.mtp-page .mtp-summary-roster-head>span{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;margin-left:auto}
+.mtp-page .mtp-summary-roster-list>span{border-radius:0;font-family:var(--font-body);font-size:12px;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));transition:border-color .2s,background .2s,color .2s}
+.mtp-page .mtp-summary-roster-list>span:hover{border-color:var(--panel-accent);background:rgba(var(--panel-accent-rgb),.07);color:var(--text)}
+.mtp-page .mtp-summary-roster-list>span>b{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:9px;letter-spacing:.1em;color:var(--text-dim);flex:none}
+.mtp-page .mtp-summary-roster-list>span.is-filled{border-color:rgba(var(--panel-accent-rgb),.4);background:rgba(var(--panel-accent-rgb),.05)}
+.mtp-page .mtp-summary-roster-list>span.is-filled>b{color:var(--panel-accent)}
+
+/* ── Actividad ───────────────────────────────────────────────── */
+.mtp-page .mtp-summary-activity{
+  display:grid;
+  gap:12px;
+  margin-top:14px;
+}
+
+.mtp-page .mtp-summary-activity>span{
+  min-width:0;
+  display:grid;
+  grid-template-columns:minmax(34px,auto) minmax(0,1fr);
+  align-items:center;
+  column-gap:14px;
+  row-gap:4px;
+  min-height:58px;
+  padding:14px 16px;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:0;
+  background:rgba(255,255,255,.025);
+  clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));
+  color:var(--text-dim);
+  line-height:1.35;
+  overflow:hidden;
+  overflow-wrap:anywhere;
+}
+
+.mtp-page .mtp-summary-activity>span:first-child{border-top:1px solid rgba(255,255,255,.08)}
+
+.mtp-page .mtp-summary-activity>span>b{
+  min-width:0;
+  flex:none;
+  font-family:'IBM Plex Mono',ui-monospace,monospace;
+  font-size:10px;
+  line-height:1;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--panel-accent);
+  overflow-wrap:anywhere;
+}
+
+@media (prefers-reduced-motion:reduce){.mtp-page .pnl-btn:hover{transform:none}}
+
+@media (max-width:560px){
+  .mtp-page .mtp-summary-activity>span{
+    grid-template-columns:1fr;
+    align-items:start;
+    padding:13px 14px;
+  }
+
+  .mtp-page .mtp-summary-activity>span>b{
+    font-size:9.5px;
+  }
+}
+
+/* App integration: keep every Team HQ tab on the same skin. */
+.gg-pnl:has(.mtp-page){
+  --panel-accent:var(--accent);
+  --panel-accent-rgb:var(--accent-rgb);
+}
+
+.mtp-page .pnl-btn--primary,
+.mtp-page button.pnl-btn--primary,
+.mtp-page label.pnl-btn--primary{
+  background:var(--panel-accent)!important;
+  border-color:var(--panel-accent)!important;
+  color:#06070b!important;
+  box-shadow:none!important;
+}
+
+.mtp-page .pnl-btn--primary:hover,
+.mtp-page button.pnl-btn--primary:hover,
+.mtp-page label.pnl-btn--primary:hover{
+  background:color-mix(in srgb,var(--panel-accent) 88%,#fff)!important;
+  border-color:color-mix(in srgb,var(--panel-accent) 88%,#fff)!important;
+  color:color-mix(in srgb,var(--bg) 92%,#000)!important;
+}
+
+.mtp-page .pnl-btn:not(.pnl-btn--primary){
+  background:rgba(255,255,255,.035)!important;
+  border-color:var(--line)!important;
+  color:var(--text)!important;
+  box-shadow:none!important;
+}
+
+.mtp-page .pnl-btn:not(.pnl-btn--primary):hover{
+  border-color:rgba(var(--panel-accent-rgb),.45)!important;
+  background:rgba(var(--panel-accent-rgb),.08)!important;
+}
+
+.mtp-page :is(
+  .mtp-roster-main,
+  .mtp-roster-editor,
+  .mtp-roster-group,
+  .mtp-roster-detail,
+  .mtp-web-studio__hero,
+  .mtp-web-card,
+  .mtp-web-cover,
+  .mtp-sponsor-editor,
+  .mtp-sponsor-empty,
+  .mtp-requests-hero,
+  .mtp-requests-empty,
+  .mtp-share-box,
+  .mtp-privacy-hero,
+  .mtp-privacy-hero__status,
+  .mtp-team-calendar__hero,
+  .mtp-team-calendar__stats button,
+  .mtp-team-calendar__empty,
+  .mtp-team-calendar-modal__panel,
+  .challenger-header-card,
+  .rule-item,
+  .challenger-notice-box,
+  .challenger-sub-tabs,
+  .pro-team-row-card,
+  .ticket-item-card
+){
+  border-radius:0!important;
+  border:1px solid var(--line)!important;
+  background:rgba(255,255,255,.035)!important;
+  clip-path:polygon(0 0,calc(100% - 18px) 0,100% 18px,100% 100%,18px 100%,0 calc(100% - 18px));
+  box-shadow:none!important;
+}
+
+.mtp-page :is(
+  .mtp-web-studio__hero,
+  .mtp-requests-hero,
+  .mtp-privacy-hero,
+  .mtp-team-calendar__hero,
+  .challenger-header-card
+){
+  background:
+    radial-gradient(ellipse 60% 120% at 0 0,rgba(var(--panel-accent-rgb),.14),transparent 64%),
+    rgba(255,255,255,.035)!important;
+}
+
+.mtp-page :is(
+  .mtp-roster-group__head,
+  .mtp-web-card__head,
+  .mtp-sponsor-studio__head,
+  .mtp-sponsor-editor__top,
+  .mtp-team-calendar-modal__head
+){
+  border-bottom:1px solid var(--line);
+  padding-bottom:12px;
+}
+
+.mtp-page :is(
+  .mtp-section-heading,
+  .mtp-roster-group__head span,
+  .mtp-web-studio__hero span,
+  .mtp-web-card__head span,
+  .mtp-sponsor-studio__head span,
+  .mtp-sponsor-editor__top span,
+  .mtp-requests-hero span,
+  .mtp-privacy-hero span,
+  .mtp-team-calendar__hero span,
+  .mtp-team-calendar-modal__head span,
+  .mtp-team-calendar__cell.today>b,
+  .challenger-competitive-strip b,
+  .rule-item__icon,
+  .mtp-roster-card__signals i.is-on
+){
+  color:var(--panel-accent)!important;
+}
+
+.mtp-page :is(
+  .mtp-roster-card,
+  .mtp-mini-slot,
+  .mtp-info-grid>div,
+  .mtp-request-card,
+  .mtp-team-activity,
+  .mtp-team-calendar__cell,
+  .mtp-privacy-preview span,
+  .mtp-roster-detail__grid>div,
+  .mtp-roster-detail__summary>div,
+  .mtp-roster-detail__quick,
+  .mtp-roster-photo-field,
+  .mtp-roster-social-editor
+){
+  border-radius:0!important;
+  border:1px solid rgba(255,255,255,.07)!important;
+  background:rgba(255,255,255,.025)!important;
+  clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));
+  box-shadow:none!important;
+}
+
+.mtp-page .mtp-roster-card{
+  min-height:220px;
+  padding:18px 14px;
+}
+
+.mtp-page .mtp-roster-card.vacant{
+  border-style:dashed!important;
+  opacity:.72;
+}
+
+.mtp-page .mtp-roster-card:hover,
+.mtp-page .mtp-roster-card.is-selected,
+.mtp-page .mtp-team-calendar__stats button.active,
+.mtp-page .mtp-team-calendar__cell.selected,
+.mtp-page .sub-tab-btn.active{
+  border-color:rgba(var(--panel-accent-rgb),.48)!important;
+  background:rgba(var(--panel-accent-rgb),.06)!important;
+}
+
+.mtp-page :is(
+  .mtp-roster-card__avatar,
+  .mtp-roster-detail__avatar,
+  .mtp-web-cover__logo,
+  .mtp-sponsor-editor__logo,
+  .mtp-requests-empty__icon,
+  .mtp-request-card__avatar,
+  .mtp-team-calendar__empty span,
+  .mtp-roster-photo-field__preview
+){
+  border-radius:0!important;
+  border:1px solid rgba(var(--panel-accent-rgb),.35)!important;
+  background:rgba(var(--panel-accent-rgb),.1)!important;
+  color:var(--panel-accent)!important;
+  clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));
+}
+
+.mtp-page :is(input,select,textarea,.mtp-input-wrapper input,.mtp-input-wrapper select,.mtp-input-wrapper textarea,.mtp-control input,.mtp-control select,.mtp-control textarea){
+  border-radius:0!important;
+  border:1px solid var(--line)!important;
+  background:rgba(0,0,0,.28)!important;
+  color:var(--text)!important;
+  box-shadow:none!important;
+}
+
+.mtp-page :is(input,select,textarea,.mtp-input-wrapper input,.mtp-input-wrapper select,.mtp-input-wrapper textarea,.mtp-control input,.mtp-control select,.mtp-control textarea):focus{
+  border-color:rgba(var(--panel-accent-rgb),.58)!important;
+  box-shadow:0 0 0 3px rgba(var(--panel-accent-rgb),.12)!important;
+}
+
+.mtp-page .mtp-toggle i{
+  border-radius:0!important;
+  background:rgba(255,255,255,.045)!important;
+}
+
+.mtp-page .mtp-toggle input:checked+i{
+  border-color:rgba(var(--panel-accent-rgb),.48)!important;
+  background:rgba(var(--panel-accent-rgb),.16)!important;
+}
+
+.mtp-page .mtp-toggle input:checked+i::after{
+  background:var(--panel-accent)!important;
+}
+

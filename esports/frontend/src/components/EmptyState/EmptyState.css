@@ -1,0 +1,10 @@
+.gg-empty {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 12px; padding: 60px 24px; text-align: center;
+}
+.gg-empty__icon { color: var(--text-dim); opacity: .5; }
+.gg-empty__icon svg { width: 48px; height: 48px; }
+.gg-empty__title { font-size: 16px; font-weight: 600; color: var(--text-dim); }
+.gg-empty__desc { font-size: 14px; color: var(--text-dim); opacity: .7; max-width: 320px; }
+.gg-empty__action { margin-top: 8px; }
+

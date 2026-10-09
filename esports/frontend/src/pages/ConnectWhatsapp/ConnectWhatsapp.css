@@ -1,0 +1,168 @@
+/* Tema WhatsApp: verde, burbujas de chat -- distinto a propósito del look
+   "role panel" del resto de GlitchGang. */
+.cw-page {
+  --cw-accent: #25D366;
+  --cw-accent-rgb: 37, 211, 102;
+  --cw-dark: #075E54;
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  padding: 56px 20px 80px;
+  background: #0a1410;
+  color: #f3f5f8;
+  display: flex;
+  justify-content: center;
+}
+
+.cw-doodles {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: .05;
+  background-image: radial-gradient(circle, var(--cw-accent) 1.5px, transparent 1.5px);
+  background-size: 26px 26px;
+}
+.cw-page::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background: radial-gradient(760px 480px at 50% -10%, rgba(var(--cw-accent-rgb), .16), transparent 60%);
+}
+
+.cw-content { position: relative; z-index: 1; width: 100%; max-width: 560px; display: flex; flex-direction: column; align-items: center; gap: 26px; }
+
+.cw-hero { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.cw-mark {
+  width: 72px; height: 72px;
+  display: grid; place-items: center;
+  border-radius: 24px;
+  background: rgba(var(--cw-accent-rgb), .16);
+  border: 1px solid rgba(var(--cw-accent-rgb), .5);
+  color: var(--cw-accent);
+  box-shadow: 0 0 50px rgba(var(--cw-accent-rgb), .35);
+}
+.cw-mark svg { width: 34px; height: 34px; }
+.cw-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--cw-accent); }
+.cw-hero h1 { margin: 4px 0 0; font-family: var(--font-display, inherit); font-size: clamp(28px, 5vw, 42px); font-weight: 700; line-height: 1.1; }
+.cw-hero p { max-width: 440px; margin: 4px 0 0; color: rgba(243,245,248,.68); font-size: 15px; line-height: 1.6; }
+
+/* "Teléfono" con la conversación de ejemplo */
+.cw-phone {
+  width: 100%;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.08);
+  background: #0b141a;
+}
+.cw-phone__bar {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 16px;
+  background: var(--cw-dark);
+}
+.cw-phone__avatar {
+  width: 34px; height: 34px; flex: none;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: rgba(255,255,255,.12);
+  color: #fff;
+}
+.cw-phone__avatar svg { width: 18px; height: 18px; }
+.cw-phone__bar b { display: block; font-size: 13.5px; color: #fff; }
+.cw-phone__bar small { font-size: 11px; color: rgba(255,255,255,.6); }
+.cw-phone__bar div { flex: 1; }
+.cw-phone__replay {
+  background: none; border: none; color: rgba(255,255,255,.7); cursor: pointer;
+  display: grid; place-items: center; padding: 6px;
+}
+.cw-phone__replay svg { width: 16px; height: 16px; }
+
+.cw-phone__body {
+  min-height: 260px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background-image: radial-gradient(rgba(255,255,255,.025) 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+.cw-bubble {
+  max-width: 78%;
+  padding: 9px 13px;
+  border-radius: 10px;
+  font-size: 13.5px;
+  line-height: 1.45;
+}
+.cw-bubble--you {
+  align-self: flex-end;
+  background: #005c4b;
+  color: #e9fdf3;
+  border-bottom-right-radius: 2px;
+}
+.cw-bubble--bot {
+  align-self: flex-start;
+  background: #1f2c33;
+  color: #e9edef;
+  border-bottom-left-radius: 2px;
+}
+
+.cw-connected {
+  width: 100%;
+  display: flex; align-items: center; gap: 14px;
+  padding: 20px 22px;
+  border-radius: 16px;
+  background: rgba(var(--cw-accent-rgb), .12);
+  border: 1px solid rgba(var(--cw-accent-rgb), .4);
+}
+.cw-connected__icon { width: 40px; height: 40px; flex: none; display: grid; place-items: center; border-radius: 50%; background: var(--cw-accent); color: #04130a; }
+.cw-connected__icon svg { width: 20px; height: 20px; }
+.cw-connected__info { display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0; }
+.cw-connected__info b { font-size: 14.5px; }
+.cw-connected__info span { font-size: 12.5px; color: rgba(243,245,248,.6); }
+
+.cw-steps { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+.cw-step { display: flex; align-items: flex-start; gap: 12px; width: 100%; }
+.cw-step__num {
+  flex: none; width: 26px; height: 26px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: var(--cw-accent); color: #04130a;
+  font-weight: 800; font-size: 12.5px;
+}
+.cw-step p { margin: 0; font-size: 13.5px; color: rgba(243,245,248,.72); line-height: 1.55; }
+.cw-step code {
+  padding: 2px 6px; border-radius: 5px;
+  background: rgba(var(--cw-accent-rgb), .16); color: #a7f3c8;
+  font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px;
+}
+
+.cw-command { width: 100%; display: flex; flex-direction: column; gap: 8px; align-items: center; text-align: center; }
+.cw-command > span { font-size: 13px; color: rgba(243,245,248,.65); }
+.cw-command__row { display: flex; align-items: center; gap: 10px; }
+.cw-command__row code {
+  padding: 9px 14px; border-radius: 8px;
+  background: rgba(var(--cw-accent-rgb), .14); color: #a7f3c8;
+  font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 14px; font-weight: 700;
+}
+.cw-command small { color: rgba(243,245,248,.4); font-size: 11.5px; }
+
+.cw-btn {
+  display: inline-flex; align-items: center; gap: 9px;
+  padding: 14px 26px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.05);
+  color: #fff;
+  font-size: 14px; font-weight: 700;
+  cursor: pointer;
+  transition: transform .15s, filter .15s;
+}
+.cw-btn svg { width: 17px; height: 17px; }
+.cw-btn:hover { transform: translateY(-2px); }
+.cw-btn--primary { background: var(--cw-accent); border-color: var(--cw-accent); color: #04130a; box-shadow: 0 14px 34px rgba(var(--cw-accent-rgb), .4); }
+.cw-btn--primary:hover { filter: brightness(1.06); }
+.cw-btn--ghost { background: transparent; }
+.cw-btn--sm { padding: 8px 14px; font-size: 12.5px; }
+
+.cw-back { color: rgba(243,245,248,.45); font-size: 12.5px; text-decoration: none; }
+.cw-back:hover { color: rgba(243,245,248,.75); }
+
+@media (max-width: 480px) {
+  .cw-page { padding: 40px 16px 60px; }
+}
+

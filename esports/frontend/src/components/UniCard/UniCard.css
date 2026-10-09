@@ -1,0 +1,104 @@
+/* Tarjeta de universidad — HUD: esquinas cortadas, visor en el color de la
+   universidad (--uc), banner con scanlines y lecturas en mono. */
+.gg-uni-card {
+  --uc-tone: color-mix(in srgb, var(--uc, var(--accent)) 62%, #fff);
+  --uc-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
+  --uc-clip: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+  --uc-clip-sm: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+  position: relative;
+  display: flex; flex-direction: column;
+  padding: 0 0 18px;
+  overflow: hidden;
+  cursor: pointer;
+  background: color-mix(in srgb, var(--bg-elev) 94%, var(--bg));
+  border: 1px solid color-mix(in srgb, var(--uc-tone) 22%, var(--line));
+  clip-path: var(--uc-clip);
+  transition: transform .2s, border-color .2s;
+}
+.gg-uni-card::before,
+.gg-uni-card::after {
+  content: ''; position: absolute; width: 16px; height: 16px; pointer-events: none; z-index: 3;
+  opacity: .55; transition: opacity .2s;
+}
+.gg-uni-card::before {
+  top: 0; left: 0;
+  background:
+    linear-gradient(var(--uc-tone), var(--uc-tone)) 0 0 / 16px 2px no-repeat,
+    linear-gradient(var(--uc-tone), var(--uc-tone)) 0 0 / 2px 16px no-repeat;
+}
+.gg-uni-card::after {
+  right: 0; bottom: 0;
+  background:
+    linear-gradient(var(--uc-tone), var(--uc-tone)) 100% 100% / 16px 2px no-repeat,
+    linear-gradient(var(--uc-tone), var(--uc-tone)) 100% 100% / 2px 16px no-repeat;
+}
+.gg-uni-card:hover { transform: translateY(-3px); border-color: color-mix(in srgb, var(--uc-tone) 55%, var(--line)); }
+.gg-uni-card:hover::before,
+.gg-uni-card:hover::after { opacity: 1; }
+.gg-uni-card.mine { border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); }
+
+.gg-uni-card__banner {
+  position: relative; height: 62px;
+  background:
+    radial-gradient(160px 80px at 85% 0%, color-mix(in srgb, var(--uc) 60%, transparent), transparent 70%),
+    linear-gradient(135deg, color-mix(in srgb, var(--uc) 35%, var(--bg)), var(--bg) 85%);
+}
+.gg-uni-card__banner::after {
+  content: ''; position: absolute; inset: 0;
+  background:
+    repeating-linear-gradient(180deg, color-mix(in srgb, var(--bg) 55%, transparent) 0 1px, transparent 1px 3px),
+    linear-gradient(180deg, transparent 40%, color-mix(in srgb, var(--bg-elev) 94%, var(--bg)) 100%);
+}
+
+.gg-uni-card__logo {
+  position: relative; z-index: 1;
+  width: 60px; height: 60px;
+  margin: -32px auto 0;
+  display: grid; place-items: center; overflow: hidden;
+  clip-path: var(--uc-clip-sm);
+  border: 1px solid color-mix(in srgb, var(--uc-tone) 55%, transparent);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--uc) 40%, transparent);
+  font: 700 12px var(--uc-mono); letter-spacing: .06em; color: #fff;
+}
+.gg-uni-card__logo img { background: #fff; padding: 4px; border-radius: 0 !important; }
+
+.gg-uni-card__badges {
+  display: flex; justify-content: center; flex-wrap: wrap; gap: 6px;
+  min-height: 22px; margin-top: 10px; padding: 0 14px;
+}
+
+.gg-uni-card__name {
+  margin: 8px 14px 3px;
+  font-family: var(--font-display); font-size: 14px; font-weight: 700; line-height: 1.25;
+  text-align: center; color: var(--text);
+}
+.gg-uni-card__city {
+  margin: 0 14px 14px;
+  font: 500 10.5px var(--uc-mono); letter-spacing: .1em; text-transform: uppercase;
+  text-align: center; color: var(--text-dim);
+}
+
+.gg-uni-card__stats {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px;
+  margin-top: auto; padding: 0 12px;
+}
+.gg-uni-card__stat {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  padding: 8px 4px;
+  background: color-mix(in srgb, var(--text) 3%, transparent);
+  border: 1px solid var(--line);
+  clip-path: var(--uc-clip-sm);
+}
+.gg-uni-card__stat span { font: 700 15px var(--uc-mono); color: var(--text); line-height: 1; }
+.gg-uni-card__stat small { font: 600 8.5px var(--uc-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--text-dim); }
+
+.gg-uni-card__bar {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 2px;
+  background: var(--uc-tone); box-shadow: 0 0 10px var(--uc-tone);
+  opacity: .45; transition: opacity .2s;
+}
+.gg-uni-card:hover .gg-uni-card__bar { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) { .gg-uni-card { transition: none; } }
+html.gg-perf .gg-uni-card:hover { transform: none; }
+
