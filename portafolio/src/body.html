@@ -1,0 +1,84 @@
+<div id="loader" aria-hidden="true"><svg class="ld-star" viewBox="0 0 100 100"><path class="ls-a" d=""/><path class="ls-b" d=""/></svg><p class="ld-word">Steliant</p></div>
+<div class="bg" aria-hidden="true"><i class="b1"></i><i class="b2"></i><i class="b3"></i><canvas id="field"></canvas></div>
+<div class="cursor" aria-hidden="true"><span></span></div>
+<div class="prog" aria-hidden="true"><i></i></div>
+
+<aside class="rail" id="rail">
+  <a href="#inicio" class="r-logo" aria-label="Steliant"><svg viewBox="0 0 100 100" class="star-mini"><path class="sa" d=""/><path class="sb" d=""/></svg></a>
+  <nav class="r-nav" id="rNav" aria-label="Principal"></nav>
+  <div class="r-tools">
+    <button type="button" class="r-btn" id="langBtn" aria-label="Idioma"><span id="langLbl">ES</span></button>
+    <button type="button" class="r-btn" id="themeBtn" aria-label="Tema"><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z"/></svg><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg></button>
+  </div>
+</aside>
+<header class="mtop"><a href="#inicio" class="m-logo"><svg viewBox="0 0 100 100" class="star-mini"><path class="sa" d=""/><path class="sb" d=""/></svg><b>Steliant</b></a><button type="button" class="m-menu" id="mMenu"><span></span><span></span></button></header>
+<nav class="mnav" id="mNav" aria-label="Menú"></nav>
+
+<main id="app">
+  <!-- INICIO -->
+  <div class="view" id="v-inicio">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="kick h-in" data-t="home.kick"></p>
+        <h1 class="chars h-title" data-split="home.title"></h1>
+        <p class="h-lede h-in" data-t="home.lede"></p>
+        <div class="ctas h-in"><a href="#proyectos" class="btn btn-main mag"><span data-t="home.cta1"></span><i class="arr">→</i></a><a href="#precios" class="btn btn-line mag" data-goto="calc"><span data-t="home.cta2"></span></a></div>
+      </div>
+      <div class="orbit-wrap" id="orbitWrap">
+        <svg viewBox="0 0 100 100" class="star-big" id="starBig"><defs><linearGradient id="ga" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--navy-2)"/><stop offset="1" stop-color="var(--navy)"/></linearGradient><linearGradient id="gb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2ee6d0"/><stop offset="1" stop-color="#0a9c96"/></linearGradient></defs><path class="sa" d=""/><path class="sb" d=""/></svg>
+        <div class="orbit" id="orbit"></div>
+        <div class="ring r1"></div><div class="ring r2"></div>
+      </div>
+      <div class="stats" id="stats"></div>
+    </section>
+    <section class="wrap quote-home" id="quoteHome" hidden></section>
+    <section class="sec">
+      <div class="wrap s-head"><p class="kick" data-t="home.featKick"></p><h2 class="chars" data-split="home.featTitle"></h2></div>
+      <div class="wrap feat" id="feat"></div>
+      <div class="wrap center"><a href="#proyectos" class="btn btn-line mag"><span data-t="home.all"></span><i class="arr">→</i></a></div>
+    </section>
+    <section class="sec why">
+      <div class="wrap s-head"><p class="kick" data-t="home.whyKick"></p></div>
+      <div class="wrap why-grid" id="whyGrid"></div>
+    </section>
+    <section class="sec"><div class="wrap"><div class="cta-box"><h2 class="chars" data-split="home.ctaTitle"></h2><p data-t="home.ctaText"></p><a href="#contacto" class="btn btn-main mag"><span data-t="nav.contact"></span><i class="arr">→</i></a><div class="cta-star" aria-hidden="true"><svg viewBox="0 0 100 100"><path class="sa" d=""/><path class="sb" d=""/></svg></div></div></div></section>
+  </div>
+
+  <!-- PROYECTOS -->
+  <div class="view" id="v-proyectos">
+    <section class="vhead wrap"><p class="kick" data-t="work.kick"></p><h1 class="chars" data-split="work.title"></h1><p class="v-lede" data-t="work.lede"></p></section>
+    <section class="wrap"><div class="filters" id="filters"><span class="f-ink"></span></div><div class="grid" id="grid"></div></section>
+  </div>
+
+  <!-- PRECIOS -->
+  <div class="view" id="v-precios">
+    <section class="vhead wrap"><p class="kick" data-t="pricing.kick"></p><h1 class="chars" data-split="pricing.title"></h1><p class="v-lede" data-t="pricing.lede"></p></section>
+    <section class="wrap">
+      <div class="paytog" id="payTog"><span class="pt-ink"></span><button type="button" class="on" data-pay="once" data-t="pricing.once"></button><button type="button" data-pay="monthly" data-t="pricing.monthly"></button></div>
+      <div class="pkgs" id="pkgs"></div>
+      <p class="note" data-t="pricing.note"></p>
+    </section>
+    <section class="sec wrap costs"><p class="kick" data-t="pricing.costKick"></p><div class="cost-list" id="costList"></div></section>
+    <section class="sec wrap" id="calc"><div class="s-head"><p class="kick" data-t="pricing.calcKick"></p><h2 class="chars" data-split="pricing.calcTitle"></h2></div><div class="calc" id="calcBox"></div></section>
+  </div>
+
+  <!-- PROCESO -->
+  <div class="view" id="v-proceso">
+    <section class="vhead wrap"><p class="kick" data-t="process.kick"></p><h1 class="chars" data-split="process.title"></h1><p class="v-lede" data-t="process.lede"></p></section>
+    <section class="wrap timeline" id="timeline"><div class="tl-line"><i></i></div></section>
+    <section class="sec wrap"><p class="kick" data-t="process.faqKick"></p><div class="faq" id="faq"></div></section>
+  </div>
+
+  <!-- CONTACTO -->
+  <div class="view" id="v-contacto">
+    <section class="vhead wrap"><p class="kick" data-t="contact.kick"></p><h1 class="chars" data-split="contact.title"></h1><p class="v-lede" data-t="contact.lede"></p></section>
+    <section class="wrap contact" id="contactBox"></section>
+  </div>
+
+  <footer class="foot wrap"><div class="f-top"><svg viewBox="0 0 100 100" class="star-mini"><path class="sa" d=""/><path class="sb" d=""/></svg><div><b>Steliant</b><small data-t="footer.tag"></small></div></div><nav id="fNav"></nav><p class="f-giant" id="fGiant" aria-hidden="true"></p><p class="f-bot"><span>© 2026 Steliant</span><span data-t="footer.credit"></span></p></footer>
+</main>
+
+<div class="drawer" id="drawer" aria-hidden="true"><div class="dr-bg" data-close></div><article class="dr-panel" id="drPanel" role="dialog" aria-modal="true"></article></div>
+<div class="modal" id="modal" aria-hidden="true"><div class="dr-bg" data-mclose></div><div class="m-panel" id="mPanel" role="dialog" aria-modal="true"></div></div>
+<button type="button" class="fab" id="fab" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M7 3h10a2 2 0 0 1 2 2v16l-3-2-2 2-2-2-2 2-2-2-3 2V5a2 2 0 0 1 2-2z"/><path d="M9 8h6M9 12h6"/></svg><span data-t="nav.my"></span></button>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
