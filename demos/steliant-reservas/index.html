@@ -1,0 +1,133 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" type="image/svg+xml" href="/steliant/demos/steliant-reservas/favicon.svg"><title>Steliant Reservas · Reservas, bots y CRM</title>
+<meta name="description" content="Plantilla de software de reservas, bots y CRM por Steliant">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=Bebas+Neue&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script type="module" crossorigin src="/steliant/demos/steliant-reservas/assets/index-Db_gylMd.js"></script>
+  <link rel="stylesheet" crossorigin href="/steliant/demos/steliant-reservas/assets/index-DGQgM2Vg.css">
+</head><body>
+<div id="loader" aria-hidden="true"><div class="ld-stack"><i></i><i></i><i></i></div><p class="ld-word">Steliant <em>Reservas</em></p><div class="ld-bar"><i></i></div></div>
+<div class="mesh" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="cursor" aria-hidden="true"></div>
+<div class="scroll-prog" aria-hidden="true"><i></i></div>
+<div id="curtain" aria-hidden="true"><div class="sweep"><span></span></div></div>
+
+<header class="top" id="top">
+  <a href="#inicio" class="brand" aria-label="Steliant Reservas"><span class="logo"><svg viewBox="0 0 40 40" fill="none"><rect x="5" y="8" width="30" height="27" rx="8" stroke="currentColor" stroke-width="2.2"/><path d="M5 16h30M13 5v6M27 5v6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><circle cx="20" cy="26" r="4" fill="var(--accent)"/></svg></span><span class="brand-txt"><b>Steliant</b><em>Reservas</em></span></a>
+  <div class="tools">
+    <div class="seg" id="seg" role="group" aria-label="Idioma"><span class="pill"></span><button type="button" data-lang="es" aria-pressed="true">ES</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div>
+    <button type="button" class="icon-btn theme-btn" id="themeBtn" aria-label="Tema"><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z"/></svg><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg></button>
+    <a href="#planes" class="btn btn-accent btn-sm magnetic top-cta"><span data-t="nav.cta"></span></a>
+  </div>
+</header>
+
+<nav class="dock" id="dock" aria-label="Principal"><span class="dock-blob" aria-hidden="true"></span></nav>
+
+<main id="app" class="i18n">
+  <!-- INICIO -->
+  <div class="view" id="v-inicio">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="kick hero-in"><span data-t="home.kick"></span></p>
+          <h1 class="chars hero-title" data-split="home.title"></h1>
+          <p class="hero-lede hero-in" data-t="home.lede"></p>
+          <div class="cfg glass hero-in" id="cfg"></div>
+        </div>
+        <div class="preview-wrap" id="previewWrap">
+          <div class="browser" id="miniBrowser"><div class="br-bar"><i></i><i></i><i></i><span class="br-url" id="miniUrl"></span></div><div class="mini" id="mini"></div></div>
+          <p class="cfg-hint" data-t="home.cfgHint"></p>
+        </div>
+      </div>
+      <div class="wrap stats" id="heroStats"></div>
+    </section>
+
+    <div class="wrap"><div class="apptcard glass" id="apptCard" hidden></div><div class="plancard glass" id="planCard" hidden></div></div>
+
+    <section class="sec">
+      <div class="wrap sec-head"><p class="kick"><span data-t="home.getKick"></span></p><h2 class="chars" data-split="home.getTitle"></h2></div>
+      <div class="wrap get-grid" id="getGrid"></div>
+    </section>
+
+    <section class="sec ba">
+      <div class="wrap ba-grid">
+        <div class="sec-head"><p class="kick"><span data-t="home.beforeKick"></span></p><h2 class="chars" data-split="home.beforeTitle"></h2>
+          <button type="button" class="ba-switch" id="baSwitch" aria-pressed="false"><span data-t="home.before"></span><i><b></b></i><span data-t="home.after"></span></button></div>
+        <div class="ba-stage glass" id="baStage"><div class="ba-chaos" id="baChaos"></div><div class="ba-order" id="baOrder"></div></div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="wrap"><div class="sec-head row"><p class="kick"><span data-t="home.quotesKick"></span></p><span class="sample" data-t="c.sample"></span></div><div class="q-grid rv-group" id="qGrid"></div></div>
+    </section>
+
+    <section class="cta-band"><div class="wrap"><div class="cta-in glass"><h2 class="chars" data-split="home.ctaTitle"></h2><p data-t="home.ctaText"></p><div class="hero-cta"><a href="#planes" class="btn btn-accent magnetic"><span data-t="nav.cta"></span></a><a href="#demos" class="btn btn-glass magnetic"><span data-t="home.cta1"></span></a></div><div class="cta-rings" aria-hidden="true"><i></i><i></i><i></i></div></div></div></section>
+  </div>
+
+  <!-- DEMOS -->
+  <div class="view" id="v-demos">
+    <section class="vhead"><div class="wrap"><p class="kick"><span data-t="demos.kick"></span></p><h1 class="chars" data-split="demos.title"></h1><p class="vlede" data-t="demos.lede"></p></div></section>
+    <section class="demo-sec"><div class="wrap">
+      <div class="demo-bar"><div class="niche-tabs" id="nicheTabs"></div><div class="dev-tabs"><button type="button" class="on" data-dev="desk" data-t="demos.desktop"></button><button type="button" data-dev="mob" data-t="demos.mobile"></button></div></div>
+      <div class="stage" id="stage"><div class="browser big" id="demoBrowser"><div class="br-bar"><i></i><i></i><i></i><span class="br-url" id="demoUrl"></span></div><div class="site-scroll" id="siteScroll"><div class="site" id="site"></div></div></div></div>
+    </div></section>
+  </div>
+
+  <!-- BOTS -->
+  <div class="view" id="v-bots">
+    <section class="bot-hero"><div class="wrap bot-grid">
+      <div class="bot-copy"><p class="kick"><span data-t="bots.kick"></span></p><h1 class="chars" data-split="bots.title"></h1><p class="vlede" data-t="bots.lede"></p>
+        <div class="chan" id="chan"><button type="button" class="on" data-chan="wa">WhatsApp</button><button type="button" data-chan="ig">Instagram</button><button type="button" data-chan="web">Web</button></div>
+        <div class="bstats" id="botStats"></div>
+      </div>
+      <div class="bot-stage">
+        <div class="halo" aria-hidden="true"></div>
+        <div class="phone chan-wa" id="phone">
+          <div class="ph-top"><span class="ph-ava" id="phAva"></span><div><b id="phName"></b><small data-t="bots.online"></small></div><span class="ph-ico" id="phIco"></span></div>
+          <div class="ph-body" id="chatBody"></div>
+          <div class="ph-chips" id="chatChips"></div>
+          <form class="ph-input" id="chatForm"><input id="chatIn" autocomplete="off"><button type="submit" aria-label="Enviar"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 20l18-8L3 4l2 7 8 1-8 1z"/></svg></button></form>
+        </div>
+        <div class="incoming" id="incoming" aria-hidden="true"></div>
+      </div>
+    </div></section>
+    <section class="sec flow-sec"><div class="wrap"><p class="kick"><span data-t="bots.flowKick"></span></p><div class="flow" id="flow"></div></div></section>
+  </div>
+
+  <!-- PANELES -->
+  <div class="view" id="v-paneles">
+    <section class="vhead"><div class="wrap"><p class="kick"><span data-t="panels.kick"></span></p><h1 class="chars" data-split="panels.title"></h1><p class="vlede" data-t="panels.lede"></p></div></section>
+    <section class="panels-sec"><div class="wrap">
+      <div class="plan-switch" id="planSwitch"></div>
+      <div class="app glass" id="appShell"></div>
+    </div></section>
+  </div>
+
+  <!-- PLANES -->
+  <div class="view" id="v-planes">
+    <section class="vhead"><div class="wrap"><p class="kick"><span data-t="plans.kick"></span></p><h1 class="chars" data-split="plans.title"></h1><p class="vlede" data-t="plans.lede"></p></div></section>
+    <section class="sec plans"><div class="wrap">
+      <div class="bill" id="bill"><span class="pill"></span><button type="button" data-bill="m" class="on" data-t="plans.monthly"></button><button type="button" data-bill="y" data-t="plans.yearly"></button></div>
+      <div class="plan-grid" id="planGrid"></div>
+      <div class="cmp glass" id="cmp"></div>
+      <div class="addons glass"><p class="kick"><span data-t="plans.addKick"></span></p><div class="add-list" id="addList"></div><div class="add-total"><small data-t="plans.total"></small><strong id="addTotal"></strong></div></div>
+      <div class="faq" id="faqList"></div>
+    </div></section>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="foot-grid i18n">
+      <div class="foot-brand"><p data-t="footer.tag"></p></div>
+      <nav id="footNav" aria-label="Footer"></nav>
+      <div class="foot-contact"><p class="kick"><span data-t="footer.contact"></span></p><span>+1 (809) 555-0144</span><span>hola@steliantreservas.com</span></div>
+    </div>
+    <div class="giant" aria-hidden="true" id="giant"></div>
+    <div class="foot-bottom"><span>© 2026 Steliant Reservas</span><span data-t="footer.credit"></span></div>
+  </div>
+</footer>
+
+<div class="co" id="co" aria-hidden="true"><div class="co-bg" data-co-close></div><div class="co-panel glass" role="dialog" aria-modal="true"><button type="button" class="icon-btn co-close" data-co-close aria-label="Cerrar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 6l12 12M18 6L6 18"/></svg></button><aside class="co-sum" id="coSum"></aside><div class="co-main" id="coMain"></div></div></div>
+<div class="botpop glass" id="botPop" hidden></div>
+<button type="button" class="fab" id="fab" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="16" rx="4"/><path d="M3 10h18M8 3v4M16 3v4"/><path d="M9 15l2 2 4-4"/></svg><span class="fab-label" data-t="nav.my"></span></button>
+<div class="toast" id="toast" role="status" aria-live="polite"></div></body></html>

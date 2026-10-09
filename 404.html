@@ -1,0 +1,936 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Steliant · Portafolio</title>
+<meta name="description" content="Steliant — webs, tiendas, reservas, CRMs y bots para negocios en República Dominicana.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Steliant portfolio — navy & teal from the brand star, silk lines, side rail. */
+:root{
+  --bg:#f3f6fb; --bg-2:#e8eef8; --card:rgba(255,255,255,.72); --card-2:rgba(255,255,255,.92); --line:rgba(11,42,107,.1); --line-2:rgba(11,42,107,.2);
+  --ink:#0a1a44; --muted:#5a6788; --navy:#0b2a6b; --navy-2:#1d4ab0; --teal:#0aa59c; --teal-2:#1ec8b8; --glow:rgba(10,165,156,.22); --ok:#10b981;
+  --shadow:0 30px 70px -35px rgba(11,42,107,.4); --hl:rgba(255,255,255,.95);
+  --grad:linear-gradient(120deg,#0b2a6b,#1d4ab0 40%,#0aa59c 75%,#1ec8b8);
+  --f-d:"Syne","Arial Black",sans-serif; --f-b:"DM Sans","Helvetica Neue",Arial,sans-serif; --f-m:"JetBrains Mono",ui-monospace,monospace;
+  --ease:cubic-bezier(.19,1,.22,1); --g:clamp(16px,4vw,56px); --rail:88px; color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#050a1a; --bg-2:#0a1330; --card:rgba(255,255,255,.045); --card-2:rgba(18,28,60,.85); --line:rgba(180,200,255,.1); --line-2:rgba(180,200,255,.2);
+  --ink:#eaf1ff; --muted:#93a1c4; --navy:#9db4ff; --navy-2:#5b84ff; --teal:#2ee6d0; --teal-2:#2ee6d0; --glow:rgba(46,230,208,.25);
+  --shadow:0 40px 80px -40px rgba(0,0,0,.9); --hl:rgba(255,255,255,.1); --grad:linear-gradient(120deg,#5b84ff,#2ee6d0); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#050a1a; --bg-2:#0a1330; --card:rgba(255,255,255,.045); --card-2:rgba(18,28,60,.85); --line:rgba(180,200,255,.1); --line-2:rgba(180,200,255,.2);
+  --ink:#eaf1ff; --muted:#93a1c4; --navy:#9db4ff; --navy-2:#5b84ff; --teal:#2ee6d0; --teal-2:#2ee6d0; --glow:rgba(46,230,208,.25);
+  --shadow:0 40px 80px -40px rgba(0,0,0,.9); --hl:rgba(255,255,255,.1); --grad:linear-gradient(120deg,#5b84ff,#2ee6d0); color-scheme:dark}
+:root[data-theme="light"]{color-scheme:light}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-b);font-size:clamp(15px,.95rem + .15vw,17px);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased;transition:background-color .6s var(--ease),color .6s var(--ease)}
+body.lock{overflow:hidden}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+button{background:none;border:0;cursor:pointer;padding:0}
+p{margin:0}
+h1,h2,h3,h4{margin:0;font-family:var(--f-d);font-weight:700;line-height:.98;letter-spacing:-.035em;text-wrap:balance}
+::selection{background:var(--teal);color:#fff}
+:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:8px}
+main{position:relative;z-index:1;margin-left:var(--rail);transform-origin:50% 0}
+.wrap{width:100%;max-width:1320px;margin-inline:auto;padding-inline:var(--g)}
+.center{display:flex;justify-content:center;margin-top:2.4rem}
+.view{display:none}.view.on{display:block}
+body.swapping main{opacity:.2;filter:blur(6px);transition:opacity .2s,filter .2s}
+
+/* ambient */
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.bg i{position:absolute;border-radius:50%;filter:blur(90px);opacity:.55}
+.b1{width:50vmax;height:50vmax;left:-12vmax;top:-18vmax;background:radial-gradient(circle,rgba(29,74,176,.45),transparent 65%);animation:dr1 26s ease-in-out infinite alternate}
+.b2{width:45vmax;height:45vmax;right:-14vmax;top:20vh;background:radial-gradient(circle,rgba(30,200,184,.4),transparent 65%);animation:dr2 30s ease-in-out infinite alternate}
+.b3{width:35vmax;height:35vmax;left:30vw;bottom:-20vmax;background:radial-gradient(circle,rgba(91,132,255,.3),transparent 65%);animation:dr1 22s ease-in-out infinite alternate-reverse}
+@keyframes dr1{to{transform:translate(20vw,24vh) scale(1.15)}}
+@keyframes dr2{to{transform:translate(-24vw,30vh) scale(.9)}}
+#field{position:absolute;inset:0}
+body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(500px circle at var(--sx,50%) var(--sy,50%),var(--glow),transparent 60%);opacity:.6}
+
+/* loader */
+#loader{position:fixed;inset:0;z-index:300;display:grid;place-items:center;align-content:center;gap:1rem;background:#050a1a;clip-path:circle(150% at 50% 50%);animation:ldOut .6s 3s forwards}
+@keyframes ldOut{to{opacity:0;visibility:hidden}}
+.ld-star{width:120px;overflow:visible}
+.ld-star path,.star-big path,.star-mini path,.cta-star path,.c-star path{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.ld-star .ls-a{stroke:#5b84ff;stroke-width:9}.ld-star .ls-b{stroke:#2ee6d0;stroke-width:9}
+.ld-word{font:700 2rem var(--f-d);color:#eaf1ff;letter-spacing:-.03em}
+
+/* cursor + progress */
+.cursor{display:none}
+.has-cursor .cursor{display:grid;place-items:center;position:fixed;left:0;top:0;z-index:400;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:var(--teal);pointer-events:none;transition:width .45s var(--ease),height .45s var(--ease),margin .45s var(--ease),background-color .3s}
+.has-cursor .cursor.hover{width:48px;height:48px;margin:-24px 0 0 -24px;background:transparent;border:1.5px solid var(--teal)}
+.has-cursor .cursor.view{width:92px;height:92px;margin:-46px 0 0 -46px;background:var(--teal)}
+.cursor span{font:600 .62rem var(--f-m);letter-spacing:.08em;text-transform:uppercase;color:#04201d;text-align:center}
+.prog{position:fixed;left:0;right:0;top:0;height:3px;z-index:250;pointer-events:none}.prog i{display:block;height:100%;background:var(--grad);transform-origin:left;transform:scaleX(0)}
+
+/* rail */
+.rail{position:fixed;left:0;top:0;bottom:0;z-index:60;width:var(--rail);display:flex;flex-direction:column;align-items:center;padding:1.2rem 0;gap:1.2rem;background:var(--card);backdrop-filter:blur(24px) saturate(160%);border-right:1px solid var(--line)}
+.r-logo{width:52px;height:52px;display:grid;place-items:center}
+.star-mini{width:40px;overflow:visible}
+.star-mini .sa,.cta-star .sa,.c-star .sa{stroke:var(--navy-2);stroke-width:10}
+.star-mini .sb,.cta-star .sb,.c-star .sb{stroke:var(--teal-2);stroke-width:10}
+.r-logo .star-mini{transition:transform 1s var(--ease)}.r-logo:hover .star-mini{transform:rotate(72deg)}
+.r-nav{position:relative;display:grid;gap:.3rem;margin-top:1.5rem}
+.rn{position:relative;z-index:1;display:grid;justify-items:center;gap:.15rem;width:68px;padding:.7rem 0;border-radius:18px;color:var(--muted);transition:color .3s}
+.rn svg{width:22px;height:22px}
+.rn span{font-size:.62rem;font-weight:600}
+.rn em{position:absolute;top:.35rem;right:.45rem;font:500 .5rem var(--f-m);font-style:normal;opacity:.6}
+.rn:hover{color:var(--ink)}
+.rn.on{color:#fff}
+.rn-ink{position:absolute;left:0;top:0;width:68px;border-radius:18px;background:var(--grad);box-shadow:0 12px 26px -12px var(--teal);transition:transform .6s var(--ease),height .6s var(--ease)}
+.r-tools{margin-top:auto;display:grid;gap:.5rem}
+.r-btn{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;border:1px solid var(--line);background:var(--card);font:700 .74rem var(--f-m);transition:background-color .3s,transform .4s var(--ease)}
+.r-btn:hover{transform:translateY(-2px);background:var(--card-2)}
+.r-btn svg{width:19px}
+.theme-btn .sun,#themeBtn .sun{display:none}
+:root[data-theme="dark"] #themeBtn .sun{display:block}:root[data-theme="dark"] #themeBtn .moon{display:none}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #themeBtn .sun{display:block}:root:not([data-theme="light"]) #themeBtn .moon{display:none}}
+.mtop,.mnav{display:none}
+
+/* type */
+.kick{display:flex;align-items:center;gap:.7rem;font:500 .74rem var(--f-m);letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
+.kick::before{content:"";width:28px;height:2px;border-radius:2px;background:var(--grad)}
+.chars .ln{display:block;overflow:hidden;padding:0 .04em .1em 0;perspective:600px}
+.chars .wd{display:inline-block;white-space:nowrap}
+.chars .ch{display:inline-block;will-change:transform}
+.chars .accent .ch{background:var(--grad);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 7s linear infinite}
+@keyframes shine{to{background-position:300% 0}}
+.v-lede,.h-lede{color:var(--muted);max-width:52ch;font-size:1.08rem}
+
+/* buttons */
+.btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:.55rem;height:54px;padding:0 1.6rem;border-radius:16px;font-weight:700;font-size:.95rem;white-space:nowrap;overflow:hidden;isolation:isolate;transition:transform .5s var(--ease),box-shadow .5s,background-color .3s,color .3s,border-color .3s}
+.btn.sm{height:42px;padding:0 1rem;font-size:.84rem;border-radius:12px}
+.btn-main{color:#fff;background:var(--grad);background-size:200% 100%;box-shadow:0 16px 34px -14px var(--navy-2);transition:background-position .8s var(--ease),box-shadow .5s,transform .5s var(--ease)}
+.btn-main:hover{background-position:100% 0;box-shadow:0 20px 40px -12px var(--teal)}
+.btn-main::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.45) 50%,transparent 70%);transform:translateX(-120%);transition:transform .9s var(--ease)}
+.btn-main:hover::after{transform:translateX(120%)}
+.btn-line{border:1.5px solid var(--line-2);background:var(--card);backdrop-filter:blur(12px)}
+.btn-line:hover{border-color:var(--teal);color:var(--teal)}
+.btn-ghost{color:var(--muted)}.btn-ghost:hover{color:var(--ink)}
+.arr{font-style:normal;transition:transform .5s var(--ease)}.btn:hover .arr{transform:translateX(5px)}
+.btn.busy{pointer-events:none;opacity:.8}.btn.ok{background:var(--ok)}
+.btn svg{width:17px}
+
+/* hero */
+.hero{position:relative;min-height:100svh;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:2rem;padding:4rem var(--g) 2rem;max-width:1400px;margin:0 auto}
+.hero-copy{display:grid;gap:1.4rem;justify-items:start;z-index:2}
+.h-title{font-size:clamp(3.2rem,7.4vw,7.6rem);font-weight:800}
+.ctas{display:flex;flex-wrap:wrap;gap:.7rem}
+.orbit-wrap{position:relative;height:min(620px,72vh);perspective:900px;display:grid;place-items:center}
+.star-big{width:min(320px,60%);overflow:visible;transition:transform 1.2s var(--ease);filter:drop-shadow(0 30px 50px rgba(11,42,107,.35));animation:float 7s ease-in-out infinite}
+.star-big .sa{stroke:url(#ga);stroke-width:10}.star-big .sb{stroke:url(#gb);stroke-width:10}
+@keyframes float{50%{translate:0 -14px}}
+.orbit{position:absolute;left:50%;top:50%;width:0;height:0}
+.chip{position:absolute;left:0;top:0;display:flex;align-items:center;gap:.45rem;padding:.5rem .85rem .5rem .5rem;border-radius:99px;background:var(--card-2);backdrop-filter:blur(16px);border:1px solid var(--line);box-shadow:var(--shadow);font-weight:700;font-size:.82rem;white-space:nowrap;transition:box-shadow .3s}
+.chip i{width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,var(--a),var(--b))}
+.chip:hover{box-shadow:0 0 0 2px var(--teal),var(--shadow)}
+.ring{position:absolute;left:50%;top:50%;border-radius:50%;border:1px dashed var(--line-2);transform:translate(-50%,-50%) rotateX(72deg)}
+.r1{width:92%;aspect-ratio:1;animation:spin 40s linear infinite}.r2{width:70%;aspect-ratio:1;border-style:solid;border-color:var(--line);animation:spin 30s linear infinite reverse}
+@keyframes spin{to{transform:translate(-50%,-50%) rotateX(72deg) rotate(360deg)}}
+.stats{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;border-top:1px solid var(--line-2);padding-top:1.4rem}
+.stats div{display:grid}
+.stats strong{font:800 clamp(2.2rem,4vw,3.4rem)/1 var(--f-d);background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.stats span{color:var(--muted);font-size:.86rem}
+
+/* quote on home */
+.quote-home[hidden]{display:none}
+.quote-home{margin-top:1rem}
+.qh{position:relative;display:grid;grid-template-columns:auto 1fr auto;gap:1.4rem;align-items:center;padding:1.4rem;border-radius:28px;background:var(--card-2);backdrop-filter:blur(20px);border:1px solid var(--line);box-shadow:var(--shadow)}
+.qh::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1.5px;background:var(--grad);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+.qh-ico{width:64px;height:64px;border-radius:20px;display:grid;place-items:center;background:var(--grad);color:#fff}.qh-ico svg{width:30px}
+.qh-main{display:grid;gap:.4rem}.qh-main h3{font-size:1.8rem}.qh-main>p{color:var(--muted);font-size:.9rem}
+.qh-steps{display:flex;gap:.4rem;flex-wrap:wrap}
+.qh-steps span{padding:.3rem .75rem;border-radius:99px;border:1px solid var(--line-2);font-size:.76rem;color:var(--muted)}
+.qh-steps .done{background:var(--ok);border-color:var(--ok);color:#fff}.qh-steps .now{border-color:var(--teal);color:var(--teal);animation:pul 1.8s infinite}
+@keyframes pul{0%{box-shadow:0 0 0 0 var(--glow)}70%{box-shadow:0 0 0 10px transparent}}
+.qh-price{display:grid;justify-items:end;gap:.2rem;text-align:right}
+.qh-price small{color:var(--muted);font-size:.76rem}
+.qh-price b{font:800 2rem var(--f-d);letter-spacing:-.04em}.qh-price em{font:500 .9rem var(--f-b);font-style:normal;color:var(--muted)}
+.qh-act{display:flex;gap:.3rem;margin-top:.4rem}
+
+/* sections */
+.sec{padding:clamp(5rem,9vw,8rem) 0}
+.s-head{display:grid;gap:1rem;margin-bottom:2.6rem;justify-items:start}
+.s-head h2,.cta-box h2{font-size:clamp(2.3rem,5vw,4.6rem)}
+.vhead{display:grid;gap:1.1rem;justify-items:start;padding-top:clamp(5rem,10vw,8rem);padding-bottom:2.6rem}
+.vhead h1{font-size:clamp(3rem,7vw,6.4rem);font-weight:800}
+
+/* mock previews */
+.mock{position:relative;border-radius:16px;overflow:hidden;background:#0b1430;border:1px solid rgba(255,255,255,.1);box-shadow:0 24px 50px -24px rgba(5,10,26,.7)}
+.mk-bar{display:flex;align-items:center;gap:5px;height:26px;padding:0 10px;background:rgba(255,255,255,.06)}
+.mk-bar i{width:7px;height:7px;border-radius:50%;background:#ff5f57}.mk-bar i:nth-child(2){background:#febc2e}.mk-bar i:nth-child(3){background:#28c840}
+.mk-bar span{margin-left:8px;font:500 .55rem var(--f-m);color:rgba(255,255,255,.45)}
+.mk-view{height:190px;overflow:hidden}
+.mock.big .mk-view{height:300px}
+.mk-scroll{display:grid;gap:10px;padding:10px;transition:transform 4s cubic-bezier(.45,0,.25,1)}
+.pc:hover .mk-scroll,.fc:hover .mk-scroll,.dr-panel .mk-scroll{transform:translateY(-45%)}
+.dr-panel .mk-scroll{animation:mkscroll 9s ease-in-out infinite alternate;transition:none}
+@keyframes mkscroll{to{transform:translateY(-45%)}}
+.mk-nav{display:flex;align-items:center;gap:6px}
+.mk-nav b{width:18px;height:18px;border-radius:6px;background:var(--a)}.mk-nav span{width:28px;height:5px;border-radius:5px;background:rgba(255,255,255,.2)}.mk-nav span:first-of-type{margin-left:auto}
+.mk-nav em{width:38px;height:14px;border-radius:5px;background:var(--b)}
+.mk-hero{position:relative;display:grid;grid-template-columns:1.2fr 1fr;gap:8px;align-items:center;height:120px;padding:12px;border-radius:12px;background:linear-gradient(135deg,var(--a),var(--b));overflow:hidden}
+.mock.big .mk-hero{height:170px}
+.mk-hero div{display:grid;gap:6px}.mk-hero i{height:9px;border-radius:5px;background:rgba(255,255,255,.85)}.mk-hero i.s{width:60%;background:rgba(255,255,255,.5)}
+.mk-hero em{width:56px;height:16px;border-radius:6px;background:var(--c)}
+.mk-shape{justify-self:center;width:70%;aspect-ratio:1;border-radius:30% 70% 60% 40%;background:rgba(255,255,255,.25);animation:blob 8s ease-in-out infinite}
+@keyframes blob{50%{border-radius:60% 40% 30% 70%;transform:rotate(30deg)}}
+.mk-hero.alt{grid-template-columns:1fr;height:80px;background:linear-gradient(135deg,var(--b),var(--c))}
+.mk-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.mk-cards i{height:64px;border-radius:10px;background:rgba(255,255,255,.08);border-top:3px solid var(--b)}
+.mk-rows{display:grid;gap:6px}.mk-rows i{height:16px;border-radius:6px;background:rgba(255,255,255,.07)}.mk-rows i:nth-child(2){width:80%}
+
+/* featured */
+.feat{display:grid;gap:1.4rem;perspective:1400px}
+.fc{display:grid;grid-template-columns:1.25fr 1fr;gap:2rem;align-items:center;padding:1.4rem;border-radius:32px;background:var(--card);backdrop-filter:blur(20px);border:1px solid var(--line);box-shadow:var(--shadow);cursor:pointer;transition:border-color .4s}
+.fc:hover{border-color:var(--teal)}
+.fc1{grid-template-columns:1fr 1.25fr}.fc1 .mock{order:2}
+.fc-info{display:grid;gap:.8rem;justify-items:start}
+.fc-info h3{font-size:clamp(2rem,3.6vw,3.2rem)}
+.fc-info p{color:var(--muted)}
+.fc-price{font:600 .9rem var(--f-m);color:var(--teal)}
+.cat{display:inline-flex;align-items:center;gap:.35rem;padding:.3rem .7rem;border-radius:99px;background:var(--bg-2);font:600 .7rem var(--f-m);letter-spacing:.06em;text-transform:uppercase;color:var(--navy-2)}
+.cat svg{width:14px}
+
+/* why */
+.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+.why-c{display:grid;gap:.6rem;align-content:start;padding:1.5rem;border-radius:26px;background:var(--card);border:1px solid var(--line);backdrop-filter:blur(16px);transition:border-color .4s}
+.why-c:hover{border-color:var(--teal)}
+.why-n{font:800 2.6rem/1 var(--f-d);color:transparent;-webkit-text-stroke:1.5px var(--teal)}
+.why-c b{font:700 1.25rem var(--f-d);letter-spacing:-.02em}.why-c p{color:var(--muted);font-size:.92rem}
+
+/* cta */
+.cta-box{position:relative;display:grid;justify-items:center;gap:1.2rem;text-align:center;padding:clamp(3rem,7vw,6rem) 1.5rem;border-radius:40px;background:var(--navy);color:#fff;overflow:hidden;isolation:isolate}
+:root[data-theme="dark"] .cta-box{background:#0d1a42}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .cta-box{background:#0d1a42}}
+.cta-box p{color:rgba(255,255,255,.75);max-width:44ch}
+.cta-box .chars .accent .ch{background:linear-gradient(120deg,#2ee6d0,#9db4ff,#2ee6d0);background-size:300% 100%;-webkit-background-clip:text;background-clip:text}
+.cta-star{position:absolute;right:-60px;bottom:-80px;z-index:-1;width:360px;opacity:.25}
+.cta-star svg{width:100%;overflow:visible}
+
+/* projects */
+.filters{position:relative;display:flex;flex-wrap:wrap;gap:.3rem;width:max-content;max-width:100%;padding:5px;border-radius:18px;background:var(--card);border:1px solid var(--line);backdrop-filter:blur(16px);margin-bottom:1.8rem}
+.filters button{position:relative;z-index:1;display:flex;align-items:center;gap:.4rem;padding:.6rem 1rem;border-radius:13px;font-weight:600;font-size:.88rem;transition:color .3s}
+.filters em{font:600 .62rem var(--f-m);font-style:normal;padding:.1rem .4rem;border-radius:6px;background:var(--bg-2);color:var(--muted)}
+.filters .on{color:#fff}.filters .on em{background:rgba(255,255,255,.2);color:#fff}
+.f-ink,.pt-ink,.ct-ink{position:absolute;left:4px;top:4px;bottom:4px;border-radius:13px;background:var(--grad);transition:transform .55s var(--ease),width .55s var(--ease)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1.2rem;perspective:1400px;padding-bottom:6rem}
+.pc{position:relative;display:flex;flex-direction:column;border-radius:26px;background:var(--card);backdrop-filter:blur(20px);border:1px solid var(--line);box-shadow:var(--shadow);overflow:hidden;transition:border-color .4s}
+.pc:hover{border-color:var(--teal)}
+.pc::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(400px circle at var(--mx,50%) var(--my,0%),var(--glow),transparent 45%);opacity:0;transition:opacity .4s}
+.pc:hover::after{opacity:1}
+.pc-mock{padding:.7rem .7rem 0;cursor:pointer}
+.pc-body{display:grid;gap:.7rem;padding:1.1rem 1.2rem 1.2rem;flex:1;align-content:start}
+.pc-top{display:flex;justify-content:space-between;align-items:center;gap:.5rem}
+.br{display:inline-flex;align-items:center;gap:.3rem;font:500 .62rem var(--f-m);color:var(--muted)}.br svg{width:13px}.br.on{color:var(--teal)}
+.pc h3{font-size:1.5rem}
+.pc-body>p{color:var(--muted);font-size:.9rem}
+.pc-stack{display:flex;flex-wrap:wrap;gap:.3rem}
+.pc-stack span{padding:.2rem .55rem;border-radius:8px;border:1px solid var(--line-2);font:500 .66rem var(--f-m)}
+.pc-price{display:flex;align-items:baseline;gap:.4rem;flex-wrap:wrap;padding-top:.7rem;border-top:1px dashed var(--line-2)}
+.pc-price small{color:var(--muted);font-size:.78rem}.pc-price b{font:800 1.4rem var(--f-d);letter-spacing:-.03em}
+.pc-act{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.2rem}
+.gh svg{width:16px}
+
+/* drawer */
+.drawer,.modal{position:fixed;inset:0;z-index:150;visibility:hidden}
+.drawer.on,.modal.on{visibility:visible}
+.dr-bg{position:absolute;inset:0;background:rgba(5,10,26,.5);backdrop-filter:blur(8px);opacity:0;transition:opacity .5s}
+.on>.dr-bg{opacity:1}
+.dr-panel{position:absolute;right:0;top:0;bottom:0;width:min(560px,100%);overflow:auto;padding:1.2rem;background:var(--bg);border-left:1px solid var(--line);box-shadow:-40px 0 80px rgba(0,0,0,.3)}
+.x{position:absolute;top:1.4rem;right:1.4rem;z-index:3;width:40px;height:40px;border-radius:12px;background:var(--card-2);border:1px solid var(--line);backdrop-filter:blur(10px)}
+.dr-body{display:grid;gap:.9rem;padding:1.2rem .3rem;justify-items:start}
+.dr-body h2{font-size:2.6rem}.dr-body>p{color:var(--muted)}
+.dr-body h4{font:600 .72rem var(--f-m);letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-top:.5rem}
+.dr-body ul{list-style:none;margin:0;padding:0;display:grid;gap:.45rem;width:100%}
+.dr-body li{display:flex;align-items:center;gap:.6rem}.dr-body li svg{width:18px;color:var(--teal);flex-shrink:0}
+.dr-repo{display:grid;gap:.2rem;width:100%;padding:.8rem 1rem;border-radius:14px;background:var(--bg-2)}
+.dr-repo code{font:500 .78rem var(--f-m);word-break:break-all}.dr-repo small{color:var(--muted);font-size:.76rem}
+.dr-price{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;width:100%}
+.dr-price div{display:grid;padding:.9rem 1rem;border-radius:16px;border:1px solid var(--line-2)}
+.dr-price small{color:var(--muted);font-size:.76rem}.dr-price b{font:800 1.5rem var(--f-d)}.dr-price em{font:500 .8rem var(--f-b);font-style:normal;color:var(--muted)}
+
+/* pricing */
+.paytog,.c-term{position:relative;display:flex;width:max-content;max-width:100%;padding:4px;border-radius:16px;background:var(--card);border:1px solid var(--line);backdrop-filter:blur(14px)}
+.paytog{margin-bottom:1.6rem}
+.paytog button,.c-term button{position:relative;z-index:1;padding:.65rem 1.3rem;border-radius:12px;font-weight:600;font-size:.9rem;transition:color .3s}
+.paytog .on,.c-term .on{color:#fff}
+.pkgs{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;perspective:1200px}
+.pk{position:relative;display:flex;flex-direction:column;gap:.7rem;padding:1.5rem 1.3rem;border-radius:28px;background:var(--card);backdrop-filter:blur(20px);border:1px solid var(--line);box-shadow:var(--shadow)}
+.pk.hot{border-color:var(--teal);box-shadow:0 0 0 1px var(--teal),0 40px 80px -40px var(--glow)}
+.pk-badge{position:absolute;top:-12px;left:1.3rem;padding:.3rem .8rem;border-radius:99px;background:var(--grad);color:#fff;font:600 .66rem var(--f-m);letter-spacing:.06em;text-transform:uppercase}
+.pk-ico{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:var(--bg-2);color:var(--navy-2)}.pk-ico svg{width:22px}
+.pk-n{font:700 1.35rem var(--f-d);letter-spacing:-.02em}.pk-ex{color:var(--muted);font-size:.78rem}
+.pk-price{display:flex;align-items:baseline;gap:.2rem}.pk-price strong{font:800 2.3rem/1 var(--f-d);letter-spacing:-.05em}.pk-price em{font-style:normal;color:var(--muted)}
+.pk-sub{color:var(--teal);font-size:.78rem;font-weight:600}
+.pk ul{list-style:none;margin:0;padding:.8rem 0 0;border-top:1px dashed var(--line-2);display:grid;gap:.45rem;flex:1;font-size:.88rem}
+.pk li{display:flex;gap:.5rem;align-items:center}.pk li svg{width:16px;color:var(--teal);flex-shrink:0}
+.pk-h{font:500 .7rem var(--f-m);color:var(--muted)}
+.pk .btn{width:100%}
+.note{margin-top:1rem;color:var(--muted);font-size:.8rem}
+.cost-list{display:grid;gap:.6rem;margin-top:1.6rem}
+.cost{position:relative;display:grid;grid-template-columns:60px 260px 1fr;gap:1rem;align-items:center;padding:1.1rem 1.2rem;border-radius:20px;background:var(--card);border:1px solid var(--line);overflow:hidden}
+.c-n{font:800 1.6rem var(--f-d);color:transparent;-webkit-text-stroke:1.2px var(--teal)}
+.cost b{font:700 1.05rem var(--f-d)}.cost p{color:var(--muted);font-size:.9rem}
+.cost i{position:absolute;left:0;bottom:0;height:3px;width:var(--w);background:var(--grad)}
+.calc{display:grid;grid-template-columns:1.3fr 1fr;gap:1.4rem;align-items:start}
+.c-in{display:grid;gap:.8rem;padding:1.5rem;border-radius:28px;background:var(--card);backdrop-filter:blur(20px);border:1px solid var(--line)}
+.c-l{font:600 .7rem var(--f-m);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:.4rem}
+.c-base{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem}
+.c-base button{display:grid;justify-items:start;gap:.2rem;padding:.9rem;border-radius:16px;border:1.5px solid var(--line-2);text-align:left;transition:border-color .3s,background-color .3s}
+.c-base svg{width:20px;color:var(--teal)}.c-base b{font-size:.86rem;line-height:1.2}.c-base small{font:500 .72rem var(--f-m);color:var(--muted)}
+.c-base .on{border-color:var(--teal);background:var(--glow)}
+.c-ex{display:grid;grid-template-columns:1fr 1fr;gap:.45rem}
+.c-ex label{display:flex;align-items:center;gap:.6rem;padding:.7rem .8rem;border-radius:14px;border:1px solid var(--line);cursor:pointer;font-size:.86rem;transition:border-color .3s}
+.c-ex label.on{border-color:var(--teal)}
+.c-ex input{position:absolute;opacity:0;pointer-events:none}
+.c-ex span{flex:1}.c-ex em{font:500 .7rem var(--f-m);font-style:normal;color:var(--muted)}
+.sw{position:relative;width:36px;height:21px;border-radius:99px;background:var(--line-2);flex-shrink:0;transition:background-color .3s}
+.sw b{position:absolute;left:3px;top:3px;width:15px;height:15px;border-radius:50%;background:#fff;box-shadow:0 2px 4px rgba(0,0,0,.25);transition:transform .45s var(--ease)}
+.on>.sw{background:var(--teal)}.on>.sw b{transform:translateX(15px)}
+.c-term button{padding:.6rem 1rem;font-size:.84rem}
+.c-out{position:sticky;top:2rem;display:grid;gap:1rem;justify-items:center;padding:1.6rem;border-radius:28px;background:var(--navy);color:#fff;box-shadow:var(--shadow)}
+:root[data-theme="dark"] .c-out{background:#0d1a42}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .c-out{background:#0d1a42}}
+.co-ring{position:relative;width:230px;aspect-ratio:1;display:grid;place-items:center}
+.co-ring svg{position:absolute;inset:0;transform:rotate(-90deg)}
+.co-ring circle{fill:none;stroke:rgba(255,255,255,.12);stroke-width:7}
+.co-ring .cr-arc{stroke:#2ee6d0;stroke-linecap:round;stroke-dasharray:327;stroke-dashoffset:327;filter:drop-shadow(0 0 6px #2ee6d0)}
+.co-ring div{display:grid;justify-items:center;text-align:center}
+.co-ring small{font:500 .66rem var(--f-m);letter-spacing:.12em;text-transform:uppercase;opacity:.7}
+.co-ring strong{font:800 1.7rem var(--f-d);letter-spacing:-.04em}
+.c-out dl{width:100%;margin:0;display:grid;gap:.45rem}
+.c-out dl div{display:flex;justify-content:space-between;font-size:.88rem;padding-bottom:.45rem;border-bottom:1px dashed rgba(255,255,255,.15)}
+.c-out dt{opacity:.7}.c-out dd{margin:0;font-family:var(--f-m)}
+.c-out .btn{width:100%}
+
+/* process */
+.timeline{position:relative;display:grid;gap:2rem;padding-bottom:3rem}
+.tl-line{position:absolute;left:50%;top:0;bottom:0;width:2px;margin-left:-1px;background:var(--line-2)}
+.tl-line i{display:block;height:100%;background:var(--grad);transform-origin:top}
+.tl-step{position:relative;display:grid;grid-template-columns:1fr 60px 1fr;align-items:center}
+.tl-dot{grid-column:2;justify-self:center;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:var(--grad);color:#fff;font:800 1.2rem var(--f-d);box-shadow:0 0 0 8px var(--bg)}
+.tl-card{display:grid;gap:.4rem;padding:1.4rem;border-radius:24px;background:var(--card);backdrop-filter:blur(16px);border:1px solid var(--line)}
+.tl-step.l .tl-card{grid-column:1;grid-row:1;text-align:right;justify-items:end}
+.tl-step.r .tl-card{grid-column:3;grid-row:1}
+.tl-card em{font:600 .7rem var(--f-m);font-style:normal;color:var(--teal);letter-spacing:.1em;text-transform:uppercase}
+.tl-card b{font:700 1.4rem var(--f-d)}.tl-card p{color:var(--muted)}
+.faq{display:grid;gap:.6rem;margin-top:1.4rem;max-width:860px}
+.qa{border-radius:20px;padding:0 1.3rem;background:var(--card);border:1px solid var(--line)}
+.qa summary{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1.1rem 0;font-weight:700;cursor:pointer;list-style:none}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary i{position:relative;width:16px;height:16px;flex-shrink:0}
+.qa summary i::before,.qa summary i::after{content:"";position:absolute;left:0;top:7px;width:16px;height:2px;border-radius:2px;background:var(--teal);transition:transform .4s var(--ease)}
+.qa summary i::after{transform:rotate(90deg)}.qa[open] summary i::after{transform:rotate(0)}
+.qa p{padding-bottom:1.1rem;color:var(--muted)}
+
+/* contact + forms */
+.contact{display:grid;grid-template-columns:1.4fr 1fr;gap:1.4rem;padding-bottom:6rem}
+.cform{display:grid;gap:1rem;padding:1.5rem;border-radius:28px;background:var(--card);backdrop-filter:blur(20px);border:1px solid var(--line)}
+.fl-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.fl{position:relative}.fl.wide{grid-column:1/-1}
+.fl input,.fl textarea,.fl select{width:100%;min-height:58px;border:1px solid var(--line-2);border-radius:14px;background:var(--card-2);padding:1.4rem 1rem .4rem;font-size:1rem;outline:none;resize:vertical;transition:border-color .3s,box-shadow .3s}
+.fl select{appearance:none;padding-top:1.3rem}
+.fl input:focus,.fl textarea:focus,.fl select:focus{border-color:var(--teal);box-shadow:0 0 0 4px var(--glow)}
+.fl label{position:absolute;left:1rem;top:1.1rem;color:var(--muted);font-size:.9rem;pointer-events:none;transition:transform .4s var(--ease),font-size .4s,color .3s;transform-origin:left}
+.fl input:focus+label,.fl input:not(:placeholder-shown)+label,.fl textarea:focus+label,.fl textarea:not(:placeholder-shown)+label,.fl.sel label{transform:translateY(-.7rem);font-size:.66rem;color:var(--teal)}
+.cside{position:relative;display:grid;gap:.7rem;align-content:start;padding:1.5rem;border-radius:28px;background:var(--navy);color:#fff;overflow:hidden;isolation:isolate}
+:root[data-theme="dark"] .cside{background:#0d1a42}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .cside{background:#0d1a42}}
+.wa-btn{display:flex;align-items:center;gap:.8rem;padding:1rem;border-radius:18px;background:#25d366;color:#04210f;font-weight:700;transition:transform .4s var(--ease)}
+.wa-btn:hover{transform:translateY(-3px)}
+.wa-btn span{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(255,255,255,.35)}.wa-btn svg{width:22px}.wa-btn b{flex:1}.wa-btn i{font-style:normal}
+.ci{display:flex;align-items:center;gap:.8rem;padding:.8rem;border-radius:14px;background:rgba(255,255,255,.07)}
+.ci svg{width:20px;color:#2ee6d0;flex-shrink:0}.ci span{display:grid;font-size:.92rem}.ci small{opacity:.6;font-size:.72rem}
+.c-star{position:absolute;right:-50px;bottom:-60px;z-index:-1;width:240px;opacity:.25}.c-star svg{width:100%;overflow:visible}
+
+/* modal */
+.modal{display:grid;place-items:center;padding:1rem;perspective:1200px}
+.m-panel{position:relative;width:min(520px,100%);display:grid;gap:1rem;padding:1.6rem;border-radius:28px;background:var(--bg);border:1px solid var(--line);box-shadow:0 40px 100px rgba(0,0,0,.4)}
+.m-panel h3{font-size:2rem}
+.q-sum{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:.9rem 1rem;border-radius:16px;background:var(--bg-2);font-size:.86rem}
+.q-sum span{color:var(--muted)}.q-sum b{font:800 1.1rem var(--f-d);white-space:nowrap}
+.sendbtn{width:100%}
+
+/* footer */
+.foot{position:relative;padding-top:4rem;padding-bottom:2rem;border-top:1px solid var(--line)}
+.f-top{display:flex;align-items:center;gap:.8rem}.f-top div{display:grid}.f-top b{font:800 1.3rem var(--f-d)}.f-top small{color:var(--muted)}
+#fNav{display:flex;flex-wrap:wrap;gap:1.4rem;margin-top:1.4rem}
+#fNav a{color:var(--muted);transition:color .3s}#fNav a:hover{color:var(--teal)}
+.f-giant{display:flex;justify-content:space-between;margin:2.4rem 0 1rem;font:800 clamp(3.6rem,16vw,15rem)/.85 var(--f-d);letter-spacing:-.06em;overflow:hidden;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.f-giant span{display:inline-block}
+.f-bot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;font:500 .72rem var(--f-m);color:var(--muted)}
+
+/* fab, toast */
+.fab{position:fixed;right:1.2rem;bottom:1.2rem;z-index:120;display:flex;align-items:center;gap:.5rem;height:56px;padding:0 1.2rem;border-radius:18px;background:var(--grad);color:#fff;font-weight:700;box-shadow:0 18px 40px -12px var(--navy-2)}
+.fab[hidden]{display:none}.fab svg{width:22px}
+.toast{position:fixed;left:50%;bottom:1.4rem;z-index:500;transform:translate(-50%,30px);opacity:0;visibility:hidden;max-width:calc(100% - 2rem);padding:.9rem 1.3rem;border-radius:16px;background:var(--ink);color:var(--bg);font-weight:600;font-size:.9rem;box-shadow:var(--shadow);transition:transform .6s var(--ease),opacity .4s,visibility .4s;pointer-events:none}
+.toast.on{transform:translate(-50%,0);opacity:1;visibility:visible}
+
+/* responsive */
+@media (max-width:1180px){
+  .pkgs{grid-template-columns:repeat(2,1fr)}
+  .why-grid{grid-template-columns:repeat(2,1fr)}
+  .c-base{grid-template-columns:1fr 1fr}
+}
+@media (max-width:980px){
+  :root{--rail:0px}
+  .rail{display:none}
+  .mtop{position:fixed;left:0;right:0;top:0;z-index:70;display:flex;align-items:center;justify-content:space-between;padding:.7rem var(--g);background:var(--card-2);backdrop-filter:blur(20px);border-bottom:1px solid var(--line)}
+  .m-logo{display:flex;align-items:center;gap:.5rem}.m-logo .star-mini{width:30px}.m-logo b{font:800 1.15rem var(--f-d)}
+  .m-menu{display:grid;gap:6px;width:44px;height:44px;place-content:center;border-radius:12px;border:1px solid var(--line)}
+  .m-menu span{width:20px;height:2px;border-radius:2px;background:var(--ink);transition:transform .5s var(--ease)}
+  body.menu-on .m-menu span:first-child{transform:translateY(4px) rotate(45deg)}body.menu-on .m-menu span:last-child{transform:translateY(-4px) rotate(-45deg)}
+  .mnav{position:fixed;inset:0;z-index:65;display:grid;align-content:center;gap:.4rem;padding:var(--g);background:var(--bg);clip-path:circle(0% at calc(100% - 38px) 34px);transition:clip-path .9s var(--ease)}
+  body.menu-on .mnav{clip-path:circle(150% at calc(100% - 38px) 34px)}
+  .mnav a{display:flex;align-items:baseline;gap:1rem;font:800 clamp(2.4rem,11vw,4rem)/1.05 var(--f-d);letter-spacing:-.04em;overflow:hidden}
+  .mnav em{font:500 .8rem var(--f-m);font-style:normal;color:var(--teal)}
+  .mnav a.on{color:var(--teal)}
+  .mtop{gap:.5rem}
+  main{padding-top:64px}
+  .hero{grid-template-columns:1fr;min-height:auto;padding-top:3rem}
+  .orbit-wrap{height:440px}
+  .fc,.fc1{grid-template-columns:1fr}.fc1 .mock{order:0}
+  .calc,.contact{grid-template-columns:1fr}.c-out{position:static}
+  .cost{grid-template-columns:50px 1fr}.cost p{grid-column:2}
+  .tl-line{left:26px}.tl-step{grid-template-columns:52px 1fr;gap:1rem}.tl-dot{grid-column:1}.tl-step.l .tl-card,.tl-step.r .tl-card{grid-column:2;text-align:left;justify-items:start}
+  .qh{grid-template-columns:1fr}.qh-price{justify-items:start;text-align:left}
+}
+@media (max-width:620px){
+  .h-title{font-size:clamp(2.7rem,13vw,4rem)}
+  .orbit-wrap{height:380px}.chip{font-size:.7rem;padding:.4rem .7rem .4rem .4rem}.chip i{width:16px;height:16px}
+  .stats{grid-template-columns:1fr 1fr}
+  .grid{grid-template-columns:1fr}
+  .pkgs,.why-grid,.c-ex,.fl-grid{grid-template-columns:1fr}
+  .c-base{grid-template-columns:1fr 1fr}
+  .filters{width:100%;overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none}.filters button{flex-shrink:0}
+  .c-term{width:100%;overflow-x:auto}.c-term button{flex-shrink:0}
+  .dr-price{grid-template-columns:1fr}
+  .fab span{display:none}.fab{width:56px;padding:0;justify-content:center}
+  .mk-view{height:160px}.mock.big .mk-view{height:220px}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+.hero{overflow-x:clip}.co-ring strong{font-size:1.45rem}
+.soon{opacity:.55;cursor:default}
+</style></head><body>
+<div id="loader" aria-hidden="true"><svg class="ld-star" viewBox="0 0 100 100"><path class="ls-a" d=""/><path class="ls-b" d=""/></svg><p class="ld-word">Steliant</p></div>
+<div class="bg" aria-hidden="true"><i class="b1"></i><i class="b2"></i><i class="b3"></i><canvas id="field"></canvas></div>
+<div class="cursor" aria-hidden="true"><span></span></div>
+<div class="prog" aria-hidden="true"><i></i></div>
+
+<aside class="rail" id="rail">
+  <a href="#inicio" class="r-logo" aria-label="Steliant"><svg viewBox="0 0 100 100" class="star-mini"><path class="sa" d=""/><path class="sb" d=""/></svg></a>
+  <nav class="r-nav" id="rNav" aria-label="Principal"></nav>
+  <div class="r-tools">
+    <button type="button" class="r-btn" id="langBtn" aria-label="Idioma"><span id="langLbl">ES</span></button>
+    <button type="button" class="r-btn" id="themeBtn" aria-label="Tema"><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z"/></svg><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg></button>
+  </div>
+</aside>
+<header class="mtop"><a href="#inicio" class="m-logo"><svg viewBox="0 0 100 100" class="star-mini"><path class="sa" d=""/><path class="sb" d=""/></svg><b>Steliant</b></a><button type="button" class="m-menu" id="mMenu"><span></span><span></span></button></header>
+<nav class="mnav" id="mNav" aria-label="Menú"></nav>
+
+<main id="app">
+  <!-- INICIO -->
+  <div class="view" id="v-inicio">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="kick h-in" data-t="home.kick"></p>
+        <h1 class="chars h-title" data-split="home.title"></h1>
+        <p class="h-lede h-in" data-t="home.lede"></p>
+        <div class="ctas h-in"><a href="#proyectos" class="btn btn-main mag"><span data-t="home.cta1"></span><i class="arr">→</i></a><a href="#precios" class="btn btn-line mag" data-goto="calc"><span data-t="home.cta2"></span></a></div>
+      </div>
+      <div class="orbit-wrap" id="orbitWrap">
+        <svg viewBox="0 0 100 100" class="star-big" id="starBig"><defs><linearGradient id="ga" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--navy-2)"/><stop offset="1" stop-color="var(--navy)"/></linearGradient><linearGradient id="gb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2ee6d0"/><stop offset="1" stop-color="#0a9c96"/></linearGradient></defs><path class="sa" d=""/><path class="sb" d=""/></svg>
+        <div class="orbit" id="orbit"></div>
+        <div class="ring r1"></div><div class="ring r2"></div>
+      </div>
+      <div class="stats" id="stats"></div>
+    </section>
+    <section class="wrap quote-home" id="quoteHome" hidden></section>
+    <section class="sec">
+      <div class="wrap s-head"><p class="kick" data-t="home.featKick"></p><h2 class="chars" data-split="home.featTitle"></h2></div>
+      <div class="wrap feat" id="feat"></div>
+      <div class="wrap center"><a href="#proyectos" class="btn btn-line mag"><span data-t="home.all"></span><i class="arr">→</i></a></div>
+    </section>
+    <section class="sec why">
+      <div class="wrap s-head"><p class="kick" data-t="home.whyKick"></p></div>
+      <div class="wrap why-grid" id="whyGrid"></div>
+    </section>
+    <section class="sec"><div class="wrap"><div class="cta-box"><h2 class="chars" data-split="home.ctaTitle"></h2><p data-t="home.ctaText"></p><a href="#contacto" class="btn btn-main mag"><span data-t="nav.contact"></span><i class="arr">→</i></a><div class="cta-star" aria-hidden="true"><svg viewBox="0 0 100 100"><path class="sa" d=""/><path class="sb" d=""/></svg></div></div></div></section>
+  </div>
+
+  <!-- PROYECTOS -->
+  <div class="view" id="v-proyectos">
+    <section class="vhead wrap"><p class="kick" data-t="work.kick"></p><h1 class="chars" data-split="work.title"></h1><p class="v-lede" data-t="work.lede"></p></section>
+    <section class="wrap"><div class="filters" id="filters"><span class="f-ink"></span></div><div class="grid" id="grid"></div></section>
+  </div>
+
+  <!-- PRECIOS -->
+  <div class="view" id="v-precios">
+    <section class="vhead wrap"><p class="kick" data-t="pricing.kick"></p><h1 class="chars" data-split="pricing.title"></h1><p class="v-lede" data-t="pricing.lede"></p></section>
+    <section class="wrap">
+      <div class="paytog" id="payTog"><span class="pt-ink"></span><button type="button" class="on" data-pay="once" data-t="pricing.once"></button><button type="button" data-pay="monthly" data-t="pricing.monthly"></button></div>
+      <div class="pkgs" id="pkgs"></div>
+      <p class="note" data-t="pricing.note"></p>
+    </section>
+    <section class="sec wrap costs"><p class="kick" data-t="pricing.costKick"></p><div class="cost-list" id="costList"></div></section>
+    <section class="sec wrap" id="calc"><div class="s-head"><p class="kick" data-t="pricing.calcKick"></p><h2 class="chars" data-split="pricing.calcTitle"></h2></div><div class="calc" id="calcBox"></div></section>
+  </div>
+
+  <!-- PROCESO -->
+  <div class="view" id="v-proceso">
+    <section class="vhead wrap"><p class="kick" data-t="process.kick"></p><h1 class="chars" data-split="process.title"></h1><p class="v-lede" data-t="process.lede"></p></section>
+    <section class="wrap timeline" id="timeline"><div class="tl-line"><i></i></div></section>
+    <section class="sec wrap"><p class="kick" data-t="process.faqKick"></p><div class="faq" id="faq"></div></section>
+  </div>
+
+  <!-- CONTACTO -->
+  <div class="view" id="v-contacto">
+    <section class="vhead wrap"><p class="kick" data-t="contact.kick"></p><h1 class="chars" data-split="contact.title"></h1><p class="v-lede" data-t="contact.lede"></p></section>
+    <section class="wrap contact" id="contactBox"></section>
+  </div>
+
+  <footer class="foot wrap"><div class="f-top"><svg viewBox="0 0 100 100" class="star-mini"><path class="sa" d=""/><path class="sb" d=""/></svg><div><b>Steliant</b><small data-t="footer.tag"></small></div></div><nav id="fNav"></nav><p class="f-giant" id="fGiant" aria-hidden="true"></p><p class="f-bot"><span>© 2026 Steliant</span><span data-t="footer.credit"></span></p></footer>
+</main>
+
+<div class="drawer" id="drawer" aria-hidden="true"><div class="dr-bg" data-close></div><article class="dr-panel" id="drPanel" role="dialog" aria-modal="true"></article></div>
+<div class="modal" id="modal" aria-hidden="true"><div class="dr-bg" data-mclose></div><div class="m-panel" id="mPanel" role="dialog" aria-modal="true"></div></div>
+<button type="button" class="fab" id="fab" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M7 3h10a2 2 0 0 1 2 2v16l-3-2-2 2-2-2-2 2-2-2-3 2V5a2 2 0 0 1 2-2z"/><path d="M9 8h6M9 12h6"/></svg><span data-t="nav.my"></span></button>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(() => {
+"use strict";
+const $ = (s, c = document) => c.querySelector(s), $$ = (s, c = document) => [...c.querySelectorAll(s)];
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const hasG = typeof gsap !== "undefined";
+if (hasG) gsap.registerPlugin(ScrollTrigger);
+const store = { get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }, set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }, del(k) { try { localStorage.removeItem(k); } catch (e) {} } };
+const money = (n) => "RD$" + Math.round(n).toLocaleString("en-US");
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+/* ===== Configuración editable ===== */
+const CONTACT = { whatsapp: "", email: "", city: "Santo Domingo, RD" }; // ← coloca tu número (solo dígitos, ej. 18095551234) y tu correo
+const DEMO_BASE = "demos/"; // las demos viven en el mismo sitio del portafolio
+const GH = "https://github.com/Stephy0723/";
+const BRANCH = "/tree/steliant-exhibicion-completa";
+
+/* ===== Proyectos ===== */
+const PROJECTS = [
+  { id: "ecommerce", name: "Steliant Nova", repo: "ecommerce-electrocables", branch: true, demo: "steliant-ecommerce", pkg: "shop", cat: "shop", pal: ["#7a5cff", "#22d3ee", "#ff4ecd"], stack: ["React", "Vite", "GSAP"],
+    es: ["Tienda de tecnología futurista con efecto vidrio: catálogo con filtros, carrito, checkout con tarjeta 3D, seguimiento de pedido y panel de ventas.", ["Catálogo con filtros animados", "Checkout con tarjeta 3D", "Seguimiento de pedido", "Panel de ventas e inventario"]],
+    en: ["Futuristic glass tech store: filtered catalog, cart, 3D card checkout, order tracking and sales dashboard.", ["Animated catalog filters", "3D card checkout", "Order tracking", "Sales & inventory dashboard"]] },
+  { id: "reservas", name: "Steliant Reservas", repo: "sistema-reservas", branch: true, demo: "steliant-reservas", pkg: "crm", cat: "crm", pal: ["#ff5f45", "#f2a93b", "#139c86"], stack: ["Vite", "GSAP", "Bot"],
+    es: ["Software de reservas para barberías, salones y spas: página web por nicho, bot que agenda por WhatsApp e Instagram y panel por plan.", ["Configurador de marca en vivo", "3 demos de página web", "Bot que agenda de verdad", "Paneles Solo, Equipo y Studio"]],
+    en: ["Booking software for barbershops, salons and spas: niche website, a bot that books on WhatsApp and Instagram, and a dashboard per plan.", ["Live brand configurator", "3 website demos", "A bot that really books", "Solo, Team and Studio dashboards"]] },
+  { id: "tour", name: "Tour Steliant", repo: "tours-rd", branch: true, demo: "tour-steliant", pkg: "web", cat: "web", pal: ["#d9412a", "#13839c", "#f4e9d2"], stack: ["Next.js", "GSAP", "Leaflet"],
+    es: ["Agencia de tours y transporte: hero cinematográfico, horarios tipo aeropuerto, reserva de asientos, pago y boleto con QR.", ["Hero cinematográfico", "Tablero de salidas", "Selección de asientos", "Boleto con QR"]],
+    en: ["Tours & transport agency: cinematic hero, airport-style departures, seat booking, payment and QR ticket.", ["Cinematic hero", "Departures board", "Seat selection", "QR ticket"]] },
+  { id: "firma", name: "Steliant Firma", repo: "firma-legal", branch: true, demo: "steliant-firma", pkg: "web", cat: "web", pal: ["#b08a4a", "#14213d", "#e9e2d0"], stack: ["React", "Vite", "GSAP"],
+    es: ["Sitio de firma de abogados: áreas de práctica, equipo, casos y contacto con un estilo editorial y elegante.", ["Áreas de práctica", "Perfiles del equipo", "Diseño editorial", "Formulario de consulta"]],
+    en: ["Law firm website: practice areas, team, cases and contact in an elegant editorial style.", ["Practice areas", "Team profiles", "Editorial design", "Consultation form"]] },
+  { id: "legal", name: "Steliant Legal", repo: "servicioslegalesrd", branch: true, demo: "steliant-legal", pkg: "web", cat: "web", pal: ["#1f6f5c", "#0e2a35", "#d8c8a0"], stack: ["React", "Vite"],
+    es: ["Plataforma de servicios legales: catálogo de trámites, solicitudes en línea y seguimiento del caso.", ["Catálogo de trámites", "Solicitudes en línea", "Seguimiento del caso", "Panel administrativo"]],
+    en: ["Legal services platform: procedure catalog, online requests and case tracking.", ["Procedure catalog", "Online requests", "Case tracking", "Admin dashboard"]] },
+  { id: "salud", name: "Steliant Salud", repo: "hospital-system", branch: true, demo: "steliant-salud", pkg: "system", cat: "system", pal: ["#2b7cff", "#16c1a8", "#e6f2ff"], stack: ["React", "Node", "SQL"],
+    es: ["Sistema hospitalario: citas, pacientes, historial clínico y paneles por rol para recepción, médicos y administración.", ["Gestión de citas", "Historial clínico", "Paneles por rol", "Reportes"]],
+    en: ["Hospital system: appointments, patients, medical records and role-based dashboards for front desk, doctors and admin.", ["Appointment management", "Medical records", "Role dashboards", "Reports"]] },
+  { id: "nexo", name: "Steliant Nexo", repo: "nexory", branch: true, demo: "steliant-nexo", pkg: "system", cat: "system", pal: ["#6d4aff", "#0f172a", "#38bdf8"], stack: ["React", "Node"],
+    es: ["Panel de gestión de proyectos: proyectos, tareas, credenciales, notas, base de datos y actividad del equipo.", ["Proyectos y tareas", "Credenciales seguras", "Notas y base de datos", "Historial de actividad"]],
+    en: ["Project management dashboard: projects, tasks, credentials, notes, database and team activity.", ["Projects & tasks", "Secure credentials", "Notes & database", "Activity history"]] },
+  { id: "esports", name: "Steliant Esports", repo: "glitchgang", branch: true, demo: "steliant-esports", pkg: "system", cat: "system", pal: ["#ff2e63", "#08d9d6", "#252a34"], stack: ["React", "Node", "Bot"],
+    es: ["Plataforma de esports: equipos, jugadores y torneos con brackets, pensada para comunidades gamer.", ["Torneos y brackets", "Equipos y jugadores", "Estética gamer", "Módulos listos para servidor"]],
+    en: ["Esports platform: teams, players and tournaments with brackets, built for gaming communities.", ["Tournaments & brackets", "Teams & players", "Gamer aesthetic", "Server-ready modules"]] },
+  { id: "larimar", name: "Steliant Larimar", repo: "larimar", branch: false, demo: "steliant-larimar", pkg: "web", cat: "web", pal: ["#3ec1d3", "#0b3c5d", "#f2f7f9"], stack: ["React", "Vite"],
+    es: ["Sitio corporativo para una financiera: servicios, simulador y solicitud en línea con identidad azul larimar.", ["Servicios financieros", "Simulador de cuotas", "Solicitud en línea", "Identidad larimar"]],
+    en: ["Corporate site for a lending company: services, calculator and online application with a larimar-blue identity.", ["Financial services", "Payment calculator", "Online application", "Larimar identity"]] },
+  { id: "larimarcrm", name: "Steliant Larimar CRM", repo: "larimar-prestamos", branch: false, demo: "steliant-larimar-crm", pkg: "system", cat: "crm", pal: ["#0b3c5d", "#3ec1d3", "#f4b942"], stack: ["React", "Node", "SQL"],
+    es: ["CRM de préstamos: clientes, solicitudes, cuotas, cobros, mora y reportes para la cartera.", ["Clientes y solicitudes", "Plan de cuotas", "Cobros y mora", "Reportes de cartera"]],
+    en: ["Loans CRM: clients, applications, installments, collections, delinquency and portfolio reports.", ["Clients & applications", "Installment plans", "Collections & delinquency", "Portfolio reports"]] },
+];
+const MIRROR = { "sistema-reservas": "reservas", "tours-rd": "tour", glitchgang: "esports" }; // repos privados → copia limpia pública
+const ghUrl = (p) => (MIRROR[p.repo] ? GH + "steliant/tree/main/" + MIRROR[p.repo] : GH + p.repo + (p.branch ? BRANCH : ""));
+const LIVE = ["steliant-ecommerce", "steliant-reservas", "tour-steliant", "steliant-firma", "steliant-legal", "steliant-salud", "steliant-nexo", "steliant-esports"];
+const demoUrl = (p) => (LIVE.includes(p.demo) ? DEMO_BASE + p.demo + "/" : null);
+
+/* ===== Precios (RD$) ===== */
+const PKGS = {
+  web: { once: 45000, monthly: 5900, months: 12, hours: "40–60 h" },
+  shop: { once: 95000, monthly: 11900, months: 12, hours: "90–130 h" },
+  crm: { once: 125000, monthly: 14900, months: 12, hours: "120–170 h" },
+  system: { once: 180000, monthly: 19900, months: 12, hours: "170–260 h" },
+};
+const EXTRAS = [{ id: "bot", price: 35000 }, { id: "pay", price: 15000 }, { id: "admin", price: 25000 }, { id: "lang", price: 8000 }, { id: "pwa", price: 30000 }];
+const TERMS = [{ m: 6, fee: 0 }, { m: 12, fee: 0.08 }, { m: 18, fee: 0.14 }];
+const HOSTING = 1500; // hosting + dominio + SSL + respaldo, por mes
+const r100 = (n) => Math.ceil(n / 100) * 100;
+Object.values(PKGS).forEach((p) => (p.monthly = r100((p.once * 1.08) / 12 + HOSTING))); // 12 meses, sin inicial, hosting incluido
+const T = {
+  es: {
+    nav: { home: "Inicio", work: "Proyectos", pricing: "Precios", process: "Proceso", contact: "Contacto", menu: "Menú", quote: "Cotizar", my: "Mi cotización" },
+    home: {
+      kick: "Steliant · Innovative Software Solutions", title: ["Software que", "vende por ti."], lede: "Diseño y desarrollo webs, tiendas, sistemas de reservas, CRMs y bots para negocios en República Dominicana. Proyectos reales, listos para adaptar a tu marca.",
+      cta1: "Ver proyectos", cta2: "Cotizar mi proyecto",
+      stats: [[10, "", "Proyectos en exhibición"], [6, "", "Industrias"], [2, "", "Idiomas por proyecto"], [100, "%", "Responsive"]],
+      featKick: "Destacados", featTitle: ["Lo que puedo", "construir para ti"], all: "Ver los 10 proyectos",
+      whyKick: "Por qué Steliant", why: [["Diseño premium", "Animación, modo claro/oscuro y dos idiomas en cada proyecto."], ["Listo para vender", "Flujos completos: reservas, pagos, paneles y bots."], ["Precios claros", "Pago único o mensualidades, sin sorpresas."], ["Soporte local", "Hosting, dominio y cambios incluidos en el plan."]],
+      ctaTitle: ["¿Tienes una idea?", "Hagámosla real."], ctaText: "Cuéntame tu negocio y te envío una propuesta con precio cerrado en 24 horas.",
+    },
+    work: { kick: "Portafolio", title: ["Diez proyectos,", "listos para ti"], lede: "Cada proyecto tiene demo en vivo y su código en GitHub. Filtra por tipo y abre el que te interese.", filters: { all: "Todos", web: "Webs", shop: "E-commerce", crm: "Reservas y CRM", system: "Sistemas" }, demo: "Ver demo", code: "GitHub", details: "Detalles", from: "Desde", or: "o", per: "/mes", months: "meses", branchOn: "Rama steliant-exhibicion-completa", branchOff: "Código en el portafolio", features: "Incluye", stack: "Tecnologías", priv: "Repositorio privado: pide acceso" },
+    pricing: {
+      kick: "Precios", title: ["Precios reales,", "pagos cómodos"], lede: "Un proyecto profesional tiene costos reales: horas de diseño y desarrollo, servidor, dominio y soporte. Puedes pagarlo de una vez o en mensualidades.",
+      once: "Pago único", monthly: "Mensual", perMonth: "/mes", x12: "× 12 meses · incluye hosting y soporte", plusHost: "+ hosting desde RD$1,500/mes", popular: "Más pedido",
+      pkgs: { web: ["Web profesional", "Firma, Legal, Tour, Larimar", ["Hasta 6 secciones", "Modo claro/oscuro y ES/EN", "Formulario y WhatsApp", "SEO básico"]], shop: ["Tienda en línea", "Steliant Nova", ["Catálogo y carrito", "Checkout y pedidos", "Panel de ventas", "Pasarela de pago*"]], crm: ["Reservas y CRM", "Steliant Reservas, Larimar CRM", ["Página de reservas", "Panel por roles", "Recordatorios", "Bot opcional"]], system: ["Sistema a medida", "Salud, Nexo, Esports", ["Módulos a medida", "Usuarios y permisos", "Reportes", "Base de datos propia"]] },
+      costKick: "¿De dónde sale el precio?", costs: [["Diseño y desarrollo", "Horas de trabajo según el alcance (RD$1,100–1,400/h)."], ["Servidor y base de datos", "VPS con respaldo diario: RD$1,200–3,000/mes."], ["Dominio y SSL", "Dominio .com o .do y certificado: ~RD$1,500/año."], ["WhatsApp Business API", "Meta cobra por conversación (aprox. US$0.01–0.06)."], ["Mantenimiento", "Actualizaciones, seguridad y cambios menores."]],
+      calcKick: "Cotizador", calcTitle: ["Arma tu proyecto", "y mira el precio"], base: "Tipo de proyecto", extras: "Extras", term: "Forma de pago", upfront: "Pago único", total: "Total del proyecto", monthlyFee: "Mensualidad", initial: "Inicial", hosting: "Hosting y soporte", feeNote: "Financiamiento", noFee: "sin interés", ask: "Solicitar esta cotización",
+      extrasL: { bot: "Bot de WhatsApp con IA", pay: "Pasarela de pagos", admin: "Panel administrativo", lang: "Segundo idioma", pwa: "App instalable (PWA)" },
+      note: "Precios de referencia en pesos dominicanos, sin ITBIS. El precio final se confirma con la propuesta.",
+    },
+    process: { kick: "Proceso", title: ["De la idea", "al lanzamiento"], lede: "Un proceso claro, con entregas que puedes ver desde la primera semana.",
+      steps: [["Llamada inicial", "Entiendo tu negocio, tus clientes y lo que quieres lograr.", "Día 1"], ["Propuesta y precio", "Alcance, tiempos y precio cerrado por escrito.", "24–48 h"], ["Diseño", "Vista previa navegable para que apruebes antes de programar.", "Semana 1–2"], ["Desarrollo", "Construcción por etapas, con avances que puedes probar.", "Semana 2–6"], ["Lanzamiento y soporte", "Publicación, capacitación y soporte mensual.", "Continuo"]],
+      faqKick: "Preguntas frecuentes", faq: [["¿Puedo pagar en cuotas?", "Sí. Puedes pagar en 6 meses sin interés, o en 12 y 18 meses con un pequeño financiamiento. No pido inicial."], ["¿El dominio y el hosting son míos?", "Sí. Todo queda a tu nombre; yo lo administro mientras tengas el plan."], ["¿Cuánto tarda un proyecto?", "Una web de 2 a 3 semanas; tiendas y sistemas de 4 a 10 semanas según el alcance."], ["¿Qué pasa después de los 12 meses?", "Pasas a un plan de mantenimiento desde RD$1,500/mes con hosting, respaldo y soporte."]] },
+    contact: { kick: "Contacto", title: ["Hablemos de", "tu proyecto"], lede: "Respondo en menos de 24 horas.", name: "Nombre", biz: "Negocio", phone: "WhatsApp", type: "Tipo de proyecto", msg: "Cuéntame qué necesitas", send: "Enviar solicitud", wa: "Escribir por WhatsApp", sent: "¡Solicitud enviada! Te contacto pronto.", need: "Completa nombre y WhatsApp.", where: "Ubicación", hours: "Lun–Sáb · 9:00–19:00" },
+    quote: { title: "Tu cotización", sent: "Enviada", items: "Incluye", open: "Ver en el cotizador", clear: "Borrar", plan: "en" },
+    footer: { tag: "Innovative Software Solutions", credit: "Diseñado y desarrollado por Steliant" },
+  },
+  en: {
+    nav: { home: "Home", work: "Projects", pricing: "Pricing", process: "Process", contact: "Contact", menu: "Menu", quote: "Get a quote", my: "My quote" },
+    home: {
+      kick: "Steliant · Innovative Software Solutions", title: ["Software that", "sells for you."], lede: "I design and build websites, stores, booking systems, CRMs and bots for businesses in the Dominican Republic. Real projects, ready to adapt to your brand.",
+      cta1: "See projects", cta2: "Quote my project",
+      stats: [[10, "", "Showcase projects"], [6, "", "Industries"], [2, "", "Languages per project"], [100, "%", "Responsive"]],
+      featKick: "Featured", featTitle: ["What I can", "build for you"], all: "See all 10 projects",
+      whyKick: "Why Steliant", why: [["Premium design", "Motion, light/dark mode and two languages in every project."], ["Ready to sell", "Complete flows: bookings, payments, dashboards and bots."], ["Clear pricing", "One-time payment or monthly plans, no surprises."], ["Local support", "Hosting, domain and changes included in the plan."]],
+      ctaTitle: ["Got an idea?", "Let's make it real."], ctaText: "Tell me about your business and I'll send a fixed-price proposal within 24 hours.",
+    },
+    work: { kick: "Portfolio", title: ["Ten projects,", "ready for you"], lede: "Every project has a live demo and its code on GitHub. Filter by type and open the one you like.", filters: { all: "All", web: "Websites", shop: "E-commerce", crm: "Booking & CRM", system: "Systems" }, demo: "Live demo", code: "GitHub", details: "Details", from: "From", or: "or", per: "/mo", months: "months", branchOn: "Branch steliant-exhibicion-completa", branchOff: "Code in the portfolio", features: "Includes", stack: "Stack", priv: "Private repository: ask for access" },
+    pricing: {
+      kick: "Pricing", title: ["Real prices,", "easy payments"], lede: "A professional project has real costs: design and development hours, server, domain and support. Pay once or in monthly installments.",
+      once: "One-time", monthly: "Monthly", perMonth: "/mo", x12: "× 12 months · hosting & support included", plusHost: "+ hosting from RD$1,500/mo", popular: "Most requested",
+      pkgs: { web: ["Professional website", "Firma, Legal, Tour, Larimar", ["Up to 6 sections", "Light/dark mode and ES/EN", "Form and WhatsApp", "Basic SEO"]], shop: ["Online store", "Steliant Nova", ["Catalog and cart", "Checkout and orders", "Sales dashboard", "Payment gateway*"]], crm: ["Booking & CRM", "Steliant Reservas, Larimar CRM", ["Booking page", "Role-based dashboard", "Reminders", "Optional bot"]], system: ["Custom system", "Salud, Nexo, Esports", ["Custom modules", "Users and permissions", "Reports", "Own database"]] },
+      costKick: "Where does the price come from?", costs: [["Design & development", "Work hours based on scope (RD$1,100–1,400/h)."], ["Server & database", "VPS with daily backup: RD$1,200–3,000/mo."], ["Domain & SSL", ".com or .do domain and certificate: ~RD$1,500/yr."], ["WhatsApp Business API", "Meta charges per conversation (about US$0.01–0.06)."], ["Maintenance", "Updates, security and minor changes."]],
+      calcKick: "Quote builder", calcTitle: ["Build your project", "and see the price"], base: "Project type", extras: "Extras", term: "Payment", upfront: "One-time", total: "Project total", monthlyFee: "Monthly payment", initial: "Down payment", hosting: "Hosting & support", feeNote: "Financing", noFee: "interest-free", ask: "Request this quote",
+      extrasL: { bot: "AI WhatsApp bot", pay: "Payment gateway", admin: "Admin dashboard", lang: "Second language", pwa: "Installable app (PWA)" },
+      note: "Reference prices in Dominican pesos, before tax. Final price confirmed in the proposal.",
+    },
+    process: { kick: "Process", title: ["From idea", "to launch"], lede: "A clear process, with deliverables you can see from week one.",
+      steps: [["Kick-off call", "I learn about your business, your clients and your goals.", "Day 1"], ["Proposal & price", "Scope, timeline and fixed price in writing.", "24–48 h"], ["Design", "A clickable preview you approve before coding.", "Week 1–2"], ["Development", "Built in stages, with progress you can test.", "Week 2–6"], ["Launch & support", "Go-live, training and monthly support.", "Ongoing"]],
+      faqKick: "FAQ", faq: [["Can I pay in installments?", "Yes. 6 months interest-free, or 12 and 18 months with a small financing fee."], ["Are the domain and hosting mine?", "Yes. Everything is in your name; I manage it while you have the plan."], ["How long does a project take?", "A website 2–3 weeks; stores and systems 4–10 weeks depending on scope."], ["What happens after 12 months?", "You move to a maintenance plan from RD$1,500/mo with hosting, backups and support."]] },
+    contact: { kick: "Contact", title: ["Let's talk about", "your project"], lede: "I reply within 24 hours.", name: "Name", biz: "Business", phone: "WhatsApp", type: "Project type", msg: "Tell me what you need", send: "Send request", wa: "Message on WhatsApp", sent: "Request sent! I'll be in touch soon.", need: "Fill in name and WhatsApp.", where: "Location", hours: "Mon–Sat · 9:00–19:00" },
+    quote: { title: "Your quote", sent: "Sent", items: "Includes", open: "Open in quote builder", clear: "Clear", plan: "in" },
+    footer: { tag: "Innovative Software Solutions", credit: "Designed and built by Steliant" },
+  },
+};
+let lang = store.get("sp-lang") || ((navigator.language || "es").startsWith("en") ? "en" : "es");
+const t = () => T[lang];
+const get = (p) => p.split(".").reduce((o, k) => (o == null ? o : o[k]), t());
+const P = (p) => p[lang] || p.es;
+/* ---------- State ---------- */
+const VIEWS = [["inicio", "home", "M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"], ["proyectos", "work", "M3 3h7.5v9H3zM13.5 3H21v5.5h-7.5zM13.5 11.5H21V21h-7.5zM3 15h7.5v6H3z"], ["precios", "pricing", "M3 12V4a1 1 0 0 1 1-1h8l9 9-9 9zM8 7.5h.01"], ["proceso", "process", "M4 6h16M4 12h10M4 18h6"], ["contacto", "contact", "M4 18.5V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H8z"]];
+let current = "inicio", payMode = "once", filter = "all", calc = { base: "crm", extras: ["bot"], term: 12 };
+let quote = (() => { try { return JSON.parse(store.get("sp-quote")); } catch (e) { return null; } })();
+let tt; const toast = (m) => { const e = $("#toast"); e.textContent = m; e.classList.add("on"); clearTimeout(tt); tt = setTimeout(() => e.classList.remove("on"), 3400); };
+const chars = (lines) => lines.map((l, i) => `<span class="ln${i === lines.length - 1 ? " accent" : ""}">${l.split(" ").map((w) => `<span class="wd">${[...w].map((c) => `<span class="ch">${c}</span>`).join("")}</span>`).join(" ")}</span>`).join("");
+const svg = (d, extra = "") => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" ${extra}><path d="${d}"/></svg>`;
+const PRIVATE = [];
+const CAT_ICON = { web: "M3 4h18v16H3zM3 9h18", shop: "M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.5L21 8H6", crm: "M4 7a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v11a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3zM4 10h16M9 2v4M15 2v4", system: "M4 5h16v10H4zM8 19h8M12 15v4" };
+
+/* ---------- Star mark ---------- */
+const STAR = (() => { const cx = 50, cy = 53, R = 44, r = 18.5, pt = (i, rad) => { const a = -Math.PI / 2 + (i * Math.PI) / 5; return [cx + Math.cos(a) * rad, cy + Math.sin(a) * rad].map((v) => v.toFixed(1)).join(" "); }; const o = (k) => pt(k * 2, R), n = (k) => pt(k * 2 + 1, r);
+  return { a: `M${o(0)} L${n(4)} L${o(4)} L${n(3)} L${o(3)} L${n(2)}`, b: `M${o(0)} L${n(0)} L${o(1)} L${n(1)} L${o(2)} L${n(2)}` }; })();
+function paintStars() { $$(".sa").forEach((p) => p.setAttribute("d", STAR.a)); $$(".sb").forEach((p) => p.setAttribute("d", STAR.b)); $$(".ls-a").forEach((p) => p.setAttribute("d", STAR.a)); $$(".ls-b").forEach((p) => p.setAttribute("d", STAR.b)); }
+
+/* ---------- Mock previews ---------- */
+const mock = (p, big) => `<div class="mock${big ? " big" : ""}" style="--a:${p.pal[0]};--b:${p.pal[1]};--c:${p.pal[2]}"><div class="mk-bar"><i></i><i></i><i></i><span>${p.demo}.steliant</span></div><div class="mk-view"><div class="mk-scroll"><div class="mk-nav"><b></b><span></span><span></span><span></span><em></em></div><div class="mk-hero"><div><i></i><i></i><i class="s"></i><em></em></div><span class="mk-shape"></span></div><div class="mk-cards"><i></i><i></i><i></i></div><div class="mk-rows"><i></i><i></i><i></i></div><div class="mk-hero alt"><div><i></i><i class="s"></i></div></div><div class="mk-cards"><i></i><i></i><i></i></div></div></div></div>`;
+
+/* ---------- Static render ---------- */
+function renderStatic() {
+  document.documentElement.lang = lang; $("#langLbl").textContent = lang === "es" ? "EN" : "ES";
+  $$("[data-t]").forEach((el) => { const v = get(el.dataset.t); if (typeof v === "string") el.textContent = v; });
+  $$("[data-split]").forEach((el) => (el.innerHTML = chars(get(el.dataset.split))));
+  $("#rNav").innerHTML = VIEWS.map(([id, k, d], i) => `<a href="#${id}" data-view="${id}" class="rn">${svg(d)}<span>${t().nav[k]}</span><em>0${i + 1}</em></a>`).join("") + `<i class="rn-ink"></i>`;
+  $("#mNav").innerHTML = VIEWS.map(([id, k], i) => `<a href="#${id}" data-view="${id}"><em>0${i + 1}</em>${t().nav[k]}</a>`).join("");
+  $("#fNav").innerHTML = VIEWS.map(([id, k]) => `<a href="#${id}">${t().nav[k]}</a>`).join("");
+  $("#fGiant").innerHTML = "Steliant".split("").map((c) => `<span>${c}</span>`).join("");
+  $("#stats").innerHTML = t().home.stats.map(([v, s, l]) => `<div><strong data-count="${v}" data-suffix="${s}">${v}${s}</strong><span>${l}</span></div>`).join("");
+  $("#orbit").innerHTML = PROJECTS.map((p, i) => `<button type="button" class="chip" data-open="${p.id}" style="--a:${p.pal[0]};--b:${p.pal[1]}"><i></i>${p.name.replace("Steliant ", "")}</button>`).join("");
+  $("#feat").innerHTML = ["ecommerce", "reservas", "tour"].map((id, i) => { const p = PROJECTS.find((x) => x.id === id); return `<article class="fc fc${i}" data-open="${p.id}" data-cursor="${t().work.details}">${mock(p, true)}<div class="fc-info"><span class="cat">${t().work.filters[p.cat]}</span><h3>${p.name}</h3><p>${P(p)[0]}</p><span class="fc-price">${t().work.from} ${money(PKGS[p.pkg].once)} ${t().work.or} ${money(PKGS[p.pkg].monthly)}${t().work.per}</span></div></article>`; }).join("");
+  $("#whyGrid").innerHTML = t().home.why.map(([a, b], i) => `<div class="why-c" data-tilt><span class="why-n">0${i + 1}</span><b>${a}</b><p>${b}</p></div>`).join("");
+  $("#filters").innerHTML = `<span class="f-ink"></span>` + Object.entries(t().work.filters).map(([k, v]) => `<button type="button" data-filter="${k}" class="${filter === k ? "on" : ""}">${v}<em>${k === "all" ? PROJECTS.length : PROJECTS.filter((p) => p.cat === k).length}</em></button>`).join("");
+  renderGrid(false); renderPricing(); renderCalc(); renderProcess(); renderContact(); renderQuoteHome(); movePill(); markActive(); paintStars();
+}
+function card(p, i) {
+  const W = t().work, priv = PRIVATE.includes(p.repo);
+  return `<article class="pc" data-id="${p.id}" style="--i:${i}" data-tilt><div class="pc-mock" data-open="${p.id}" data-cursor="${W.details}">${mock(p)}</div>
+    <div class="pc-body"><div class="pc-top"><span class="cat">${svg(CAT_ICON[p.cat])}${W.filters[p.cat]}</span><span class="br ${p.branch ? "on" : ""}" title="${p.branch ? W.branchOn : W.branchOff}">${svg("M6 3v12M18 9a3 3 0 1 0 0-.01M6 21a3 3 0 1 0 0-.01M18 9c0 6-12 3-12 9")}${p.branch ? "steliant-exhibicion" : "portafolio"}</span></div>
+      <h3>${p.name}</h3><p>${P(p)[0]}</p>
+      <div class="pc-stack">${p.stack.map((s) => `<span>${s}</span>`).join("")}</div>
+      <div class="pc-price"><small>${W.from}</small><b>${money(PKGS[p.pkg].once)}</b><small>${W.or} ${money(PKGS[p.pkg].monthly)}${W.per}</small></div>
+      <div class="pc-act">${demoUrl(p) ? `<a class="btn btn-main sm" href="${demoUrl(p)}" target="_blank" rel="noopener">${W.demo} ↗</a>` : `<span class="btn btn-line sm soon">${lang === "en" ? "Demo soon" : "Demo pronto"}</span>`}<a class="btn btn-line sm gh" href="${ghUrl(p)}" target="_blank" rel="noopener" title="${priv ? W.priv : ghUrl(p)}">${svg("M9 19c-4 1.5-4-2-6-2.5M15 21v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12 12 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21")}${W.code}${priv ? " 🔒" : ""}</a><button type="button" class="btn btn-ghost sm" data-open="${p.id}">${W.details}</button></div></div></article>`;
+}
+function renderGrid(anim = true) {
+  const list = PROJECTS.filter((p) => filter === "all" || p.cat === filter), g = $("#grid");
+  const go = () => { g.innerHTML = list.map(card).join(""); if (anim && hasG && !reduce) gsap.fromTo(".pc", { y: 60, opacity: 0, rotateX: 12 }, { y: 0, opacity: 1, rotateX: 0, stagger: 0.07, duration: 0.9, ease: "expo.out", clearProps: "transform" }); };
+  if (anim && hasG && !reduce && g.children.length) gsap.to(".pc", { y: -20, opacity: 0, scale: 0.96, stagger: 0.02, duration: 0.3, ease: "power2.in", onComplete: go }); else go();
+}
+function moveInk(sel, inkSel, pad = 4) { const on = $(sel), ink = $(inkSel); if (!on || !ink) return; ink.style.width = on.offsetWidth + "px"; ink.style.transform = `translateX(${on.offsetLeft - pad}px)`; }
+function movePill() { moveInk("#filters .on", "#filters .f-ink"); moveInk("#payTog .on", "#payTog .pt-ink"); }
+document.addEventListener("click", (e) => { const f = e.target.closest("[data-filter]"); if (!f) return; filter = f.dataset.filter; $$("[data-filter]").forEach((b) => b.classList.toggle("on", b === f)); movePill(); renderGrid(); });
+
+/* ---------- Drawer ---------- */
+function openDrawer(id) {
+  const p = PROJECTS.find((x) => x.id === id), W = t().work, [desc, feats] = P(p), priv = PRIVATE.includes(p.repo);
+  $("#drPanel").innerHTML = `<button type="button" class="x" data-close aria-label="Cerrar">✕</button>${mock(p, true)}
+    <div class="dr-body"><span class="cat">${svg(CAT_ICON[p.cat])}${W.filters[p.cat]}</span><h2>${p.name}</h2><p>${desc}</p>
+      <h4>${W.features}</h4><ul>${feats.map((f) => `<li>${svg("M5 12.5l4.5 4.5L19 7.5")}${f}</li>`).join("")}</ul>
+      <h4>${W.stack}</h4><div class="pc-stack">${p.stack.concat(["ES/EN", "Light/Dark", "Responsive"]).map((s) => `<span>${s}</span>`).join("")}</div>
+      <div class="dr-repo"><code>${ghUrl(p).replace("https://", "")}</code><small>${p.branch ? W.branchOn : W.branchOff}${priv ? " · " + W.priv : ""}</small></div>
+      <div class="dr-price"><div><small>${t().pricing.once}</small><b>${money(PKGS[p.pkg].once)}</b></div><div><small>${t().pricing.monthly}</small><b>${money(PKGS[p.pkg].monthly)}<em>${W.per}</em></b></div></div>
+      <div class="pc-act">${demoUrl(p) ? `<a class="btn btn-main" href="${demoUrl(p)}" target="_blank" rel="noopener">${W.demo} ↗</a>` : ""}<a class="btn btn-line" href="${ghUrl(p)}" target="_blank" rel="noopener">${W.code}</a><a class="btn btn-ghost" href="#precios" data-goto="calc" data-base="${p.pkg}">${t().nav.quote}</a></div></div>`;
+  $("#drawer").classList.add("on"); document.body.classList.add("lock");
+  if (hasG && !reduce) { gsap.fromTo("#drPanel", { xPercent: 100 }, { xPercent: 0, duration: 0.9, ease: "expo.out" }); gsap.from("#drPanel .mock", { scale: 0.9, opacity: 0, duration: 1, ease: "expo.out", delay: 0.2 }); gsap.from(".dr-body > *", { y: 24, opacity: 0, stagger: 0.04, duration: 0.7, ease: "expo.out", delay: 0.3 }); }
+}
+function closeDrawer() { const d = $("#drawer"); if (!d.classList.contains("on")) return; const done = () => { d.classList.remove("on"); document.body.classList.remove("lock"); }; hasG && !reduce ? gsap.to("#drPanel", { xPercent: 100, duration: 0.5, ease: "power3.in", onComplete: done }) : done(); }
+document.addEventListener("click", (e) => { const o = e.target.closest("[data-open]"); if (o && !e.target.closest("a")) { e.preventDefault(); openDrawer(o.dataset.open); return; } if (e.target.closest("[data-close]")) closeDrawer(); });
+
+/* ---------- Pricing ---------- */
+function renderPricing() {
+  const PR = t().pricing;
+  $("#pkgs").innerHTML = Object.entries(PKGS).map(([k, v]) => { const [n, ex, pts] = PR.pkgs[k]; return `<article class="pk${k === "crm" ? " hot" : ""}" data-tilt>${k === "crm" ? `<span class="pk-badge">${PR.popular}</span>` : ""}<span class="pk-ico">${svg(CAT_ICON[k])}</span><b class="pk-n">${n}</b><small class="pk-ex">${ex}</small>
+      <div class="pk-price"><strong data-once="${v.once}" data-mon="${v.monthly}">${money(payMode === "once" ? v.once : v.monthly)}</strong><em>${payMode === "once" ? "" : PR.perMonth}</em></div><p class="pk-sub">${payMode === "once" ? PR.plusHost : PR.x12}</p>
+      <ul>${pts.map((x) => `<li>${svg("M5 12.5l4.5 4.5L19 7.5")}${x}</li>`).join("")}</ul><small class="pk-h">${v.hours}</small><a href="#precios" class="btn ${k === "crm" ? "btn-main" : "btn-line"} sm" data-goto="calc" data-base="${k}">${t().nav.quote}</a></article>`; }).join("");
+  $("#costList").innerHTML = PR.costs.map(([a, b], i) => `<div class="cost"><span class="c-n">0${i + 1}</span><b>${a}</b><p>${b}</p><i style="--w:${[78, 34, 12, 22, 40][i]}%"></i></div>`).join("");
+}
+document.addEventListener("click", (e) => {
+  const b = e.target.closest("[data-pay]"); if (!b) return; payMode = b.dataset.pay; $$("[data-pay]").forEach((x) => x.classList.toggle("on", x === b)); movePill();
+  const PR = t().pricing;
+  $$(".pk").forEach((pk) => { const s = pk.querySelector("strong"), from = +(payMode === "once" ? s.dataset.mon : s.dataset.once), to = +(payMode === "once" ? s.dataset.once : s.dataset.mon), o = { v: from }; pk.querySelector(".pk-price em").textContent = payMode === "once" ? "" : PR.perMonth; pk.querySelector(".pk-sub").textContent = payMode === "once" ? PR.plusHost : PR.x12;
+    if (hasG && !reduce) { gsap.to(o, { v: to, duration: 0.9, ease: "power3.out", onUpdate: () => (s.textContent = money(o.v)) }); gsap.fromTo(pk, { rotateY: -14 }, { rotateY: 0, duration: 1, ease: "elastic.out(1,.6)" }); } else s.textContent = money(to); });
+});
+
+/* ---------- Calculator ---------- */
+const calcTotal = () => PKGS[calc.base].once + calc.extras.reduce((s, x) => s + EXTRAS.find((e) => e.id === x).price, 0);
+function calcOut() {
+  const total = calcTotal(), term = TERMS.find((x) => x.m === calc.term);
+  if (!term) return { total, initial: 0, monthly: 0, fee: 0 };
+  return { total, initial: 0, monthly: r100((total * (1 + term.fee)) / term.m + HOSTING), fee: term.fee };
+}
+function renderCalc() {
+  const PR = t().pricing;
+  $("#calcBox").innerHTML = `<div class="c-in"><p class="c-l">${PR.base}</p><div class="c-base">${Object.keys(PKGS).map((k) => `<button type="button" data-cbase="${k}" class="${calc.base === k ? "on" : ""}">${svg(CAT_ICON[k])}<b>${PR.pkgs[k][0]}</b><small>${money(PKGS[k].once)}</small></button>`).join("")}</div>
+      <p class="c-l">${PR.extras}</p><div class="c-ex">${EXTRAS.map((x) => `<label class="${calc.extras.includes(x.id) ? "on" : ""}"><input type="checkbox" data-cex="${x.id}" ${calc.extras.includes(x.id) ? "checked" : ""}><i class="sw"><b></b></i><span>${PR.extrasL[x.id]}</span><em>+${money(x.price)}</em></label>`).join("")}</div>
+      <p class="c-l">${PR.term}</p><div class="c-term"><span class="ct-ink"></span><button type="button" data-cterm="0" class="${!calc.term ? "on" : ""}">${PR.upfront}</button>${TERMS.map((x) => `<button type="button" data-cterm="${x.m}" class="${calc.term === x.m ? "on" : ""}">${x.m} ${t().work.months}</button>`).join("")}</div></div>
+    <div class="c-out"><div class="co-ring"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52"/><circle cx="60" cy="60" r="52" class="cr-arc" id="crArc"/></svg><div><small id="coMainL"></small><strong id="coMain"></strong></div></div>
+      <dl id="coDl"></dl><button type="button" class="btn btn-main mag" id="askQuote">${PR.ask}<i class="arr">→</i></button></div>`;
+  updCalc(false);
+}
+let shown = { main: 0 };
+function updCalc(anim = true) {
+  const PR = t().pricing, o = calcOut(), mon = !!calc.term, main = mon ? o.monthly : o.total;
+  $("#coMainL").textContent = mon ? PR.monthlyFee : PR.total;
+  const el = $("#coMain"); if (anim && hasG && !reduce) { const s = { v: shown.main }; gsap.to(s, { v: main, duration: 0.9, ease: "power3.out", onUpdate: () => (el.textContent = money(s.v) + (mon ? PR.perMonth : "")) }); } else el.textContent = money(main) + (mon ? PR.perMonth : "");
+  shown.main = main;
+  $("#coDl").innerHTML = `<div><dt>${PR.total}</dt><dd>${money(o.total)}</dd></div>` + (mon ? `<div><dt>${PR.initial}</dt><dd>${lang === "en" ? "None" : "Sin inicial"}</dd></div><div><dt>${lang === "en" ? "Total financed" : "Total financiado"}</dt><dd>${money(o.monthly * calc.term)}</dd></div><div><dt>${PR.feeNote}</dt><dd>${o.fee ? Math.round(o.fee * 100) + " %" : PR.noFee}</dd></div><div><dt>${PR.hosting}</dt><dd>${lang === "en" ? "included" : "incluido"}</dd></div>` : `<div><dt>${PR.hosting}</dt><dd>${money(HOSTING)}${PR.perMonth}</dd></div>`);
+  const arc = $("#crArc"); if (arc) { const frac = Math.min(1, o.total / 300000); hasG ? gsap.to(arc, { strokeDashoffset: 327 * (1 - frac), duration: 1, ease: "expo.out" }) : (arc.style.strokeDashoffset = 327 * (1 - frac)); }
+  requestAnimationFrame(() => moveInk(".c-term .on", ".c-term .ct-ink"));
+}
+document.addEventListener("click", (e) => {
+  const b = e.target.closest("[data-cbase]"); if (b) { calc.base = b.dataset.cbase; $$("[data-cbase]").forEach((x) => x.classList.toggle("on", x === b)); hasG && gsap.fromTo(b, { scale: 0.94 }, { scale: 1, duration: 0.6, ease: "elastic.out(1,.4)" }); updCalc(); return; }
+  const tm = e.target.closest("[data-cterm]"); if (tm) { calc.term = +tm.dataset.cterm; $$("[data-cterm]").forEach((x) => x.classList.toggle("on", x === tm)); updCalc(); return; }
+  if (e.target.closest("#askQuote")) openQuoteModal();
+  const g = e.target.closest("[data-goto]"); if (g) { if (g.dataset.base) { calc.base = g.dataset.base; renderCalc(); } closeDrawer(); pendingScroll = g.dataset.goto; }
+});
+document.addEventListener("change", (e) => { const x = e.target.dataset.cex; if (!x) return; calc.extras = e.target.checked ? [...calc.extras, x] : calc.extras.filter((y) => y !== x); e.target.closest("label").classList.toggle("on", e.target.checked); updCalc(); });
+
+/* ---------- Quote request flow ---------- */
+function openQuoteModal() {
+  const PR = t().pricing, C = t().contact, o = calcOut();
+  $("#mPanel").innerHTML = `<button type="button" class="x" data-mclose aria-label="Cerrar">✕</button><p class="kick">${t().quote.title}</p><h3>${PR.pkgs[calc.base][0]}</h3>
+    <div class="q-sum"><span>${calc.extras.map((x) => PR.extrasL[x]).join(" · ") || "—"}</span><b>${calc.term ? `${money(o.monthly)}${PR.perMonth} × ${calc.term}` : money(o.total)}</b></div>
+    <div class="fl-grid">${[["name", C.name], ["biz", C.biz], ["phone", C.phone]].map(([k, l], i) => `<div class="fl${i === 0 ? " wide" : ""}"><input id="q-${k}" placeholder=" " autocomplete="off"><label for="q-${k}">${l}</label></div>`).join("")}</div>
+    <button type="button" class="btn btn-main sendbtn" id="qSend"><span>${C.send}</span></button>`;
+  $("#modal").classList.add("on"); document.body.classList.add("lock");
+  hasG && !reduce && gsap.fromTo("#mPanel", { y: 60, scale: 0.94, opacity: 0, rotateX: 12 }, { y: 0, scale: 1, opacity: 1, rotateX: 0, duration: 0.9, ease: "expo.out" });
+}
+function closeModal() { $("#modal").classList.remove("on"); document.body.classList.remove("lock"); }
+document.addEventListener("click", (e) => {
+  if (e.target.closest("[data-mclose]")) return closeModal();
+  if (!e.target.closest("#qSend")) return;
+  const name = $("#q-name").value.trim(), phone = $("#q-phone").value.trim();
+  if (name.length < 2 || phone.length < 7) { toast(t().contact.need); hasG && gsap.fromTo("#mPanel", { x: -10 }, { x: 0, duration: 0.6, ease: "elastic.out(1,.3)" }); return; }
+  const b = $("#qSend"); b.classList.add("busy"); b.querySelector("span").textContent = "…";
+  setTimeout(() => {
+    b.classList.remove("busy"); b.classList.add("ok"); b.innerHTML = `${svg("M5 12.5l4.5 4.5L19 7.5")}<span>${t().quote.sent}</span>`;
+    quote = { name, biz: $("#q-biz").value.trim(), base: calc.base, extras: [...calc.extras], term: calc.term, ...calcOut(), at: Date.now() }; store.set("sp-quote", JSON.stringify(quote));
+    setTimeout(() => { closeModal(); go("inicio"); setTimeout(() => { renderQuoteHome(); toast(t().contact.sent); showFab(true); const q = $("#quoteHome"); scrollTo({ top: q.getBoundingClientRect().top + scrollY - 40, behavior: "smooth" }); hasG && !reduce && gsap.fromTo(q, { y: 60, opacity: 0, scale: 0.96 }, { y: 0, opacity: 1, scale: 1, duration: 1.2, ease: "expo.out", delay: 0.3 }); }, 1300); }, 1200);
+  }, 1400);
+});
+function renderQuoteHome() {
+  const q = $("#quoteHome"); if (!quote) { q.hidden = true; $("#fab").hidden = true; return; }
+  const PR = t().pricing, Q = t().quote; q.hidden = false;
+  q.innerHTML = `<div class="qh"><span class="qh-ico">${svg(CAT_ICON[quote.base])}</span><div class="qh-main"><p class="kick">${Q.title} · ${esc(quote.name)}${quote.biz ? " · " + esc(quote.biz) : ""}</p><h3>${PR.pkgs[quote.base][0]}</h3><p>${Q.items}: ${quote.extras.map((x) => PR.extrasL[x]).join(", ") || "—"}</p>
+    <div class="qh-steps"><span class="done">${Q.sent}</span><span class="now">${lang === "en" ? "Proposal in 24 h" : "Propuesta en 24 h"}</span><span>${lang === "en" ? "Kick-off" : "Arranque"}</span></div></div>
+    <div class="qh-price"><small>${quote.term ? PR.monthlyFee : PR.total}</small><b>${money(quote.term ? quote.monthly : quote.total)}${quote.term ? `<em>${PR.perMonth}</em>` : ""}</b><small>${quote.term ? `${quote.term} ${t().work.months} · ${lang === "en" ? "no down payment" : "sin inicial"}` : ""}</small><div class="qh-act"><a href="#precios" class="btn btn-line sm" data-goto="calc" data-qload>${Q.open}</a><button type="button" class="btn btn-ghost sm" id="qClear">${Q.clear}</button></div></div></div>`;
+  showFab(false);
+}
+function showFab(b) { const f = $("#fab"); if (!quote) return; f.hidden = false; if (b && hasG && !reduce) gsap.fromTo(f, { scale: 0, rotate: -30 }, { scale: 1, rotate: 0, duration: 1.1, ease: "elastic.out(1,.5)" }); }
+$("#fab").addEventListener("click", () => { const doit = () => { const q = $("#quoteHome"); scrollTo({ top: q.getBoundingClientRect().top + scrollY - 40, behavior: "smooth" }); hasG && gsap.fromTo(".qh", { boxShadow: "0 0 0 0 rgba(30,200,184,.7)" }, { boxShadow: "0 0 0 20px rgba(30,200,184,0)", duration: 1.2, repeat: 1 }); }; if (current !== "inicio") { go("inicio"); setTimeout(doit, 1300); } else doit(); });
+document.addEventListener("click", (e) => {
+  if (e.target.closest("#qClear")) { quote = null; store.del("sp-quote"); renderQuoteHome(); }
+  if (e.target.closest("[data-qload]") && quote) { calc = { base: quote.base, extras: [...quote.extras], term: quote.term }; renderCalc(); }
+});
+
+/* ---------- Process + contact ---------- */
+function renderProcess() {
+  const PC = t().process;
+  $("#timeline").innerHTML = `<div class="tl-line"><i></i></div>` + PC.steps.map(([a, b, w], i) => `<div class="tl-step ${i % 2 ? "r" : "l"}"><span class="tl-dot">${i + 1}</span><div class="tl-card"><em>${w}</em><b>${a}</b><p>${b}</p></div></div>`).join("");
+  $("#faq").innerHTML = PC.faq.map(([q, a]) => `<details class="qa"><summary>${q}<i></i></summary><p>${a}</p></details>`).join("");
+}
+function renderContact() {
+  const C = t().contact, PR = t().pricing, wa = `https://wa.me/${CONTACT.whatsapp}?text=${encodeURIComponent(lang === "en" ? "Hi Steliant! I'd like a quote for my project." : "¡Hola Steliant! Quiero cotizar mi proyecto.")}`;
+  $("#contactBox").innerHTML = `<form class="cform" id="cForm" novalidate><div class="fl-grid">${[["name", C.name, ""], ["biz", C.biz, ""], ["phone", C.phone, ""]].map(([k, l]) => `<div class="fl"><input id="c-${k}" placeholder=" " autocomplete="off"><label for="c-${k}">${l}</label></div>`).join("")}<div class="fl sel"><select id="c-type">${Object.keys(PKGS).map((k) => `<option value="${k}">${PR.pkgs[k][0]}</option>`).join("")}</select><label for="c-type">${C.type}</label></div><div class="fl wide"><textarea id="c-msg" placeholder=" " rows="4"></textarea><label for="c-msg">${C.msg}</label></div></div><button type="submit" class="btn btn-main mag">${C.send}<i class="arr">→</i></button></form>
+    <aside class="cside"><a class="wa-btn" href="${wa}" target="_blank" rel="noopener"><span>${svg("M4 20l1.3-3.9A8 8 0 1 1 8 19zM9 9.5c.5 2 2.5 4 4.5 4.5l1-1 2 1")}</span><b>${C.wa}</b><i>→</i></a>
+      ${CONTACT.email ? `<a class="ci" href="mailto:${CONTACT.email}">${svg("M3 6h18v12H3zM3 7l9 6 9-6")}<span>${CONTACT.email}</span></a>` : ""}
+      <div class="ci">${svg("M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z")}<span><small>${C.where}</small>${CONTACT.city}</span></div><div class="ci">${svg("M12 7v5l3 2M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0")}<span>${C.hours}</span></div>
+      <div class="c-star" aria-hidden="true"><svg viewBox="0 0 100 100"><path class="sa" d="${STAR.a}"/><path class="sb" d="${STAR.b}"/></svg></div></aside>`;
+}
+document.addEventListener("submit", (e) => {
+  if (e.target.id !== "cForm") return; e.preventDefault();
+  if ($("#c-name").value.trim().length < 2 || $("#c-phone").value.trim().length < 7) { toast(t().contact.need); return; }
+  toast(t().contact.sent); e.target.reset(); hasG && gsap.fromTo(".cform", { scale: 0.98 }, { scale: 1, duration: 0.6, ease: "elastic.out(1,.4)" });
+});
+
+/* ---------- Theme + language ---------- */
+const root = document.documentElement;
+const sv = store.get("sp-theme"); if (sv) root.dataset.theme = sv;
+const isDark = () => (root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches);
+$("#themeBtn").addEventListener("click", (e) => {
+  const next = isDark() ? "light" : "dark", swap = () => { root.dataset.theme = next; store.set("sp-theme", next); };
+  if (!document.startViewTransition || reduce) return swap();
+  const r = e.currentTarget.getBoundingClientRect(), x = r.left + r.width / 2, y = r.top + r.height / 2, end = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+  document.startViewTransition(swap).ready.then(() => root.animate({ clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${end}px at ${x}px ${y}px)`] }, { duration: 850, easing: "cubic-bezier(.19,1,.22,1)", pseudoElement: "::view-transition-new(root)" })).catch(() => {});
+});
+$("#langBtn").addEventListener("click", () => { lang = lang === "es" ? "en" : "es"; store.set("sp-lang", lang); document.body.classList.add("swapping"); setTimeout(() => { renderStatic(); document.body.classList.remove("swapping"); buildMotion(false); }, 220); });
+
+/* ---------- Views ---------- */
+let pendingScroll = null;
+function markActive() {
+  $$("[data-view]").forEach((a) => a.classList.toggle("on", a.dataset.view === current));
+  const on = $("#rNav .on"), ink = $(".rn-ink"); if (on && ink) { ink.style.transform = `translateY(${on.offsetTop}px)`; ink.style.height = on.offsetHeight + "px"; }
+}
+function showView(id, animate) {
+  if (!VIEWS.some(([v]) => v === id)) id = "inicio";
+  const swap = () => {
+    $$(".view").forEach((v) => v.classList.toggle("on", v.id === "v-" + id)); current = id; markActive(); document.body.classList.remove("menu-on");
+    if (id === "inicio") renderQuoteHome();
+    scrollTo(0, 0); buildMotion(true);
+    if (pendingScroll) { const target = $("#" + pendingScroll); pendingScroll = null; if (target) setTimeout(() => scrollTo({ top: target.getBoundingClientRect().top + scrollY - 30, behavior: "smooth" }), animate ? 900 : 100); }
+  };
+  if (!animate || !hasG || reduce) return swap();
+  const m = $("#app");
+  gsap.timeline()
+    .set(".prog i", { scaleX: 0, opacity: 1 })
+    .to(".prog i", { scaleX: 0.7, duration: 0.45, ease: "power2.out" }, 0)
+    .to(m, { y: -40, scale: 0.97, opacity: 0, filter: "blur(10px)", duration: 0.45, ease: "power3.in" }, 0)
+    .add(swap)
+    .fromTo(m, { y: 90, scale: 0.985, opacity: 0, filter: "blur(10px)" }, { y: 0, scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.9, ease: "expo.out", clearProps: "transform,filter" })
+    .to(".prog i", { scaleX: 1, duration: 0.3 }, "<").to(".prog i", { opacity: 0, duration: 0.3 });
+}
+function go(id) { try { history.pushState(null, "", "#" + id); } catch (e) {} if (id === current && pendingScroll) { const target = $("#" + pendingScroll); pendingScroll = null; if (target) scrollTo({ top: target.getBoundingClientRect().top + scrollY - 30, behavior: "smooth" }); return; } showView(id, true); }
+document.addEventListener("click", (e) => { const a = e.target.closest('a[href^="#"]'); if (!a) return; const id = a.getAttribute("href").slice(1); if (!id) return; e.preventDefault(); go(id); });
+addEventListener("popstate", () => showView(location.hash.slice(1), true));
+addEventListener("keydown", (e) => { if (e.key === "Escape") { closeDrawer(); closeModal(); document.body.classList.remove("menu-on"); } });
+$("#mMenu").addEventListener("click", () => { document.body.classList.toggle("menu-on"); if (document.body.classList.contains("menu-on") && hasG && !reduce) gsap.fromTo("#mNav a", { yPercent: 100, opacity: 0 }, { yPercent: 0, opacity: 1, stagger: 0.05, duration: 0.8, ease: "expo.out", delay: 0.2 }); });
+addEventListener("resize", () => { movePill(); markActive(); });
+
+/* ---------- Ambient: silk lines + orbit + cursor ---------- */
+const cv = $("#field"), cx2 = cv.getContext("2d"); let W = 0, H = 0, tick = 0;
+function sizeCv() { const d = Math.min(2, devicePixelRatio || 1); W = cv.width = innerWidth * d; H = cv.height = innerHeight * d; cv.style.width = innerWidth + "px"; cv.style.height = innerHeight + "px"; }
+sizeCv(); addEventListener("resize", sizeCv);
+function drawField() {
+  tick += 0.004; cx2.clearRect(0, 0, W, H); const dark = isDark();
+  for (let k = 0; k < 14; k++) { cx2.beginPath(); const yb = H * (0.25 + k * 0.045), amp = H * 0.06; for (let x = 0; x <= W; x += 16) { const y = yb + Math.sin(x / W * 4 + tick * 3 + k * 0.4) * amp * Math.sin(tick + k * 0.2) + Math.cos(x / W * 7 - tick * 2) * amp * 0.3; x ? cx2.lineTo(x, y) : cx2.moveTo(x, y); } cx2.strokeStyle = k % 3 === 0 ? (dark ? "rgba(46,230,208,.14)" : "rgba(10,156,150,.16)") : (dark ? "rgba(120,150,255,.07)" : "rgba(11,42,107,.07)"); cx2.lineWidth = (k % 3 === 0 ? 1.4 : 1) * (W / innerWidth); cx2.stroke(); }
+  if (!reduce) requestAnimationFrame(drawField);
+}
+drawField();
+let oa = 0, ov = 0.003, oHover = false;
+(function orbitLoop() {
+  if (current === "inicio") { const chips = $$("#orbit .chip"), wrap = $("#orbitWrap"); if (wrap && chips.length) { const rx = wrap.offsetWidth * 0.46, ry = wrap.offsetHeight * 0.17; if (!oHover) oa += ov; chips.forEach((c, i) => { const a = oa + (i / chips.length) * Math.PI * 2, z = Math.sin(a); c.style.transform = `translate(-50%,-50%) translate(${Math.cos(a) * rx}px, ${z * ry}px) scale(${0.72 + (z + 1) * 0.2})`; c.style.zIndex = z > 0 ? 3 : 1; c.style.opacity = 0.45 + (z + 1) * 0.28; }); } }
+  requestAnimationFrame(orbitLoop);
+})();
+$("#orbit").addEventListener("mouseenter", () => (oHover = true)); $("#orbit").addEventListener("mouseleave", () => (oHover = false));
+if (!reduce && matchMedia("(hover:hover) and (pointer:fine)").matches) {
+  document.body.classList.add("has-cursor");
+  const c = $(".cursor"); let mx = innerWidth / 2, my = innerHeight / 2, px = mx, py = my;
+  addEventListener("mousemove", (e) => {
+    mx = e.clientX; my = e.clientY;
+    const m = e.target.closest(".mag"); if (m) { const r = m.getBoundingClientRect(); m.style.transform = `translate(${(mx - r.left - r.width / 2) * 0.2}px,${(my - r.top - r.height / 2) * 0.3}px)`; }
+    const tl = e.target.closest("[data-tilt]"); if (tl) { const r = tl.getBoundingClientRect(), x = (mx - r.left) / r.width, y = (my - r.top) / r.height; tl.style.setProperty("--mx", x * 100 + "%"); tl.style.setProperty("--my", y * 100 + "%"); tl.style.transform = `perspective(1000px) rotateY(${(x - 0.5) * 7}deg) rotateX(${(0.5 - y) * 7}deg)`; }
+    if (current === "inicio") { const s = $("#starBig"); if (s) s.style.transform = `rotateY(${(mx / innerWidth - 0.5) * 30}deg) rotateX(${(0.5 - my / innerHeight) * 20}deg)`; }
+    document.documentElement.style.setProperty("--sx", mx + "px"); document.documentElement.style.setProperty("--sy", my + "px");
+  });
+  document.addEventListener("mouseout", (e) => { [".mag", "[data-tilt]"].forEach((s) => { const el = e.target.closest(s); if (el && !el.contains(e.relatedTarget)) { el.style.transition = "transform .7s cubic-bezier(.19,1,.22,1)"; el.style.transform = ""; setTimeout(() => (el.style.transition = ""), 700); } }); });
+  document.addEventListener("mouseover", (e) => { const v = e.target.closest("[data-cursor]"), h = e.target.closest("a,button,label,summary,input,select,textarea"); c.classList.toggle("view", !!v); c.querySelector("span").textContent = v ? v.dataset.cursor : ""; c.classList.toggle("hover", !v && !!h); });
+  (function loop() { px += (mx - px) * 0.2; py += (my - py) * 0.2; c.style.transform = `translate(${px}px,${py}px)`; requestAnimationFrame(loop); })();
+}
+
+/* ---------- Motion ---------- */
+let firstPaint = true;
+function countUp(el) { const end = +el.dataset.count, s = el.dataset.suffix || ""; if (!hasG || reduce) return; const o = { v: 0 }; gsap.to(o, { v: end, duration: 2, ease: "power3.out", onUpdate: () => (el.textContent = Math.round(o.v) + s) }); }
+const charIn = (els, extra = {}) => gsap.from(els, { yPercent: 120, rotateX: -80, opacity: 0, transformOrigin: "50% 100%", stagger: 0.02, duration: 1.1, ease: "expo.out", ...extra });
+function buildMotion(entering) {
+  if (!hasG || reduce) return;
+  ScrollTrigger.getAll().forEach((s) => s.kill());
+  const view = $(".view.on"); if (!view) return; const q = (s) => view.querySelectorAll(s), d0 = firstPaint ? 1.9 : 0.5;
+  if (entering) { const h = view.querySelector(".vhead h1, .h-title"); if (h) charIn(h.querySelectorAll(".ch"), { delay: d0 }); gsap.from(view.querySelectorAll(".vhead .kick, .vhead .v-lede, .h-in"), { y: 30, opacity: 0, stagger: 0.08, duration: 1.1, ease: "expo.out", delay: d0 + 0.2 }); }
+  q(".s-head .chars, .cta-box .chars").forEach((h) => charIn(h.querySelectorAll(".ch"), { scrollTrigger: { trigger: h, start: "top 88%" } }));
+  q(".s-head .kick, .costs > .kick, section > .kick").forEach((k) => gsap.from(k, { x: -30, opacity: 0, duration: 1, ease: "expo.out", scrollTrigger: { trigger: k, start: "top 92%" } }));
+  if (view.id === "v-inicio") {
+    if (entering) {
+      const sa = $$("#starBig .sa, #starBig .sb"); sa.forEach((p) => { const l = p.getTotalLength(); gsap.fromTo(p, { strokeDasharray: l, strokeDashoffset: l }, { strokeDashoffset: 0, duration: 2, ease: "power3.inOut", delay: d0 - 0.3 }); });
+      gsap.fromTo("#orbit", { scale: 0.2, opacity: 0, rotate: -40 }, { scale: 1, opacity: 1, rotate: 0, duration: 1.6, ease: "expo.out", delay: d0 + 0.6 });
+      gsap.from(".ring", { scale: 0.4, opacity: 0, stagger: 0.15, duration: 1.6, ease: "expo.out", delay: d0 + 0.3 });
+      gsap.from("#stats > div", { y: 40, opacity: 0, stagger: 0.08, duration: 1, ease: "expo.out", delay: d0 + 0.6, onStart: () => $$("#stats [data-count]").forEach(countUp) });
+    }
+    gsap.to("#orbitWrap", { yPercent: -18, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+    q(".fc").forEach((f, i) => { gsap.from(f, { y: 120, opacity: 0, rotateX: 18, duration: 1.4, ease: "expo.out", scrollTrigger: { trigger: f, start: "top 88%" } }); gsap.fromTo(f.querySelector(".mock"), { yPercent: 8 }, { yPercent: -8, ease: "none", scrollTrigger: { trigger: f, start: "top bottom", end: "bottom top", scrub: true } }); });
+    gsap.from(".why-c", { y: 70, opacity: 0, stagger: 0.1, duration: 1.1, ease: "expo.out", scrollTrigger: { trigger: "#whyGrid", start: "top 85%" } });
+    gsap.from(".cta-box", { scale: 0.92, opacity: 0, duration: 1.3, ease: "expo.out", scrollTrigger: { trigger: ".cta-box", start: "top 85%" } });
+    gsap.fromTo(".cta-star svg", { rotate: -30 }, { rotate: 30, ease: "none", scrollTrigger: { trigger: ".cta-box", start: "top bottom", end: "bottom top", scrub: true } });
+  }
+  if (view.id === "v-proyectos") { gsap.from("#filters", { y: 20, opacity: 0, duration: 0.9, ease: "expo.out", delay: entering ? d0 + 0.3 : 0 }); gsap.fromTo(".pc", { y: 80, opacity: 0, rotateX: 14 }, { y: 0, opacity: 1, rotateX: 0, stagger: 0.07, duration: 1.1, ease: "expo.out", delay: entering ? d0 + 0.4 : 0, clearProps: "transform" }); requestAnimationFrame(movePill); }
+  if (view.id === "v-precios") {
+    gsap.fromTo(".pk", { y: 90, opacity: 0, rotateY: -14 }, { y: 0, opacity: 1, rotateY: 0, stagger: 0.1, duration: 1.2, ease: "expo.out", delay: entering ? d0 + 0.35 : 0, clearProps: "transform" });
+    gsap.from(".cost", { x: -50, opacity: 0, stagger: 0.08, duration: 1, ease: "expo.out", scrollTrigger: { trigger: "#costList", start: "top 85%" } });
+    gsap.from(".cost i", { scaleX: 0, transformOrigin: "left", stagger: 0.08, duration: 1.4, ease: "expo.out", scrollTrigger: { trigger: "#costList", start: "top 80%" } });
+    gsap.from(".c-in > *, .c-out", { y: 40, opacity: 0, stagger: 0.06, duration: 1, ease: "expo.out", scrollTrigger: { trigger: "#calcBox", start: "top 85%" } });
+    requestAnimationFrame(() => { movePill(); moveInk(".c-term .on", ".c-term .ct-ink"); });
+  }
+  if (view.id === "v-proceso") {
+    gsap.fromTo(".tl-line i", { scaleY: 0 }, { scaleY: 1, ease: "none", scrollTrigger: { trigger: "#timeline", start: "top 70%", end: "bottom 60%", scrub: true } });
+    q(".tl-step").forEach((s) => { gsap.from(s.querySelector(".tl-card"), { x: s.classList.contains("l") ? -80 : 80, opacity: 0, duration: 1.1, ease: "expo.out", scrollTrigger: { trigger: s, start: "top 85%" } }); gsap.from(s.querySelector(".tl-dot"), { scale: 0, duration: 0.8, ease: "back.out(3)", scrollTrigger: { trigger: s, start: "top 80%" } }); });
+    gsap.from(".qa", { y: 30, opacity: 0, stagger: 0.07, duration: 0.9, ease: "expo.out", scrollTrigger: { trigger: "#faq", start: "top 88%" } });
+  }
+  if (view.id === "v-contacto") { gsap.from(".cform .fl, .cform .btn", { y: 30, opacity: 0, stagger: 0.06, duration: 0.9, ease: "expo.out", delay: entering ? d0 + 0.3 : 0 }); gsap.from(".cside > *", { x: 40, opacity: 0, stagger: 0.08, duration: 1, ease: "expo.out", delay: entering ? d0 + 0.4 : 0 }); }
+  gsap.fromTo("#fGiant span", { yPercent: 100, opacity: 0 }, { yPercent: 0, opacity: 1, stagger: 0.05, ease: "none", scrollTrigger: { trigger: ".foot", start: "top bottom", end: "bottom bottom", scrub: 0.6 } });
+  requestAnimationFrame(() => ScrollTrigger.refresh());
+}
+
+/* ---------- Boot ---------- */
+renderStatic();
+showView(location.hash.slice(1), false);
+const ld = $("#loader");
+if (!hasG || reduce) { ld.style.display = "none"; firstPaint = false; }
+else {
+  ld.style.animation = "none";
+  const ps = $$(".ld-star path"); ps.forEach((p) => { const l = p.getTotalLength(); gsap.set(p, { strokeDasharray: l, strokeDashoffset: l }); });
+  gsap.timeline({ onComplete: () => (firstPaint = false) })
+    .to(ps, { strokeDashoffset: 0, duration: 1.1, stagger: 0.15, ease: "power3.inOut" })
+    .from(".ld-word", { y: 20, opacity: 0, duration: 0.7, ease: "expo.out" }, 0.4)
+    .to(".ld-star", { rotate: 72, scale: 0.8, duration: 0.7, ease: "power3.in" }, 1.3)
+    .to(ld, { clipPath: "circle(0% at 50% 50%)", duration: 0.9, ease: "expo.inOut" }, 1.5).set(ld, { display: "none" });
+}
+})();
+</script></body></html>

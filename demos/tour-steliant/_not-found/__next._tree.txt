@@ -1,0 +1,3 @@
+:HL["/steliant/demos/tour-steliant/_next/static/chunks/0yr9ynd4jifmm.css","style"]
+:HL["https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;800;900&family=Instrument+Sans:ital,wght@0,400..700;1,400..600&family=DM+Mono:wght@400;500&display=swap","style"]
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"/_not-found","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"nBSfcq8TvGIx7mBx20MI0"}
