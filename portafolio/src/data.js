@@ -5,12 +5,14 @@ const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const hasG = typeof gsap !== "undefined";
 if (hasG) gsap.registerPlugin(ScrollTrigger);
 const store = { get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }, set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }, del(k) { try { localStorage.removeItem(k); } catch (e) {} } };
-const money = (n) => "RD$" + Math.round(n).toLocaleString("en-US");
+const usd = (n) => { const v = n / USD_RATE; return "US$" + (v >= 100 ? Math.round(v / 5) * 5 : Math.round(v)).toLocaleString("en-US"); }; // RD$ → US$ redondeado
+const money = (n) => (lang === "en" ? usd(n) : "RD$" + Math.round(n).toLocaleString("en-US"));
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
 /* ===== Configuración editable ===== */
 const CONTACT = { whatsapp: "", email: "", city: "Santo Domingo, RD" }; // ← coloca tu número (solo dígitos, ej. 18095551234) y tu correo
 const DEMO_BASE = "demos/"; // las demos viven en el mismo sitio del portafolio
+const USD_RATE = 63; // RD$ por cada US$: los precios en inglés se muestran en dólares con esta tasa
 const GH = "https://github.com/Stephy0723/";
 const BRANCH = "/tree/steliant-exhibicion-completa";
 
@@ -52,7 +54,7 @@ const ghUrl = (p) => (MIRROR[p.repo] ? GH + "steliant/tree/main/" + MIRROR[p.rep
 const LIVE = ["steliant-ecommerce", "steliant-reservas", "tour-steliant", "steliant-firma", "steliant-legal", "steliant-salud", "steliant-nexo", "steliant-esports"];
 const demoUrl = (p) => (LIVE.includes(p.demo) ? DEMO_BASE + p.demo + "/" : null);
 
-/* ===== Precios (RD$) ===== */
+/* ===== Precios (RD$; en inglés se convierten a US$ con USD_RATE) ===== */
 const PKGS = {
   web: { once: 45000, monthly: 5900, months: 12, hours: "40–60 h" },
   shop: { once: 95000, monthly: 11900, months: 12, hours: "90–130 h" },

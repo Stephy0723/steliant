@@ -508,12 +508,14 @@ const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const hasG = typeof gsap !== "undefined";
 if (hasG) gsap.registerPlugin(ScrollTrigger);
 const store = { get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }, set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }, del(k) { try { localStorage.removeItem(k); } catch (e) {} } };
-const money = (n) => "RD$" + Math.round(n).toLocaleString("en-US");
+const usd = (n) => { const v = n / USD_RATE; return "US$" + (v >= 100 ? Math.round(v / 5) * 5 : Math.round(v)).toLocaleString("en-US"); }; // RD$ → US$ redondeado
+const money = (n) => (lang === "en" ? usd(n) : "RD$" + Math.round(n).toLocaleString("en-US"));
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
 /* ===== Configuración editable ===== */
 const CONTACT = { whatsapp: "", email: "", city: "Santo Domingo, RD" }; // ← coloca tu número (solo dígitos, ej. 18095551234) y tu correo
 const DEMO_BASE = "demos/"; // las demos viven en el mismo sitio del portafolio
+const USD_RATE = 63; // RD$ por cada US$: los precios en inglés se muestran en dólares con esta tasa
 const GH = "https://github.com/Stephy0723/";
 const BRANCH = "/tree/steliant-exhibicion-completa";
 
@@ -555,7 +557,7 @@ const ghUrl = (p) => (MIRROR[p.repo] ? GH + "steliant/tree/main/" + MIRROR[p.rep
 const LIVE = ["steliant-ecommerce", "steliant-reservas", "tour-steliant", "steliant-firma", "steliant-legal", "steliant-salud", "steliant-nexo", "steliant-esports"];
 const demoUrl = (p) => (LIVE.includes(p.demo) ? DEMO_BASE + p.demo + "/" : null);
 
-/* ===== Precios (RD$) ===== */
+/* ===== Precios (RD$; en inglés se convierten a US$ con USD_RATE) ===== */
 const PKGS = {
   web: { once: 45000, monthly: 5900, months: 12, hours: "40–60 h" },
   shop: { once: 95000, monthly: 11900, months: 12, hours: "90–130 h" },
@@ -608,16 +610,16 @@ const T = {
     work: { kick: "Portfolio", title: ["Ten projects,", "ready for you"], lede: "Every project has a live demo and its code on GitHub. Filter by type and open the one you like.", filters: { all: "All", web: "Websites", shop: "E-commerce", crm: "Booking & CRM", system: "Systems" }, demo: "Live demo", code: "GitHub", details: "Details", from: "From", or: "or", per: "/mo", months: "months", branchOn: "Branch steliant-exhibicion-completa", branchOff: "Code in the portfolio", features: "Includes", stack: "Stack", priv: "Private repository: ask for access" },
     pricing: {
       kick: "Pricing", title: ["Real prices,", "easy payments"], lede: "A professional project has real costs: design and development hours, server, domain and support. Pay once or in monthly installments.",
-      once: "One-time", monthly: "Monthly", perMonth: "/mo", x12: "× 12 months · hosting & support included", plusHost: "+ hosting from RD$1,500/mo", popular: "Most requested",
+      once: "One-time", monthly: "Monthly", perMonth: "/mo", x12: "× 12 months · hosting & support included", plusHost: `+ hosting from ${usd(HOSTING)}/mo`, popular: "Most requested",
       pkgs: { web: ["Professional website", "Firma, Legal, Tour, Larimar", ["Up to 6 sections", "Light/dark mode and ES/EN", "Form and WhatsApp", "Basic SEO"]], shop: ["Online store", "Steliant Nova", ["Catalog and cart", "Checkout and orders", "Sales dashboard", "Payment gateway*"]], crm: ["Booking & CRM", "Steliant Reservas, Larimar CRM", ["Booking page", "Role-based dashboard", "Reminders", "Optional bot"]], system: ["Custom system", "Salud, Nexo, Esports", ["Custom modules", "Users and permissions", "Reports", "Own database"]] },
-      costKick: "Where does the price come from?", costs: [["Design & development", "Work hours based on scope (RD$1,100–1,400/h)."], ["Server & database", "VPS with daily backup: RD$1,200–3,000/mo."], ["Domain & SSL", ".com or .do domain and certificate: ~RD$1,500/yr."], ["WhatsApp Business API", "Meta charges per conversation (about US$0.01–0.06)."], ["Maintenance", "Updates, security and minor changes."]],
+      costKick: "Where does the price come from?", costs: [["Design & development", `Work hours based on scope (${usd(1100)}–${usd(1400)}/h).`], ["Server & database", `VPS with daily backup: ${usd(1200)}–${usd(3000)}/mo.`], ["Domain & SSL", `.com or .do domain and certificate: ~${usd(1500)}/yr.`], ["WhatsApp Business API", "Meta charges per conversation (about US$0.01–0.06)."], ["Maintenance", "Updates, security and minor changes."]],
       calcKick: "Quote builder", calcTitle: ["Build your project", "and see the price"], base: "Project type", extras: "Extras", term: "Payment", upfront: "One-time", total: "Project total", monthlyFee: "Monthly payment", initial: "Down payment", hosting: "Hosting & support", feeNote: "Financing", noFee: "interest-free", ask: "Request this quote",
       extrasL: { bot: "AI WhatsApp bot", pay: "Payment gateway", admin: "Admin dashboard", lang: "Second language", pwa: "Installable app (PWA)" },
-      note: "Reference prices in Dominican pesos, before tax. Final price confirmed in the proposal.",
+      note: "Reference prices in US dollars (converted from Dominican pesos), before tax. Final price confirmed in the proposal.",
     },
     process: { kick: "Process", title: ["From idea", "to launch"], lede: "A clear process, with deliverables you can see from week one.",
       steps: [["Kick-off call", "I learn about your business, your clients and your goals.", "Day 1"], ["Proposal & price", "Scope, timeline and fixed price in writing.", "24–48 h"], ["Design", "A clickable preview you approve before coding.", "Week 1–2"], ["Development", "Built in stages, with progress you can test.", "Week 2–6"], ["Launch & support", "Go-live, training and monthly support.", "Ongoing"]],
-      faqKick: "FAQ", faq: [["Can I pay in installments?", "Yes. 6 months interest-free, or 12 and 18 months with a small financing fee."], ["Are the domain and hosting mine?", "Yes. Everything is in your name; I manage it while you have the plan."], ["How long does a project take?", "A website 2–3 weeks; stores and systems 4–10 weeks depending on scope."], ["What happens after 12 months?", "You move to a maintenance plan from RD$1,500/mo with hosting, backups and support."]] },
+      faqKick: "FAQ", faq: [["Can I pay in installments?", "Yes. 6 months interest-free, or 12 and 18 months with a small financing fee."], ["Are the domain and hosting mine?", "Yes. Everything is in your name; I manage it while you have the plan."], ["How long does a project take?", "A website 2–3 weeks; stores and systems 4–10 weeks depending on scope."], ["What happens after 12 months?", `You move to a maintenance plan from ${usd(HOSTING)}/mo with hosting, backups and support.`]] },
     contact: { kick: "Contact", title: ["Let's talk about", "your project"], lede: "I reply within 24 hours.", name: "Name", biz: "Business", phone: "WhatsApp", type: "Project type", msg: "Tell me what you need", send: "Send request", wa: "Message on WhatsApp", sent: "Request sent! I'll be in touch soon.", need: "Fill in name and WhatsApp.", where: "Location", hours: "Mon–Sat · 9:00–19:00" },
     quote: { title: "Your quote", sent: "Sent", items: "Includes", open: "Open in quote builder", clear: "Clear", plan: "in" },
     footer: { tag: "Innovative Software Solutions", credit: "Designed and built by Steliant" },
