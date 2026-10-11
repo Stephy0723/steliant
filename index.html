@@ -508,12 +508,14 @@ const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const hasG = typeof gsap !== "undefined";
 if (hasG) gsap.registerPlugin(ScrollTrigger);
 const store = { get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }, set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }, del(k) { try { localStorage.removeItem(k); } catch (e) {} } };
-const money = (n) => "RD$" + Math.round(n).toLocaleString("en-US");
+const usd = (n) => { const v = n / USD_RATE; return "US$" + (v >= 100 ? Math.round(v / 5) * 5 : Math.round(v)).toLocaleString("en-US"); }; // RD$ → US$ redondeado
+const money = (n) => (lang === "en" ? usd(n) : "RD$" + Math.round(n).toLocaleString("en-US"));
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
 /* ===== Configuración editable ===== */
 const CONTACT = { whatsapp: "", email: "", city: "Santo Domingo, RD" }; // ← coloca tu número (solo dígitos, ej. 18095551234) y tu correo
 const DEMO_BASE = "demos/"; // las demos viven en el mismo sitio del portafolio
+const USD_RATE = 63; // RD$ por cada US$: los precios en inglés se muestran en dólares con esta tasa
 const GH = "https://github.com/Stephy0723/";
 const BRANCH = "/tree/steliant-exhibicion-completa";
 
@@ -528,6 +530,9 @@ const PROJECTS = [
   { id: "tour", name: "Tour Steliant", repo: "tours-rd", branch: true, demo: "tour-steliant", pkg: "web", cat: "web", pal: ["#d9412a", "#13839c", "#f4e9d2"], stack: ["Next.js", "GSAP", "Leaflet"],
     es: ["Agencia de tours y transporte: hero cinematográfico, horarios tipo aeropuerto, reserva de asientos, pago y boleto con QR.", ["Hero cinematográfico", "Tablero de salidas", "Selección de asientos", "Boleto con QR"]],
     en: ["Tours & transport agency: cinematic hero, airport-style departures, seat booking, payment and QR ticket.", ["Cinematic hero", "Departures board", "Seat selection", "QR ticket"]] },
+  { id: "onix", name: "Steliant Ónix", repo: "onix-constructora", branch: false, demo: "steliant-onix", pkg: "web", cat: "web", pal: ["#8c8274", "#121110", "#c9a86a"], stack: ["HTML", "GSAP", "SVG"],
+    es: ["Constructora de lujo: plano interactivo de una torre en venta, separación de unidades con pago, cotizador de obra y portafolio de proyectos.", ["Plano de 18 pisos por unidad", "Separación con tarjeta 3D", "Cotizador de construcción", "Antes y después de cada obra"]],
+    en: ["Luxury builder: interactive plan of a tower for sale, unit holds with payment, build estimator and project portfolio.", ["18-floor plan by unit", "3D card unit hold", "Construction estimator", "Before/after for every build"]] },
   { id: "firma", name: "Steliant Firma", repo: "firma-legal", branch: true, demo: "steliant-firma", pkg: "web", cat: "web", pal: ["#b08a4a", "#14213d", "#e9e2d0"], stack: ["React", "Vite", "GSAP"],
     es: ["Sitio de firma de abogados: áreas de práctica, equipo, casos y contacto con un estilo editorial y elegante.", ["Áreas de práctica", "Perfiles del equipo", "Diseño editorial", "Formulario de consulta"]],
     en: ["Law firm website: practice areas, team, cases and contact in an elegant editorial style.", ["Practice areas", "Team profiles", "Editorial design", "Consultation form"]] },
@@ -550,12 +555,12 @@ const PROJECTS = [
     es: ["CRM de préstamos: clientes, solicitudes, cuotas, cobros, mora y reportes para la cartera.", ["Clientes y solicitudes", "Plan de cuotas", "Cobros y mora", "Reportes de cartera"]],
     en: ["Loans CRM: clients, applications, installments, collections, delinquency and portfolio reports.", ["Clients & applications", "Installment plans", "Collections & delinquency", "Portfolio reports"]] },
 ];
-const MIRROR = { "sistema-reservas": "reservas", "tours-rd": "tour", glitchgang: "esports" }; // repos privados → copia limpia pública
+const MIRROR = { "sistema-reservas": "reservas", "tours-rd": "tour", glitchgang: "esports", "onix-constructora": "onix" }; // repos privados → copia limpia pública
 const ghUrl = (p) => (MIRROR[p.repo] ? GH + "steliant/tree/main/" + MIRROR[p.repo] : GH + p.repo + (p.branch ? BRANCH : ""));
-const LIVE = ["steliant-ecommerce", "steliant-reservas", "tour-steliant", "steliant-firma", "steliant-legal", "steliant-salud", "steliant-nexo", "steliant-esports"];
+const LIVE = ["steliant-onix", "steliant-ecommerce", "steliant-reservas", "tour-steliant", "steliant-firma", "steliant-legal", "steliant-salud", "steliant-nexo", "steliant-esports"];
 const demoUrl = (p) => (LIVE.includes(p.demo) ? DEMO_BASE + p.demo + "/" : null);
 
-/* ===== Precios (RD$) ===== */
+/* ===== Precios (RD$; en inglés se convierten a US$ con USD_RATE) ===== */
 const PKGS = {
   web: { once: 45000, monthly: 5900, months: 12, hours: "40–60 h" },
   shop: { once: 95000, monthly: 11900, months: 12, hours: "90–130 h" },
@@ -573,16 +578,16 @@ const T = {
     home: {
       kick: "Steliant · Innovative Software Solutions", title: ["Software que", "vende por ti."], lede: "Diseño y desarrollo webs, tiendas, sistemas de reservas, CRMs y bots para negocios en República Dominicana. Proyectos reales, listos para adaptar a tu marca.",
       cta1: "Ver proyectos", cta2: "Cotizar mi proyecto",
-      stats: [[10, "", "Proyectos en exhibición"], [6, "", "Industrias"], [2, "", "Idiomas por proyecto"], [100, "%", "Responsive"]],
-      featKick: "Destacados", featTitle: ["Lo que puedo", "construir para ti"], all: "Ver los 10 proyectos",
+      stats: [[11, "", "Proyectos en exhibición"], [7, "", "Industrias"], [2, "", "Idiomas por proyecto"], [100, "%", "Responsive"]],
+      featKick: "Destacados", featTitle: ["Lo que puedo", "construir para ti"], all: "Ver los 11 proyectos",
       whyKick: "Por qué Steliant", why: [["Diseño premium", "Animación, modo claro/oscuro y dos idiomas en cada proyecto."], ["Listo para vender", "Flujos completos: reservas, pagos, paneles y bots."], ["Precios claros", "Pago único o mensualidades, sin sorpresas."], ["Soporte local", "Hosting, dominio y cambios incluidos en el plan."]],
       ctaTitle: ["¿Tienes una idea?", "Hagámosla real."], ctaText: "Cuéntame tu negocio y te envío una propuesta con precio cerrado en 24 horas.",
     },
-    work: { kick: "Portafolio", title: ["Diez proyectos,", "listos para ti"], lede: "Cada proyecto tiene demo en vivo y su código en GitHub. Filtra por tipo y abre el que te interese.", filters: { all: "Todos", web: "Webs", shop: "E-commerce", crm: "Reservas y CRM", system: "Sistemas" }, demo: "Ver demo", code: "GitHub", details: "Detalles", from: "Desde", or: "o", per: "/mes", months: "meses", branchOn: "Rama steliant-exhibicion-completa", branchOff: "Código en el portafolio", features: "Incluye", stack: "Tecnologías", priv: "Repositorio privado: pide acceso" },
+    work: { kick: "Portafolio", title: ["Once proyectos,", "listos para ti"], lede: "Cada proyecto tiene demo en vivo y su código en GitHub. Filtra por tipo y abre el que te interese.", filters: { all: "Todos", web: "Webs", shop: "E-commerce", crm: "Reservas y CRM", system: "Sistemas" }, demo: "Ver demo", code: "GitHub", details: "Detalles", from: "Desde", or: "o", per: "/mes", months: "meses", branchOn: "Rama steliant-exhibicion-completa", branchOff: "Código en el portafolio", features: "Incluye", stack: "Tecnologías", priv: "Repositorio privado: pide acceso" },
     pricing: {
       kick: "Precios", title: ["Precios reales,", "pagos cómodos"], lede: "Un proyecto profesional tiene costos reales: horas de diseño y desarrollo, servidor, dominio y soporte. Puedes pagarlo de una vez o en mensualidades.",
       once: "Pago único", monthly: "Mensual", perMonth: "/mes", x12: "× 12 meses · incluye hosting y soporte", plusHost: "+ hosting desde RD$1,500/mes", popular: "Más pedido",
-      pkgs: { web: ["Web profesional", "Firma, Legal, Tour, Larimar", ["Hasta 6 secciones", "Modo claro/oscuro y ES/EN", "Formulario y WhatsApp", "SEO básico"]], shop: ["Tienda en línea", "Steliant Nova", ["Catálogo y carrito", "Checkout y pedidos", "Panel de ventas", "Pasarela de pago*"]], crm: ["Reservas y CRM", "Steliant Reservas, Larimar CRM", ["Página de reservas", "Panel por roles", "Recordatorios", "Bot opcional"]], system: ["Sistema a medida", "Salud, Nexo, Esports", ["Módulos a medida", "Usuarios y permisos", "Reportes", "Base de datos propia"]] },
+      pkgs: { web: ["Web profesional", "Ónix, Firma, Legal, Tour", ["Hasta 6 secciones", "Modo claro/oscuro y ES/EN", "Formulario y WhatsApp", "SEO básico"]], shop: ["Tienda en línea", "Steliant Nova", ["Catálogo y carrito", "Checkout y pedidos", "Panel de ventas", "Pasarela de pago*"]], crm: ["Reservas y CRM", "Steliant Reservas, Larimar CRM", ["Página de reservas", "Panel por roles", "Recordatorios", "Bot opcional"]], system: ["Sistema a medida", "Salud, Nexo, Esports", ["Módulos a medida", "Usuarios y permisos", "Reportes", "Base de datos propia"]] },
       costKick: "¿De dónde sale el precio?", costs: [["Diseño y desarrollo", "Horas de trabajo según el alcance (RD$1,100–1,400/h)."], ["Servidor y base de datos", "VPS con respaldo diario: RD$1,200–3,000/mes."], ["Dominio y SSL", "Dominio .com o .do y certificado: ~RD$1,500/año."], ["WhatsApp Business API", "Meta cobra por conversación (aprox. US$0.01–0.06)."], ["Mantenimiento", "Actualizaciones, seguridad y cambios menores."]],
       calcKick: "Cotizador", calcTitle: ["Arma tu proyecto", "y mira el precio"], base: "Tipo de proyecto", extras: "Extras", term: "Forma de pago", upfront: "Pago único", total: "Total del proyecto", monthlyFee: "Mensualidad", initial: "Inicial", hosting: "Hosting y soporte", feeNote: "Financiamiento", noFee: "sin interés", ask: "Solicitar esta cotización",
       extrasL: { bot: "Bot de WhatsApp con IA", pay: "Pasarela de pagos", admin: "Panel administrativo", lang: "Segundo idioma", pwa: "App instalable (PWA)" },
@@ -600,24 +605,24 @@ const T = {
     home: {
       kick: "Steliant · Innovative Software Solutions", title: ["Software that", "sells for you."], lede: "I design and build websites, stores, booking systems, CRMs and bots for businesses in the Dominican Republic. Real projects, ready to adapt to your brand.",
       cta1: "See projects", cta2: "Quote my project",
-      stats: [[10, "", "Showcase projects"], [6, "", "Industries"], [2, "", "Languages per project"], [100, "%", "Responsive"]],
-      featKick: "Featured", featTitle: ["What I can", "build for you"], all: "See all 10 projects",
+      stats: [[11, "", "Showcase projects"], [7, "", "Industries"], [2, "", "Languages per project"], [100, "%", "Responsive"]],
+      featKick: "Featured", featTitle: ["What I can", "build for you"], all: "See all 11 projects",
       whyKick: "Why Steliant", why: [["Premium design", "Motion, light/dark mode and two languages in every project."], ["Ready to sell", "Complete flows: bookings, payments, dashboards and bots."], ["Clear pricing", "One-time payment or monthly plans, no surprises."], ["Local support", "Hosting, domain and changes included in the plan."]],
       ctaTitle: ["Got an idea?", "Let's make it real."], ctaText: "Tell me about your business and I'll send a fixed-price proposal within 24 hours.",
     },
-    work: { kick: "Portfolio", title: ["Ten projects,", "ready for you"], lede: "Every project has a live demo and its code on GitHub. Filter by type and open the one you like.", filters: { all: "All", web: "Websites", shop: "E-commerce", crm: "Booking & CRM", system: "Systems" }, demo: "Live demo", code: "GitHub", details: "Details", from: "From", or: "or", per: "/mo", months: "months", branchOn: "Branch steliant-exhibicion-completa", branchOff: "Code in the portfolio", features: "Includes", stack: "Stack", priv: "Private repository: ask for access" },
+    work: { kick: "Portfolio", title: ["Eleven projects,", "ready for you"], lede: "Every project has a live demo and its code on GitHub. Filter by type and open the one you like.", filters: { all: "All", web: "Websites", shop: "E-commerce", crm: "Booking & CRM", system: "Systems" }, demo: "Live demo", code: "GitHub", details: "Details", from: "From", or: "or", per: "/mo", months: "months", branchOn: "Branch steliant-exhibicion-completa", branchOff: "Code in the portfolio", features: "Includes", stack: "Stack", priv: "Private repository: ask for access" },
     pricing: {
       kick: "Pricing", title: ["Real prices,", "easy payments"], lede: "A professional project has real costs: design and development hours, server, domain and support. Pay once or in monthly installments.",
-      once: "One-time", monthly: "Monthly", perMonth: "/mo", x12: "× 12 months · hosting & support included", plusHost: "+ hosting from RD$1,500/mo", popular: "Most requested",
-      pkgs: { web: ["Professional website", "Firma, Legal, Tour, Larimar", ["Up to 6 sections", "Light/dark mode and ES/EN", "Form and WhatsApp", "Basic SEO"]], shop: ["Online store", "Steliant Nova", ["Catalog and cart", "Checkout and orders", "Sales dashboard", "Payment gateway*"]], crm: ["Booking & CRM", "Steliant Reservas, Larimar CRM", ["Booking page", "Role-based dashboard", "Reminders", "Optional bot"]], system: ["Custom system", "Salud, Nexo, Esports", ["Custom modules", "Users and permissions", "Reports", "Own database"]] },
-      costKick: "Where does the price come from?", costs: [["Design & development", "Work hours based on scope (RD$1,100–1,400/h)."], ["Server & database", "VPS with daily backup: RD$1,200–3,000/mo."], ["Domain & SSL", ".com or .do domain and certificate: ~RD$1,500/yr."], ["WhatsApp Business API", "Meta charges per conversation (about US$0.01–0.06)."], ["Maintenance", "Updates, security and minor changes."]],
+      once: "One-time", monthly: "Monthly", perMonth: "/mo", x12: "× 12 months · hosting & support included", plusHost: `+ hosting from ${usd(HOSTING)}/mo`, popular: "Most requested",
+      pkgs: { web: ["Professional website", "Ónix, Firma, Legal, Tour", ["Up to 6 sections", "Light/dark mode and ES/EN", "Form and WhatsApp", "Basic SEO"]], shop: ["Online store", "Steliant Nova", ["Catalog and cart", "Checkout and orders", "Sales dashboard", "Payment gateway*"]], crm: ["Booking & CRM", "Steliant Reservas, Larimar CRM", ["Booking page", "Role-based dashboard", "Reminders", "Optional bot"]], system: ["Custom system", "Salud, Nexo, Esports", ["Custom modules", "Users and permissions", "Reports", "Own database"]] },
+      costKick: "Where does the price come from?", costs: [["Design & development", `Work hours based on scope (${usd(1100)}–${usd(1400)}/h).`], ["Server & database", `VPS with daily backup: ${usd(1200)}–${usd(3000)}/mo.`], ["Domain & SSL", `.com or .do domain and certificate: ~${usd(1500)}/yr.`], ["WhatsApp Business API", "Meta charges per conversation (about US$0.01–0.06)."], ["Maintenance", "Updates, security and minor changes."]],
       calcKick: "Quote builder", calcTitle: ["Build your project", "and see the price"], base: "Project type", extras: "Extras", term: "Payment", upfront: "One-time", total: "Project total", monthlyFee: "Monthly payment", initial: "Down payment", hosting: "Hosting & support", feeNote: "Financing", noFee: "interest-free", ask: "Request this quote",
       extrasL: { bot: "AI WhatsApp bot", pay: "Payment gateway", admin: "Admin dashboard", lang: "Second language", pwa: "Installable app (PWA)" },
-      note: "Reference prices in Dominican pesos, before tax. Final price confirmed in the proposal.",
+      note: "Reference prices in US dollars (converted from Dominican pesos), before tax. Final price confirmed in the proposal.",
     },
     process: { kick: "Process", title: ["From idea", "to launch"], lede: "A clear process, with deliverables you can see from week one.",
       steps: [["Kick-off call", "I learn about your business, your clients and your goals.", "Day 1"], ["Proposal & price", "Scope, timeline and fixed price in writing.", "24–48 h"], ["Design", "A clickable preview you approve before coding.", "Week 1–2"], ["Development", "Built in stages, with progress you can test.", "Week 2–6"], ["Launch & support", "Go-live, training and monthly support.", "Ongoing"]],
-      faqKick: "FAQ", faq: [["Can I pay in installments?", "Yes. 6 months interest-free, or 12 and 18 months with a small financing fee."], ["Are the domain and hosting mine?", "Yes. Everything is in your name; I manage it while you have the plan."], ["How long does a project take?", "A website 2–3 weeks; stores and systems 4–10 weeks depending on scope."], ["What happens after 12 months?", "You move to a maintenance plan from RD$1,500/mo with hosting, backups and support."]] },
+      faqKick: "FAQ", faq: [["Can I pay in installments?", "Yes. 6 months interest-free, or 12 and 18 months with a small financing fee."], ["Are the domain and hosting mine?", "Yes. Everything is in your name; I manage it while you have the plan."], ["How long does a project take?", "A website 2–3 weeks; stores and systems 4–10 weeks depending on scope."], ["What happens after 12 months?", `You move to a maintenance plan from ${usd(HOSTING)}/mo with hosting, backups and support.`]] },
     contact: { kick: "Contact", title: ["Let's talk about", "your project"], lede: "I reply within 24 hours.", name: "Name", biz: "Business", phone: "WhatsApp", type: "Project type", msg: "Tell me what you need", send: "Send request", wa: "Message on WhatsApp", sent: "Request sent! I'll be in touch soon.", need: "Fill in name and WhatsApp.", where: "Location", hours: "Mon–Sat · 9:00–19:00" },
     quote: { title: "Your quote", sent: "Sent", items: "Includes", open: "Open in quote builder", clear: "Clear", plan: "in" },
     footer: { tag: "Innovative Software Solutions", credit: "Designed and built by Steliant" },
