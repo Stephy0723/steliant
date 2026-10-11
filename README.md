@@ -4,6 +4,7 @@ Portafolio de proyectos de **Stephanie López Frías** bajo la marca Steliant. C
 
 | Proyecto | Código |
 |---|---|
+| Steliant Ónix (constructora de lujo) | [steliant/onix](https://github.com/Stephy0723/steliant/tree/main/onix) |
 | Steliant Nova (e-commerce) | [ecommerce-electrocables · steliant-exhibicion-completa](https://github.com/Stephy0723/ecommerce-electrocables/tree/steliant-exhibicion-completa) |
 | Steliant Reservas (reservas, bots y CRM) | [steliant/reservas](https://github.com/Stephy0723/steliant/tree/main/reservas) |
 | Tour Steliant | [steliant/tour](https://github.com/Stephy0723/steliant/tree/main/tour) |
@@ -15,4 +16,4 @@ Portafolio de proyectos de **Stephanie López Frías** bajo la marca Steliant. C
 | Steliant Larimar | [larimar](https://github.com/Stephy0723/larimar) |
 | Steliant Larimar CRM | [larimar-prestamos](https://github.com/Stephy0723/larimar-prestamos) |
 
-Las carpetas `reservas`, `tour` y `esports` son copias limpias de la versión Steliant (sin historial del proyecto original). En `esports` se omitieron los videos pesados; la demo usa imágenes.
+Las carpetas `onix`, `reservas`, `tour` y `esports` son versiones Steliant publicadas aquí (sin historial de proyectos originales). En `esports` se omitieron los videos pesados; la demo usa imágenes.

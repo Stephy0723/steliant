@@ -1,0 +1,252 @@
+<div id="loader" aria-hidden="true">
+  <svg class="ld-plan" viewBox="0 0 400 240" fill="none">
+    <path d="M20 200H380M60 200V90H230V200M230 120H340V200M40 90H260M80 120h50v40H80zM150 120h60v80M250 145h70v30h-70z"/>
+    <path class="ld-dim" d="M60 222H340M60 216v12M340 216v12"/>
+  </svg>
+  <div class="ld-row"><b class="ld-word">ÓNIX</b><span class="ld-pct" id="ldPct">000</span></div>
+  <i class="ld-bar"><i></i></i>
+</div>
+<div class="grain" aria-hidden="true"></div>
+<div class="cols" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+<div class="cursor" aria-hidden="true"><span class="c-dot"></span><span class="c-ring"><em id="cLbl"></em></span></div>
+
+<header class="top" id="top">
+  <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu"><span class="mb-lines"><i></i><i></i></span><span class="mb-txt"><em data-t="nav.menu"></em><em data-t="nav.close"></em></span></button>
+  <a href="#inicio" class="brand" aria-label="Ónix"><svg viewBox="0 0 40 40" class="brand-mark"><path d="M20 3 36 12v16L20 37 4 28V12z"/><path d="M20 3v34M4 12l32 16M36 12 4 28"/></svg><span class="brand-txt"><b>ÓNIX</b><small>CONSTRUCTORA</small></span></a>
+  <div class="top-r">
+    <button type="button" class="tb" id="langBtn" aria-label="Idioma / Language"><span class="lg-a">ES</span><span class="lg-s">/</span><span class="lg-b">EN</span></button>
+    <button type="button" class="tb tb-ico" id="themeBtn" aria-label="Tema"><svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z"/></svg><svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="4"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg></button>
+    <button type="button" class="btn btn-brass btn-sm top-cta" data-book="visit"><span data-t="nav.visit"></span></button>
+  </div>
+</header>
+
+<div class="menu" id="menu" aria-hidden="true">
+  <div class="menu-bg"><i></i><i></i><i></i><i></i></div>
+  <div class="menu-in">
+    <nav class="menu-list" id="menuList" aria-label="Principal"></nav>
+    <div class="menu-side">
+      <div class="menu-prev" id="menuPrev"></div>
+      <div class="menu-info">
+        <p class="mono" data-t="contact.office"></p><p data-t="contact.addr"></p><p>+1 (809) 555-0198 · hola@onix.do</p><p class="mono mut" data-t="contact.hours"></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="hud" aria-hidden="true"><span class="mono" id="hudCoord">18.4861° N · 69.9312° W</span><span class="hud-sec mono"><b id="hudSec">00</b><em id="hudName"></em></span><span class="hud-bar"><i id="hudBar"></i></span></div>
+
+<div class="louvers" id="louvers" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><b class="lv-lbl" id="lvLbl"></b></div>
+
+<main id="app">
+  <!-- INICIO -->
+  <div class="view" id="v-inicio" data-name="nav.home">
+    <section class="hero">
+      <div class="hero-media" id="heroMedia">
+        <div class="hero-slides" id="heroSlides"></div>
+        <svg class="blueprint" id="blueprint" viewBox="0 0 1200 600" fill="none" preserveAspectRatio="xMidYMid slice">
+          <g class="bp-grid"><path d="M180 120V560M520 120V560M860 120V560"/><text x="174" y="110">A</text><text x="514" y="110">B</text><text x="854" y="110">C</text></g>
+          <g class="bp-draw">
+            <path d="M60 520H1140"/>
+            <path d="M180 520V300H760V520"/>
+            <path d="M420 300V180H1020V300H860"/>
+            <path d="M380 180H1060"/>
+            <path d="M760 520V380H980V520"/>
+            <path d="M220 340H380V480H220zM440 340H560V520M600 340H720V480H600z"/>
+            <path d="M460 210H640V280H460zM680 210H990V280H680z"/>
+            <path d="M980 520H1120V500H980"/>
+          </g>
+          <g class="bp-dim"><path d="M180 560H1020M180 552v16M1020 552v16"/><text x="560" y="586">24.60 m</text><path d="M1100 180V520M1092 180h16M1092 520h16"/><text x="1112" y="356">9.80 m</text></g>
+        </svg>
+        <div class="hero-shade"></div>
+      </div>
+      <div class="hero-copy">
+        <p class="kick h-in"><span class="mono">N° 001</span><span data-t="home.kick"></span></p>
+        <h1 class="h-title chars" data-split="home.title"></h1>
+        <p class="h-lede h-in" data-t="home.lede"></p>
+        <div class="ctas h-in"><a href="#proyectos" class="btn btn-light mag"><span data-t="home.cta1"></span><i class="arr">→</i></a><a href="#torre" class="btn btn-glass mag"><span data-t="home.cta2"></span></a></div>
+      </div>
+      <div class="hero-meta h-in"><div class="hm-name"><span class="mono" id="slideIdx">01 / 03</span><b id="slideName"></b><em id="slideLoc"></em></div><div class="hm-bars" id="slideBars"></div></div>
+      <div class="hero-scroll mono h-in"><i></i><span data-t="home.scroll"></span></div>
+      <span class="hero-corner mono">ESC 1:100 · PLANTA / ELEVACIÓN</span>
+    </section>
+
+    <section class="mine-home wrap" id="mineHome" hidden></section>
+
+    <section class="manifesto wrap">
+      <span class="sec-n mono">01</span>
+      <p class="mf-text" id="manifesto"></p>
+    </section>
+
+    <section class="stats wrap" id="stats"></section>
+
+    <section class="feat">
+      <div class="wrap sec-head"><div><p class="kick rv"><span class="mono">02</span><span data-t="home.featKick"></span></p><h2 class="h2 chars" data-split="home.featTitle"></h2></div><a href="#proyectos" class="link-u rv"><span data-t="nav.work"></span> →</a></div>
+      <div class="feat-track" id="featTrack" data-cursor="drag"><div class="feat-rail" id="featRail"></div></div>
+      <div class="wrap feat-foot"><span class="feat-prog"><i id="featProg"></i></span><span class="mono mut" data-t="home.drag"></span></div>
+    </section>
+
+    <section class="tower-band">
+      <div class="wrap tb-grid">
+        <div class="tb-copy">
+          <p class="kick rv"><span class="mono">03</span><span data-t="dev.kick"></span></p>
+          <h2 class="h2 chars" data-split="dev.title"></h2>
+          <p class="lede rv" data-t="dev.lede"></p>
+          <div class="tb-facts rv" id="tbFacts"></div>
+          <a href="#torre" class="btn btn-brass mag rv"><span data-t="dev.pick"></span><i class="arr">→</i></a>
+        </div>
+        <div class="tb-visual rv"><div class="tb-img" data-img="tower"></div><svg class="tb-floors" id="tbFloors" viewBox="0 0 200 400"></svg></div>
+      </div>
+    </section>
+
+    <section class="svc-teaser wrap">
+      <div class="sec-head"><div><p class="kick rv"><span class="mono">04</span><span data-t="home.svcKick"></span></p><h2 class="h2 chars" data-split="svc.title"></h2></div><a href="#servicios" class="link-u rv"><span data-t="nav.services"></span> →</a></div>
+      <div class="svc-list" id="svcTeaser"></div>
+    </section>
+
+    <section class="quote wrap">
+      <div class="q-img rv" data-img="quote"></div>
+      <div class="q-body">
+        <p class="kick rv"><span class="mono">05</span><span data-t="home.quoteKick"></span></p>
+        <blockquote class="q-text" id="qText"></blockquote>
+        <p class="q-by rv"><b id="qBy"></b><span class="mono" id="qProj"></span></p>
+      </div>
+    </section>
+
+    <section class="cta-big">
+      <div class="cta-img" data-img="cta"></div>
+      <div class="wrap cta-in">
+        <h2 class="h1 chars" data-split="home.ctaTitle"></h2>
+        <p class="lede rv" data-t="home.ctaText"></p>
+        <div class="ctas rv"><button type="button" class="btn btn-light mag" data-book="visit"><span data-t="nav.visit"></span><i class="arr">→</i></button><a href="#contacto" class="btn btn-glass mag"><span data-t="contact.calc"></span></a></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- PROYECTOS -->
+  <div class="view" id="v-proyectos" data-name="nav.work">
+    <section class="page-head wrap">
+      <p class="kick ph-in"><span class="mono">P—01</span><span data-t="work.kick"></span></p>
+      <h1 class="h1 chars" data-split="work.title"></h1>
+      <p class="lede ph-in" data-t="work.lede"></p>
+      <div class="filters ph-in" id="filters"></div>
+    </section>
+    <section class="wrap work-grid" id="workGrid"></section>
+  </div>
+
+  <!-- PROYECTO DETALLE -->
+  <div class="view" id="v-proyecto" data-name="nav.work">
+    <div id="pd"></div>
+  </div>
+
+  <!-- TORRE -->
+  <div class="view" id="v-torre" data-name="nav.dev">
+    <section class="page-head wrap">
+      <p class="kick ph-in"><span class="mono">T—18</span><span data-t="dev.kick"></span></p>
+      <h1 class="h1 chars" data-split="dev.title"></h1>
+      <p class="lede ph-in" data-t="dev.lede"></p>
+    </section>
+    <section class="wrap tw">
+      <div class="tw-left ph-in">
+        <div class="tw-head"><b class="mono" data-t="dev.pick"></b><div class="legend" id="legend"></div></div>
+        <div class="tw-build" id="twBuild"></div>
+      </div>
+      <aside class="tw-panel ph-in" id="twPanel"></aside>
+    </section>
+    <section class="wrap amen">
+      <p class="kick rv"><span class="mono">T—02</span><span data-t="dev.amenKick"></span></p>
+      <div class="amen-grid" id="amenGrid"></div>
+    </section>
+  </div>
+
+  <!-- SERVICIOS -->
+  <div class="view" id="v-servicios" data-name="nav.services">
+    <section class="page-head wrap">
+      <p class="kick ph-in"><span class="mono">S—06</span><span data-t="svc.kick"></span></p>
+      <h1 class="h1 chars" data-split="svc.title"></h1>
+      <p class="lede ph-in" data-t="svc.lede"></p>
+    </section>
+    <section class="wrap svc-list svc-full" id="svcList"></section>
+    <div class="svc-follow" id="svcFollow" aria-hidden="true"></div>
+    <section class="wrap proc">
+      <p class="kick rv"><span class="mono">S—02</span><span data-t="svc.procKick"></span></p>
+      <div class="proc-line"><svg viewBox="0 0 1000 20" preserveAspectRatio="none"><path id="procPath" d="M0 10H1000"/></svg></div>
+      <div class="proc-grid" id="procGrid"></div>
+    </section>
+  </div>
+
+  <!-- ESTUDIO -->
+  <div class="view" id="v-estudio" data-name="nav.studio">
+    <section class="page-head wrap">
+      <p class="kick ph-in"><span class="mono">E—28</span><span data-t="studio.kick"></span></p>
+      <h1 class="h1 chars" data-split="studio.title"></h1>
+      <p class="lede ph-in" data-t="studio.lede"></p>
+    </section>
+    <section class="wrap st-collage">
+      <div class="sc a rv" data-img="s1"></div><div class="sc b rv" data-img="s2"></div><div class="sc c rv" data-img="s3"></div>
+    </section>
+    <section class="wrap hist" id="hist"></section>
+    <section class="wrap team">
+      <p class="kick rv"><span class="mono">E—04</span><span data-t="studio.teamKick"></span></p>
+      <div class="team-grid" id="teamGrid"></div>
+    </section>
+    <section class="wrap certs">
+      <p class="kick rv"><span class="mono">E—05</span><span data-t="studio.certKick"></span></p>
+      <div class="cert-row" id="certRow"></div>
+    </section>
+  </div>
+
+  <!-- CONTACTO -->
+  <div class="view" id="v-contacto" data-name="nav.contact">
+    <section class="page-head wrap">
+      <p class="kick ph-in"><span class="mono">C—01</span><span data-t="contact.kick"></span></p>
+      <h1 class="h1 chars" data-split="contact.title"></h1>
+      <p class="lede ph-in" data-t="contact.lede"></p>
+    </section>
+    <section class="wrap ct">
+      <div class="calc ph-in" id="calc">
+        <h3 class="h3" data-t="contact.calc"></h3>
+        <div class="fld"><label class="mono" data-t="contact.kind"></label><div class="seg" id="cKind"></div></div>
+        <div class="fld"><label class="mono"><span data-t="contact.area"></span> · <b id="cAreaV">320 m²</b></label><input type="range" id="cArea" min="80" max="1500" step="10" value="320"><div class="ruler" id="ruler"></div></div>
+        <div class="fld"><label class="mono" data-t="contact.finish"></label><div class="seg" id="cFinish"></div></div>
+        <div class="fld"><label class="mono" data-t="contact.extras"></label><div class="chips" id="cExtras"></div></div>
+        <div class="est">
+          <p class="mono mut" data-t="contact.est"></p>
+          <b class="est-v" id="estV">RD$0</b>
+          <div class="est-row"><span><em class="mono" data-t="contact.range"></em><b id="estR"></b></span><span><em class="mono" data-t="contact.months"></em><b id="estM"></b></span></div>
+          <p class="note" data-t="contact.note"></p>
+        </div>
+      </div>
+      <form class="cform ph-in" id="cForm" novalidate>
+        <div class="fl"><input id="f-name" placeholder=" " autocomplete="name"><label for="f-name" data-t="contact.name"></label></div>
+        <div class="fl"><input id="f-phone" placeholder=" " inputmode="tel" autocomplete="tel"><label for="f-phone" data-t="contact.phone"></label></div>
+        <div class="fl"><input id="f-email" placeholder=" " type="email" autocomplete="email"><label for="f-email" data-t="contact.email"></label></div>
+        <div class="fl"><textarea id="f-msg" placeholder=" " rows="4"></textarea><label for="f-msg" data-t="contact.msg"></label></div>
+        <div class="cf-sum mono" id="cfSum"></div>
+        <button type="button" id="cfSend" class="btn btn-brass mag"><span data-t="contact.send"></span><i class="arr">→</i></button>
+        <div class="office"><div><p class="mono mut" data-t="contact.office"></p><p data-t="contact.addr"></p></div><div><p class="mono mut">Tel.</p><p>+1 (809) 555-0198</p></div><div><p class="mono mut">Email</p><p>hola@onix.do</p></div><div><p class="mono mut">Horario</p><p data-t="contact.hours"></p></div></div>
+      </form>
+    </section>
+  </div>
+</main>
+
+<footer class="foot" id="foot">
+  <div class="wrap">
+    <div class="ft-big"><b>ÓNIX</b><span class="mono" data-t="footer.tag"></span></div>
+    <div class="ft-grid">
+      <nav class="ft-nav" id="ftNav"></nav>
+      <div><p class="mono mut" data-t="contact.office"></p><p data-t="contact.addr"></p><p>+1 (809) 555-0198</p></div>
+      <div><p class="mono mut">Social</p><p>Instagram · LinkedIn · Behance</p></div>
+    </div>
+    <div class="ft-bot mono"><span>© 2026 Ónix · <span data-t="footer.sample"></span></span><span data-t="footer.rights"></span></div>
+  </div>
+</footer>
+
+<button type="button" class="fab" id="fab" hidden><span class="fab-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 21V8l8-5 8 5v13M9 21v-6h6v6"/></svg></span><span class="fab-t"><b data-t="nav.my"></b><em id="fabSub"></em></span></button>
+<aside class="drawer" id="drawer" aria-hidden="true"><div class="dr-in" id="drIn"></div></aside>
+
+<div class="modal" id="book" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="mo-back" data-close></div>
+  <div class="mo-card" id="moCard"></div>
+</div>
+<div class="lb" id="lb" aria-hidden="true"><button type="button" class="lb-x" data-lbx>×</button><button type="button" class="lb-n lb-p" data-lbs="-1">←</button><div class="lb-img" id="lbImg"></div><button type="button" class="lb-n lb-nx" data-lbs="1">→</button><span class="lb-c mono" id="lbC"></span></div>
+<div class="toast" id="toast" role="status"></div>

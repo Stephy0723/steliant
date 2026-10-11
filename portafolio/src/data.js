@@ -27,6 +27,9 @@ const PROJECTS = [
   { id: "tour", name: "Tour Steliant", repo: "tours-rd", branch: true, demo: "tour-steliant", pkg: "web", cat: "web", pal: ["#d9412a", "#13839c", "#f4e9d2"], stack: ["Next.js", "GSAP", "Leaflet"],
     es: ["Agencia de tours y transporte: hero cinematográfico, horarios tipo aeropuerto, reserva de asientos, pago y boleto con QR.", ["Hero cinematográfico", "Tablero de salidas", "Selección de asientos", "Boleto con QR"]],
     en: ["Tours & transport agency: cinematic hero, airport-style departures, seat booking, payment and QR ticket.", ["Cinematic hero", "Departures board", "Seat selection", "QR ticket"]] },
+  { id: "onix", name: "Steliant Ónix", repo: "onix-constructora", branch: false, demo: "steliant-onix", pkg: "web", cat: "web", pal: ["#8c8274", "#121110", "#c9a86a"], stack: ["HTML", "GSAP", "SVG"],
+    es: ["Constructora de lujo: plano interactivo de una torre en venta, separación de unidades con pago, cotizador de obra y portafolio de proyectos.", ["Plano de 18 pisos por unidad", "Separación con tarjeta 3D", "Cotizador de construcción", "Antes y después de cada obra"]],
+    en: ["Luxury builder: interactive plan of a tower for sale, unit holds with payment, build estimator and project portfolio.", ["18-floor plan by unit", "3D card unit hold", "Construction estimator", "Before/after for every build"]] },
   { id: "firma", name: "Steliant Firma", repo: "firma-legal", branch: true, demo: "steliant-firma", pkg: "web", cat: "web", pal: ["#b08a4a", "#14213d", "#e9e2d0"], stack: ["React", "Vite", "GSAP"],
     es: ["Sitio de firma de abogados: áreas de práctica, equipo, casos y contacto con un estilo editorial y elegante.", ["Áreas de práctica", "Perfiles del equipo", "Diseño editorial", "Formulario de consulta"]],
     en: ["Law firm website: practice areas, team, cases and contact in an elegant editorial style.", ["Practice areas", "Team profiles", "Editorial design", "Consultation form"]] },
@@ -49,9 +52,9 @@ const PROJECTS = [
     es: ["CRM de préstamos: clientes, solicitudes, cuotas, cobros, mora y reportes para la cartera.", ["Clientes y solicitudes", "Plan de cuotas", "Cobros y mora", "Reportes de cartera"]],
     en: ["Loans CRM: clients, applications, installments, collections, delinquency and portfolio reports.", ["Clients & applications", "Installment plans", "Collections & delinquency", "Portfolio reports"]] },
 ];
-const MIRROR = { "sistema-reservas": "reservas", "tours-rd": "tour", glitchgang: "esports" }; // repos privados → copia limpia pública
+const MIRROR = { "sistema-reservas": "reservas", "tours-rd": "tour", glitchgang: "esports", "onix-constructora": "onix" }; // repos privados → copia limpia pública
 const ghUrl = (p) => (MIRROR[p.repo] ? GH + "steliant/tree/main/" + MIRROR[p.repo] : GH + p.repo + (p.branch ? BRANCH : ""));
-const LIVE = ["steliant-ecommerce", "steliant-reservas", "tour-steliant", "steliant-firma", "steliant-legal", "steliant-salud", "steliant-nexo", "steliant-esports"];
+const LIVE = ["steliant-onix", "steliant-ecommerce", "steliant-reservas", "tour-steliant", "steliant-firma", "steliant-legal", "steliant-salud", "steliant-nexo", "steliant-esports"];
 const demoUrl = (p) => (LIVE.includes(p.demo) ? DEMO_BASE + p.demo + "/" : null);
 
 /* ===== Precios (RD$; en inglés se convierten a US$ con USD_RATE) ===== */
