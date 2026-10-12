@@ -1,0 +1,7 @@
+1:"$Sreact.fragment"
+2:I[39544,["/steliant/demos/steliant-larimar/_next/static/chunks/755a959c25b9ce2a.js","/steliant/demos/steliant-larimar/_next/static/chunks/d52577283c0a984a.js","/steliant/demos/steliant-larimar/_next/static/chunks/2690b4e85a208419.js"],"default"]
+3:I[48949,["/steliant/demos/steliant-larimar/_next/static/chunks/2a654b30faf8fc78.js","/steliant/demos/steliant-larimar/_next/static/chunks/032e0eb1480fc542.js"],"OutletBoundary"]
+4:"$Sreact.suspense"
+:HL["/steliant/demos/steliant-larimar/_next/static/chunks/8c2e6934882bcec5.css","style"]
+0:{"buildId":"3sUj1x1ig25qIB18b_85h","rsc":["$","$1","c",{"children":[["$","$L2",null,{}],[["$","link","0",{"rel":"stylesheet","href":"/steliant/demos/steliant-larimar/_next/static/chunks/8c2e6934882bcec5.css","precedence":"next"}],["$","script","script-0",{"src":"/steliant/demos/steliant-larimar/_next/static/chunks/2690b4e85a208419.js","async":true}]],["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"loading":null,"isPartial":false}
+5:null

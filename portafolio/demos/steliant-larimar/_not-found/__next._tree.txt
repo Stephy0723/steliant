@@ -1,0 +1,4 @@
+:HL["/steliant/demos/steliant-larimar/_next/static/chunks/dccb9b8bb5b2f40b.css","style"]
+:HL["/steliant/demos/steliant-larimar/_next/static/chunks/4e9dae63f2092d7a.css","style"]
+:HL["/steliant/demos/steliant-larimar/_next/static/chunks/cf84a34c293b1317.css","style"]
+0:{"buildId":"3sUj1x1ig25qIB18b_85h","tree":{"name":"","paramType":null,"paramKey":"","hasRuntimePrefetch":false,"slots":{"children":{"name":"/_not-found","paramType":null,"paramKey":"/_not-found","hasRuntimePrefetch":false,"slots":{"children":{"name":"__PAGE__","paramType":null,"paramKey":"__PAGE__","hasRuntimePrefetch":false,"slots":null,"isRootLayout":false}},"isRootLayout":false}},"isRootLayout":true},"staleTime":300}
