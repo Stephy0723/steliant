@@ -3,7 +3,7 @@ self.__BUILD_MANIFEST = {
     "afterFiles": [],
     "beforeFiles": [
       {
-        "source": "/larimar-prestamos//_next/:path+",
+        "source": "/steliant/demos/steliant-larimar-crm//_next/:path+",
         "destination": "/steliant/demos/steliant-larimar-crm/_next/:path+"
       }
     ],
