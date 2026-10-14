@@ -536,28 +536,34 @@ const PROJECTS = [
   { id: "firma", name: "Steliant Firma", repo: "firma-legal", branch: true, demo: "steliant-firma", pkg: "web", cat: "web", pal: ["#b08a4a", "#14213d", "#e9e2d0"], stack: ["React", "Vite", "GSAP"],
     es: ["Sitio de firma de abogados: áreas de práctica, equipo, casos y contacto con un estilo editorial y elegante.", ["Áreas de práctica", "Perfiles del equipo", "Diseño editorial", "Formulario de consulta"]],
     en: ["Law firm website: practice areas, team, cases and contact in an elegant editorial style.", ["Practice areas", "Team profiles", "Editorial design", "Consultation form"]] },
-  { id: "legal", name: "Steliant Legal", repo: "servicioslegalesrd", branch: true, demo: "steliant-legal", pkg: "web", cat: "web", pal: ["#1f6f5c", "#0e2a35", "#d8c8a0"], stack: ["React", "Vite"],
-    es: ["Plataforma de servicios legales: catálogo de trámites, solicitudes en línea y seguimiento del caso.", ["Catálogo de trámites", "Solicitudes en línea", "Seguimiento del caso", "Panel administrativo"]],
-    en: ["Legal services platform: procedure catalog, online requests and case tracking.", ["Procedure catalog", "Online requests", "Case tracking", "Admin dashboard"]] },
   { id: "salud", name: "Steliant Salud", repo: "hospital-system", branch: true, demo: "steliant-salud", pkg: "system", cat: "system", pal: ["#2b7cff", "#16c1a8", "#e6f2ff"], stack: ["React", "Node", "SQL"],
     es: ["Sistema hospitalario: citas, pacientes, historial clínico y paneles por rol para recepción, médicos y administración.", ["Gestión de citas", "Historial clínico", "Paneles por rol", "Reportes"]],
     en: ["Hospital system: appointments, patients, medical records and role-based dashboards for front desk, doctors and admin.", ["Appointment management", "Medical records", "Role dashboards", "Reports"]] },
-  { id: "nexo", name: "Steliant Nexo", repo: "nexory", branch: true, demo: "steliant-nexo", pkg: "system", cat: "system", pal: ["#6d4aff", "#0f172a", "#38bdf8"], stack: ["React", "Node"],
-    es: ["Panel de gestión de proyectos: proyectos, tareas, credenciales, notas, base de datos y actividad del equipo.", ["Proyectos y tareas", "Credenciales seguras", "Notas y base de datos", "Historial de actividad"]],
-    en: ["Project management dashboard: projects, tasks, credentials, notes, database and team activity.", ["Projects & tasks", "Secure credentials", "Notes & database", "Activity history"]] },
   { id: "esports", name: "Steliant Esports", repo: "glitchgang", branch: true, demo: "steliant-esports", pkg: "system", cat: "system", pal: ["#ff2e63", "#08d9d6", "#252a34"], stack: ["React", "Node", "Bot"],
     es: ["Plataforma de esports: equipos, jugadores y torneos con brackets, pensada para comunidades gamer.", ["Torneos y brackets", "Equipos y jugadores", "Estética gamer", "Módulos listos para servidor"]],
     en: ["Esports platform: teams, players and tournaments with brackets, built for gaming communities.", ["Tournaments & brackets", "Teams & players", "Gamer aesthetic", "Server-ready modules"]] },
-  { id: "larimar", name: "Steliant Larimar", repo: "larimar", branch: false, demo: "steliant-larimar", pkg: "web", cat: "web", pal: ["#3ec1d3", "#0b3c5d", "#f2f7f9"], stack: ["React", "Vite"],
-    es: ["Sitio corporativo para una financiera: servicios, simulador y solicitud en línea con identidad azul larimar.", ["Servicios financieros", "Simulador de cuotas", "Solicitud en línea", "Identidad larimar"]],
-    en: ["Corporate site for a lending company: services, calculator and online application with a larimar-blue identity.", ["Financial services", "Payment calculator", "Online application", "Larimar identity"]] },
-  { id: "larimarcrm", name: "Steliant Larimar CRM", repo: "larimar-prestamos", branch: false, demo: "steliant-larimar-crm", pkg: "system", cat: "crm", pal: ["#0b3c5d", "#3ec1d3", "#f4b942"], stack: ["React", "Node", "SQL"],
+  { id: "larimar", name: "Steliant Larimar", repo: "larimar", branch: false, demo: "steliant-larimar", pkg: "web", cat: "web", pal: ["#3ec1d3", "#0b3c5d", "#f2f7f9"], stack: ["Next.js", "React", "TypeScript"],
+    es: ["Tienda de joyería larimar: catálogo por colección, detalle de productos, carrito y checkout de demostración.", ["Catálogo de joyería", "Colecciones y categorías", "Carrito de compra", "Checkout de demostración"]],
+    en: ["Larimar jewellery store: collection catalog, product details, cart and demonstration checkout.", ["Jewellery catalog", "Collections and categories", "Shopping cart", "Demo checkout"]] },
+  { id: "larimarcrm", name: "Steliant Larimar CRM", repo: "larimar-prestamos", branch: false, demo: "steliant-larimar-crm", pkg: "system", cat: "crm", pal: ["#0b3c5d", "#3ec1d3", "#f4b942"], stack: ["Next.js", "React", "TypeScript"],
     es: ["CRM de préstamos: clientes, solicitudes, cuotas, cobros, mora y reportes para la cartera.", ["Clientes y solicitudes", "Plan de cuotas", "Cobros y mora", "Reportes de cartera"]],
     en: ["Loans CRM: clients, applications, installments, collections, delinquency and portfolio reports.", ["Clients & applications", "Installment plans", "Collections & delinquency", "Portfolio reports"]] },
+  { id: "coral", name: "Coral Stays", repo: "coral-stays-crm", branch: false, demo: "coral-stays", pkg: "web", cat: "web", pal: ["#078ea1", "#d9f5ee", "#123b45"], stack: ["HTML", "JavaScript", "Cloudflare"],
+    es: ["Alojamientos caribeños con galerías, buscador, mapas, asesor de propiedad y solicitud de estancia. Demo con datos de referencia.", ["Galerías de alojamientos", "Buscador y filtros", "Mapas y asesor", "Solicitud de estancia"]],
+    en: ["Caribbean stays with galleries, search, maps, property advisor and stay requests. Demo with reference data.", ["Property galleries", "Search and filters", "Maps and advisor", "Stay request"]] },
+  { id: "brasa", name: "BRASA Atelier", repo: "coral-stays-crm", github: "https://github.com/Stephy0723/coral-stays-crm/tree/brasa-atelier", branch: false, demo: "brasa-atelier", pkg: "web", cat: "web", pal: ["#b69a70", "#201d1a", "#f3eee5"], stack: ["HTML", "CSS", "JavaScript"],
+    es: ["Restaurante con carta filtrable, carrito y total en RD$, ambientes con selección de mesa, reservas y tema claro/oscuro. Solicitudes de demostración.", ["Carta, buscador y precios", "Pedidos y cantidades", "Ambientes y mesas", "Español/inglés y temas"]],
+    en: ["Restaurant with searchable menu, cart and RD$ totals, spaces and table selection, bookings and light/dark themes. Demonstration requests.", ["Menu, search and prices", "Orders and quantities", "Spaces and tables", "Spanish/English and themes"]] },
+  { id: "slabogados", name: "SL Abogados", repo: "steliant", github: "https://github.com/Stephy0723/steliant/tree/main/sl-abogados", branch: false, demo: "sl-abogados", pkg: "crm", cat: "crm", pal: ["#1e4a41", "#946c2e", "#f1f2ee"], stack: ["HTML", "JavaScript", "CRM"], langs: 1,
+    es: ["Despacho de abogados con 21 áreas y más de 120 servicios con honorarios, plazos y procesos, catálogo de inmuebles, equipo con licencias y CRM con inicio de sesión.", ["Servicios con precio y proceso", "Inmuebles en alquiler y venta", "Agenda de consultas", "CRM con roles y editor de contenido"]],
+    en: ["Law firm with 21 practice areas and 120+ services with fees, timelines and processes, property listings, team credentials and a CRM with login.", ["Services with fees and process", "Rentals and sales listings", "Consultation booking", "Role-based CRM and content editor"]] },
+  { id: "vitrina", name: "Steliant Vitrina", repo: "steliant", github: "https://github.com/Stephy0723/steliant/tree/main/vitrina", branch: false, demo: "steliant-vitrina", pkg: "crm", cat: "shop", pal: ["#3346ff", "#d4ff5a", "#121214"], stack: ["HTML", "GSAP", "CRM"],
+    es: ["Catálogo con precios y stock en vivo y panel del vendedor: inventario, fotos, ventas, envíos, clientes y solicitudes que se convierten en venta.", ["Stock en vivo y por talla", "Lista de favoritos que se envía", "Inventario con subida de fotos", "Ventas, envíos y clientes"]],
+    en: ["Catalog with live prices and stock plus a seller panel: inventory, photos, sales, shipping, customers and requests that turn into sales.", ["Live stock, by size", "Shareable favorites list", "Inventory with photo upload", "Sales, shipping and customers"]] },
 ];
 const MIRROR = { "sistema-reservas": "reservas", "tours-rd": "tour", glitchgang: "esports", "onix-constructora": "onix" }; // repos privados → copia limpia pública
-const ghUrl = (p) => (MIRROR[p.repo] ? GH + "steliant/tree/main/" + MIRROR[p.repo] : GH + p.repo + (p.branch ? BRANCH : ""));
-const LIVE = ["steliant-onix", "steliant-ecommerce", "steliant-reservas", "tour-steliant", "steliant-firma", "steliant-legal", "steliant-salud", "steliant-nexo", "steliant-esports"];
+const ghUrl = (p) => p.github || (MIRROR[p.repo] ? GH + "steliant/tree/main/" + MIRROR[p.repo] : GH + p.repo + (p.branch ? BRANCH : ""));
+const LIVE = ["steliant-onix", "steliant-ecommerce", "steliant-reservas", "tour-steliant", "steliant-firma", "steliant-salud", "steliant-esports", "steliant-larimar", "steliant-larimar-crm", "coral-stays", "brasa-atelier", "sl-abogados", "steliant-vitrina"];
 const demoUrl = (p) => (LIVE.includes(p.demo) ? DEMO_BASE + p.demo + "/" : null);
 
 /* ===== Precios (RD$; en inglés se convierten a US$ con USD_RATE) ===== */
@@ -572,18 +578,19 @@ const TERMS = [{ m: 6, fee: 0 }, { m: 12, fee: 0.08 }, { m: 18, fee: 0.14 }];
 const HOSTING = 1500; // hosting + dominio + SSL + respaldo, por mes
 const r100 = (n) => Math.ceil(n / 100) * 100;
 Object.values(PKGS).forEach((p) => (p.monthly = r100((p.once * 1.08) / 12 + HOSTING))); // 12 meses, sin inicial, hosting incluido
+
 const T = {
   es: {
     nav: { home: "Inicio", work: "Proyectos", pricing: "Precios", process: "Proceso", contact: "Contacto", menu: "Menú", quote: "Cotizar", my: "Mi cotización" },
     home: {
       kick: "Steliant · Innovative Software Solutions", title: ["Software que", "vende por ti."], lede: "Diseño y desarrollo webs, tiendas, sistemas de reservas, CRMs y bots para negocios en República Dominicana. Proyectos reales, listos para adaptar a tu marca.",
       cta1: "Ver proyectos", cta2: "Cotizar mi proyecto",
-      stats: [[11, "", "Proyectos en exhibición"], [7, "", "Industrias"], [2, "", "Idiomas por proyecto"], [100, "%", "Responsive"]],
-      featKick: "Destacados", featTitle: ["Lo que puedo", "construir para ti"], all: "Ver los 11 proyectos",
+      stats: [[13, "", "Proyectos en exhibición"], [10, "", "Industrias"], [2, "", "Idiomas por proyecto"], [100, "%", "Responsive"]],
+      featKick: "Destacados", featTitle: ["Lo que puedo", "construir para ti"], all: "Ver los 13 proyectos",
       whyKick: "Por qué Steliant", why: [["Diseño premium", "Animación, modo claro/oscuro y dos idiomas en cada proyecto."], ["Listo para vender", "Flujos completos: reservas, pagos, paneles y bots."], ["Precios claros", "Pago único o mensualidades, sin sorpresas."], ["Soporte local", "Hosting, dominio y cambios incluidos en el plan."]],
       ctaTitle: ["¿Tienes una idea?", "Hagámosla real."], ctaText: "Cuéntame tu negocio y te envío una propuesta con precio cerrado en 24 horas.",
     },
-    work: { kick: "Portafolio", title: ["Once proyectos,", "listos para ti"], lede: "Cada proyecto tiene demo en vivo y su código en GitHub. Filtra por tipo y abre el que te interese.", filters: { all: "Todos", web: "Webs", shop: "E-commerce", crm: "Reservas y CRM", system: "Sistemas" }, demo: "Ver demo", code: "GitHub", details: "Detalles", from: "Desde", or: "o", per: "/mes", months: "meses", branchOn: "Rama steliant-exhibicion-completa", branchOff: "Código en el portafolio", features: "Incluye", stack: "Tecnologías", priv: "Repositorio privado: pide acceso" },
+    work: { kick: "Portafolio", title: ["Trece proyectos,", "listos para ti"], lede: "Cada proyecto tiene demo en vivo y su código en GitHub. Filtra por tipo y abre el que te interese.", filters: { all: "Todos", web: "Webs", shop: "E-commerce", crm: "Reservas y CRM", system: "Sistemas" }, demo: "Ver demo", code: "GitHub", details: "Detalles", from: "Desde", or: "o", per: "/mes", months: "meses", branchOn: "Rama steliant-exhibicion-completa", branchOff: "Código en el portafolio", features: "Incluye", stack: "Tecnologías", priv: "Repositorio privado: pide acceso" },
     pricing: {
       kick: "Precios", title: ["Precios reales,", "pagos cómodos"], lede: "Un proyecto profesional tiene costos reales: horas de diseño y desarrollo, servidor, dominio y soporte. Puedes pagarlo de una vez o en mensualidades.",
       once: "Pago único", monthly: "Mensual", perMonth: "/mes", x12: "× 12 meses · incluye hosting y soporte", plusHost: "+ hosting desde RD$1,500/mes", popular: "Más pedido",
@@ -605,12 +612,12 @@ const T = {
     home: {
       kick: "Steliant · Innovative Software Solutions", title: ["Software that", "sells for you."], lede: "I design and build websites, stores, booking systems, CRMs and bots for businesses in the Dominican Republic. Real projects, ready to adapt to your brand.",
       cta1: "See projects", cta2: "Quote my project",
-      stats: [[11, "", "Showcase projects"], [7, "", "Industries"], [2, "", "Languages per project"], [100, "%", "Responsive"]],
-      featKick: "Featured", featTitle: ["What I can", "build for you"], all: "See all 11 projects",
+      stats: [[13, "", "Showcase projects"], [10, "", "Industries"], [2, "", "Languages per project"], [100, "%", "Responsive"]],
+      featKick: "Featured", featTitle: ["What I can", "build for you"], all: "See all 13 projects",
       whyKick: "Why Steliant", why: [["Premium design", "Motion, light/dark mode and two languages in every project."], ["Ready to sell", "Complete flows: bookings, payments, dashboards and bots."], ["Clear pricing", "One-time payment or monthly plans, no surprises."], ["Local support", "Hosting, domain and changes included in the plan."]],
       ctaTitle: ["Got an idea?", "Let's make it real."], ctaText: "Tell me about your business and I'll send a fixed-price proposal within 24 hours.",
     },
-    work: { kick: "Portfolio", title: ["Eleven projects,", "ready for you"], lede: "Every project has a live demo and its code on GitHub. Filter by type and open the one you like.", filters: { all: "All", web: "Websites", shop: "E-commerce", crm: "Booking & CRM", system: "Systems" }, demo: "Live demo", code: "GitHub", details: "Details", from: "From", or: "or", per: "/mo", months: "months", branchOn: "Branch steliant-exhibicion-completa", branchOff: "Code in the portfolio", features: "Includes", stack: "Stack", priv: "Private repository: ask for access" },
+    work: { kick: "Portfolio", title: ["Thirteen projects,", "ready for you"], lede: "Every project has a live demo and its code on GitHub. Filter by type and open the one you like.", filters: { all: "All", web: "Websites", shop: "E-commerce", crm: "Booking & CRM", system: "Systems" }, demo: "Live demo", code: "GitHub", details: "Details", from: "From", or: "or", per: "/mo", months: "months", branchOn: "Branch steliant-exhibicion-completa", branchOff: "Code in the portfolio", features: "Includes", stack: "Stack", priv: "Private repository: ask for access" },
     pricing: {
       kick: "Pricing", title: ["Real prices,", "easy payments"], lede: "A professional project has real costs: design and development hours, server, domain and support. Pay once or in monthly installments.",
       once: "One-time", monthly: "Monthly", perMonth: "/mo", x12: "× 12 months · hosting & support included", plusHost: `+ hosting from ${usd(HOSTING)}/mo`, popular: "Most requested",
@@ -690,7 +697,7 @@ function openDrawer(id) {
   $("#drPanel").innerHTML = `<button type="button" class="x" data-close aria-label="Cerrar">✕</button>${mock(p, true)}
     <div class="dr-body"><span class="cat">${svg(CAT_ICON[p.cat])}${W.filters[p.cat]}</span><h2>${p.name}</h2><p>${desc}</p>
       <h4>${W.features}</h4><ul>${feats.map((f) => `<li>${svg("M5 12.5l4.5 4.5L19 7.5")}${f}</li>`).join("")}</ul>
-      <h4>${W.stack}</h4><div class="pc-stack">${p.stack.concat(["ES/EN", "Light/Dark", "Responsive"]).map((s) => `<span>${s}</span>`).join("")}</div>
+      <h4>${W.stack}</h4><div class="pc-stack">${p.stack.concat(p.langs === 1 ? ["Light/Dark", "Responsive"] : ["ES/EN", "Light/Dark", "Responsive"]).map((s) => `<span>${s}</span>`).join("")}</div>
       <div class="dr-repo"><code>${ghUrl(p).replace("https://", "")}</code><small>${p.branch ? W.branchOn : W.branchOff}${priv ? " · " + W.priv : ""}</small></div>
       <div class="dr-price"><div><small>${t().pricing.once}</small><b>${money(PKGS[p.pkg].once)}</b></div><div><small>${t().pricing.monthly}</small><b>${money(PKGS[p.pkg].monthly)}<em>${W.per}</em></b></div></div>
       <div class="pc-act">${demoUrl(p) ? `<a class="btn btn-main" href="${demoUrl(p)}" target="_blank" rel="noopener">${W.demo} ↗</a>` : ""}<a class="btn btn-line" href="${ghUrl(p)}" target="_blank" rel="noopener">${W.code}</a><a class="btn btn-ghost" href="#precios" data-goto="calc" data-base="${p.pkg}">${t().nav.quote}</a></div></div>`;
