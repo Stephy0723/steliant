@@ -8,5 +8,5 @@ echo '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="prec
 echo '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..800;1,6..96,400..700&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600;700&display=swap">'
 echo '<style>:root{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}body{margin:0}img{max-width:100%}'; cat style.css; echo '</style></head><body>'
 cat shell.html
-echo '<script>'; cat data.js; echo '(function(){'; cat app.js ext.js crm.js boot.js; echo '})();'; echo '</script></body></html>'
+echo '<script>'; cat data.js; echo '(function(){'; cat app.js ext.js crm.js auth.js boot.js; echo '})();'; echo '</script></body></html>'
 } > ../index.html

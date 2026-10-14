@@ -51,7 +51,7 @@ function softRender(){
 document.addEventListener("focusout",()=>{if(pendingRender){setTimeout(()=>{const ae=document.activeElement;if(!(ae&&/input|textarea|select/i.test(ae.tagName))){pendingRender=false;softRender()}},120)}});
 const dbErr=e=>{if(e&&e.code==="revoked")return;console.warn("db",e&&e.code)};
 async function initData(){
-  loadLocal();loadLocalContent();
+  loadLocal();loadLocalContent();loadLocalUsers();checkSession();
   ST.inViewer=!!(window.claude&&typeof window.claude.use==="function");
   if(!ST.inViewer){ST.admin=true;ST.ready=true;changed();return}
   let db=null,user=null;
@@ -62,6 +62,8 @@ async function initData(){
   subscribeContent();
   try{ST.uid=user?await user.id():null}catch(e){}
   try{ST.admin=user?await user.canEdit():false}catch(e){}
+  try{ST.isOwnerFlag=user?await user.isOwner():false}catch(e){}
+  AUTH.users=[];AUTH.user=null;AUTH.ready=false;if(ST.admin)subscribeUsers();else AUTH.ready=true;
   window.claude.use("assets").then(a=>{ST.assets=a;if(route==="publicar")paintPhotos()}).catch(()=>{});
   db.collection("inmuebles").onSnapshot(s=>{ST.inm=s.docs.map(d=>({...d.data(),id:d.id}));changed()},dbErr);
   db.collection("abogados").onSnapshot(s=>{ST.abg=s.docs.map(d=>({...d.data(),id:d.id}));changed()},dbErr);
@@ -129,7 +131,9 @@ async function patchCita(autor,id,patch){
   await ref.set({items:(s.data().items||[]).map(x=>x.id===id?{...x,...patch}:x)}).catch(writeErr);
 }
 function paintPanelLink(){
-  const a=$("#drPanel");if(!a)return;a.hidden=!ST.admin;
+  const a=$("#drPanel");if(!a)return;a.hidden=false;
+  const lb=$("#drPanelLb");if(lb)lb.textContent=AUTH.user?"CRM del despacho":"Acceso del equipo";
+  if(!AUTH.user){$("#drPanelCt").textContent="";return}
   const n=ST.envAll.filter(x=>x.estado==="pendiente").length+ST.citasAll.filter(x=>x.estado==="nueva").length+(typeof clientes==="function"?clientes().filter(c=>c.virtual).length:0);
   $("#drPanelCt").textContent=n?n+" nuevas":"";
 }
@@ -475,6 +479,8 @@ function vAbgDet(id){
 
 /* ================= Hooks ================= */
 function extAfter(){
+  if(route==="login"||(route==="panel"&&!AUTH.user))bindLogin();
+  if(route==="panel"&&AUTH.user)bindUsers();
   if(route==="inmuebles")bindInm();
   if(route==="publicar")bindPub();
   if(route==="abogados")bindAbg();
@@ -482,6 +488,7 @@ function extAfter(){
 }
 function extClick(e){
   const t=e.target;
+  if(authClick(e))return true;
   if(crmClick(e))return true;
   const g=t.closest("[data-gal]");if(g){galGo(galI+(+g.dataset.gal));return true}
   const th=t.closest("[data-thumb]");if(th){galGo(+th.dataset.thumb);return true}

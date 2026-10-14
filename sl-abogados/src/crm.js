@@ -103,19 +103,23 @@ function syncDrafts(){
 }
 function vPanel(){
   if(!ST.admin)return `<header class="ph"><span class="eyebrow">CRM del despacho</span><h1>Acceso <em>restringido</em></h1><p>Esta sección es solo para el equipo del despacho. Si quiere publicar una propiedad, use <a class="link" href="#publicar">Publicar propiedad</a>.</p></header>`;
+  if(!AUTH.user)return vLogin();
   syncDrafts();
-  const C=clientes();
+  const MM=allowedMods();if(!MM.some(x=>x[0]===CV.mod))CV.mod=MM[0][0];
+  const C=scopeClientes(clientes());
   const cnt={clientes:C.filter(c=>c.etapa==="nuevo").length,citas:ST.citasAll.filter(c=>c.estado==="nueva").length,inmuebles:ST.envAll.filter(x=>x.estado==="pendiente").length};
-  const m=MODS.find(x=>x[0]===CV.mod)||MODS[0];
-  const body={resumen:mResumen,clientes:mClientes,citas:mCitas,inmuebles:mInm,abogados:mAbg,contenido:mContenido,despacho:()=>cfgForm(),respaldo:mRespaldo}[m[0]](C);
+  const m=MM.find(x=>x[0]===CV.mod)||MM[0];
+  const body={resumen:mResumen,clientes:mClientes,citas:mCitas,inmuebles:mInm,abogados:mAbg,contenido:mContenido,despacho:()=>cfgForm(),respaldo:mRespaldo,usuarios:mUsuarios}[m[0]](C);
   return `<div class="crm">
    <aside class="crm-nav rv"><div class="crm-brand">${seal(false)}<div><b>CRM</b><small>SL Abogados</small></div></div>
-    ${MODS.map(([k,l,i])=>`<button class="cn ${CV.mod===k?"on":""}" data-mod="${k}">${ic(i)}<span>${l}</span>${cnt[k]?`<em>${cnt[k]}</em>`:""}</button>`).join("")}
+    ${MM.map(([k,l,i])=>`<button class="cn ${CV.mod===k?"on":""}" data-mod="${k}">${ic(i)}<span>${l}</span>${cnt[k]?`<em>${cnt[k]}</em>`:""}</button>`).join("")}
+    <div class="crm-user"><span class="av sm"><i>${esc(initials(AUTH.user.nombre))}</i></span><div><b>${esc(AUTH.user.nombre)}</b><small>${esc(ROLES[AUTH.user.rol][0])}</small></div><button class="ib" data-logout aria-label="Cerrar sesión" title="Cerrar sesión">${ic("arrl")}</button></div>
     <div class="crm-mode">${ST.mode==="db"?`${ic("shield")}Datos compartidos`:`${ic("alert")}Modo local`}</div></aside>
    <section class="crm-main"><header class="crm-h rv"><div><span class="eyebrow">CRM del despacho</span><h1>${m[1]}</h1></div>${crmActions(m[0])}</header>
     <div class="crm-b rv">${body}</div></section></div>`;
 }
-function crmActions(k){
+function crmActions(k){return `<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">${crmActions2(k)}<button class="btn sm ghost m-logout" data-logout>${ic("lock")}Salir</button></div>`}
+function crmActions2(k){
   if(k==="clientes")return `<button class="btn pri sm" data-newcli>${ic("plus")}Nuevo cliente</button>`;
   if(k==="abogados"&&!abgEdit)return `<button class="btn pri sm" data-newabg>${ic("plus")}Agregar abogado</button>`;
   if(k==="inmuebles")return `<a class="btn pri sm" href="#publicar" data-newinm>${ic("plus")}Agregar inmueble</a>`;
@@ -478,7 +482,7 @@ function bindCliTools(){
 function crmClick(e){
   const t=e.target;
   if(t.closest("[data-closesheet]")){closeSheet();return true}
-  const md=t.closest("[data-mod]");if(md){syncDrafts();CV.mod=md.dataset.mod;if(md.dataset.fet!==undefined){CV.etapa=md.dataset.fet;CV.view="kanban"}abgEdit=null;confirmDel="";if(route!=="panel"){go("panel")}else{softRender();const m=$(".crm-main");if(m&&m.getBoundingClientRect().top<0)m.scrollIntoView({behavior:reduce?"auto":"smooth"})}return true}
+  const md=t.closest("[data-mod]");if(md){if(AUTH.user&&!canMod(md.dataset.mod)){toast("Su rol no tiene acceso a esa sección");return true}syncDrafts();CV.mod=md.dataset.mod;if(md.dataset.fet!==undefined){CV.etapa=md.dataset.fet;CV.view="kanban"}abgEdit=null;confirmDel="";if(route!=="panel"){go("panel")}else{softRender();const m=$(".crm-main");if(m&&m.getBoundingClientRect().top<0)m.scrollIntoView({behavior:reduce?"auto":"smooth"})}return true}
   const kc=t.closest(".kc");if(kc){openCli(kc.dataset.cid);return true}
   const cl=t.closest("[data-cli]");if(cl){openCli(cl.dataset.cli);return true}
   const ck=t.closest("[data-clikey]");if(ck){const c=clientes().find(x=>keyOf(x.tel,x.email)===ck.dataset.clikey);c?openCli(c.id):toast("Sin datos de contacto");return true}

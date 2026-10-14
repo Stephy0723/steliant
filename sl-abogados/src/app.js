@@ -134,7 +134,7 @@ function shell(){
   $("#drLogo").innerHTML=seal(false)+`<span class="wm"><b>SL <i>Abogados</i></b><small>Salvador López de la Rosa</small></span>`;
   let k=0;
   $("#drBody").innerHTML=`<div class="dr-sec">Navegación</div>`+
-   NAV.map(([id,l,i])=>`<a class="dr-a" href="#${id}" data-nav="${id}" style="--i:${k++}">${ic(i)}${l}</a>`).join("")+`<a class="dr-a" href="#panel" data-nav="panel" id="drPanel" hidden style="--i:${k++}">${ic("inbox")}CRM del despacho<span class="ct" id="drPanelCt"></span></a>`+
+   NAV.map(([id,l,i])=>`<a class="dr-a" href="#${id}" data-nav="${id}" style="--i:${k++}">${ic(i)}${l}</a>`).join("")+`<a class="dr-a" href="#panel" data-nav="panel" id="drPanel" style="--i:${k++}">${ic("lock")}<span id="drPanelLb">Acceso del equipo</span><span class="ct" id="drPanelCt"></span></a>`+
    `<div class="dr-sec">Áreas de práctica</div><div id="drAreas"></div>`+
    `<div class="dr-sec">Apariencia</div><div class="seg" id="themeSeg"><button data-t="light">Claro</button><button data-t="dark">Oscuro</button><button data-t="system">Sistema</button></div>`;
   paintDrFoot();paintDrAreas();
@@ -162,8 +162,8 @@ const savedTheme=store.get("sl-theme"); if(savedTheme)document.documentElement.d
 let route="", timers=[];
 const view=()=>$("#view");
 function parse(h){h=(h||"").replace(/^#/,"");if(!h)return"inicio";return h}
-function navKey(r){if(r.startsWith("area.")||r.startsWith("srv."))return"areas";if(r.startsWith("inm.")||r==="publicar")return"inmuebles";if(r.startsWith("abg."))return"abogados";if(["honorarios","proceso","despacho","panel"].includes(r))return"mas";return r}
-function valid(r){if(NAV.some(n=>n[0]===r)||r==="publicar"||r==="panel")return true;if(/^(inm|abg)\.[\w-]+$/.test(r))return true;if(r.startsWith("area."))return!!AREA[r.slice(5)];if(r.startsWith("srv."))return!!SRV[r.slice(4)];return false}
+function navKey(r){if(r.startsWith("area.")||r.startsWith("srv."))return"areas";if(r.startsWith("inm.")||r==="publicar")return"inmuebles";if(r.startsWith("abg."))return"abogados";if(["honorarios","proceso","despacho","panel","login"].includes(r))return"mas";return r}
+function valid(r){if(NAV.some(n=>n[0]===r)||r==="publicar"||r==="panel"||r==="login")return true;if(/^(inm|abg)\.[\w-]+$/.test(r))return true;if(r.startsWith("area."))return!!AREA[r.slice(5)];if(r.startsWith("srv."))return!!SRV[r.slice(4)];return false}
 function go(r,push=true){
   if(!valid(r))r="inicio";
   closeDrawer();if(CV.sel)closeSheet();
@@ -185,7 +185,7 @@ function markNav(){
   $$(".bn").forEach(b=>{const on=b.dataset.nav===k;b.classList.toggle("on",on);if(on)b.setAttribute("aria-current","page");else b.removeAttribute("aria-current")});
   $$(".dr-a").forEach(a=>a.classList.toggle("on",a.dataset.nav===route||(a.dataset.nav===k&&k!=="mas")||(route==="area."+a.dataset.area)||(route.startsWith("srv.")&&SRV[route.slice(4)]&&SRV[route.slice(4)].area.id===a.dataset.area)));
   moveInd();
-  const t={inicio:"Inicio",areas:"Áreas de práctica",honorarios:"Honorarios",proceso:"Cómo trabajamos",despacho:"El despacho",contacto:"Agendar consulta",inmuebles:"Inmuebles",publicar:"Publicar propiedad",abogados:"Abogados",panel:"CRM del despacho"}[route]||(route.startsWith("area.")?AREA[route.slice(5)].n:route.startsWith("srv.")?SRV[route.slice(4)].n:route.startsWith("inm.")?"Inmueble":route.startsWith("abg.")?"Perfil de abogado":"");
+  const t={inicio:"Inicio",areas:"Áreas de práctica",honorarios:"Honorarios",proceso:"Cómo trabajamos",despacho:"El despacho",contacto:"Agendar consulta",inmuebles:"Inmuebles",publicar:"Publicar propiedad",abogados:"Abogados",panel:"CRM del despacho",login:"Acceso del equipo"}[route]||(route.startsWith("area.")?AREA[route.slice(5)].n:route.startsWith("srv.")?SRV[route.slice(4)].n:route.startsWith("inm.")?"Inmueble":route.startsWith("abg.")?"Perfil de abogado":"");
   document.title=t+" · SL Abogados";
 }
 function moveInd(){const a=$(".bn.on"),ind=$("#bnInd");if(!a||!ind)return;ind.style.left=a.offsetLeft+"px";ind.style.width=a.offsetWidth+"px"}
@@ -207,6 +207,7 @@ function render(){
   else if(route==="abogados")v.innerHTML=vAbg();
   else if(route.startsWith("abg."))v.innerHTML=vAbgDet(route.slice(4));
   else if(route==="panel")v.innerHTML=vPanel();
+  else if(route==="login")v.innerHTML=vLogin();
   v.innerHTML+=footer();
   after();
 }
@@ -221,7 +222,7 @@ function after(){
 }
 const crumbs=items=>`<nav class="crumbs rv" aria-label="Ruta">${items.map((it,i)=>i<items.length-1?`<a href="#${it[1]}">${esc(it[0])}</a><span class="sep">/</span>`:`<span aria-current="page">${esc(it[0])}</span>`).join("")}</nav>`;
 const areaCard=a=>`<a class="acard rv" href="#area.${a.id}"><span class="arr">${ic("ne")}</span><span class="ic">${ic(a.ic)}</span><h3>${esc(a.n)}</h3><p>${esc(a.sh)}</p><div class="meta"><span>${a.s.length} servicios</span><b>${areaMin(a)?"desde "+money(areaMin(a)):"Consultar"}</b></div></a>`;
-function footer(){return `<footer class="ft"><p><b style="color:var(--ink)">SL Abogados · Salvador López de la Rosa.</b> La información de este sitio es orientativa y no sustituye una consulta legal. Honorarios referenciales en pesos dominicanos; no incluyen ITBIS (18 %), impuestos, tasas ni gastos del proceso. © 2026.</p><div class="fr"><a href="#areas">Áreas</a><a href="#honorarios">Honorarios</a><a href="#proceso">Preguntas frecuentes</a><a href="#despacho">Despacho</a><a href="#contacto">Agendar consulta</a></div></footer>`}
+function footer(){return `<footer class="ft"><p><b style="color:var(--ink)">SL Abogados · Salvador López de la Rosa.</b> La información de este sitio es orientativa y no sustituye una consulta legal. Honorarios referenciales en pesos dominicanos; no incluyen ITBIS (18 %), impuestos, tasas ni gastos del proceso. © 2026.</p><div class="fr"><a href="#areas">Áreas</a><a href="#honorarios">Honorarios</a><a href="#proceso">Preguntas frecuentes</a><a href="#despacho">Despacho</a><a href="#contacto">Agendar consulta</a><a href="#login">${ic("lock").replace('class="i "','class="i " style="width:14px;height:14px;vertical-align:-2px;margin-right:4px"')}Acceso del equipo</a></div></footer>`}
 
 /* ---------- Inicio ---------- */
 const FEATURED=["familia","sucesiones","inmobiliario","laboral","penal","empresas","migratorio","cobros"];
