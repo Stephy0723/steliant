@@ -14,6 +14,7 @@ Portafolio de proyectos de **Stephanie López Frías** bajo la marca Steliant. C
 | Steliant Nexo | [nexory · steliant-exhibicion-completa](https://github.com/Stephy0723/nexory/tree/steliant-exhibicion-completa) |
 | Steliant Esports | [steliant/esports](https://github.com/Stephy0723/steliant/tree/main/esports) |
 | Steliant Larimar | [larimar](https://github.com/Stephy0723/larimar) |
+| SL Abogados (despacho de abogados + CRM) | [steliant/sl-abogados](https://github.com/Stephy0723/steliant/tree/main/sl-abogados) |
 | Steliant Larimar CRM | [larimar-prestamos](https://github.com/Stephy0723/larimar-prestamos) |
 
 Las carpetas `onix`, `reservas`, `tour` y `esports` son versiones Steliant publicadas aquí (sin historial de proyectos originales). En `esports` se omitieron los videos pesados; la demo usa imágenes.
