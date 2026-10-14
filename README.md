@@ -4,6 +4,7 @@ Portafolio de proyectos de **Stephanie López Frías** bajo la marca Steliant. C
 
 | Proyecto | Código |
 |---|---|
+| Steliant Vitrina (catálogo + panel del vendedor) | [steliant/vitrina](https://github.com/Stephy0723/steliant/tree/main/vitrina) |
 | Steliant Ónix (constructora de lujo) | [steliant/onix](https://github.com/Stephy0723/steliant/tree/main/onix) |
 | Steliant Nova (e-commerce) | [ecommerce-electrocables · steliant-exhibicion-completa](https://github.com/Stephy0723/ecommerce-electrocables/tree/steliant-exhibicion-completa) |
 | Steliant Reservas (reservas, bots y CRM) | [steliant/reservas](https://github.com/Stephy0723/steliant/tree/main/reservas) |

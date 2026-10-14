@@ -54,10 +54,13 @@ const PROJECTS = [
   { id: "slabogados", name: "SL Abogados", repo: "steliant", github: "https://github.com/Stephy0723/steliant/tree/main/sl-abogados", branch: false, demo: "sl-abogados", pkg: "crm", cat: "crm", pal: ["#1e4a41", "#946c2e", "#f1f2ee"], stack: ["HTML", "JavaScript", "CRM"], langs: 1,
     es: ["Despacho de abogados con 21 áreas y más de 120 servicios con honorarios, plazos y procesos, catálogo de inmuebles, equipo con licencias y CRM con inicio de sesión.", ["Servicios con precio y proceso", "Inmuebles en alquiler y venta", "Agenda de consultas", "CRM con roles y editor de contenido"]],
     en: ["Law firm with 21 practice areas and 120+ services with fees, timelines and processes, property listings, team credentials and a CRM with login.", ["Services with fees and process", "Rentals and sales listings", "Consultation booking", "Role-based CRM and content editor"]] },
+  { id: "vitrina", name: "Steliant Vitrina", repo: "steliant", github: "https://github.com/Stephy0723/steliant/tree/main/vitrina", branch: false, demo: "steliant-vitrina", pkg: "crm", cat: "shop", pal: ["#3346ff", "#d4ff5a", "#121214"], stack: ["HTML", "GSAP", "CRM"],
+    es: ["Catálogo con precios y stock en vivo y panel del vendedor: inventario, fotos, ventas, envíos, clientes y solicitudes que se convierten en venta.", ["Stock en vivo y por talla", "Lista de favoritos que se envía", "Inventario con subida de fotos", "Ventas, envíos y clientes"]],
+    en: ["Catalog with live prices and stock plus a seller panel: inventory, photos, sales, shipping, customers and requests that turn into sales.", ["Live stock, by size", "Shareable favorites list", "Inventory with photo upload", "Sales, shipping and customers"]] },
 ];
 const MIRROR = { "sistema-reservas": "reservas", "tours-rd": "tour", glitchgang: "esports", "onix-constructora": "onix" }; // repos privados → copia limpia pública
 const ghUrl = (p) => p.github || (MIRROR[p.repo] ? GH + "steliant/tree/main/" + MIRROR[p.repo] : GH + p.repo + (p.branch ? BRANCH : ""));
-const LIVE = ["steliant-onix", "steliant-ecommerce", "steliant-reservas", "tour-steliant", "steliant-firma", "steliant-salud", "steliant-esports", "steliant-larimar", "steliant-larimar-crm", "coral-stays", "brasa-atelier", "sl-abogados"];
+const LIVE = ["steliant-onix", "steliant-ecommerce", "steliant-reservas", "tour-steliant", "steliant-firma", "steliant-salud", "steliant-esports", "steliant-larimar", "steliant-larimar-crm", "coral-stays", "brasa-atelier", "sl-abogados", "steliant-vitrina"];
 const demoUrl = (p) => (LIVE.includes(p.demo) ? DEMO_BASE + p.demo + "/" : null);
 
 /* ===== Precios (RD$; en inglés se convierten a US$ con USD_RATE) ===== */

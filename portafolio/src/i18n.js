@@ -4,12 +4,12 @@ const T = {
     home: {
       kick: "Steliant · Innovative Software Solutions", title: ["Software que", "vende por ti."], lede: "Diseño y desarrollo webs, tiendas, sistemas de reservas, CRMs y bots para negocios en República Dominicana. Proyectos reales, listos para adaptar a tu marca.",
       cta1: "Ver proyectos", cta2: "Cotizar mi proyecto",
-      stats: [[11, "", "Proyectos en exhibición"], [7, "", "Industrias"], [2, "", "Idiomas por proyecto"], [100, "%", "Responsive"]],
-      featKick: "Destacados", featTitle: ["Lo que puedo", "construir para ti"], all: "Ver los 11 proyectos",
+      stats: [[13, "", "Proyectos en exhibición"], [10, "", "Industrias"], [2, "", "Idiomas por proyecto"], [100, "%", "Responsive"]],
+      featKick: "Destacados", featTitle: ["Lo que puedo", "construir para ti"], all: "Ver los 13 proyectos",
       whyKick: "Por qué Steliant", why: [["Diseño premium", "Animación, modo claro/oscuro y dos idiomas en cada proyecto."], ["Listo para vender", "Flujos completos: reservas, pagos, paneles y bots."], ["Precios claros", "Pago único o mensualidades, sin sorpresas."], ["Soporte local", "Hosting, dominio y cambios incluidos en el plan."]],
       ctaTitle: ["¿Tienes una idea?", "Hagámosla real."], ctaText: "Cuéntame tu negocio y te envío una propuesta con precio cerrado en 24 horas.",
     },
-    work: { kick: "Portafolio", title: ["Once proyectos,", "listos para ti"], lede: "Cada proyecto tiene demo en vivo y su código en GitHub. Filtra por tipo y abre el que te interese.", filters: { all: "Todos", web: "Webs", shop: "E-commerce", crm: "Reservas y CRM", system: "Sistemas" }, demo: "Ver demo", code: "GitHub", details: "Detalles", from: "Desde", or: "o", per: "/mes", months: "meses", branchOn: "Rama steliant-exhibicion-completa", branchOff: "Código en el portafolio", features: "Incluye", stack: "Tecnologías", priv: "Repositorio privado: pide acceso" },
+    work: { kick: "Portafolio", title: ["Trece proyectos,", "listos para ti"], lede: "Cada proyecto tiene demo en vivo y su código en GitHub. Filtra por tipo y abre el que te interese.", filters: { all: "Todos", web: "Webs", shop: "E-commerce", crm: "Reservas y CRM", system: "Sistemas" }, demo: "Ver demo", code: "GitHub", details: "Detalles", from: "Desde", or: "o", per: "/mes", months: "meses", branchOn: "Rama steliant-exhibicion-completa", branchOff: "Código en el portafolio", features: "Incluye", stack: "Tecnologías", priv: "Repositorio privado: pide acceso" },
     pricing: {
       kick: "Precios", title: ["Precios reales,", "pagos cómodos"], lede: "Un proyecto profesional tiene costos reales: horas de diseño y desarrollo, servidor, dominio y soporte. Puedes pagarlo de una vez o en mensualidades.",
       once: "Pago único", monthly: "Mensual", perMonth: "/mes", x12: "× 12 meses · incluye hosting y soporte", plusHost: "+ hosting desde RD$1,500/mes", popular: "Más pedido",
@@ -31,12 +31,12 @@ const T = {
     home: {
       kick: "Steliant · Innovative Software Solutions", title: ["Software that", "sells for you."], lede: "I design and build websites, stores, booking systems, CRMs and bots for businesses in the Dominican Republic. Real projects, ready to adapt to your brand.",
       cta1: "See projects", cta2: "Quote my project",
-      stats: [[11, "", "Showcase projects"], [7, "", "Industries"], [2, "", "Languages per project"], [100, "%", "Responsive"]],
-      featKick: "Featured", featTitle: ["What I can", "build for you"], all: "See all 11 projects",
+      stats: [[13, "", "Showcase projects"], [10, "", "Industries"], [2, "", "Languages per project"], [100, "%", "Responsive"]],
+      featKick: "Featured", featTitle: ["What I can", "build for you"], all: "See all 13 projects",
       whyKick: "Why Steliant", why: [["Premium design", "Motion, light/dark mode and two languages in every project."], ["Ready to sell", "Complete flows: bookings, payments, dashboards and bots."], ["Clear pricing", "One-time payment or monthly plans, no surprises."], ["Local support", "Hosting, domain and changes included in the plan."]],
       ctaTitle: ["Got an idea?", "Let's make it real."], ctaText: "Tell me about your business and I'll send a fixed-price proposal within 24 hours.",
     },
-    work: { kick: "Portfolio", title: ["Eleven projects,", "ready for you"], lede: "Every project has a live demo and its code on GitHub. Filter by type and open the one you like.", filters: { all: "All", web: "Websites", shop: "E-commerce", crm: "Booking & CRM", system: "Systems" }, demo: "Live demo", code: "GitHub", details: "Details", from: "From", or: "or", per: "/mo", months: "months", branchOn: "Branch steliant-exhibicion-completa", branchOff: "Code in the portfolio", features: "Includes", stack: "Stack", priv: "Private repository: ask for access" },
+    work: { kick: "Portfolio", title: ["Thirteen projects,", "ready for you"], lede: "Every project has a live demo and its code on GitHub. Filter by type and open the one you like.", filters: { all: "All", web: "Websites", shop: "E-commerce", crm: "Booking & CRM", system: "Systems" }, demo: "Live demo", code: "GitHub", details: "Details", from: "From", or: "or", per: "/mo", months: "months", branchOn: "Branch steliant-exhibicion-completa", branchOff: "Code in the portfolio", features: "Includes", stack: "Stack", priv: "Private repository: ask for access" },
     pricing: {
       kick: "Pricing", title: ["Real prices,", "easy payments"], lede: "A professional project has real costs: design and development hours, server, domain and support. Pay once or in monthly installments.",
       once: "One-time", monthly: "Monthly", perMonth: "/mo", x12: "× 12 months · hosting & support included", plusHost: `+ hosting from ${usd(HOSTING)}/mo`, popular: "Most requested",
