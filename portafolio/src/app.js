@@ -56,7 +56,7 @@ function openDrawer(id) {
   $("#drPanel").innerHTML = `<button type="button" class="x" data-close aria-label="Cerrar">✕</button>${mock(p, true)}
     <div class="dr-body"><span class="cat">${svg(CAT_ICON[p.cat])}${W.filters[p.cat]}</span><h2>${p.name}</h2><p>${desc}</p>
       <h4>${W.features}</h4><ul>${feats.map((f) => `<li>${svg("M5 12.5l4.5 4.5L19 7.5")}${f}</li>`).join("")}</ul>
-      <h4>${W.stack}</h4><div class="pc-stack">${p.stack.concat(["ES/EN", "Light/Dark", "Responsive"]).map((s) => `<span>${s}</span>`).join("")}</div>
+      <h4>${W.stack}</h4><div class="pc-stack">${p.stack.concat(p.langs === 1 ? ["Light/Dark", "Responsive"] : ["ES/EN", "Light/Dark", "Responsive"]).map((s) => `<span>${s}</span>`).join("")}</div>
       <div class="dr-repo"><code>${ghUrl(p).replace("https://", "")}</code><small>${p.branch ? W.branchOn : W.branchOff}${priv ? " · " + W.priv : ""}</small></div>
       <div class="dr-price"><div><small>${t().pricing.once}</small><b>${money(PKGS[p.pkg].once)}</b></div><div><small>${t().pricing.monthly}</small><b>${money(PKGS[p.pkg].monthly)}<em>${W.per}</em></b></div></div>
       <div class="pc-act">${demoUrl(p) ? `<a class="btn btn-main" href="${demoUrl(p)}" target="_blank" rel="noopener">${W.demo} ↗</a>` : ""}<a class="btn btn-line" href="${ghUrl(p)}" target="_blank" rel="noopener">${W.code}</a><a class="btn btn-ghost" href="#precios" data-goto="calc" data-base="${p.pkg}">${t().nav.quote}</a></div></div>`;

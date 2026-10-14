@@ -51,10 +51,13 @@ const PROJECTS = [
   { id: "brasa", name: "BRASA Atelier", repo: "coral-stays-crm", github: "https://github.com/Stephy0723/coral-stays-crm/tree/brasa-atelier", branch: false, demo: "brasa-atelier", pkg: "web", cat: "web", pal: ["#b69a70", "#201d1a", "#f3eee5"], stack: ["HTML", "CSS", "JavaScript"],
     es: ["Restaurante con carta filtrable, carrito y total en RD$, ambientes con selección de mesa, reservas y tema claro/oscuro. Solicitudes de demostración.", ["Carta, buscador y precios", "Pedidos y cantidades", "Ambientes y mesas", "Español/inglés y temas"]],
     en: ["Restaurant with searchable menu, cart and RD$ totals, spaces and table selection, bookings and light/dark themes. Demonstration requests.", ["Menu, search and prices", "Orders and quantities", "Spaces and tables", "Spanish/English and themes"]] },
+  { id: "slabogados", name: "SL Abogados", repo: "steliant", github: "https://github.com/Stephy0723/steliant/tree/main/sl-abogados", branch: false, demo: "sl-abogados", pkg: "crm", cat: "crm", pal: ["#1e4a41", "#946c2e", "#f1f2ee"], stack: ["HTML", "JavaScript", "CRM"], langs: 1,
+    es: ["Despacho de abogados con 21 áreas y más de 120 servicios con honorarios, plazos y procesos, catálogo de inmuebles, equipo con licencias y CRM con inicio de sesión.", ["Servicios con precio y proceso", "Inmuebles en alquiler y venta", "Agenda de consultas", "CRM con roles y editor de contenido"]],
+    en: ["Law firm with 21 practice areas and 120+ services with fees, timelines and processes, property listings, team credentials and a CRM with login.", ["Services with fees and process", "Rentals and sales listings", "Consultation booking", "Role-based CRM and content editor"]] },
 ];
 const MIRROR = { "sistema-reservas": "reservas", "tours-rd": "tour", glitchgang: "esports", "onix-constructora": "onix" }; // repos privados → copia limpia pública
 const ghUrl = (p) => p.github || (MIRROR[p.repo] ? GH + "steliant/tree/main/" + MIRROR[p.repo] : GH + p.repo + (p.branch ? BRANCH : ""));
-const LIVE = ["steliant-onix", "steliant-ecommerce", "steliant-reservas", "tour-steliant", "steliant-firma", "steliant-salud", "steliant-esports", "steliant-larimar", "steliant-larimar-crm", "coral-stays", "brasa-atelier"];
+const LIVE = ["steliant-onix", "steliant-ecommerce", "steliant-reservas", "tour-steliant", "steliant-firma", "steliant-salud", "steliant-esports", "steliant-larimar", "steliant-larimar-crm", "coral-stays", "brasa-atelier", "sl-abogados"];
 const demoUrl = (p) => (LIVE.includes(p.demo) ? DEMO_BASE + p.demo + "/" : null);
 
 /* ===== Precios (RD$; en inglés se convierten a US$ con USD_RATE) ===== */
