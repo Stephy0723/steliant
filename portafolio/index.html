@@ -665,7 +665,7 @@ function renderStatic() {
   $("#fGiant").innerHTML = "Steliant".split("").map((c) => `<span>${c}</span>`).join("");
   $("#stats").innerHTML = t().home.stats.map(([v, s, l]) => `<div><strong data-count="${v}" data-suffix="${s}">${v}${s}</strong><span>${l}</span></div>`).join("");
   $("#orbit").innerHTML = PROJECTS.map((p, i) => `<button type="button" class="chip" data-open="${p.id}" style="--a:${p.pal[0]};--b:${p.pal[1]}"><i></i>${p.name.replace("Steliant ", "")}</button>`).join("");
-  $("#feat").innerHTML = ["larimar", "reservas", "tour"].map((id, i) => { const p = PROJECTS.find((x) => x.id === id); return `<article class="fc fc${i}" data-open="${p.id}" data-cursor="${t().work.details}">${mock(p, true)}<div class="fc-info"><span class="cat">${t().work.filters[p.cat]}</span><h3>${p.name}</h3><p>${P(p)[0]}</p>${p.pdf ? `<a class="larimar-pdf" href="${p.pdf}" target="_blank" rel="noopener">${lang === "en" ? "Open commercial PDF" : "Ver presentación en PDF"} ↗</a>` : ""}<span class="fc-price">${t().work.from} ${money(PKGS[p.pkg].once)} ${t().work.or} ${money(PKGS[p.pkg].monthly)}${t().work.per}</span></div></article>`; }).join("");
+  $("#feat").innerHTML = ["larimar", "reservas", "tour"].map((id, i) => { const p = PROJECTS.find((x) => x.id === id); return `<article class="fc fc${i}" data-open="${p.id}" data-cursor="${t().work.details}">${mock(p, true)}<div class="fc-info"><span class="cat">${t().work.filters[p.cat]}</span><h3>${p.name}</h3><p>${P(p)[0]}</p>${p.pdf ? `<a class="larimar-pdf" href="${p.pdf}" target="_blank" rel="noopener">${lang === "en" ? "Open commercial PDF" : "Ver presentación en PDF"} ↗</a>` : ""}<span class="fc-price">${p.price ? (lang === "en" ? "Store + CRM: " : "Tienda + CRM: ") + money(p.price) : t().work.from + " " + money(PKGS[p.pkg].once) + " " + t().work.or + " " + money(PKGS[p.pkg].monthly) + t().work.per}</span></div></article>`; }).join("");
   $("#whyGrid").innerHTML = t().home.why.map(([a, b], i) => `<div class="why-c" data-tilt><span class="why-n">0${i + 1}</span><b>${a}</b><p>${b}</p></div>`).join("");
   $("#filters").innerHTML = `<span class="f-ink"></span>` + Object.entries(t().work.filters).map(([k, v]) => `<button type="button" data-filter="${k}" class="${filter === k ? "on" : ""}">${v}<em>${k === "all" ? PROJECTS.length : PROJECTS.filter((p) => p.cat === k).length}</em></button>`).join("");
   renderGrid(false); renderPricing(); renderCalc(); renderProcess(); renderContact(); renderQuoteHome(); movePill(); markActive(); paintStars();
@@ -943,3 +943,4 @@ else {
 }
 })();
 </script></body></html>
+
